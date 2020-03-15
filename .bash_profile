@@ -1,0 +1,39 @@
+#
+# ~/.bash_profile
+#
+
+# XDG BASE DIRECTORY
+export XDG_DATA_HOME="$HOME/.local/share"
+#export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CONFIG_HOME="$HOME/.dotfiles"
+export XDG_DATA_DIRS="/usr/local/share/:/usr/share/"
+export XDG_CONFIG_DIRS="/etc/xdg"
+export XDG_CACHE_HOME="$HOME/.cache"
+
+# less and lesshst
+export LESS=-R
+export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blink
+export LESS_TERMCAP_md=$'\E[1;36m'     # begin bold
+export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
+export LESS_TERMCAP_so=$'\E[01;44;33m' # begin reverse video
+export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
+export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
+export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
+export LESSKEY="$XDG_CONFIG_HOME"/less/lesskey
+export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
+#export LESSHISTFILE=- # can be used to disable this feature.
+
+# vim
+export VIMINIT=":source $XDG_CONFIG_HOME"/vim/vimrc
+
+# readline things
+export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
+
+[[ -f ~/.bashrc ]] && . ~/.bashrc
+
+# It's set by the pam_systemd PAM module, and is only set on machines which are using systemd, which means that you should not rely on it in your scripts, unless you want to make them depend on systemd.
+# On systems which are using systemd, $XDG_VTNR will be set both in graphical (by lightdm, gdm, etc) and in text-mode sessions (by /bin/login).
+# If you would like to remain logged in when the X session ends, remove exec.
+if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+	exec startx
+fi

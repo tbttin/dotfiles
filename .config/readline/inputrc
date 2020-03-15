@@ -1,0 +1,64 @@
+#################### VIM ####################
+# FOR MORE INFORMATION CHECK:
+# https://wiki.archlinux.org/index.php/Readline
+
+$include /etc/inputrc
+
+# Color files by types
+# Note that this may cause completion text blink in some terminals (e.g. xterm).
+set colored-stats on
+# Append char to indicate type
+set visible-stats on
+# Mark symlinked directories
+set mark-symlinked-directories on
+# Color the common prefix
+set colored-completion-prefix on
+# Color the common prefix in menu-complete
+set menu-complete-display-prefix on
+
+# TURN ON VIM (E.G. FOR READLINE)
+set editing-mode vi
+
+# SHOW THE VIM MODE IN THE PROMPT (COMMAND OR INSERT)
+set show-mode-in-prompt on
+
+# SET THE MODE STRING AND CURSOR TO INDICATE THE VIM MODE
+#   FOR THE NUMBER AFTER `\e[`:
+#     0: blinking block
+#     1: blinking block (default)
+#     2: steady block
+#     3: blinking underline
+#     4: steady underline
+#     5: blinking bar (xterm)
+#     6: steady bar (xterm)
+#   term=linux
+#     0: default
+#     1: invisible
+#     2: underscore
+#     3: lower_third
+#     4: lower_half
+#     5: two_thirds
+#     6: full block
+$if term=linux
+	set vi-ins-mode-string \1\e[?2c\2
+	set vi-cmd-mode-string \1\e[?6c\2
+$else
+	set vi-ins-mode-string \1\e[3 q\2
+	set vi-cmd-mode-string \1\e[1 q\2
+$endif
+
+$if mode=vi
+	set keymap vi-command
+	# these are for vi-command mode
+	"\e[A": history-search-backward
+	"\e[B": history-search-forward
+	j: history-search-forward
+	k: history-search-backward
+	set keymap vi-insert
+	# these are for vi-insert mode
+	"\e[A": history-search-backward
+	"\e[B": history-search-forward
+
+	# This example prefixes the line with sudo , if Alt+S is pressed. It's safer because it won't input the Enter key.
+	"\es": "\e^isudo \e$i"
+$endif
