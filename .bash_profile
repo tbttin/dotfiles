@@ -4,13 +4,12 @@
 
 # XDG BASE DIRECTORY
 export XDG_DATA_HOME="$HOME/.local/share"
-#export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CONFIG_HOME="$HOME/.dotfiles"
+export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_DIRS="/usr/local/share/:/usr/share/"
 export XDG_CONFIG_DIRS="/etc/xdg"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-# less and lesshst
+# enable color in less, source: archlinux
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blink
 export LESS_TERMCAP_md=$'\E[1;36m'     # begin bold
@@ -23,10 +22,10 @@ export LESSKEY="$XDG_CONFIG_HOME"/less/lesskey
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 #export LESSHISTFILE=- # can be used to disable this feature.
 
-# vim
+# vim config file
 export VIMINIT=":source $XDG_CONFIG_HOME"/vim/vimrc
 
-# readline things
+# readline config file
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
