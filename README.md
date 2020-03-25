@@ -1,2 +1,2 @@
 # dotfiles
-New Linux user's dotfiles.
+New Linux user's configuration files.
