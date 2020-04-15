@@ -9,7 +9,7 @@ export XDG_DATA_DIRS="/usr/local/share/:/usr/share/"
 export XDG_CONFIG_DIRS="/etc/xdg"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-# enable color in less, source: archlinux
+# Enable color in less, source: archlinux
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blink
 export LESS_TERMCAP_md=$'\E[1;36m'     # begin bold
@@ -22,11 +22,15 @@ export LESSKEY="$XDG_CONFIG_HOME"/less/lesskey
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 #export LESSHISTFILE=- # can be used to disable this feature.
 
-# vim config file
+# Vim config file
 export VIMINIT=":source $XDG_CONFIG_HOME"/vim/vimrc
 
-# readline config file
+# Readline config file.
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
+
+#Try to move some stuff.
+#export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
+export HISTFILE="$XDG_DATA_HOME"/bash/history
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
@@ -34,5 +38,6 @@ export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 # On systems which are using systemd, $XDG_VTNR will be set both in graphical (by lightdm, gdm, etc) and in text-mode sessions (by /bin/login).
 # If you would like to remain logged in when the X session ends, remove exec.
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-	exec startx
+	#exec startx
+	startx
 fi

@@ -5,10 +5,10 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+PS1='[\u@\h \W]\$ '
+
 # Disable XON/XOFF flow control. (C-s/C-q)
 stty -ixon
-
-PS1='[\u@\h \W]\$ '
 
 # History things
 HISTTIMEFORMAT="%b %d %H:%M " #using strftime format
@@ -19,7 +19,7 @@ HISTCONTROL=ignoreboth
 #HISTIGNORE="history:ls:exit:clear"
 
 # aliases after exports
-source ~/.bash_aliases
+source "$XDG_CONFIG_HOME/bash_aliases"
 
 # Create a new directory and enter it
 function mcd() { mkdir -pv "$@" && cd "$@"; }

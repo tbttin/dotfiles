@@ -60,5 +60,5 @@ $if mode=vi
 	"\e[B": history-search-forward
 
 	# This example prefixes the line with sudo , if Alt+S is pressed. It's safer because it won't input the Enter key.
-	"\es": "\e^isudo \e$i"
+	"\es": "\e^isudo \eA"
 $endif
