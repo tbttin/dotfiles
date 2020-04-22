@@ -31,10 +31,6 @@ font pango:monospace 8
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
-
-# Start ternimal here
-exec --no-startup-id urxvt
-
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
@@ -42,9 +38,6 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 #exec --no-startup-id nm-applet
-
-# Dunst
-#exec --no-startup-id dunst
 
 # Use pactl to adjust volume in PulseAudio.
 #set $refresh_i3status killall -SIGUSR1 i3status
@@ -195,7 +188,7 @@ bindsym $mod+r mode "resize"
 # system things
 set $Locker i3lock && sleep 1
 
-set $mode_system System: (l) lock, (e) logout, (Shift+s) suspend, (h) hibernate, (r) reboot, (s) shutdown
+set $mode_system System: (l) lock, (e) logout, (S) suspend, (h) hibernate, (r) reboot, (s) shutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id $Locker, mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
@@ -232,17 +225,8 @@ default_border pixel 3
 # Hiding borders adjacent to the screen edges
 hide_edge_borders smart
 
-# Lunch firefox
-bindsym $mod+Shift+Return exec firefox
-
-# Lunch vlc
-bindsym $mod+Shift+v exec vlc
-
 # Disable focus follows mouse
 focus_follows_mouse no
-
-# scrot
-bindsym Print --release exec "scrot $HOME/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S.png"
 
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
@@ -250,3 +234,17 @@ bindsym $mod+Shift+minus move scratchpad
 # Show the first scratchpad window
 # to "remove it from scratchpad", you can simple make it tiling again (floating toggle).
 bindsym $mod+minus scratchpad show
+
+## Start applications
+# Firefox
+bindsym $mod+Shift+Return exec firefox
+# VLC 
+bindsym $mod+Shift+v exec vlc
+# transmission-daemon
+bindsym $mod+Shift+t exec --no-startup-id transmission-daemon
+
+# scrot
+bindsym Print --release exec "scrot $HOME/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S.png"
+
+# Start ternimal here
+exec --no-startup-id urxvt
