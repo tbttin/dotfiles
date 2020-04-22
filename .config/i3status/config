@@ -14,7 +14,7 @@ general {
 
 order += "wireless _first_"
 wireless _first_ {
-	# there is " " before %quality
+	# there is " " before %quality (100%)
         format_up = "W: %essid (%quality)"
         format_down = "W: down"
 	format_quality = "%d%s"
@@ -22,7 +22,7 @@ wireless _first_ {
 
 order += "volume master"
 volume master {
-        format = "volume =  %volume"
+        format = "volume = %volume"
         format_muted = "muted (%volume)"
 	device = "default"
 }
@@ -36,7 +36,8 @@ disk "/home" {
 	format_below_threshold = "LOW storage: %avail"
 }
 
-# It’s possible to define a threshold_degraded and a threshold_critical to color the status bar output in yellow or red, if the available memory falls below the given threshold. 
+# It’s possible to define a threshold_degraded and a threshold_critical to color the status bar output in yellow or red,
+# if the available memory falls below the given threshold. 
 order += "memory"
 memory {
         format = "%free | %available"
@@ -55,7 +56,7 @@ cpu_temperature 0 {
 order += "cpu_temperature 1"
 cpu_temperature 1 {
 	format = "%degrees °C"
-	max_threshold = 42
+	max_threshold = 50
 }
 
 order += "load"
