@@ -244,7 +244,7 @@ bindsym $mod+Shift+v exec vlc
 bindsym $mod+Shift+t exec --no-startup-id transmission-daemon
 
 # scrot
-bindsym Print --release exec "scrot $HOME/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S.png"
+bindsym Print --release exec "scrot $HOME/pictures/screenshots/%Y-%m-%d-%H-%M-%S.png"
 
 # Start ternimal here
 exec --no-startup-id urxvt
