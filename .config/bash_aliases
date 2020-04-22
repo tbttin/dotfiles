@@ -10,16 +10,23 @@ alias diff='diff --color=auto'
 # Some improving for movements.
 alias ..='cd ..'
 alias ...='cd ../..'
-alias -- --='cd -' # With most commands, you can pass -- as an argument, and all subsequent arguments are treated as operands and not options  even if they begin with a dash.
+# With most commands, you can pass -- as an argument,
+# and all subsequent arguments are treated as operands and not options even if they begin with a dash.
+alias -- --='cd -' 
 
 # Quick edit some config files.
+# Bashes
 alias vb='vim ~/.bashrc'
 alias vp='vim ~/.bash_profile'
 alias va='vim $XDG_CONFIG_HOME/bash_aliases'
-alias vi3='vim $XDG_CONFIG_HOME/i3/config'
-alias vv='vim $XDG_CONFIG_HOME/vim/vimrc'
-alias vx='vim ~/.Xdefaults'
+# Readline
 alias vin='vim $INPUTRC'
+# I3WM
+alias vi3='vim $XDG_CONFIG_HOME/i3/config'
+# Vim
+alias vv='vim $XDG_CONFIG_HOME/vim/vimrc'
+# X
+alias vx='vim ~/.Xdefaults'
 
 alias pf='systemctl poweroff -i'
 alias p='sudo pacman'
