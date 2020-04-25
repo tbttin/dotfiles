@@ -28,9 +28,13 @@ export VIMINIT=":source $XDG_CONFIG_HOME"/vim/vimrc
 # Readline config file.
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 
-#Try to move some stuff.
-#export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
+# Try to move some stuff.
 export HISTFILE="$XDG_DATA_HOME"/bash/history
+#export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
+#export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
+#export XSERVERRC="$XDG_CONFIG_HOME"/X11/xserverrc
+# Note that these variables are respected by xinit, but not by startx. Instead, specify the filename as an argument:
+#startx "$XDG_CONFIG_HOME/X11/xinitrc" -- "$XDG_CONFIG_HOME/X11/xserverrc" vt1
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
