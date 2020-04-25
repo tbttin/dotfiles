@@ -1,3 +1,3 @@
-xrdb -load ~/.config/X11/xresources
-[[ -f $XDG_CONFIG_HOME/xmodmap/xmodmaprc ]] && xmodmap $XDG_CONFIG_HOME/xmodmap/xmodmaprc
+[[ -f $XDG_CONFIG_HOME/X11/xresources ]] && xrdb -load $XDG_CONFIG_HOME/X11/xresources
+[[ -f $XDG_CONFIG_HOME/X11/xmodmap/xmodmaprc ]] && xmodmap $XDG_CONFIG_HOME/X11/xmodmap/xmodmaprc
 exec i3
