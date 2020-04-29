@@ -30,7 +30,6 @@ alias vx='vim ~/.Xdefaults'
 
 alias pf='systemctl poweroff -i'
 alias p='sudo pacman'
-alias scrot='scrot ~/pictures/screenshots/%Y-%m-%d-%H-%M-%S.png'
 alias m16='sudo mount /mnt/16g-usb && cd /mnt/16g-usb'
 alias um16='sudo umount /mnt/16g-usb'
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
