@@ -33,7 +33,7 @@ font pango:monospace 8
 # they are included here as an example. Modify as you see fit.
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- ~/.scripts/lock.sh
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -186,7 +186,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # system things
-set $Locker i3lock && sleep 1
+set $Locker ~/scripts/lock.sh && sleep 1
 
 set $mode_system System: (l) lock, (e) logout, (S) suspend, (h) hibernate, (r) reboot, (s) shutdown
 mode "$mode_system" {
@@ -242,9 +242,10 @@ bindsym $mod+Shift+Return exec firefox
 bindsym $mod+Shift+v exec vlc
 # transmission-daemon
 bindsym $mod+Shift+t exec --no-startup-id transmission-daemon
-
 # scrot
 bindsym Print --release exec "scrot $HOME/pictures/screenshots/%Y-%m-%d-%H-%M-%S.png"
+# Reconnect with wpa_supplicant
+bindsym $mod+Shift+w exec "wpa_cli disable_network 0; sleep 3; wpa_cli enable_network 0"
 
 # Start ternimal here
 exec --no-startup-id urxvt
