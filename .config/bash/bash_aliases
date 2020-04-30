@@ -1,0 +1,40 @@
+# Aliases are created and listed with the alias command, and removed with the unalias command. 
+
+# Adding color
+alias ls='ls --color=auto'
+alias ll='ls -lh'
+alias la='ls -alh'
+alias grep='grep --color=auto'
+alias diff='diff --color=auto'
+
+# Some improving for movements.
+alias ..='cd ..'
+alias ...='cd ../..'
+# With most commands, you can pass -- as an argument,
+# and all subsequent arguments are treated as operands and not options even if they begin with a dash.
+alias -- --='cd -' 
+
+# Quick edit some config files.
+# Bash files.
+alias vb='vim ~/.bashrc'
+alias vp='vim ~/.bash_profile'
+alias va='vim $XDG_CONFIG_HOME/bash/bash_aliases'
+# Readline
+alias vin='vim $INPUTRC'
+# I3WM
+alias vi3='vim $XDG_CONFIG_HOME/i3/config'
+# Vim
+alias vv='vim $XDG_CONFIG_HOME/vim/vimrc'
+# Xresources
+alias vx='vim $XDG_CONFIG_HOME/X11/xresources'
+
+alias spf='systemctl poweroff -i'
+alias supa='sudo pacman'
+alias m16='sudo mount /mnt/16g-usb && cd /mnt/16g-usb'
+alias um16='sudo umount /mnt/16g-usb'
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias ffplay='ffplay -seek_interval 5'
+alias recon='wpa_cli disable_network 0; sleep 3; wpa_cli enable_network 0'
+alias mv='mv -i'
+alias cp='cp -i'
+alias rm='rm -I'
