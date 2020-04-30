@@ -15,7 +15,7 @@ scrot -oz $img
 convert $img -scale 10% -scale 1000% $img
 
 # Add the lock icon.
-[[ -f $icon ]] && convert $img $icon -gravity center -composite -matte $img
+[[ -f $icon ]] && convert $img $icon -gravity center -composite $img
 
 # Lock
 i3lock -nuei $img
