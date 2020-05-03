@@ -1,24 +1,21 @@
 #!/bin/bash
 
 
-icon="$HOME/.config/i3/lock.png"
 # Create a temp file.
-img=$(mktemp /tmp/XXXXXXXXXX.png)
+TMPBG=$(mktemp /tmp/XXXXXXXXXX.png)
+LOCK="$XDG_CONFIG_HOME/i3/lock.png"
 
 # Take a screenshot.
-scrot -oz $img
-#import -window root $img
+scrot -oz $TMPBG
 
 # Simulate oil painting.
-#convert $img -paint 3 $img
-# Or pixelate the screenshot.
-convert $img -scale 10% -scale 1000% $img
+convert $TMPBG -paint 3 $TMPBG
 
 # Add the lock icon.
-[[ -f $icon ]] && convert $img $icon -gravity center -composite $img
+[[ -f $LOCK ]] && convert $TMPBG $LOCK -gravity center -composite $TMPBG
 
-# Lock
-i3lock -nuei $img
+# Lock.
+i3lock -nuei $TMPBG
 
-# Remove the tmp file.
-rm $img
+# Remove the temp file.
+rm $TMPBG
