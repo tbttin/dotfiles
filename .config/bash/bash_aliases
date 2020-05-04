@@ -31,6 +31,8 @@ alias vi3='vim $XDG_CONFIG_HOME/i3/config'
 alias vv='vim $XDG_CONFIG_HOME/vim/vimrc'
 # Xresources
 alias vx='vim $XDG_CONFIG_HOME/X11/xresources'
+# Qutebrowser
+alias vq='vim $XDG_CONFIG_HOME/qutebrowser/config.py'
 
 # For safety.
 alias mv='mv -i'
