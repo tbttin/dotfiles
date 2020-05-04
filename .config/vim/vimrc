@@ -1,15 +1,9 @@
-" xdg-base-dir configurations, source: arch linux
+" xdg-base-dir configurations, source: arch linux.
 set undodir=$XDG_DATA_HOME/vim/undo
 set directory=$XDG_DATA_HOME/vim/swap
 set backupdir=$XDG_DATA_HOME/vim/backup
 set viminfo+='1000,n$XDG_DATA_HOME/vim/viminfo
 set runtimepath=$XDG_CONFIG_HOME/vim,$VIMRUNTIME,$XDG_CONFIG_HOME/vim/after
-
-" jump to the last position when reopening a file
-"if has("autocmd")
-"  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-"    \| exe "normal! g'\"" | endif
-"endif
 
 " Cursor settings:
 "   1 -> blinking block
@@ -26,19 +20,37 @@ let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
 " Always refer to the relevant :help before adding anything to vimrc.
 " Using short names has ONLY cons and ZERO pros.
 set number relativenumber
+
 " Increamental search, while typing a search command, show where the pattern.
 set incsearch
+" Highlight search.
+set hlsearch
+
+" Show the (partial) command in the last line of screen.
+set showcmd
+
+" Detect type of file.
+filetype on             
+
+" Enable syntax highlighting.
+syntax enable
+
+" Set auto-indenting on for programming.
+set autoindent
+"set shiftwidth=4
+ 
+" Load indent file for specific file type.
+filetype indent on      
+
 " Enabling filetype support provides filetype-specific indenting,
 " syntax highlighting, omni-completion and other useful settings.
 "filetype plugin indent on
-" Show the (partial) command in the last line of screen.
-set showcmd
-syntax on
-"set background=dark
-"set t_Co=256
+
+" Decrease ESC delay.
 set timeoutlen=1000 ttimeoutlen=0
-set autoindent
-"set shiftwidth=4
+
+" Keep 3 lines when scrolling.
+set scrolloff=3        
 
 " `matchit.vim` is built-in so let's enable it!
 " Hit `%` on `if` to jump to `else`.
@@ -53,3 +65,9 @@ set autoindent
                                 " of the screen.
 "set wildmenu                   " Great command-line completion, use `<Tab>` to move
                                 " around and `<CR>` to validate.
+
+" jump to the last position when reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
+endif
