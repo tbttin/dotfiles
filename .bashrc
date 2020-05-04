@@ -9,7 +9,7 @@
 #  \e
 #  \033
 #  \x1B
-PS1="\033[1;32m\W\033[1;31m$\033[0m "
+PS1="\[\033[1;32m\]\W\[\033[1;31m\]$\[\033[0m\] "
 
 # Disable XON/XOFF flow control. (C-s/C-q)
 stty -ixon
