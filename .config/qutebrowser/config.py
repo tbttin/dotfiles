@@ -1653,13 +1653,15 @@ c.url.default_page = 'https://www.oxfordlearnersdictionaries.com/'
 ## the search engine name to the search term, e.g.  `:open google
 ## qutebrowser`.
 ## Type: Dict
-c.url.searchengines = {'DEFAULT': 'https://www.oxfordlearnersdictionaries.com/definition/english/{}',
-			'gg': 'https://www.google.com/search?&q={}'
+c.url.searchengines = {	'DEFAULT': 'https://www.oxfordlearnersdictionaries.com/definition/english/{}',
+			'gg': 'https://www.google.com/search?&q={}',
+			'cv': 'http://tratu.coviet.vn/hoc-tieng-anh/tu-dien/lac-viet/A-V/{}.html',
 		}
 
 ## Page(s) to open at the start.
 ## Type: List of FuzzyUrl, or FuzzyUrl
 # c.url.start_pages = ['https://start.duckduckgo.com']
+c.url.start_pages = ['https://www.oxfordlearnersdictionaries.com/']
 
 ## URL parameters to strip with `:yank url`.
 ## Type: List of String
