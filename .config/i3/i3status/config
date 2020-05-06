@@ -9,22 +9,21 @@
 general {
 	output_format = "i3bar"
         colors = true
+	markup = "pango"
         interval = 5
+}
+
+order += "ethernet eth0"
+ethernet eth0 {
+        format_up = "%ip (%speed)"
+        format_down = ""
 }
 
 order += "wireless _first_"
 wireless _first_ {
-	# there is " " before %quality (100%)
-        format_up = "W: %essid (%quality)"
+        format_up = "%essid (%quality)"
         format_down = "W: down"
 	format_quality = "%d%s"
-}
-
-order += "volume master"
-volume master {
-        format = "volume = %volume"
-        format_muted = "muted (%volume)"
-	device = "default"
 }
 
 order += "disk /home"
@@ -36,11 +35,19 @@ disk "/home" {
 	format_below_threshold = "LOW storage: %avail"
 }
 
+order += "volume master"
+volume master {
+        format = "%volume"
+        format_muted = "muted (%volume)"
+	device = "default"
+}
+
 # It’s possible to define a threshold_degraded and a threshold_critical to color the status bar output in yellow or red,
 # if the available memory falls below the given threshold. 
 order += "memory"
 memory {
-        format = "%free | %available"
+        #format = "<span color='#18ff03'>Free: </span>%free, <span color='#fffb14'>Avail: </span>%available, <span color='#f235c0'>Used: </span>%used"
+        format = "<span color='#18ff03'>%free</span> <span color='#fffb14'>%available</span> <span color='#f235c0'>%used</span>"
 	memory_used_method = "classical"
         threshold_degraded = "1G"
 	threshold_critical = "512M"
@@ -50,13 +57,13 @@ memory {
 order += "cpu_temperature 0"
 cpu_temperature 0 {
 	format = "%degrees °C"
-	max_threshold = 50
+	max_threshold = 60
 }
 
 order += "cpu_temperature 1"
 cpu_temperature 1 {
 	format = "%degrees °C"
-	max_threshold = 50
+	max_threshold = 60
 }
 
 order += "load"
