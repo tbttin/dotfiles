@@ -1653,7 +1653,7 @@ c.url.default_page = 'https://www.oxfordlearnersdictionaries.com/'
 ## the search engine name to the search term, e.g.  `:open google
 ## qutebrowser`.
 ## Type: Dict
-c.url.searchengines = {	'DEFAULT': 'https://www.oxfordlearnersdictionaries.com/definition/english/{}',
+c.url.searchengines = {	'DEFAULT': 'https://www.oxfordlearnersdictionaries.com/search/english/?q={}',
 			'gg': 'https://www.google.com/search?&q={}',
 			'cv': 'http://tratu.coviet.vn/hoc-tieng-anh/tu-dien/lac-viet/A-V/{}.html',
 		}
