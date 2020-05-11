@@ -1654,7 +1654,7 @@ c.url.default_page = 'https://www.oxfordlearnersdictionaries.com/'
 ## qutebrowser`.
 ## Type: Dict
 c.url.searchengines = {	'DEFAULT': 'https://www.oxfordlearnersdictionaries.com/search/english/?q={}',
-			'gg': 'https://www.google.com/search?&q={}',
+			'gg': 'https://www.google.com/search?q={}',
 			'cv': 'http://tratu.coviet.vn/hoc-tieng-anh/tu-dien/lac-viet/A-V/{}.html',
 		}
 
