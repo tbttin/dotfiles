@@ -4,6 +4,9 @@
 
 $include /etc/inputrc
 
+# TURN ON VIM (E.G. FOR READLINE)
+set editing-mode vi
+
 # Color files by types
 # Note that this may cause completion text blink in some terminals (e.g. xterm).
 set colored-stats on
@@ -15,9 +18,6 @@ set mark-symlinked-directories on
 set colored-completion-prefix on
 # Color the common prefix in menu-complete
 set menu-complete-display-prefix on
-
-# TURN ON VIM (E.G. FOR READLINE)
-set editing-mode vi
 
 # SHOW THE VIM MODE IN THE PROMPT (COMMAND OR INSERT)
 set show-mode-in-prompt on
@@ -50,15 +50,13 @@ $endif
 $if mode=vi
 	set keymap vi-command
 	# these are for vi-command mode
-	"\e[A": history-search-backward
-	"\e[B": history-search-forward
 	j: history-search-forward
 	k: history-search-backward
+
 	set keymap vi-insert
 	# these are for vi-insert mode
-	"\e[A": history-search-backward
-	"\e[B": history-search-forward
-
 	# This example prefixes the line with sudo , if Alt+S is pressed. It's safer because it won't input the Enter key.
 	"\es": "\e^isudo \eA"
+	#
+	"\eg": "\eA | grep "
 $endif
