@@ -1,3 +1,6 @@
+# vim first modeline
+# vim: filetype=xdefaults
+
 URxvt.perl-ext:
 URxvt.perl-ext-common:
 
@@ -6,11 +9,6 @@ URxvt.boldFont: xft:bitstream vera sans mono:bold:size=11:antialias=true
 
 ! Hide scrollbar
 URxvt.scrollBar: false
-
-! Color output in console Arch Wiki
-!URxvt.colorIT:      #87af5f
-!URxvt.colorBD:      #d7d7d7
-!URxvt.colorUL:      #87afd7
 
 ! Disable Ctrl+Shift
 ! You've disabled keycap picture insert mode but not basic ISO 14755 mode. To disable both, set both to false.
