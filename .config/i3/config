@@ -217,8 +217,6 @@ bindsym $mod+minus scratchpad show
 ## Keybindings for starting applications.
 # Firefox
 bindsym $mod+Shift+Return exec firefox
-# Qutebrowser
-bindsym $mod+Shift+b exec qutebrowser
 # Transmission-daemon
 bindsym $mod+Shift+t exec --no-startup-id transmission-daemon
 # scrot
