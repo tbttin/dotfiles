@@ -52,11 +52,12 @@ $if mode=vi
 	# these are for vi-command mode
 	j: history-search-forward
 	k: history-search-backward
+	v: ""
 
 	set keymap vi-insert
 	# these are for vi-insert mode
 	# This example prefixes the line with sudo , if Alt+S is pressed. It's safer because it won't input the Enter key.
-	"\es": "\e^isudo \eA"
+	"\C-s": "\e^isudo \eA"
 	#
-	"\eg": "\eA | grep "
+	"\C-g": "\eA | grep "
 $endif
