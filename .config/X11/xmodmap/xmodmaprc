@@ -5,8 +5,14 @@ remove mod5 = Mode_switch
 add mod3 = Mode_switch
 
 ! Arrow keys binding
-keycode 38 = a A Left Left
-keycode 39 = s S Down Down
-keycode 40 = d D Up Up
-keycode 41 = f F Right Right
-keycode  65 = space NoSymbol Caps_Lock 
+!keycode 38 = a A Left Left
+!keycode 39 = s S Down Down
+!keycode 40 = d D Up Up
+!keycode 41 = f F Right Right
+!keycode  65 = space NoSymbol Caps_Lock 
+
+! I3WM arrow keys binding.
+keycode  44 = j J Left Left
+keycode  45 = k K Down Down
+keycode  46 = l L Up Up
+keycode  47 = semicolon colon Right Right
