@@ -82,5 +82,5 @@ cpu_usage {
 
 order += "tztime local"
 tztime local {
-        format = "%a %m-%d %H:%M"
+        format = "%a-%d-%b %H:%M"
 }
