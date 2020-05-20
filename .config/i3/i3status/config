@@ -32,7 +32,7 @@ disk "/home" {
 	prefix_type = "binary"
 	low_threshold = 5
 	threshold_type = "gbytes_avail"
-	format_below_threshold = "LOW storage: %avail"
+	format_below_threshold = "%avail"
 }
 
 order += "volume master"
