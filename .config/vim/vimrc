@@ -37,7 +37,7 @@ filetype plugin indent on
 
 " Set auto-indenting on for programming.
 set autoindent
-"set shiftwidth=4
+set shiftwidth=4
 
 " Enable syntax highlighting.
 syntax enable
