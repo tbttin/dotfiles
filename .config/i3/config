@@ -86,7 +86,7 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # Toggle tiling / floating.
-#bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+space floating toggle
 
 # Change focus between tiling / floating windows.
 bindsym $mod+space focus mode_toggle
@@ -164,7 +164,8 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # System controls.
-set $Locker sleep 1 && ~/scripts/lock.sh && sleep 1
+set $Locker ~/scripts/lock.sh && sleep 1
+#set $Locker sleep 1 && ~/scripts/lock.sh && sleep 1
 
 set $mode_system System: (l)ock, log(o)ut, (S)uspend, (h)ibernate, (r)eboot, (s)hutdown
 mode "$mode_system" {
@@ -207,6 +208,9 @@ hide_edge_borders smart
 
 # Disable focus follows mouse.
 focus_follows_mouse no
+
+# Automatic back-and-forth.
+workspace_auto_back_and_forth yes
 
 # Make the currently focused window a scratchpad.
 bindsym $mod+Shift+minus move scratchpad
