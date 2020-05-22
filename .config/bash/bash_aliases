@@ -12,6 +12,11 @@ alias ...='cd ../..'
 # With most commands, you can pass -- as an argument,
 # and all subsequent arguments are treated as operands and not options even if they begin with a dash.
 alias -- --='cd -' 
+alias d='cd $(xdg-user-dir DOCUMENTS)'
+alias dl='cd $(xdg-user-dir DOWNLOAD)'
+alias p='cd $(xdg-user-dir PICTURES)'
+alias s='cd ~/scripts'
+alias v='cd $(xdg-user-dir VIDEOS)'
 
 # System stuffs.
 alias spf='systemctl poweroff -i'
@@ -30,8 +35,6 @@ alias vi3='vim $XDG_CONFIG_HOME/i3/config'
 alias vv='vim $XDG_CONFIG_HOME/vim/vimrc'
 # Xresources
 alias vx='vim $XDG_CONFIG_HOME/X11/xresources'
-# Qutebrowser
-alias vq='vim $XDG_CONFIG_HOME/qutebrowser/config.py'
 
 # For safety.
 alias mv='mv -i'
