@@ -56,8 +56,10 @@ $if mode=vi
 
 	set keymap vi-insert
 	# these are for vi-insert mode
-	# This example prefixes the line with sudo , if Alt+S is pressed. It's safer because it won't input the Enter key.
+	# This example prefixes the line with sudo, if Ctrl+S is pressed. It's safer because it won't input the Enter key.
 	"\C-s": "\e^isudo \eA"
+	#
+	"\C-q": "\e^iman \C-j"
 	#
 	"\C-g": "\eA | grep "
 $endif
