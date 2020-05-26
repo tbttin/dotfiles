@@ -18,14 +18,15 @@ let &t_SI.="\e[3 q" "SI = INSERT mode
 let &t_SR.="\e[4 q" "SR = REPLACE mode
 let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
 
+" Enable syntax highlighting.
+syntax enable
+
 " Always refer to the relevant :help before adding anything to vimrc.
 " Using short names has ONLY cons and ZERO pros.
 set number relativenumber
 
 " Increamental search, while typing a search command, show where the pattern.
 set incsearch
-" Highlight search.
-"set hlsearch
 
 " Show the (partial) command in the last line of screen.
 set showcmd
@@ -35,15 +36,16 @@ set showcmd
 " Using indent files.
 filetype plugin indent on
 
-" Set auto-indenting on for programming.
-set autoindent
+" GNU style.
 set shiftwidth=4
+"set expandtab
+set cinoptions+=t0,(0,f0.5s,{0.5s,0.5s},:0.5s,=0.5s
+" function and variable declaration align?
 
-" Enable syntax highlighting.
-syntax enable
+" This plugin makes the "%" command jump to matching HTML tags, if/else/endif in Vim scripts, etc.
+packadd! matchit
 
 " This makes typing Esc take effect more quickly.
-"set timeoutlen=1000 ttimeoutlen=0
 set ttimeout
 set ttimeoutlen=100
 
@@ -55,9 +57,6 @@ set wildmenu
 
 " Show @@@ in the last line if it is truncated, instead of hiding the whole line.
 "set display=truncate
-
-" This plugin makes the "%" command jump to matching HTML tags, if/else/endif in Vim scripts, etc.
-packadd! matchit
 
 " Possibility to have more than one unsaved buffers.
 "set hidden
