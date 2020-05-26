@@ -13,6 +13,7 @@ PS1="\[\033[1;96m\]\W\[\033[1;91m\]$\[\033[0m\] "
 
 # Disable XON/XOFF flow control. (C-s/C-q)
 stty -ixon
+shopt -s autocd
 
 # History things.
 HISTTIMEFORMAT="%b %d %H:%M " # using strftime format.
