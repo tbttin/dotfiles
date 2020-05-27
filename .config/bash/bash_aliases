@@ -44,8 +44,8 @@ alias cp='cp -i'
 alias m16='sudo mount /mnt/16g-usb && cd /mnt/16g-usb'
 alias um16='sudo umount /mnt/16g-usb'
 
-# Git alias for dotfiles.
-alias config='/usr/bin/git --git-dir=$XDG_CONFIG_HOME/dotfiles.git/ --work-tree=$HOME'
+# Git bare alias for dotfiles, don't use $XDG_CONFIG_HOME here.
+alias config='/usr/bin/git --git-dir=$HOME/.config/dotfiles.git/ --work-tree=$HOME'
 
 # Reconnect to wifi using wpa_supplicant.
 alias recon='wpa_cli disable_network 0; sleep 3; wpa_cli enable_network 0'
