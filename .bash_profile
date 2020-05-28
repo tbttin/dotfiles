@@ -32,7 +32,7 @@ export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 export HISTFILE="$XDG_DATA_HOME"/bash/history
 
 # Xauthority file.
-export XAUTHORITY="$XDG_RUNTIME_DIR"/.Xauthority
+export XAUTHORITY="$XDG_CONFIG_HOME"/X11/Xauthority
 
 # xinitrc file.
 export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
