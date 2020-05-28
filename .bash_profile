@@ -18,7 +18,7 @@ export LESS_TERMCAP_so=$'\E[01;44;33m' # begin reverse video
 export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
 export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
 export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
-export LESSHISTFILE="$XDG_CONFIG_HOME"/less/history
+export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 #export LESSHISTFILE=- # can be used to disable this feature.
 #export LESSKEY="$XDG_CONFIG_HOME"/less/lesskey
 
@@ -32,7 +32,7 @@ export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 export HISTFILE="$XDG_DATA_HOME"/bash/history
 
 # Xauthority file.
-export XAUTHORITY="$XDG_CONFIG_HOME"/X11/Xauthority
+#export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 
 # xinitrc file.
 export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
