@@ -1,3 +1,5 @@
+# vim: filetype=bash
+
 # Aliases are created and listed with the alias command, and removed with the unalias command. 
 
 # Adding color.
@@ -15,7 +17,7 @@ alias -- --='cd -'
 alias d='cd $(xdg-user-dir DOCUMENTS)'
 alias dl='cd $(xdg-user-dir DOWNLOAD)'
 alias p='cd $(xdg-user-dir PICTURES)'
-alias s='cd ~/scripts'
+alias s='cd $(xdg-user-dir SCRIPTS)'
 alias v='cd $(xdg-user-dir VIDEOS)'
 
 # System stuffs.
@@ -26,14 +28,14 @@ alias supa='sudo pacman'
 # Bash files.
 alias vb='vim ~/.bashrc'
 alias vp='vim ~/.bash_profile'
-alias va='vim $XDG_CONFIG_HOME/bash/bash_aliases'
-# Readline
+alias va='vim $XDG_CONFIG_HOME/bash/bash-aliases'
+# Readline.
 alias vin='vim $INPUTRC'
-# I3WM
-alias vi3='vim $XDG_CONFIG_HOME/i3/config'
-# Vim
+# I3WM.
+alias v3='vim $XDG_CONFIG_HOME/i3/config'
+# Vim.
 alias vv='vim $XDG_CONFIG_HOME/vim/vimrc'
-# Xresources
+# Xresources.
 alias vx='vim $XDG_CONFIG_HOME/X11/xresources'
 
 # For safety.
@@ -45,16 +47,18 @@ alias m16='sudo mount /mnt/16g-usb && cd /mnt/16g-usb'
 alias um16='sudo umount /mnt/16g-usb'
 
 # Git bare alias for dotfiles, don't use $XDG_CONFIG_HOME here.
-alias config='/usr/bin/git --git-dir=$HOME/.config/dotfiles/ --work-tree=$HOME'
+alias config='/usr/bin/git --work-tree=$HOME --git-dir=$HOME/.config/dotfiles/'
 
-# Reconnect to wifi using wpa_supplicant.
+# Reconnect to home wifi with wpa_supplicant.
 alias recon='wpa_cli disable_network 0; sleep 3; wpa_cli enable_network 0'
+# Start wpa_supplicant client add cleanup history file.
 alias wpa_cli='wpa_cli && rm ~/.wpa_cli_history'
 
-# A quicker way to play a mkv file with external subtitle.
+# Decrease seek interval by 5, supress printing copyright, build options and versions.
 alias ffplay='ffplay -seek_interval 5 -hide_banner'
-alias ffps='/usr/bin/find . -maxdepth 1 -type f -name "*.mkv" -print0 | xargs -0 -n 1 -I {} ffplay -seek_interval 5 -hide_banner -vf subtitles={}.en.srt {}'
-#alias ffps='/usr/bin/find . -maxdepth 1 -type f -name "*.mkv" -print0 | xargs -0 -n 1 -I {} "${BASH_ALIASES[ffplay]}" -vf subtitles={}.en.srt {}'
+# ffplay mkv files in current dir with external subtitles.
+alias ffps='/usr/bin/find . -maxdepth 1 -type f -name "*.mkv" -print0 |
+    xargs -0 -n1 -I{} ${BASH_ALIASES[ffplay]} -vf subtitles={}.en.srt {}'
 
 # startx with xinitrc in $XDG_CONFIG_HOME.
-alias startx='startx "$XDG_CONFIG_HOME/X11/xinitrc"'
+alias startx='startx $XDG_CONFIG_HOME/X11/xinitrc'
