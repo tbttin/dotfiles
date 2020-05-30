@@ -6,6 +6,16 @@ set viewdir=$XDG_DATA_HOME/vim/view
 set viminfo+='1000,n$XDG_DATA_HOME/vim/viminfo
 set runtimepath=$XDG_CONFIG_HOME/vim,$VIMRUNTIME,$XDG_CONFIG_HOME/vim/after
 
+if exists("*mkdir")
+    if !isdirectory(&undodir)   | call mkdir(&undodir, "p")   | endif
+    if !isdirectory(&directory) | call mkdir(&directory, "p") | endif
+    if !isdirectory(&backupdir) | call mkdir(&backupdir, "p") | endif
+    if !isdirectory(&viewdir) 	| call mkdir(&viewdir, "p")   | endif
+"    if !isdirectory($XDG_CONFIG_HOME . "/vim/after")
+"	call mkdir($XDG_CONFIG_HOME . "/vim/after", "p")
+"    endif
+endif
+
 " Cursor settings:
 "   1 -> blinking block
 "   2 -> solid block
