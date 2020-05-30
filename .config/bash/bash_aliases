@@ -55,3 +55,6 @@ alias wpa_cli='wpa_cli && rm ~/.wpa_cli_history'
 alias ffplay='ffplay -seek_interval 5 -hide_banner'
 alias ffps='/usr/bin/find . -maxdepth 1 -type f -name "*.mkv" -print0 | xargs -0 -n 1 -I {} ffplay -seek_interval 5 -hide_banner -vf subtitles={}.en.srt {}'
 #alias ffps='/usr/bin/find . -maxdepth 1 -type f -name "*.mkv" -print0 | xargs -0 -n 1 -I {} "${BASH_ALIASES[ffplay]}" -vf subtitles={}.en.srt {}'
+
+# startx with xinitrc in $XDG_CONFIG_HOME.
+alias startx='startx "$XDG_CONFIG_HOME/X11/xinitrc"'
