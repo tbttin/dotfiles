@@ -163,7 +163,6 @@ bindsym $mod+r mode "resize"
 
 # System controls.
 set $Locker ~/scripts/lock.sh && sleep 1
-#set $Locker sleep 1 && ~/scripts/lock.sh && sleep 1
 
 set $mode_system System: (l)ock, log(o)ut, (S)uspend, (h)ibernate, (r)eboot, (s)hutdown
 mode "$mode_system" {
@@ -223,7 +222,8 @@ bindsym $mod+Shift+Return exec firefox
 bindsym $mod+Shift+t exec --no-startup-id transmission-daemon
 # scrot
 bindsym Print --release exec --no-startup-id scrot "$(xdg-user-dir PICTURES)/screenshots/%Y-%m-%d-%H-%M-%S.png"
-# Reconnect with wpa_supplicant.
+
+# Reconnect with home network.
 bindsym $mod+Shift+w exec "wpa_cli disable_network 0; sleep 3; wpa_cli enable_network 0"
 
 # Start urxvt. 
