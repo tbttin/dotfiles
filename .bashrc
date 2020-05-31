@@ -9,7 +9,11 @@
 #  \e
 #  \033
 #  \x1B
-PS1="\[\033[1;96m\]\W\[\033[1;91m\]$\[\033[0m\] "
+# Bold and birght: \e[1m
+CAYAN="\[\e[1;36m\]"
+RED="\[\e[1;31m\]"
+RESET="\[\e[0m\]"
+PS1="$CAYAN\W$RED\$$RESET "
 
 # Disable XON/XOFF flow control. (C-s/C-q)
 stty -ixon
@@ -19,7 +23,7 @@ shopt -s "autocd"
 HISTTIMEFORMAT="%b %d %H:%M " # using strftime format.
 HISTCONTROL="ignoreboth"
 
-# Add aliases from exteral file.
+# Source aliases from external file.
 [[ -f "$XDG_CONFIG_HOME/bash/bash-aliases" ]] && . "$XDG_CONFIG_HOME/bash/bash-aliases"
 
 # Create a new directory and enter it.
