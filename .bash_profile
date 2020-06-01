@@ -22,9 +22,9 @@ export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
 export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 
 # Move less history seach file to XDG cache home.
-[[ ! -d "$XDG_CACHE_HOME/less/" ]] && mkdir -p "$XDG_CACHE_HOME/less/"
-export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
 #export LESSHISTFILE=- # can be used to disable this feature.
+[[ ! -d "$XDG_DATA_HOME/less/" ]] && mkdir -p -m 0700 "$XDG_DATA_HOME/less/"
+export LESSHISTFILE="$XDG_DATA_HOME/less/history"
 
 # Use XDG config dir for vim.
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
@@ -33,7 +33,7 @@ export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 
 # Bash history.
-[[ ! -d "$XDG_DATA_HOME/bash/" ]] && mkdir -p "$XDG_DATA_HOME/bash/"
+[[ ! -d "$XDG_DATA_HOME/bash/" ]] && mkdir -p -m 0700 "$XDG_DATA_HOME/bash/"
 export HISTFILE="$XDG_DATA_HOME/bash/history"
 
 # xorg first or Xauthority first?
