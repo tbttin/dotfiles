@@ -59,7 +59,9 @@ $if mode=vi
 	# This example prefixes the line with sudo, if Ctrl+S is pressed. It's safer because it won't input the Enter key.
 	"\C-s": "\e^isudo \eA"
 	#
-	"\C-q": "\e^iman \C-j"
+	"\C-q": "\e^iman  \ei"
 	#
 	"\C-g": "\eA | grep "
+	#
+	"\C-l": "\eA | less\C-j"
 $endif
