@@ -6,10 +6,10 @@
 [[ $- != *i* ]] && return
 
 # In Bash, the <Esc> character can be obtained with the following syntaxes:
-#  \e
-#  \033
-#  \x1B
-# Bold and birght: \e[1m
+#   \e
+#   \033
+#   \x1B
+# \e[1m: Bold and Bright.
 CAYAN="\[\e[1;36m\]"
 LIGHT_CAYAN="\[\e[1;96m\]"
 RED="\[\e[1;31m\]"
@@ -20,18 +20,28 @@ PS1="${CAYAN}\W/${RED}\$${RESET} "
 # Disable XON/XOFF flow control. (C-s/C-q)
 stty -ixon
 shopt -s "autocd"
-shopt -u "checkwinsize"
 
 # History things.
 HISTTIMEFORMAT="%b %d %H:%M " # using strftime format.
 HISTCONTROL="ignoreboth:erasedups"
 HISTSIZE=1000
 
-# Source aliases from external file.
+# Source alias file.
 [[ -f "$XDG_CONFIG_HOME/bash/bash-aliases" ]] && . "$XDG_CONFIG_HOME/bash/bash-aliases"
 
 # Create a new directory and enter it.
-function mcd() { mkdir -pv "$@" && cd "$@"; }
+function mcd() { mkdir -pv "$@" && cd "$1"; }
 
 # Search in vim docs.
-function vdoc() { grep "$@" /usr/share/vim/vim82/doc/usr_*; }
+function vdoc() { grep "$1" /usr/share/vim/vim82/doc/usr_*; }
+
+function ffps()
+{
+    if [ -z "$1" ] ; then
+	# if no argument just play it.
+	find . -maxdepth 1 -type f -name "*.mkv" -print0 | xargs -0 -n 1 -I {} ffplay -hide_banner -seek_interval 5 {}
+    else 
+	# play with external subtitle.
+	find . -maxdepth 1 -type f -name "*.mkv" -print0 | xargs -0 -n 1 -I {} ffplay -hide_banner -seek_interval 5 -vf subtitles={}.$1.srt {}
+    fi
+}
