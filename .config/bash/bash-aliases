@@ -49,6 +49,10 @@ alias um16='sudo umount /mnt/16g-usb'
 
 # Git bare alias for dotfiles, don't use $XDG_CONFIG_HOME here.
 alias config='/usr/bin/git --work-tree=$HOME --git-dir=$HOME/.config/dotfiles/'
+alias cons='config status'
+alias cona='config add'
+alias conc='config comit -m'
+alias cond='config diff'
 
 # Start wpa_supplicant client add cleanup history file.
 alias wpa_cli='wpa_cli && rm ~/.wpa_cli_history'
