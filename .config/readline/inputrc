@@ -63,5 +63,5 @@ $if mode=vi
 	#
 	"\C-g": "\eA | grep "
 	#
-	"\C-l": "\eA | less\C-j"
+	"\C-l": "\eA 2>&1 >/dev/null | less\C-j"
 $endif

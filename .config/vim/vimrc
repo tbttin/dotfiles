@@ -6,14 +6,12 @@ set viewdir=$XDG_DATA_HOME/vim/view
 set viminfo+='1000,n$XDG_DATA_HOME/vim/viminfo
 set runtimepath=$XDG_CONFIG_HOME/vim,$VIMRUNTIME,$XDG_CONFIG_HOME/vim/after
 
-if exists("*mkdir")
-    if !isdirectory(&undodir)   | call mkdir(&undodir, "p")   | endif
-    if !isdirectory(&directory) | call mkdir(&directory, "p") | endif
-    if !isdirectory(&backupdir) | call mkdir(&backupdir, "p") | endif
-    if !isdirectory(&viewdir) 	| call mkdir(&viewdir, "p")   | endif
-"    if !isdirectory($XDG_CONFIG_HOME . "/vim/after")
-"	call mkdir($XDG_CONFIG_HOME . "/vim/after", "p")
-"    endif
+if !isdirectory(&undodir)   | call mkdir(&undodir, "p", 0700)   | endif
+if !isdirectory(&directory) | call mkdir(&directory, "p", 0700) | endif
+if !isdirectory(&backupdir) | call mkdir(&backupdir, "p", 0700) | endif
+if !isdirectory(&viewdir)   | call mkdir(&viewdir, "p", 0700)   | endif
+if !isdirectory($XDG_CONFIG_HOME . "/vim/after")
+    call mkdir($XDG_CONFIG_HOME . "/vim/after", "p", 0700)
 endif
 
 " Cursor settings:
@@ -62,10 +60,10 @@ filetype plugin indent on
 " Enable syntax highlighting.
 syntax enable
 
-" GNU style.
 set shiftwidth=4
-"set expandtab
-set cinoptions+=t0,(0,f0.5s,{0.5s,0.5s},:0.5s,=0.5s
+" GNU style.
+"set softtabstop=4
+"set cinoptions+=t0,(0,f0.5s,{0.5s,0.5s},:0.5s,=0.5s
 " function and variable declaration align?
 
 " This plugin makes the "%" command jump to matching HTML tags, if/else/endif in Vim scripts, etc.
@@ -83,8 +81,13 @@ inoremap <Right> <ESC>:echoe "Use l"<CR>
 inoremap <Up>    <ESC>:echoe "Use k"<CR>
 inoremap <Down>  <ESC>:echoe "Use j"<CR>
 
+" v_CTRL-R replace selected text.
+vnoremap <C-r> "hy:%s/<C-r>h//gc<Left><Left><Left>
+
 " Jump to the last position when reopening a file.
 autocmd BufReadPost *
-  \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-  \ |   exe "normal! g`\""
-  \ | endif
+    \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+    \ |   exe "normal! g`\""
+    \ | endif
+
+"autocmd FileType html setlocal shiftwidth=2 tabstop=2
