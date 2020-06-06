@@ -1,5 +1,4 @@
 # vim: filetype=bash
-
 # Aliases are created and listed with the alias command, and removed with the unalias command. 
 
 # Adding color.
@@ -37,6 +36,8 @@ alias v3='vim $XDG_CONFIG_HOME/i3/config'
 alias vv='vim $XDG_CONFIG_HOME/vim/vimrc'
 # Xresources.
 alias vx='vim $XDG_CONFIG_HOME/X11/xresources'
+# urxvt
+alias vu='vim $XDG_CONFIG_HOME/X11/urxvtrc'
 
 # For safety.
 alias mv='mv -i'
@@ -49,16 +50,13 @@ alias um16='sudo umount /mnt/16g-usb'
 # Git bare alias for dotfiles, don't use $XDG_CONFIG_HOME here.
 alias config='/usr/bin/git --work-tree=$HOME --git-dir=$HOME/.config/dotfiles/'
 
-# Reconnect to home wifi with wpa_supplicant.
-alias recon='wpa_cli disable_network 0; sleep 3; wpa_cli enable_network 0'
 # Start wpa_supplicant client add cleanup history file.
 alias wpa_cli='wpa_cli && rm ~/.wpa_cli_history'
+# Reconnect to home wifi via wpa_supplicant.
+alias recon='/usr/bin/wpa_cli disable_network 0; sleep 5; /usr/bin/wpa_cli enable_network 0'
 
 # Decrease seek interval by 5, supress printing copyright, build options and versions.
 alias ffplay='ffplay -seek_interval 5 -hide_banner'
-# ffplay mkv files in current dir with external subtitles.
-alias ffps='/usr/bin/find . -maxdepth 1 -type f -name "*.mkv" -print0 |
-    xargs -0 -n1 -I{} ${BASH_ALIASES[ffplay]} -vf subtitles={}.en.srt {}'
 
 # startx with xinitrc in $XDG_CONFIG_HOME.
 alias startx='startx $XDG_CONFIG_HOME/X11/xinitrc'
