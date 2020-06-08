@@ -5,3 +5,5 @@ setlocal shiftwidth=2
 setlocal softtabstop=2
 setlocal textwidth=79
 setlocal fo-=ro fo+=cql
+"set cinoptions+=t0,(0,f0.5s,{0.5s,0.5s},:0.5s,=0.5s
+" function and variable declaration align?
