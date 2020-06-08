@@ -10,9 +10,6 @@ if !isdirectory(&undodir)   | call mkdir(&undodir, "p", 0700)   | endif
 if !isdirectory(&directory) | call mkdir(&directory, "p", 0700) | endif
 if !isdirectory(&backupdir) | call mkdir(&backupdir, "p", 0700) | endif
 if !isdirectory(&viewdir)   | call mkdir(&viewdir, "p", 0700)   | endif
-if !isdirectory($XDG_CONFIG_HOME . "/vim/after")
-    call mkdir($XDG_CONFIG_HOME . "/vim/after", "p", 0700)
-endif
 
 " Cursor settings:
 "   1 -> blinking block
@@ -61,10 +58,10 @@ filetype plugin indent on
 syntax enable
 
 set shiftwidth=4
-" GNU style.
-"set softtabstop=4
-"set cinoptions+=t0,(0,f0.5s,{0.5s,0.5s},:0.5s,=0.5s
-" function and variable declaration align?
+
+set softtabstop=4
+
+"set nojoinspaces
 
 " This plugin makes the "%" command jump to matching HTML tags, if/else/endif in Vim scripts, etc.
 packadd! matchit
@@ -89,5 +86,11 @@ autocmd BufReadPost *
     \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
     \ |   exe "normal! g`\""
     \ | endif
+
+augroup templates
+  au!
+  " read in template files
+  autocmd BufNewFile *.* silent! execute '0r $XDG_CONFIG_HOME/vim/templates/skeleton.'.expand("<afile>:e")
+augroup END
 
 "autocmd FileType html setlocal shiftwidth=2 tabstop=2
