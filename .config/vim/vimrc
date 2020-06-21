@@ -6,10 +6,10 @@ set viewdir=$XDG_DATA_HOME/vim/view
 set viminfo+='1000,n$XDG_DATA_HOME/vim/viminfo
 set runtimepath=$XDG_CONFIG_HOME/vim,$VIMRUNTIME,$XDG_CONFIG_HOME/vim/after
 
-if !isdirectory(&undodir)   | call mkdir(&undodir, "p", 0700)   | endif
-if !isdirectory(&directory) | call mkdir(&directory, "p", 0700) | endif
-if !isdirectory(&backupdir) | call mkdir(&backupdir, "p", 0700) | endif
-if !isdirectory(&viewdir)   | call mkdir(&viewdir, "p", 0700)   | endif
+if !isdirectory(&g:undodir)   | call mkdir(&g:undodir, "p", 0700)   | endif
+if !isdirectory(&g:directory) | call mkdir(&g:directory, "p", 0700) | endif
+if !isdirectory(&g:backupdir) | call mkdir(&g:backupdir, "p", 0700) | endif
+if !isdirectory(&g:viewdir)   | call mkdir(&g:viewdir, "p", 0700)   | endif
 
 " Cursor settings:
 "   1 -> blinking block
@@ -79,7 +79,9 @@ inoremap <Up>    <ESC>:echoe "Use k"<CR>
 inoremap <Down>  <ESC>:echoe "Use j"<CR>
 
 " v_CTRL-R replace selected text.
-vnoremap <C-r> "hy:%s/<C-r>h//gc<Left><Left><Left>
+vnoremap <C-R> "hy:%s/<C-R>h//gc<Left><Left><Left>
+
+command! MakeTags !ctags -R .
 
 " Jump to the last position when reopening a file.
 autocmd BufReadPost *
@@ -87,10 +89,16 @@ autocmd BufReadPost *
     \ |   exe "normal! g`\""
     \ | endif
 
-augroup templates
-  au!
-  " read in template files
-  autocmd BufNewFile *.* silent! execute '0r $XDG_CONFIG_HOME/vim/templates/skeleton.'.expand("<afile>:e")
+augroup remember_folds
+  autocmd!
+  autocmd BufWinLeave * mkview
+  autocmd BufWinEnter * silent! loadview
 augroup END
+
+"augroup templates
+"  au!
+"  " read in template files
+"  autocmd BufNewFile *.* silent! execute '0r $XDG_CONFIG_HOME/vim/templates/skeleton.'.expand("<afile>:e") | norm 5G
+"augroup END
 
 "autocmd FileType html setlocal shiftwidth=2 tabstop=2
