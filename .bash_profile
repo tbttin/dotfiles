@@ -10,6 +10,10 @@ export XDG_CONFIG_DIRS="/etc/xdg"
 export XDG_CACHE_HOME="$HOME/.cache"
 # XDG_RUNTIME_DIR is set by default through pam_systemd
 
+# Default editor.
+export VISUAL="vim"
+export EDITOR="$VISUAL"
+
 # Enable color in less, source: archlinux.
 export LESS=-R
 #export LESS=-R-+i
