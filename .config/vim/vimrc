@@ -43,6 +43,8 @@ set scrolloff=3
 " Command completion.
 set wildmenu
 
+set hidden
+
 " "@@@" is put in the last columns of the last screen line to indicate the rest of the line is not displayed.
 set display=lastline
 
@@ -72,7 +74,7 @@ nnoremap <Left>  :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up>    :echoe "Use k"<CR>
 nnoremap <Down>  :echoe "Use j"<CR>
-" ...and in insert mode
+" ...and in insert mode.
 inoremap <Left>  <ESC>:echoe "Use h"<CR>
 inoremap <Right> <ESC>:echoe "Use l"<CR>
 inoremap <Up>    <ESC>:echoe "Use k"<CR>
@@ -81,6 +83,7 @@ inoremap <Down>  <ESC>:echoe "Use j"<CR>
 " v_CTRL-R replace selected text.
 vnoremap <C-R> "hy:%s/<C-R>h//gc<Left><Left><Left>
 
+" Create ctags file in current directory.
 command! MakeTags !ctags -R .
 
 " Jump to the last position when reopening a file.
@@ -89,13 +92,19 @@ autocmd BufReadPost *
     \ |   exe "normal! g`\""
     \ | endif
 
-augroup remember_folds
+augroup AutoSaveFolds
   autocmd!
-  autocmd BufWinLeave * mkview
-  autocmd BufWinEnter * silent! loadview
-augroup END
+  " view files are about 500 bytes
+  " bufleave but not bufwinleave captures closing 2nd tab
+  " nested is needed by bufwrite* (if triggered via other autocmd)
+  autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
+  autocmd BufWinEnter ?* silent! loadview
+augroup end
+"Furthermore, I use
+"set viewoptions=folds,cursor
+"set sessionoptions=folds
 
-"augroup templates
+"augroup Templates
 "  au!
 "  " read in template files
 "  autocmd BufNewFile *.* silent! execute '0r $XDG_CONFIG_HOME/vim/templates/skeleton.'.expand("<afile>:e") | norm 5G
