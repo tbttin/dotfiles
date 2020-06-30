@@ -226,5 +226,5 @@ bindsym Print --release exec --no-startup-id scrot "$(xdg-user-dir PICTURES)/scr
 # Reconnect with home network.
 bindsym $mod+Shift+w exec "wpa_cli disable_network 0; sleep 5; wpa_cli enable_network 0"
 
-# Start urxvt. 
-exec --no-startup-id urxvt
+# Start terminal.
+exec --no-startup-id i3-sensible-terminal
