@@ -117,33 +117,3 @@ augroup end
 " Modeline {{{1
 " vim: foldmethod=marker
 " }}}1
-
-" Vim default options. {{{1
-
-" While typing a search command, if match SHOW where the pattern.
-"set incsearch
-
-" Show the (partial) command in the last line of screen.
-"set showcmd
-
-" Keep 3 lines when scrolling.
-"set scrolloff=3
-
-" "@@@" is put in the last columns of the last screen line to indicate the rest of the line is not displayed.
-"set display=lastline,truncate
-
-" Filetype detection.
-" Using filetype plugin files.
-" Using indent files.
-"filetype plugin indent on
-
-" Enable syntax highlighting.
-"syntax enable
-
-" Show command-line completion menu.
-"set wildmenu
-
-" This makes typing Esc take effect more quickly.
-"set ttimeout
-"set ttimeoutlen=100
-" }}}1
