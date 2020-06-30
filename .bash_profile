@@ -56,5 +56,5 @@ export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
 # On systems which are using systemd, $XDG_VTNR will be set both in graphical (by lightdm, gdm, etc) and in text-mode sessions (by /bin/login).
 # If you would like to remain logged in when the X session ends, remove exec.
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-	startx # alias xinitrc included.
+	startx # startx is an alias, xinitrc is included.
 fi
