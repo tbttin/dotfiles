@@ -1,72 +1,87 @@
-" xdg-base-dir configurations, source: Arch linux.
+" Options. {{{1
+" Always refer to the relevant :help before adding anything to vimrc.
+" Using short names has ONLY cons and ZERO pros.
+
+" Defaults.vim {{{
+
+" /etc/vimrc
+" /usr/share/vim/vimfiles/archlinux.vim
+" $VIMRUNTIME/defaults.vim
+unlet! skip_defaults_vim
+source $VIMRUNTIME/defaults.vim
+" }}}
+
+" xdg-base-dir configurations. {{{
+" source: archwiki
 set undodir=$XDG_DATA_HOME/vim/undo
 set directory=$XDG_DATA_HOME/vim/swap
 set backupdir=$XDG_DATA_HOME/vim/backup
 set viewdir=$XDG_DATA_HOME/vim/view
-set viminfo+='1000,n$XDG_DATA_HOME/vim/viminfo
+set viminfo='1000,<50,s10,h,n$XDG_DATA_HOME/vim/viminfo
 set runtimepath=$XDG_CONFIG_HOME/vim,$VIMRUNTIME,$XDG_CONFIG_HOME/vim/after
 
 if !isdirectory(&g:undodir)   | call mkdir(&g:undodir, "p", 0700)   | endif
 if !isdirectory(&g:directory) | call mkdir(&g:directory, "p", 0700) | endif
 if !isdirectory(&g:backupdir) | call mkdir(&g:backupdir, "p", 0700) | endif
 if !isdirectory(&g:viewdir)   | call mkdir(&g:viewdir, "p", 0700)   | endif
+" }}}
 
-" Cursor settings:
+" Displays. {{{
+
+" Cursor settings.
 "   1 -> blinking block
 "   2 -> solid block
 "   3 -> blinking underscore
 "   4 -> solid underscore
 "   5 -> blinking vertical bar
 "   6 -> solid vertical bar
-" Mode Settings
+" Mode settings.
 let &t_SI.="\e[3 q" "SI = INSERT mode
 let &t_SR.="\e[4 q" "SR = REPLACE mode
 let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
 
-" Always refer to the relevant :help before adding anything to vimrc.
-" Using short names has ONLY cons and ZERO pros.
 set number relativenumber
 
-" While typing a search command, if match SHOW where the pattern.
-set incsearch
+set linebreak
+" }}}
 
-" Show the (partial) command in the last line of screen.
-set showcmd
-
-" This makes typing Esc take effect more quickly.
-set ttimeout
-set ttimeoutlen=100
-
-" Keep 3 lines when scrolling.
-set scrolloff=3
-
-" Command completion.
-set wildmenu
-
-set hidden
-
-" "@@@" is put in the last columns of the last screen line to indicate the rest of the line is not displayed.
-set display=lastline
-
-" Possibility to have more than one unsaved buffers.
-"set hidden
-
-" Filetype detection.
-" Using filetype plugin files.
-" Using indent files.
-filetype plugin indent on
-
-" Enable syntax highlighting.
-syntax enable
+" Indentations. {{{
 
 set shiftwidth=4
 
 set softtabstop=4
 
-"set nojoinspaces
+" Don't use tabs for indentation. Spaces are nicer to work with.
+set expandtab
+" }}}
+
+" Command-lines. {{{
+
+" Disable "Enter to continue.".
+set cmdheight=2
+" }}}
 
 " This plugin makes the "%" command jump to matching HTML tags, if/else/endif in Vim scripts, etc.
-packadd! matchit
+if has('syntax') && has('eval')
+  packadd! matchit
+endif
+
+" Possibility to have more than one unsaved buffers.
+set hidden
+
+set mouse&
+
+set viewoptions=folds,cursor
+"set sessionoptions=folds
+" }}}1
+
+" Mappings. {{{1
+
+" v_CTRL-R replace selected text.
+vnoremap <C-R> "hy:%s/<C-R>h//gc<Left><Left><Left>
+
+" Bring me vimrc.
+nmap <Leader>v :tabedit $MYVIMRC<CR>
 
 " Arrows? NO!
 " in normal mode...
@@ -79,18 +94,15 @@ inoremap <Left>  <ESC>:echoe "Use h"<CR>
 inoremap <Right> <ESC>:echoe "Use l"<CR>
 inoremap <Up>    <ESC>:echoe "Use k"<CR>
 inoremap <Down>  <ESC>:echoe "Use j"<CR>
+" }}}1
 
-" v_CTRL-R replace selected text.
-vnoremap <C-R> "hy:%s/<C-R>h//gc<Left><Left><Left>
+" Commands. {{{1
 
 " Create ctags file in current directory.
 command! MakeTags !ctags -R .
+" }}}1
 
-" Jump to the last position when reopening a file.
-autocmd BufReadPost *
-    \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-    \ |   exe "normal! g`\""
-    \ | endif
+" Autocommands. {{{1
 
 augroup AutoSaveFolds
   autocmd!
@@ -100,14 +112,38 @@ augroup AutoSaveFolds
   autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
   autocmd BufWinEnter ?* silent! loadview
 augroup end
-"Furthermore, I use
-"set viewoptions=folds,cursor
-"set sessionoptions=folds
+" }}}1
 
-"augroup Templates
-"  au!
-"  " read in template files
-"  autocmd BufNewFile *.* silent! execute '0r $XDG_CONFIG_HOME/vim/templates/skeleton.'.expand("<afile>:e") | norm 5G
-"augroup END
+" Modeline {{{1
+" vim: foldmethod=marker
+" }}}1
 
-"autocmd FileType html setlocal shiftwidth=2 tabstop=2
+" Vim default options. {{{1
+
+" While typing a search command, if match SHOW where the pattern.
+"set incsearch
+
+" Show the (partial) command in the last line of screen.
+"set showcmd
+
+" Keep 3 lines when scrolling.
+"set scrolloff=3
+
+" "@@@" is put in the last columns of the last screen line to indicate the rest of the line is not displayed.
+"set display=lastline,truncate
+
+" Filetype detection.
+" Using filetype plugin files.
+" Using indent files.
+"filetype plugin indent on
+
+" Enable syntax highlighting.
+"syntax enable
+
+" Show command-line completion menu.
+"set wildmenu
+
+" This makes typing Esc take effect more quickly.
+"set ttimeout
+"set ttimeoutlen=100
+" }}}1
