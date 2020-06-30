@@ -30,7 +30,7 @@ HISTSIZE=1000
 [[ -f "$XDG_CONFIG_HOME/bash/bash-aliases" ]] && . "$XDG_CONFIG_HOME/bash/bash-aliases"
 
 # Create a new directory and enter it.
-function mcd() { mkdir -pv "$@" && cd "$1"; }
+function mkcd() { mkdir -pv "$@" && cd "$1"; }
 
 # Search in vim docs.
 function vdoc() { grep "$1" /usr/share/vim/vim82/doc/usr_*; }
