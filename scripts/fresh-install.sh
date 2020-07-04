@@ -1,3 +1,5 @@
+#curl -Lks https://git.io/fresh-install | /bin/bash
+
 git clone --bare https://github.com/tbttin/dotfiles.git $HOME/.config/dotfiles
 function config {
     /usr/bin/git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME $@
@@ -15,7 +17,11 @@ config checkout
 config config status.showUntrackedFiles no
 
 echo "Creating regular directories."
-mkdir ~/{documents,downloads,pictures,videos} && xdg-user-dirs-update
+mkdir ~/{documents,downloads,pictures,videos}
+
+if [ -x "$(command -v xdg-user-dirs-update)" ]; then
+    echo "Updating xdg-user-dirs."
+    xdg-user-dirs-update
+fi;
 
 echo "Done."
-#curl -Lks short-url-here | /bin/bash
