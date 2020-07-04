@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Create a temp file.
 TMPBG=$(mktemp /tmp/XXXXXXXXXX.png)
 LOCK="$XDG_CONFIG_HOME/i3/lock.png"
