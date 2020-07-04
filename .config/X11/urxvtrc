@@ -16,13 +16,13 @@ URxvt.iso14755: false
 URxvt.iso14755_52: false
 
 ! Disable scrolling.
-URxvt*saveLines: 0
+!URxvt*saveLines: 0
 
-!! Do not scroll with output.
-!URxvt*scrollTtyOutput: false
-!
-!! Scroll in relation to buffer (with mouse scroll or Shift+Page Up).
-!URxvt*scrollWithBuffer: true
-!
-!! Scroll back to the bottom on keypress.
-!URxvt*scrollTtyKeypress: true
+! Do not scroll with output.
+URxvt*scrollTtyOutput: false
+
+! Scroll in relation to buffer (with mouse scroll or Shift+Page Up).
+URxvt*scrollWithBuffer: true
+
+! Scroll back to the bottom on keypress.
+URxvt*scrollTtyKeypress: true
