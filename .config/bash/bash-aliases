@@ -36,8 +36,10 @@ alias v3='vim $XDG_CONFIG_HOME/i3/config'
 alias vv='vim $XDG_CONFIG_HOME/vim/vimrc'
 # Xresources.
 alias vx='vim $XDG_CONFIG_HOME/X11/xresources'
-# urxvt
+# Urxvt
 alias vu='vim $XDG_CONFIG_HOME/X11/urxvtrc'
+# Zathura
+alias vz='vim $XDG_CONFIG_HOME/zathura/zathurarc'
 
 # For safety.
 alias mv='mv -i'
