@@ -10,12 +10,12 @@ unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
 " }}}
 
-" Help vim to respect XDG Base Directory Specification. {{{
+" XDG Base Directory Specification. {{{
 set undodir=$XDG_DATA_HOME/vim/undo
 set directory=$XDG_DATA_HOME/vim/swap
 set backupdir=$XDG_DATA_HOME/vim/backup
 set viewdir=$XDG_DATA_HOME/vim/view
-set viminfo='1000,<50,s10,h,n$XDG_DATA_HOME/vim/viminfo
+set viminfo+=n$XDG_DATA_HOME/vim/viminfo
 set runtimepath=$XDG_CONFIG_HOME/vim,$VIMRUNTIME,$XDG_CONFIG_HOME/vim/after
 
 " If not exist create it.
@@ -33,7 +33,7 @@ if !isdirectory(&g:viewdir)   | call mkdir(&g:viewdir, "p", 0700)   | endif
 "   4 -> solid underscore
 "   5 -> blinking vertical bar
 "   6 -> solid vertical bar
-" Mode settings. Synchronize with terminal cursor (Bash vi mode).
+" Mode settings. Synchronize with terminal cursor (vi mode).
 let &t_SI.="\e[3 q" " SI = INSERT mode
 let &t_SR.="\e[4 q" " SR = REPLACE mode
 let &t_EI.="\e[1 q" " EI = NORMAL mode (ELSE)
@@ -58,13 +58,16 @@ set expandtab
 
 " Command-lines. {{{
 " Disable "Enter to continue.".
-set cmdheight=2
+"set cmdheight=2
 " }}}
 
 " This plugin makes the "%" command jump to matching HTML tags, if/else/endif in Vim scripts, etc.
 if has('syntax') && has('eval')
   packadd! matchit
 endif
+
+" It's gotta be somewhere there!
+set path+=**
 
 " Possibility to have more than one unsaved buffers.
 set hidden
@@ -73,7 +76,7 @@ set hidden
 set mouse&
 
 " Which are gonna save with mkview command.
-set viewoptions=folds,cursor
+set viewoptions=folds
 "set sessionoptions=folds
 " }}}1
 
