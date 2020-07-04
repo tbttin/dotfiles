@@ -222,6 +222,8 @@ bindsym $mod+Shift+Return exec firefox
 bindsym $mod+Shift+t exec --no-startup-id transmission-daemon
 # scrot
 bindsym Print --release exec --no-startup-id scrot "$(xdg-user-dir PICTURES)/screenshots/%Y-%m-%d-%H-%M-%S.png"
+# Zathura
+bindsym $mod+Shift+Z exec zathura
 
 # Reconnect with home network.
 bindsym $mod+Shift+w exec "wpa_cli disable_network 0; sleep 5; wpa_cli enable_network 0"
