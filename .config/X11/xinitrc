@@ -1,14 +1,15 @@
 # vim: filetype=bash
 
-# Corlors.
+# Load corlor scheme.
 [[ -f $XDG_CONFIG_HOME/X11/xresources ]] && xrdb -load $XDG_CONFIG_HOME/X11/xresources
-# Urxvt settings.
+# Load urxvt settings.
 [[ -f $XDG_CONFIG_HOME/X11/urxvtrc ]] && xrdb -merge $XDG_CONFIG_HOME/X11/urxvtrc
 
-# xmodmap
+# Remap keyboard.
 [[ -f $XDG_CONFIG_HOME/X11/xmodmap/xmodmaprc ]] && xmodmap $XDG_CONFIG_HOME/X11/xmodmap/xmodmaprc
 
 # Swap left and right mouse button.
 xinput set-button-map $(xinput list --id-only "Logitech Wireless Mouse") 3 2 1
 
+# Start i3 window manger.
 exec i3
