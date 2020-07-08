@@ -58,7 +58,7 @@ alias cfd='config diff'
 alias cfl='config log'
 
 # Start wpa_supplicant client add cleanup history file.
-alias wpa_cli='wpa_cli && rm ~/.wpa_cli_history'
+alias wpa_cli='wpa_cli && rm -f ~/.wpa_cli_history'
 # Reconnect to home wifi via wpa_supplicant.
 alias recon='/usr/bin/wpa_cli disable_network 0; sleep 5; /usr/bin/wpa_cli enable_network 0'
 
