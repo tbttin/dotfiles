@@ -15,7 +15,7 @@ export VISUAL="vim"
 export EDITOR="$VISUAL"
 
 # Enable color in less, source: archlinux.
-export LESS=-R
+export LESS="-R"
 #export LESS=-R-+i
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blink
 export LESS_TERMCAP_md=$'\E[1;36m'     # begin bold
@@ -31,7 +31,7 @@ export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 export LESSHISTFILE="$XDG_DATA_HOME/less/history"
 
 # Use XDG config dir for vim.
-export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
+export VIMINIT='let $VIMDOTDIR=$XDG_CONFIG_HOME."/vim" | let $MYVIMRC=$VIMDOTDIR."/vimrc" | source $MYVIMRC'
 
 # Readline config file.
 export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
