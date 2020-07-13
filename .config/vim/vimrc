@@ -16,7 +16,7 @@ set directory=$XDG_DATA_HOME/vim/swap
 set backupdir=$XDG_DATA_HOME/vim/backup
 set viewdir=$XDG_DATA_HOME/vim/view
 set viminfo+=n$XDG_DATA_HOME/vim/viminfo
-set runtimepath=$XDG_CONFIG_HOME/vim,$VIMRUNTIME,$XDG_CONFIG_HOME/vim/after
+set runtimepath=$VIMDOTDIR,$VIMRUNTIME,$VIMDOTDIR/after
 
 " If not exist create it.
 if !isdirectory(&g:undodir)   | call mkdir(&g:undodir, "p", 0700)   | endif
@@ -58,15 +58,17 @@ set wildignorecase
 
 " It's gotta be somewhere in there!
 set path-=, path+=**
-
-" Disable "Enter to continue.".
-"set cmdheight=2
 " }}}
 
+" Bash default syntax highlighting.
+let g:is_bash=1
+" Enable function folding.
+let g:sh_fold_enabled=1
+
 " This plugin makes the "%" command jump to matching HTML tags, if/else/endif in Vim scripts, etc.
-if has('syntax') && has('eval')
-  packadd! matchit
-endif
+"if has('syntax') && has('eval')
+"  packadd! matchit
+"endif
 
 " Possibility to have more than one unsaved buffers.
 set hidden
@@ -74,37 +76,41 @@ set hidden
 " Reset defaults.vim mouse option.
 set mouse&
 
-" Which are gonna save with mkview command.
+" Which are gonna save with :mkview command.
 set viewoptions=folds,cursor
-"set sessionoptions=folds
 " }}}1
 
 " Mappings. {{{1
-" Create ctags file in current directory.
+function! CleverTab() " {{{
+    if strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
+        return "\<Tab>"
+    else
+        return "\<C-N>"
+    endif
+endfunction
+" }}}
+" Do i need <S-Tab>?
+inoremap <Tab> <C-R>=CleverTab()<CR>
+
+" Kill two birds with one stone.
+cabbrev H tab help
+
+" Create tags file in current directory recursively.
 nnoremap <F5> :!ctags -R<CR>
 
 " Highlight next/previous line.
 xnoremap gk <Esc>kV
 xnoremap gj <Esc>jV
 
-" Replace selected text with CTRL-R.
+" Search and substitute with selected text.
 xnoremap <Leader>f "sy/\V<C-R>=escape(@s, '/\')<CR>
 nnoremap <Leader>s :%s///gc<Left><Left><Left>
 
 " Bring $MYVIMRC in tab.
 nmap <Leader>v :tabedit $MYVIMRC<CR>
 
-" Arrows? No!
-" Normal, Visual, Select, Operator-pending
-noremap <Left>  <Nop>
-noremap <Right> <Nop>
-noremap <Up>    <Nop>
-noremap <Down>  <Nop>
-" Insert.
-inoremap <Left>  <Nop>
-inoremap <Right> <Nop>
-inoremap <Up>    <Nop>
-inoremap <Down>  <Nop>
+" Bring me c.vim.
+nmap <Leader>c :tabedit $VIMDOTDIR/after/ftplugin/c.vim<CR>
 " }}}1
 
 " Commands. {{{1
@@ -125,3 +131,4 @@ augroup end
 " Modeline {{{1
 " vim: foldmethod=marker
 " }}}1
+
