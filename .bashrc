@@ -27,7 +27,7 @@ HISTCONTROL="ignoreboth:erasedups"
 HISTSIZE=1000
 
 # Source alias file.
-[[ -f "$XDG_CONFIG_HOME/bash/bash-aliases" ]] && . "$XDG_CONFIG_HOME/bash/bash-aliases"
+[[ -f "$XDG_CONFIG_HOME/bash/aliases.bash" ]] && . "$XDG_CONFIG_HOME/bash/aliases.bash"
 
 # Create a new directory and enter it.
 function mkcd() { mkdir -pv "$@" && cd "$1"; }
@@ -35,6 +35,7 @@ function mkcd() { mkdir -pv "$@" && cd "$1"; }
 # Search in vim docs.
 function vdoc() { grep "$1" /usr/share/vim/vim82/doc/usr_*; }
 
+# Play all .mkv file in current directory with subtitle prefix.
 function ffps()
 {
     if [ -z "$1" ] ; then
