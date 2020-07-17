@@ -119,7 +119,7 @@ nmap <Leader>c :tabedit $VIMDOTDIR/after/ftplugin/c.vim<CR>
 augroup Templates
   au!
   " Read in template files.
-  autocmd BufNewFile main.c silent! execute '0r $VIMDOTDIR/templates/main.c'
+  autocmd BufNewFile ?* silent! execute '0r $VIMDOTDIR/templates/'.expand("<afile>:t")
 augroup END
 
 augroup AutoSaveFolds
