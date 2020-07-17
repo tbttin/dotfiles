@@ -17,7 +17,7 @@
     "download-queue-size": 5,
     "encryption": 2,
     "idle-seeding-limit": 30,
-    "idle-seeding-limit-enabled": true,
+    "idle-seeding-limit-enabled": false,
     "incomplete-dir": "/home/tbtt/Downloads",
     "incomplete-dir-enabled": false,
     "lpd-enabled": true,
