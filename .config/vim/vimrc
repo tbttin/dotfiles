@@ -1,10 +1,11 @@
-" Options. {{{1
+" options. {{{1
 " Always refer to the relevant :help before adding anything to vimrc.
 " Using short names has ONLY cons and ZERO pros.
 
-" Defaults.vim {{{
+" defaults.vim {{{
 " /etc/vimrc
 " /usr/share/vim/vimfiles/archlinux.vim
+" $VIMDOTDIR/vimrc
 " $VIMRUNTIME/defaults.vim
 unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
@@ -25,7 +26,10 @@ if !isdirectory(&g:backupdir) | call mkdir(&g:backupdir, "p", 0700) | endif
 if !isdirectory(&g:viewdir)   | call mkdir(&g:viewdir, "p", 0700)   | endif
 " }}}
 
-" Displays. {{{
+" displays. {{{
+" Show function name + template in auto completion popup menu.
+set showfulltag
+
 " When on, splitting a window will put the new window below the current one.
 set splitbelow
 
@@ -41,7 +45,7 @@ let &t_SR.="\<Esc>[4 q" " SR = REPLACE mode
 let &t_EI.="\<Esc>[1 q" " EI = NORMAL mode (ELSE)
 " }}}
 
-" Indentations. {{{
+" indentations. {{{
 " Number of spaces to use for each step of (auto)indent.
 set shiftwidth=4
 
@@ -52,10 +56,7 @@ set softtabstop=4
 set expandtab
 " }}}
 
-" Command-lines. {{{
-" File name completion case insensitive.
-set wildignorecase
-
+" command-lines. {{{
 " It's gotta be somewhere in there!
 set path-=, path+=**
 " }}}
@@ -80,7 +81,10 @@ set mouse&
 set viewoptions=folds,cursor
 " }}}1
 
-" Mappings. {{{1
+" mappings. {{{1
+" Yank from first non-blank to last non-blank.
+nnoremap Y ^yg_
+
 function! CleverTab() " {{{
     if strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
         return "\<Tab>"
@@ -94,9 +98,6 @@ inoremap <Tab> <C-R>=CleverTab()<CR>
 
 " Kill two birds with one stone.
 cabbrev H tab help
-
-" Create tags file in current directory recursively.
-nnoremap <F5> :!ctags -R<CR>
 
 " Highlight next/previous line.
 xnoremap gk <Esc>kV
@@ -113,11 +114,14 @@ nmap <Leader>v :tabedit $MYVIMRC<CR>
 nmap <Leader>c :tabedit $VIMDOTDIR/after/ftplugin/c.vim<CR>
 " }}}1
 
-" Commands. {{{1
-" Nope
-" }}}1
+" autocommands. {{{1
 
-" Autocommands. {{{1
+augroup Templates
+  au!
+  " Read in template files.
+  autocmd BufNewFile main.c silent! execute '0r $VIMDOTDIR/templates/main.c'
+augroup END
+
 augroup AutoSaveFolds
   autocmd!
   " view files are about 500 bytes
@@ -128,7 +132,7 @@ augroup AutoSaveFolds
 augroup end
 " }}}1
 
-" Modeline {{{1
+" modeline {{{1
 " vim: foldmethod=marker
 " }}}1
 
