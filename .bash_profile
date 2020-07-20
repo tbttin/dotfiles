@@ -10,13 +10,15 @@ export XDG_CONFIG_DIRS="/etc/xdg"
 export XDG_CACHE_HOME="$HOME/.cache"
 # XDG_RUNTIME_DIR is set by default through pam_systemd
 
+# Update PATH variable.
+export PATH="$PATH:$HOME/scripts"
+
 # Default editor.
 export VISUAL="vim"
 export EDITOR="$VISUAL"
 
 # Enable color in less, source: archlinux.
 export LESS="-R"
-#export LESS=-R-+i
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blink
 export LESS_TERMCAP_md=$'\E[1;36m'     # begin bold
 export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
@@ -29,6 +31,9 @@ export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 #export LESSHISTFILE=- # can be used to disable this feature.
 [[ ! -d "$XDG_DATA_HOME/less/" ]] && mkdir -p -m 0700 "$XDG_DATA_HOME/less/"
 export LESSHISTFILE="$XDG_DATA_HOME/less/history"
+
+# Indent profile.
+export INDENT_PROFILE="$XDG_CONFIG_HOME/indent/indent.pro"
 
 # Use XDG config dir for vim.
 export VIMINIT='let $VIMDOTDIR=$XDG_CONFIG_HOME."/vim" | let $MYVIMRC=$VIMDOTDIR."/vimrc" | source $MYVIMRC'
