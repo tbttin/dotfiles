@@ -105,7 +105,7 @@ xnoremap gj <Esc>jV
 
 " Search and substitute with selected text.
 xnoremap <Leader>f "sy/\V<C-R>=escape(@s, '/\')<CR>
-nnoremap <Leader>s :%s///gc<Left><Left><Left>
+nnoremap <Leader>s :%substitute///gc<Left><Left><Left>
 
 " Bring $MYVIMRC in tab.
 nmap <Leader>v :tabedit $MYVIMRC<CR>
@@ -115,14 +115,15 @@ nmap <Leader>c :tabedit $VIMDOTDIR/after/ftplugin/c.vim<CR>
 " }}}1
 
 " autocommands. {{{1
-
 augroup Templates
   au!
   " Read in template files.
-  autocmd BufNewFile ?* silent! execute '0r $VIMDOTDIR/templates/'.expand("<afile>:t")
+  autocmd BufNewFile ?* silent! execute '0read $VIMDOTDIR/templates/'.expand("<afile>:t")
+  " Parse special text in the templates after the read.
+  autocmd BufNewFile ?* %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval(submatch(1))#ge
 augroup END
 
-augroup AutoSaveFolds
+augroup Folds
   autocmd!
   " view files are about 500 bytes
   " bufleave but not bufwinleave captures closing 2nd tab
