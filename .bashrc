@@ -35,14 +35,16 @@ function mkcd() { mkdir -p "$@" && cd "$1"; }
 # Search in vim docs.
 function vdoc() { grep "$1" /usr/share/vim/vim82/doc/usr_*; }
 
-# Play all .mkv file in current directory with subtitle prefix.
+# Play all .mkv files in current directory.
 function ffps()
 {
-    if [ -z "$1" ] ; then
-	# if no argument just play it.
-	find . -maxdepth 1 -type f -name "*.mkv" -print0 | xargs -0 -n 1 -I {} ffplay -hide_banner -seek_interval 5 {}
-    else 
-	# play with external subtitle.
-	find . -maxdepth 1 -type f -name "*.mkv" -print0 | xargs -0 -n 1 -I {} ffplay -hide_banner -seek_interval 5 -vf subtitles={}.$1.srt {}
+    find . -maxdepth 1 -type f -name "*.mkv" -print0 | while read -d $'\0' file;
+do
+    exEnSub="${file}.en.srt"
+    if [ -f $exEnSub ]; then
+        ${BASH_ALIASES[ffplay]} ${file} -vf subtitles=${exEnSub}
+    else
+        ${BASH_ALIASES[ffplay]} ${file}
     fi
+done
 }
