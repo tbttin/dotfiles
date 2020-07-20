@@ -1,10 +1,13 @@
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra
-OBJ = main.c
+CDBGFLAGS = -g -DDEBUG
+OBJS = main.o
 
-all : $(OBJ)
-	$(CC) $(CFLAGS) -o all $(OBJ)
+all : $(OBJS)
+	$(CC) $(CFLAGS) -o all $(OBJS)
 
 .PHONY : clean
 clean :
 	rm -f all
+debug : all
+	$(CC) $(CFLAGS) $(CDBGFLAGS) -o all $(OBJS)
