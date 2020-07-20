@@ -12,6 +12,11 @@ setlocal shiftwidth=2
 setlocal softtabstop=2
 setlocal textwidth=79
 
+" Use external format program.
+setlocal formatprg=indent
+
+packadd termdebug
+
 " Disable auto insert line comment.
 setlocal comments-=:// comments+=f://
 
@@ -28,6 +33,9 @@ inoremap ( ()<Esc>i
 " Create tags file in $pwd recursively.
 nnoremap <F5> :!ctags -R<CR>
 
-" Build and run.
-nnoremap <buffer> <Leader>b :write \| make \| copen<CR>
+" Build.
+nnoremap <buffer> <Leader>b :write \| make \| cwindow<CR>
+" Run.
 nnoremap <buffer> <Leader>r :!./all<CR>
+" Debug.
+nnoremap <buffer> <Leader>d :write \| make debug \| Termdebug all<CR>
