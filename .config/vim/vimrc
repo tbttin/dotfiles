@@ -82,6 +82,7 @@ set viewoptions=folds,cursor
 " }}}1
 
 " mappings. {{{1
+" TODO comment and uncomment script.
 " Yank from first non-blank to last non-blank.
 nnoremap Y ^yg_
 
@@ -107,20 +108,28 @@ xnoremap gj <Esc>jV
 xnoremap <Leader>f "sy/\V<C-R>=escape(@s, '/\')<CR>
 nnoremap <Leader>s :%substitute///gc<Left><Left><Left>
 
-" Bring $MYVIMRC in tab.
-nmap <Leader>v :tabedit $MYVIMRC<CR>
+" Bring me Makefile template file.
+nmap <Leader>vtM :tabedit $VIMDOTDIR/templates/Makefile<CR>
+
+" Bring me main.c template file.
+nmap <Leader>vtm :tabedit $VIMDOTDIR/templates/main.c<CR>
 
 " Bring me c.vim.
-nmap <Leader>c :tabedit $VIMDOTDIR/after/ftplugin/c.vim<CR>
+nmap <Leader>vc :tabedit $VIMDOTDIR/after/ftplugin/c.vim<CR>
+
+" Bring $MYVIMRC in tab.
+nmap <Leader>vv :tabedit $MYVIMRC<CR>
 " }}}1
 
 " autocommands. {{{1
 augroup Templates
   au!
   " Read in template files.
-  autocmd BufNewFile ?* silent! execute '0read $VIMDOTDIR/templates/'.expand("<afile>:t")
+  autocmd BufNewFile ?* silent! execute '0read $VIMDOTDIR/templates/'.expand("<afile>:t") | $d
   " Parse special text in the templates after the read.
   autocmd BufNewFile ?* %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval(submatch(1))#ge
+  " TODO Auto startinsert! at Description: line.
+  autocmd BufNewFile ?* call search("Description:") | normal $
 augroup END
 
 augroup Folds
@@ -136,4 +145,3 @@ augroup end
 " modeline {{{1
 " vim: foldmethod=marker
 " }}}1
-
