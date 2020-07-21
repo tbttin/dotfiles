@@ -1,11 +1,5 @@
 # Aliases are created and listed with the alias command, and removed with the unalias command. 
 
-# Adding color.
-alias ls='ls --color=auto'
-alias ll='ls -lh'
-alias la='ll -a'
-alias grep='grep --color=auto'
-
 # Some improving for movements.
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -23,16 +17,19 @@ alias spf='systemctl poweroff -i'
 alias supa='sudo pacman'
 
 # Quick edit some config files.
-# Readline.
-alias vin='vim $INPUTRC'
-# Bash files.
+# Bash.
 alias vb='vim ~/.bashrc'
 alias vp='vim ~/.bash_profile'
 alias va='vim $XDG_CONFIG_HOME/bash/aliases.bash'
+# Readline.
+alias vin='vim $INPUTRC'
 # I3WM.
-alias v3='vim $XDG_CONFIG_HOME/i3/config'
+alias vi3='vim $XDG_CONFIG_HOME/i3/config'
 # Vim.
 alias vv='vim $XDG_CONFIG_HOME/vim/vimrc'
+alias vc='vim $XDG_CONFIG_HOME/vim/after/ftplugin/c.vim'
+alias vtm='vim $XDG_CONFIG_HOME/vim/templates/main.c'
+alias vtM='vim $XDG_CONFIG_HOME/vim/templates/Makefile'
 # Xresources.
 alias vx='vim $XDG_CONFIG_HOME/X11/xresources'
 # Urxvt.
@@ -44,11 +41,11 @@ alias vz='vim $XDG_CONFIG_HOME/zathura/zathurarc'
 alias mv='mv -i'
 alias cp='cp -i'
 
-# Mount and umount.
+# Mount, unmount external drive/usb.
 alias m16='sudo mount /mnt/16g-usb && cd /mnt/16g-usb'
 alias um16='sudo umount /mnt/16g-usb'
 
-# Git bare alias for dotfiles, don't use $XDG_CONFIG_HOME here.
+# Git bare alias for dotfiles. Don't use $XDG_CONFIG_HOME here.
 alias config='/usr/bin/git --work-tree=$HOME --git-dir=$HOME/.config/dotfiles/'
 alias cfs='config status'
 alias cfd='config diff'
@@ -56,6 +53,12 @@ alias cfa='config add'
 alias cfc='config commit'
 alias cfl='config log'
 alias cfp='config push'
+
+# Adding colors.
+alias ls='ls --color=auto'
+alias ll='ls -lh'
+alias la='ll -a'
+alias grep='grep --color=auto'
 
 # Start wpa_supplicant client add cleanup history file.
 alias wpacli='wpa_cli && rm -f ~/.wpa_cli_history'
