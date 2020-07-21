@@ -15,16 +15,17 @@ setlocal textwidth=79
 " Use external format program.
 setlocal formatprg=indent
 
-packadd termdebug
-
 " Disable auto insert line comment.
 setlocal comments-=:// comments+=f://
 
 " Temporarily, one Makefile multi source files.
 setlocal makeprg=make\ -f\ ../Makefile
 
+" Load terminal debug plugin.
+packadd termdebug
+
 " Mappings.
-" Basic pairs completions.
+" Basic pairs auto completions.
 inoremap { {<CR>}<Esc>O
 inoremap [ []<Esc>i
 inoremap " ""<Esc>i

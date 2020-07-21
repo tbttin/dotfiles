@@ -35,7 +35,7 @@ function mkcd() { mkdir -p "$@" && cd "$1"; }
 # Search in vim docs.
 function vdoc() { grep "$1" /usr/share/vim/vim82/doc/usr_*; }
 
-# Play all .mkv files in current directory.
+# Play all .mkv files with its subtitle in current directory.
 function ffps()
 {
     find . -maxdepth 1 -type f -name "*.mkv" -print0 | while read -d $'\0' file;

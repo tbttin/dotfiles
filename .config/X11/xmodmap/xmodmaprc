@@ -7,14 +7,8 @@ add mod3 = Mode_switch
 ! New caps lock.
 keycode  65 = space NoSymbol Caps_Lock 
 
-! Caps lock + vi arrow key bindings.
+! Caps lock + homerow = vi key bindings.
 keycode  43 = h H Left Left
 keycode  44 = j J Down Down
 keycode  45 = k K Up Up
 keycode  46 = l L Right Right
-
-!! I3WM arrow key bindings.
-!keycode  44 = j J Left Left
-!keycode  45 = k K Down Down
-!keycode  46 = l L Up Up
-!keycode  47 = semicolon colon Right Right
