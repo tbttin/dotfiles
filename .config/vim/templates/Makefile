@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra
-CDBGFLAGS = -g -DDEBUG
+DBGCFLAGS = -g -DDEBUG
 OBJS = main.o
 
 all : $(OBJS)
@@ -10,4 +10,4 @@ all : $(OBJS)
 clean :
 	rm -f all
 debug : all
-	$(CC) $(CFLAGS) $(CDBGFLAGS) -o all $(OBJS)
+	$(CC) $(CFLAGS) $(DBGCFLAGS) -o all $(OBJS)
