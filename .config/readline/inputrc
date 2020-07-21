@@ -8,30 +8,30 @@ set show-mode-in-prompt on
 
 # SET THE MODE STRING AND CURSOR TO INDICATE THE VIM MODE
 $if term=linux
-	set vi-ins-mode-string \1\e[?2c\2
-	set vi-cmd-mode-string \1\e[?6c\2
+    set vi-ins-mode-string \1\e[?2c\2
+    set vi-cmd-mode-string \1\e[?6c\2
 $else
-	set vi-ins-mode-string \1\e[3 q\2
-	set vi-cmd-mode-string \1\e[1 q\2
+    set vi-ins-mode-string \1\e[3 q\2
+    set vi-cmd-mode-string \1\e[1 q\2
 $endif
 
 # Vi editing mode key bindings.
 $if mode=vi
-	set keymap vi-command
-	# These are for vi-command mode.
-	j: history-search-forward
-	k: history-search-backward
+    set keymap vi-command
+    # These are for vi-command mode.
+    j: history-search-forward
+    k: history-search-backward
 
-	set keymap vi-insert
-	# These are for vi-insert mode.
-	# This example prefixes the line with sudo, if CTRL-S is pressed. It's safer because it won't input the <CR> key.
-	"\C-s": "\e^isudo \eA"
-	# Open current command man page, in which section?
-	"\C-q": "\e^iman  \ei"
-	# Looking for something?
-	"\C-g": "\eA | grep "
-	# No mouse scroll?
-	"\C-l": "\eA2>&1 | less\C-j"
+    set keymap vi-insert
+    # These are for vi-insert mode.
+    # This example prefixes the line with sudo, if CTRL-S is pressed. It's safer because it won't input the <CR> key.
+    "\C-s": "\e^isudo \eA"
+    # Open current command man page, in which section?
+    "\C-q": "\e^iman  \ei"
+    # Looking for something?
+    "\C-g": "\eA | grep "
+    # No mouse scroll?
+    "\C-l": "\eA2>&1 | less\C-j"
 $endif
 
 # COLOR FILES BY TYPES
@@ -46,7 +46,9 @@ set colored-completion-prefix on
 # Color the common prefix in menu-complete.
 set menu-complete-display-prefix on
 
-# Does it familiar?
-TAB: menu-complete
-"\e[Z": menu-complete-backward
+# Tab completion. Does it familiar?
 set show-all-if-ambiguous on
+# Tab.
+TAB: menu-complete
+# Shift+Tab.
+"\e[Z": menu-complete-backward
