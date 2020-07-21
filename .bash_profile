@@ -2,7 +2,7 @@
 # ~/.bash_profile
 #
 
-# XDG BASE DIRECTORIES
+# XDG base directories.
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_DIRS="/usr/local/share/:/usr/share/"
@@ -10,10 +10,10 @@ export XDG_CONFIG_DIRS="/etc/xdg"
 export XDG_CACHE_HOME="$HOME/.cache"
 # XDG_RUNTIME_DIR is set by default through pam_systemd
 
-# Update PATH variable.
+# Add ~/scripts to $PATH.
 export PATH="$PATH:$HOME/scripts"
 
-# Default editor.
+# Set default editor.
 export VISUAL="vim"
 export EDITOR="$VISUAL"
 
@@ -27,15 +27,15 @@ export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
 export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
 export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 
-# Move less history seach file to XDG cache home.
+# Move less history seach file to $XDG_DATA_HOME.
 #export LESSHISTFILE=- # can be used to disable this feature.
 [[ ! -d "$XDG_DATA_HOME/less/" ]] && mkdir -p -m 0700 "$XDG_DATA_HOME/less/"
 export LESSHISTFILE="$XDG_DATA_HOME/less/history"
 
-# Indent profile.
+# GNU indent profile.
 export INDENT_PROFILE="$XDG_CONFIG_HOME/indent/indent.pro"
 
-# Use XDG config dir for vim.
+# Make vim respect XDG specification.
 export VIMINIT='let $VIMDOTDIR=$XDG_CONFIG_HOME."/vim" | let $MYVIMRC=$VIMDOTDIR."/vimrc" | source $MYVIMRC'
 
 # Readline config file.
