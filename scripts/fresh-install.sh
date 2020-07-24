@@ -18,7 +18,8 @@ config config status.showUntrackedFiles no
 echo "Creating regular directories."
 mkdir -p ~/{documents,downloads,pictures,videos}
 if [ -x "$(command -v xdg-user-dirs-update)" ]; then
-    echo "Updating xdg-user-dirs."
+    echo -n "Updating xdg-user-dirs."
+    rmdir --ignore-fail-on-non-empty ~/{Desktop,Documents,Downloads,Music,Pictures,Public,Templates,Videos}
     xdg-user-dirs-update
 fi
 echo "Done."
