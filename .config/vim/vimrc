@@ -57,6 +57,9 @@ set expandtab
 " }}}
 
 " command-lines. {{{
+" Ignore file pattern in cmdline completion.
+set wildignore+=*.o
+
 " It's gotta be somewhere in there!
 set path-=, path+=**
 " }}}
@@ -82,10 +85,19 @@ set viewoptions=folds,cursor
 " }}}1
 
 " mappings. {{{1
-" TODO comment and uncomment script.
-" Yank from first non-blank to last non-blank.
-nnoremap Y ^yg_
+" TODO Comment and uncomment script.
+" Basic pairs auto completions.
+inoremap {<CR> {<CR>}<Esc>O
+inoremap [ []<Esc>i
+inoremap ' ''<Esc>i
+inoremap <expr> " col('.') == 1 ? "\"" : "\"\"<Esc>i"
+inoremap ( ()<Esc>i
+inoremap < <><Esc>i
 
+" Yank to last non-blank.
+nnoremap Y yg_
+
+" Tab to complete.
 function! CleverTab() " {{{
     if strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
         return "\<Tab>"
@@ -94,7 +106,6 @@ function! CleverTab() " {{{
     endif
 endfunction
 " }}}
-" Do i need <S-Tab>?
 inoremap <Tab> <C-R>=CleverTab()<CR>
 
 " Kill two birds with one stone.
@@ -104,41 +115,47 @@ cabbrev H tab help
 xnoremap gk <Esc>kV
 xnoremap gj <Esc>jV
 
-" Search and substitute with selected text.
+" Search selected text.
 xnoremap <Leader>f "sy/\V<C-R>=escape(@s, '/\')<CR>
+" Substitute last search pattern.
 nnoremap <Leader>s :%substitute///gc<Left><Left><Left>
 
-" Bring me Makefile template file.
-nmap <Leader>vtM :tabedit $VIMDOTDIR/templates/Makefile<CR>
+" Bring me Makefile template.
+nnoremap <Leader>vtM :tabedit $VIMDOTDIR/templates/Makefile<CR>
 
-" Bring me main.c template file.
-nmap <Leader>vtm :tabedit $VIMDOTDIR/templates/main.c<CR>
+" Bring me main.c template.
+nnoremap <Leader>vtm :tabedit $VIMDOTDIR/templates/main.c<CR>
 
-" Bring me c.vim.
-nmap <Leader>vc :tabedit $VIMDOTDIR/after/ftplugin/c.vim<CR>
+" Bring me c.vim plugin.
+nnoremap <Leader>vc :tabedit $VIMDOTDIR/after/ftplugin/c.vim<CR>
 
 " Bring $MYVIMRC in tab.
-nmap <Leader>vv :tabedit $MYVIMRC<CR>
+nnoremap <Leader>vv :tabedit $MYVIMRC<CR>
 " }}}1
 
 " autocommands. {{{1
+augroup MakePrg
+    autocmd!
+    autocmd BufNewFile,BufRead */problemset/*/*.c setlocal makeprg=make\ -f\ $VIMDOTDIR/templates/Makefile
+augroup END
+
 augroup Templates
-  au!
-  " Read in template files.
-  autocmd BufNewFile ?* silent! execute '0read $VIMDOTDIR/templates/'.expand("<afile>:t") | $d
-  " Parse special text in the templates after the read.
-  autocmd BufNewFile ?* %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval(submatch(1))#ge
-  " TODO Auto startinsert! at Description: line.
-  autocmd BufNewFile ?* call search("Description:") | normal $
+    autocmd!
+    " Read in template files.
+    autocmd BufNewFile ?* silent! execute '0read $VIMDOTDIR/templates/'.expand("<afile>:t") | $d
+    " Parse special text in the templates after the read.
+    autocmd BufNewFile ?* %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval(submatch(1))#ge
+    " TODO Auto startinsert! at the end of 'Description:' line.
+    autocmd BufNewFile ?* call search("Description:") | normal $
 augroup END
 
 augroup Folds
-  autocmd!
-  " view files are about 500 bytes
-  " bufleave but not bufwinleave captures closing 2nd tab
-  " nested is needed by bufwrite* (if triggered via other autocmd)
-  autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
-  autocmd BufWinEnter ?* silent! loadview
+    autocmd!
+    " view files are about 500 bytes
+    " bufleave but not bufwinleave captures closing 2nd tab
+    " nested is needed by bufwrite* (if triggered via other autocmd)
+    autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
+    autocmd BufWinEnter ?* silent! loadview
 augroup end
 " }}}1
 
