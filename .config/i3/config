@@ -229,8 +229,7 @@ bindsym $mod+Shift+Z exec zathura
 bindsym $mod+Shift+w exec "wpa_cli disable_network 0; sleep 5; wpa_cli enable_network 0"
 
 # Start terminal on startup and move it to scratchpad.
-exec --no-startup-id i3-sensible-terminal -name terminal_scratchpad -geometry 70x15
-for_window [instance="terminal_scratchpad"] floating enable
+exec --no-startup-id i3-sensible-terminal -name terminal_scratchpad
 for_window [instance="terminal_scratchpad"] move scratchpad 
 
 # Start another terminal.
