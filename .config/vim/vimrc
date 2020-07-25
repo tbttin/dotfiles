@@ -1,4 +1,4 @@
-" options. {{{1
+" options. {{{
 " Always refer to the relevant :help before adding anything to vimrc.
 " Using short names has ONLY cons and ZERO pros.
 
@@ -40,9 +40,9 @@ set linebreak
 set number relativenumber
 
 " Cursor mode indicator. Synchronize with terminal cursor (Bash's vi mode).
-let &t_SI.="\<Esc>[3 q" " SI = INSERT mode
-let &t_SR.="\<Esc>[4 q" " SR = REPLACE mode
-let &t_EI.="\<Esc>[1 q" " EI = NORMAL mode (ELSE)
+let &t_SI.="\<Esc>[3 q" " SI = INSERT mode.
+let &t_SR.="\<Esc>[4 q" " SR = REPLACE mode.
+let &t_EI.="\<Esc>[1 q" " EI = NORMAL mode (ELSE).
 " }}}
 
 " indentations. {{{
@@ -81,32 +81,46 @@ set hidden
 set mouse&
 
 " Which are gonna save with :mkview command.
-set viewoptions=folds,cursor
-" }}}1
+"set viewoptions=cursor,folds
+" }}}
 
-" mappings. {{{1
+" functions. {{{
+function! ModifyDescription() " {{{
+    " Search backward after parsing.
+    if (search("Description:", "b"))
+        startinsert!
+    endif
+endfunction " }}}
+
+function! IsBlankOnLHS() " {{{
+    if strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
+        return v:true
+    else
+        return v:false
+    endif
+endfunction " }}}
+" }}}
+
+" mappings. {{{
 " TODO Comment and uncomment script.
+" Cmdline pairs auto completions.
+cnoremap ( ()<Left>
+cnoremap " ""<Left>
+cnoremap < <><Left>
+
 " Basic pairs auto completions.
-inoremap {<CR> {<CR>}<Esc>O
-inoremap [ []<Esc>i
-inoremap ' ''<Esc>i
-inoremap <expr> " col('.') == 1 ? "\"" : "\"\"<Esc>i"
-inoremap ( ()<Esc>i
-inoremap < <><Esc>i
+inoremap [ []<Left>
+inoremap ' ''<Left>
+inoremap ( ()<Left>
+inoremap < <><Left>
+inoremap <expr> " IsBlankOnLHS() ? "\"" : "\"\"<Left>"
+inoremap <expr> { IsBlankOnLHS() ? "{<CR>}<Up><CR>" : "{}<Left>"
 
 " Yank to last non-blank.
 nnoremap Y yg_
 
-" Tab to complete.
-function! CleverTab() " {{{
-    if strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
-        return "\<Tab>"
-    else
-        return "\<C-N>"
-    endif
-endfunction
-" }}}
-inoremap <Tab> <C-R>=CleverTab()<CR>
+" Literal tab and tab to complete.
+inoremap <expr> <Tab> IsBlankOnLHS() ? "<Tab>" : "<C-N>"
 
 " Kill two birds with one stone.
 cabbrev H tab help
@@ -117,6 +131,7 @@ xnoremap gj <Esc>jV
 
 " Search selected text.
 xnoremap <Leader>f "sy/\V<C-R>=escape(@s, '/\')<CR>
+
 " Substitute last search pattern.
 nnoremap <Leader>s :%substitute///gc<Left><Left><Left>
 
@@ -131,11 +146,12 @@ nnoremap <Leader>vc :tabedit $VIMDOTDIR/after/ftplugin/c.vim<CR>
 
 " Bring $MYVIMRC in tab.
 nnoremap <Leader>vv :tabedit $MYVIMRC<CR>
-" }}}1
+" }}}
 
-" autocommands. {{{1
+" autocommands. {{{
 augroup MakePrg
     autocmd!
+    " Use Makefile tempate when in problemset folder.
     autocmd BufNewFile,BufRead */problemset/*/*.c setlocal makeprg=make\ -f\ $VIMDOTDIR/templates/Makefile
 augroup END
 
@@ -145,20 +161,20 @@ augroup Templates
     autocmd BufNewFile ?* silent! execute '0read $VIMDOTDIR/templates/'.expand("<afile>:t") | $d
     " Parse special text in the templates after the read.
     autocmd BufNewFile ?* %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval(submatch(1))#ge
-    " TODO Auto startinsert! at the end of 'Description:' line.
-    autocmd BufNewFile ?* call search("Description:") | normal $
+    " Auto start insert mode at the end of 'Description:' line.
+    autocmd BufNewFile ?* call ModifyDescription()
 augroup END
 
-augroup Folds
-    autocmd!
-    " view files are about 500 bytes
-    " bufleave but not bufwinleave captures closing 2nd tab
-    " nested is needed by bufwrite* (if triggered via other autocmd)
-    autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
-    autocmd BufWinEnter ?* silent! loadview
-augroup end
-" }}}1
+"augroup Folds
+"    autocmd!
+"    " view files are about 500 bytes
+"    " bufleave but not bufwinleave captures closing 2nd tab
+"    " nested is needed by bufwrite* (if triggered via other autocmd)
+"    "autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
+"    "autocmd BufWinEnter ?* silent! loadview
+"augroup END
+" }}}
 
-" modeline {{{1
+" modeline {{{
 " vim: foldmethod=marker
-" }}}1
+" }}}
