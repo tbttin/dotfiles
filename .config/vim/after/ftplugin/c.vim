@@ -1,7 +1,8 @@
 " loadded check {{{1
 " Only load this file when no other was loaded yet.
 if exists("b:loaded_c_ftplugin")
-    echo "It load again!"
+    " For fun.
+    echo "Reload detected in " . expand("$VIMDOTDIR/after/ftplugin/c.vim")
     finish
 endif
 let b:loaded_c_ftplugin = 1
@@ -15,8 +16,8 @@ setlocal formatprg=indent
 setlocal comments-=:// comments+=f://
 
 " GNU C style indentation.
-" TODO function and variable declaration align.
-setlocal cindent
+" TODO parameters and variable declaration equal sign align.
+"setlocal cindent
 setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0,h2,p5,t0,+2,(0,u0,w1,m1
 setlocal shiftwidth=2
 setlocal softtabstop=2
@@ -35,15 +36,8 @@ nnoremap <buffer> <Leader>mc :make clean<CR>
 " Run.
 nnoremap <buffer> <Leader>r :!./all<CR>
 
-" Smart tab ver 2.
-function! CleverLessThanSign() " {{{
-    if strpart(getline('.'), 0, col('.') - 1) =~ '^#include\s*$'
-        return "<>\<Esc>i"
-    else
-        return "<"
-    endif
-endfunction " }}}
-inoremap <buffer> < <C-R>=CleverLessThanSign()<CR>
+" Smart angle bracket.
+inoremap <expr> <buffer> < IsMatchOnLHS('^#include\s*$') ? "<>\<Left>" : "<"
 " }}}1
 
 " plugins {{{1
