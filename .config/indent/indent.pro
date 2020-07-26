@@ -1,4 +1,4 @@
 // Use spaces instead of tabs (-nut).
 --no-tabs
-// GNU default (sorted):
-//-bap -bbo -bl -bli2 -bls -cp1 -cs -di2 -hnl -i2 -ip5 -lp -nbad -nbc -ncdb -nce -ndj -nfc1 -nfca -nprs -nsc -nsob -pcs -psl -saf -sai -saw
+// GNU default.
+//-nbad -bap -nbc -bbo -bl -bli2 -bls -ncdb -nce -cp1 -cs -di2 -ndj -nfc1 -nfca -hnl -i2 -ip5 -lp -pcs -nprs -psl -saf -sai -saw -nsc -nsob
