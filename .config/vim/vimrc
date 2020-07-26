@@ -11,7 +11,7 @@ unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
 " }}}
 
-" XDG Base Directory Specification. {{{
+" Use XDG Base Directory Specification. {{{
 set undodir=$XDG_DATA_HOME/vim/undo
 set directory=$XDG_DATA_HOME/vim/swap
 set backupdir=$XDG_DATA_HOME/vim/backup
@@ -79,21 +79,18 @@ set hidden
 
 " Reset defaults.vim mouse option.
 set mouse&
-
-" Which are gonna save with :mkview command.
-"set viewoptions=cursor,folds
 " }}}
 
 " functions. {{{
-function! ModifyDescription() " {{{
+function! ModifyFileDescription() " {{{
     " Search backward after parsing.
     if (search("Description:", "b"))
         startinsert!
     endif
 endfunction " }}}
 
-function! IsBlankOnLHS() " {{{
-    if strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
+function! IsMatchOnLHS(str) " {{{
+    if strpart(getline('.'), 0, col('.') - 1) =~ a:str
         return v:true
     else
         return v:false
@@ -103,6 +100,7 @@ endfunction " }}}
 
 " mappings. {{{
 " TODO Comment and uncomment script.
+" TODO How about pairs auto delete? <CTRL-H>, <Del>?
 " Cmdline pairs auto completions.
 cnoremap ( ()<Left>
 cnoremap " ""<Left>
@@ -113,14 +111,14 @@ inoremap [ []<Left>
 inoremap ' ''<Left>
 inoremap ( ()<Left>
 inoremap < <><Left>
-inoremap <expr> " IsBlankOnLHS() ? "\"" : "\"\"<Left>"
-inoremap <expr> { IsBlankOnLHS() ? "{<CR>}<Up><CR>" : "{}<Left>"
+inoremap <expr> " IsMatchOnLHS('^\s*$') ? "\"" : "\"\"<Left>"
+inoremap <expr> { IsMatchOnLHS('^\s*$') ? "{<CR>}<Up><CR>" : "{}<Left>"
 
 " Yank to last non-blank.
 nnoremap Y yg_
 
 " Literal tab and tab to complete.
-inoremap <expr> <Tab> IsBlankOnLHS() ? "<Tab>" : "<C-N>"
+inoremap <expr> <Tab> IsMatchOnLHS('^\s*$') ? "<Tab>" : "<C-N>"
 
 " Kill two birds with one stone.
 cabbrev H tab help
@@ -132,7 +130,8 @@ xnoremap gj <Esc>jV
 " Search selected text.
 xnoremap <Leader>f "sy/\V<C-R>=escape(@s, '/\')<CR>
 
-" Substitute last search pattern.
+" TODO Answer the question.
+" Substitute last search pattern. With or without % is better?
 nnoremap <Leader>s :%substitute///gc<Left><Left><Left>
 
 " Bring me Makefile template.
@@ -151,28 +150,19 @@ nnoremap <Leader>vv :tabedit $MYVIMRC<CR>
 " autocommands. {{{
 augroup MakePrg
     autocmd!
-    " Use Makefile tempate when in problemset folder.
+    " Use the Makefile template when in problemset folder.
     autocmd BufNewFile,BufRead */problemset/*/*.c setlocal makeprg=make\ -f\ $VIMDOTDIR/templates/Makefile
 augroup END
 
 augroup Templates
     autocmd!
-    " Read in template files.
+    " Read in template file with the same name.
     autocmd BufNewFile ?* silent! execute '0read $VIMDOTDIR/templates/'.expand("<afile>:t") | $d
-    " Parse special text in the templates after the read.
+    " Parse special text in the read template.
     autocmd BufNewFile ?* %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval(submatch(1))#ge
-    " Auto start insert mode at the end of 'Description:' line.
-    autocmd BufNewFile ?* call ModifyDescription()
+    " Auto start insert mode at the end of line containing 'Description:'.
+    autocmd BufNewFile ?* call ModifyFileDescription()
 augroup END
-
-"augroup Folds
-"    autocmd!
-"    " view files are about 500 bytes
-"    " bufleave but not bufwinleave captures closing 2nd tab
-"    " nested is needed by bufwrite* (if triggered via other autocmd)
-"    "autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
-"    "autocmd BufWinEnter ?* silent! loadview
-"augroup END
 " }}}
 
 " modeline {{{
