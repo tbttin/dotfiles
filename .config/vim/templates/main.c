@@ -11,10 +11,7 @@ int
 main (void)
 {
 #ifndef ONLINE_JUDGE
-#define C_LOG(...) printf(__VA_ARGS__)
   freopen ("input.txt", "r", stdin);
-#else
-#define C_LOG(...)
 #endif
   return EXIT_SUCCESS;
 }
