@@ -67,6 +67,7 @@ alias recon='wpa_cli disable_network 0; sleep 5; wpa_cli enable_network 0'
 
 # Decrease seek interval by 5, supress printing copyright, build options and versions.
 alias ffplay='ffplay -hide_banner -seek_interval 5 -autoexit'
+alias ffmpeg='ffmpeg -hide_banner'
 
 # startx with xinitrc in $XDG_CONFIG_HOME.
 alias startx='startx $XDG_CONFIG_HOME/X11/xinitrc'
