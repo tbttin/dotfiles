@@ -29,9 +29,9 @@ $if mode=vi
     # Open current command man page, in which section?
     "\C-q": "\e^iman  \ei"
     # Looking for something?
-    "\C-g": "\eA | grep "
+    "\C-g": "\eA 2>&1 | grep -i "
     # No mouse scroll?
-    "\C-l": "\eA2>&1 | less\C-j"
+    "\C-l": "\eA 2>&1 | less\C-j"
 $endif
 
 # COLOR FILES BY TYPES
