@@ -85,11 +85,16 @@ set mouse&
 " TODO Upgrade this function, [\_s*]
 function! IsAPairs() " {{{
     let b:pairs = {"(" : ")", "[" : "]", "{" : "}", "<" : ">", "'" : "'", "\"" : "\""}
-    let b:open = getline ('.')[col ('.') - 2]
-    let b:close = getline ('.')[col ('.') - 1]
+    let b:mode = mode ()
+    if b:mode == 'i'
+        let b:open = getline ('.')[col ('.') - 2]
+        let b:close = getline ('.')[col ('.') - 1]
+    elseif b:mode == 'c'
+        let b:open = getcmdline ()[getcmdpos () - 2]
+        let b:close = getcmdline ()[getcmdpos () - 1]
+    endif
     return get (b:pairs, b:open, 'NONE') == b:close
-endfunction
-" }}}
+endfunction " }}}
 
 function! ModifyFileDescription() " {{{
     " Search backward after parsing.
@@ -107,22 +112,21 @@ endfunction " }}}
 " mappings. {{{
 " TODO Comment and uncomment script.
 " Auto delete adjacent pairs.
-" How does it work in cmdline mode?
-"noremap! <expr> <BS> IsAPairs() ? "<Del><BS>" : "<BS>"
-inoremap <expr> <BS> IsAPairs() ? "<Del><BS>" : "<BS>"
+noremap! <expr> <BS> IsAPairs() ? "<Del><BS>" : "<BS>"
 
 " Cmdline mode pairs auto completions.
-cnoremap ( ()<Left>
 cnoremap " ""<Left>
 cnoremap ' ''<Left>
+cnoremap ( ()<Left>
 cnoremap < <><Left>
+cnoremap [ []<Left>
 
 " Basic pairs auto completions.
-inoremap [ []<Left>
+inoremap <expr> " IsMatchOnLHS('^\s*$') ? "\"" : "\"\"<Left>"
 inoremap ' ''<Left>
 inoremap ( ()<Left>
 inoremap < <><Left>
-inoremap <expr> " IsMatchOnLHS('^\s*$') ? "\"" : "\"\"<Left>"
+inoremap [ []<Left>
 inoremap <expr> { IsMatchOnLHS('^\s*$') ? "{<CR>}<Up><CR>" : "{}<Left>"
 
 " Yank to last non-blank.
