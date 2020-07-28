@@ -20,10 +20,10 @@ set viminfo+=n$XDG_DATA_HOME/vim/viminfo
 set runtimepath=$VIMDOTDIR,$VIMRUNTIME,$VIMDOTDIR/after
 
 " If not exist create it.
-if !isdirectory(&g:undodir)   | call mkdir(&g:undodir, "p", 0700)   | endif
-if !isdirectory(&g:directory) | call mkdir(&g:directory, "p", 0700) | endif
-if !isdirectory(&g:backupdir) | call mkdir(&g:backupdir, "p", 0700) | endif
-if !isdirectory(&g:viewdir)   | call mkdir(&g:viewdir, "p", 0700)   | endif
+if !isdirectory (&g:undodir)   | call mkdir (&g:undodir, "p", 0700)   | endif
+if !isdirectory (&g:directory) | call mkdir (&g:directory, "p", 0700) | endif
+if !isdirectory (&g:backupdir) | call mkdir (&g:backupdir, "p", 0700) | endif
+if !isdirectory (&g:viewdir)   | call mkdir (&g:viewdir, "p", 0700)   | endif
 " }}}
 
 " displays. {{{
@@ -58,7 +58,8 @@ set expandtab
 
 " command-lines. {{{
 " Ignore file pattern in cmdline completion.
-set wildignore+=*.o
+" Is that necessary?
+"set wildignore+=*.o
 
 " It's gotta be somewhere in there!
 set path-=, path+=**
@@ -70,7 +71,7 @@ let g:is_bash=1
 let g:sh_fold_enabled=1
 
 " This plugin makes the "%" command jump to matching HTML tags, if/else/endif in Vim scripts, etc.
-"if has('syntax') && has('eval')
+"if has ('syntax') && has ('eval')
 "  packadd! matchit
 "endif
 
@@ -82,13 +83,16 @@ set mouse&
 " }}}
 
 " functions. {{{
-" TODO Upgrade this function, [\_s*]
-function! IsAPairs() " {{{
+" TODO Comment and uncomment script.
+" TODO Upgrade this function: [\_s*]
+function! IsAnAdjacentPairs () " {{{
     let b:pairs = {"(" : ")", "[" : "]", "{" : "}", "<" : ">", "'" : "'", "\"" : "\""}
     let b:mode = mode ()
+    " insert mode.
     if b:mode == 'i'
         let b:open = getline ('.')[col ('.') - 2]
         let b:close = getline ('.')[col ('.') - 1]
+    " command line mode.
     elseif b:mode == 'c'
         let b:open = getcmdline ()[getcmdpos () - 2]
         let b:close = getcmdline ()[getcmdpos () - 1]
@@ -96,25 +100,28 @@ function! IsAPairs() " {{{
     return get (b:pairs, b:open, 'NONE') == b:close
 endfunction " }}}
 
-function! ModifyFileDescription() " {{{
+function! ModifyFileDescription () " {{{
     " Search backward after parsing.
     " 0 if not found, no error.
-    if (search("Description:", "b"))
-        startinsert!
+    if search ("Description: .", "be")
+        if expand ("%:p") =~ "^.*/problemset/.*$"
+            "let b:text = ""
+            execute "normal! iCodeforce problemset \<C-R>=expand('%:p:h:t')\<CR> - \<Esc>l"
+        endif
+        startinsert
     endif
 endfunction " }}}
 
-function! IsMatchOnLHS(str) " {{{
-    return strpart(getline('.'), 0, col('.') - 1) =~ a:str
+function! IsMatchOnLHS (str) " {{{
+    return strpart (getline ('.'), 0, col ('.') - 1) =~ a:str
 endfunction " }}}
 " }}}
 
 " mappings. {{{
-" TODO Comment and uncomment script.
 " Auto delete adjacent pairs.
-noremap! <expr> <BS> IsAPairs() ? "<Del><BS>" : "<BS>"
+noremap! <expr> <BS> IsAnAdjacentPairs () ? "<Del><BS>" : "<BS>"
 
-" Cmdline mode pairs auto completions.
+" Pairs auto completions in command line mode.
 cnoremap " ""<Left>
 cnoremap ' ''<Left>
 cnoremap ( ()<Left>
@@ -122,32 +129,33 @@ cnoremap < <><Left>
 cnoremap [ []<Left>
 
 " Basic pairs auto completions.
-inoremap <expr> " IsMatchOnLHS('^\s*$') ? "\"" : "\"\"<Left>"
+inoremap <expr> " IsMatchOnLHS ('^\s*$') ? "\"" : "\"\"<Left>"
 inoremap ' ''<Left>
 inoremap ( ()<Left>
 inoremap < <><Left>
 inoremap [ []<Left>
-inoremap <expr> { IsMatchOnLHS('^\s*$') ? "{<CR>}<Up><CR>" : "{}<Left>"
+" <Meta> u to undo (<Meta> o{ before).
+inoremap <expr> { IsMatchOnLHS ('^\s*$') ? "{<CR>}<Up><CR>" : "{}<Left>"
 
 " Yank to last non-blank.
 nnoremap Y yg_
 
 " Literal tab and tab to complete.
-inoremap <expr> <Tab> IsMatchOnLHS('^\s*$') ? "<Tab>" : "<C-N>"
+inoremap <expr> <Tab> IsMatchOnLHS ('^\s*$') ? "<Tab>" : "<C-N>"
 
 " Kill two birds with one stone.
 cabbrev H tab help
 
 " Highlight next/previous line.
-xnoremap gk <Esc>kV
-xnoremap gj <Esc>jV
+xnoremap <Up> <Esc>kV
+xnoremap <Down> <Esc>jV
 
 " Search selected text.
-xnoremap <Leader>f "sy/\V<C-R>=escape(@s, '/\')<CR>
+xnoremap <Leader>ff "sy/\V<C-R>=escape (@s, '/\')<CR>
 
 " TODO Answer the question.
 " Substitute last search pattern. With or without % is better?
-nnoremap <Leader>s :%substitute///gc<Left><Left><Left>
+nnoremap <Leader>fs :%substitute///gc<Left><Left><Left>
 
 " Bring me Makefile template.
 nnoremap <Leader>vtM :tabedit $VIMDOTDIR/templates/Makefile<CR>
@@ -172,11 +180,11 @@ augroup END
 augroup Templates
     autocmd!
     " Read in template file with the same name.
-    autocmd BufNewFile ?* silent! execute '0read $VIMDOTDIR/templates/'.expand("<afile>:t") | $d
+    autocmd BufNewFile ?* silent! execute '0read $VIMDOTDIR/templates/'.expand ("<afile>:t") | $d
     " Parse special text in the read template.
-    autocmd BufNewFile ?* %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval(submatch(1))#ge
+    autocmd BufNewFile ?* %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval (submatch (1))#ge
     " Auto start insert mode at the end of line containing 'Description:'.
-    autocmd BufNewFile ?* call ModifyFileDescription()
+    autocmd BufNewFile ?* call ModifyFileDescription ()
 augroup END
 " }}}
 
