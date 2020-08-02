@@ -7,6 +7,7 @@
 " /usr/share/vim/vimfiles/archlinux.vim
 " $VIMDOTDIR/vimrc
 " $VIMRUNTIME/defaults.vim
+" Load vim's default configs.
 unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
 " }}}
@@ -39,10 +40,10 @@ set linebreak
 " Display number and relative number.
 set number relativenumber
 
-" Cursor mode indicator. Synchronize with terminal cursor (Bash's vi mode).
-let &t_SI.="\<Esc>[3 q" " SI = INSERT mode.
-let &t_SR.="\<Esc>[4 q" " SR = REPLACE mode.
-let &t_EI.="\<Esc>[1 q" " EI = NORMAL mode (ELSE).
+" Cursor mode indicator. Term what?
+let &t_SI .= "\<Esc>[3 q" " SI = INSERT mode.
+let &t_SR .= "\<Esc>[4 q" " SR = REPLACE mode.
+let &t_EI .= "\<Esc>[1 q" " EI = NORMAL mode (ELSE).
 " }}}
 
 " indentations. {{{
@@ -66,9 +67,9 @@ set path-=, path+=**
 " }}}
 
 " Bash default syntax highlighting.
-let g:is_bash=1
+let g:is_bash = 1
 " Enable function folding.
-let g:sh_fold_enabled=1
+let g:sh_fold_enabled = 1
 
 " This plugin makes the "%" command jump to matching HTML tags, if/else/endif in Vim scripts, etc.
 "if has ('syntax') && has ('eval')
@@ -83,7 +84,11 @@ set mouse&
 " }}}
 
 " functions. {{{
-" TODO Comment and uncomment script.
+function! IsCommented (comment) " {{{
+    "return getline ('.') =~ '^\s*' . a:comment . '.*$'
+    return getline ('.') =~ '^\s*' . a:comment
+endfunction " }}}
+
 " TODO Upgrade this function: [\_s*]
 function! IsAnAdjacentPairs () " {{{
     let b:pairs = {"(" : ")", "[" : "]", "{" : "}", "<" : ">", "'" : "'", "\"" : "\""}
@@ -100,12 +105,11 @@ function! IsAnAdjacentPairs () " {{{
     return get (b:pairs, b:open, 'NONE') == b:close
 endfunction " }}}
 
-function! ModifyFileDescription () " {{{
+function! AddFileDescription () " {{{
     " Search backward after parsing.
     " 0 if not found, no error.
     if search ("Description: .", "be")
         if expand ("%:p") =~ "^.*/problemset/.*$"
-            "let b:text = ""
             execute "normal! iCodeforce problemset \<C-R>=expand('%:p:h:t')\<CR> - \<Esc>l"
         endif
         startinsert
@@ -142,6 +146,8 @@ nnoremap Y yg_
 
 " Literal tab and tab to complete.
 inoremap <expr> <Tab> IsMatchOnLHS ('^\s*$') ? "<Tab>" : "<C-N>"
+
+cabbrev T tabedit input.txt
 
 " Kill two birds with one stone.
 cabbrev H tab help
@@ -180,11 +186,11 @@ augroup END
 augroup Templates
     autocmd!
     " Read in template file with the same name.
-    autocmd BufNewFile ?* silent! execute '0read $VIMDOTDIR/templates/'.expand ("<afile>:t") | $d
+    autocmd BufNewFile ?* silent! execute '0read $VIMDOTDIR/templates/'.expand ("<afile>:p:t") | $d
     " Parse special text in the read template.
     autocmd BufNewFile ?* %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval (submatch (1))#ge
     " Auto start insert mode at the end of line containing 'Description:'.
-    autocmd BufNewFile ?* call ModifyFileDescription ()
+    autocmd BufNewFile ?* call AddFileDescription ()
 augroup END
 " }}}
 
