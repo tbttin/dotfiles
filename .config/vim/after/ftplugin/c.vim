@@ -15,9 +15,8 @@ setlocal formatprg=indent
 " Disable auto insert line comment.
 setlocal comments-=:// comments+=f://
 
-" GNU C style indentation.
+" GNU C style indentation / format.
 " TODO parameters and variable declaration equal sign align.
-"setlocal cindent
 setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0,h2,p5,t0,+2,(0,u0,w1,m1
 setlocal shiftwidth=2
 setlocal softtabstop=2
@@ -25,9 +24,9 @@ setlocal textwidth=79
 " }}}
 
 " mappings. {{{
+" TODO Upgrade this mapping: make it process each line independently.
 " Comment and umcomment.
-let b:comment = '//'
-xnoremap <expr> / IsCommented(b:comment) ? ":normal ^<C-R>=len(b:comment)<CR>x<CR>" : ":normal 0i<C-R>=b:comment<CR><CR>"
+xnoremap <expr> <buffer> / Comment ('//')
 
 " Create tags file in $PWD recursively.
 nnoremap <buffer> <F5> :!ctags -R<CR>
