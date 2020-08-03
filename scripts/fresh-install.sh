@@ -15,10 +15,9 @@ else
 fi
 config checkout
 config config status.showUntrackedFiles no
-echo "Creating regular directories."
+echo -n "Create and update regular directories..."
 mkdir -p ~/{documents,downloads,pictures,videos}
 if [ -x "$(command -v xdg-user-dirs-update)" ]; then
-    echo -n "Updating xdg-user-dirs."
     rmdir --ignore-fail-on-non-empty ~/{Desktop,Documents,Downloads,Music,Pictures,Public,Templates,Videos}
     xdg-user-dirs-update
 fi
