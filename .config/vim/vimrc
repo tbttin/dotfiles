@@ -40,7 +40,8 @@ set linebreak
 " Display number and relative number.
 set number relativenumber
 
-" Cursor mode indicator. Term what?
+" Cursor mode indicator.
+" TODO Change cursor shape when &term=linux.
 let &t_SI .= "\<Esc>[3 q" " SI = INSERT mode.
 let &t_SR .= "\<Esc>[4 q" " SR = REPLACE mode.
 let &t_EI .= "\<Esc>[1 q" " EI = NORMAL mode (ELSE).
@@ -84,21 +85,22 @@ set mouse&
 " }}}
 
 " functions. {{{
-function! IsCommented (comment) " {{{
-    "return getline ('.') =~ '^\s*' . a:comment . '.*$'
-    return getline ('.') =~ '^\s*' . a:comment
+function! Comment (comment) " {{{
+    if getline ('.') =~ '^\s*' . a:comment
+        return ":normal ^" . len (a:comment) . "x\<CR>" 
+    else
+        return  ":normal 0i" . a:comment . "\<CR>"
+    endif
 endfunction " }}}
 
 " TODO Upgrade this function: [\_s*]
 function! IsAnAdjacentPairs () " {{{
     let b:pairs = {"(" : ")", "[" : "]", "{" : "}", "<" : ">", "'" : "'", "\"" : "\""}
     let b:mode = mode ()
-    " insert mode.
-    if b:mode == 'i'
+    if b:mode == 'i' " insert mode.
         let b:open = getline ('.')[col ('.') - 2]
         let b:close = getline ('.')[col ('.') - 1]
-    " command line mode.
-    elseif b:mode == 'c'
+    elseif b:mode == 'c' " command line mode.
         let b:open = getcmdline ()[getcmdpos () - 2]
         let b:close = getcmdline ()[getcmdpos () - 1]
     endif
@@ -122,6 +124,9 @@ endfunction " }}}
 " }}}
 
 " mappings. {{{
+" Toggle comments.
+xnoremap <expr> <buffer> / Comment ('"')
+
 " Auto delete adjacent pairs.
 noremap! <expr> <BS> IsAnAdjacentPairs () ? "<Del><BS>" : "<BS>"
 
@@ -138,16 +143,13 @@ inoremap ' ''<Left>
 inoremap ( ()<Left>
 inoremap < <><Left>
 inoremap [ []<Left>
-" <Meta> u to undo (<Meta> o{ before).
 inoremap <expr> { IsMatchOnLHS ('^\s*$') ? "{<CR>}<Up><CR>" : "{}<Left>"
 
 " Yank to last non-blank.
 nnoremap Y yg_
 
-" Literal tab and tab to complete.
+" Tab to complete and literal tab.
 inoremap <expr> <Tab> IsMatchOnLHS ('^\s*$') ? "<Tab>" : "<C-N>"
-
-cabbrev T tabedit input.txt
 
 " Kill two birds with one stone.
 cabbrev H tab help
@@ -185,6 +187,7 @@ augroup END
 
 augroup Templates
     autocmd!
+    " TODO Combine these autocmds.
     " Read in template file with the same name.
     autocmd BufNewFile ?* silent! execute '0read $VIMDOTDIR/templates/'.expand ("<afile>:p:t") | $d
     " Parse special text in the read template.
