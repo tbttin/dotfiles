@@ -85,11 +85,16 @@ set mouse&
 " }}}
 
 " functions. {{{
-function! Comment (comment) " {{{
-    if getline ('.') =~ '^\s*' . a:comment
-        return ":normal ^" . len (a:comment) . "x\<CR>" 
+function! ToggleComment () " {{{
+    if !exists("b:comment_starter")
+        " TODO Fix this, commentstring=/*%s*/ in c, indent, xdefaults, .etc
+        " files.
+        let b:comment_starter = split(&commentstring, '%s')[0]
+    endif
+    if getline ('.') =~ '^\s*' . b:comment_starter
+        execute ":normal! ^" . len (b:comment_starter) . "x"
     else
-        return  ":normal 0i" . a:comment . "\<CR>"
+        execute ":normal! ^i" . b:comment_starter
     endif
 endfunction " }}}
 
@@ -124,8 +129,11 @@ endfunction " }}}
 " }}}
 
 " mappings. {{{
+" TODO Comment and Uncomment, do we need that?
 " Toggle comments.
-xnoremap <expr> <buffer> / Comment ('"')
+command! ToggleComment :call ToggleComment ()
+nnoremap <Leader>c :ToggleComment<CR>
+xnoremap <Leader>c :g/./ToggleComment<CR>
 
 " Auto delete adjacent pairs.
 noremap! <expr> <BS> IsAnAdjacentPairs () ? "<Del><BS>" : "<BS>"
@@ -133,17 +141,20 @@ noremap! <expr> <BS> IsAnAdjacentPairs () ? "<Del><BS>" : "<BS>"
 " Pairs auto completions in command line mode.
 cnoremap " ""<Left>
 cnoremap ' ''<Left>
-cnoremap ( ()<Left>
 cnoremap < <><Left>
-cnoremap [ []<Left>
+"cnoremap ( ()<Left>
+"cnoremap [ []<Left>
 
 " Basic pairs auto completions.
 inoremap <expr> " IsMatchOnLHS ('^\s*$') ? "\"" : "\"\"<Left>"
-inoremap ' ''<Left>
+inoremap <expr> ' getline ('.')[col ('.') - 2] =~ '\a' ? "'" : "''<Left>"
 inoremap ( ()<Left>
 inoremap < <><Left>
 inoremap [ []<Left>
 inoremap <expr> { IsMatchOnLHS ('^\s*$') ? "{<CR>}<Up><CR>" : "{}<Left>"
+
+" Edit the file under cursor doesn't exist yet.
+nnoremap <Leader>gf :tabedit <cfile><CR>
 
 " Yank to last non-blank.
 nnoremap Y yg_
@@ -161,8 +172,7 @@ xnoremap <Down> <Esc>jV
 " Search selected text.
 xnoremap <Leader>ff "sy/\V<C-R>=escape (@s, '/\')<CR>
 
-" TODO Answer the question.
-" Substitute last search pattern. With or without % is better?
+" Substitute last search pattern.
 nnoremap <Leader>fs :%substitute///gc<Left><Left><Left>
 
 " Bring me Makefile template.
@@ -187,7 +197,7 @@ augroup END
 
 augroup Templates
     autocmd!
-    " TODO Combine these autocmds.
+    " TODO Combine these three autocmds?
     " Read in template file with the same name.
     autocmd BufNewFile ?* silent! execute '0read $VIMDOTDIR/templates/'.expand ("<afile>:p:t") | $d
     " Parse special text in the read template.
