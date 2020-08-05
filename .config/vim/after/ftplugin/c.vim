@@ -7,7 +7,7 @@ if exists("b:loaded_c_ftplugin")
 endif
 let b:loaded_c_ftplugin = 1
 
-" Comment and umcomment.
+" Comment string will be used in ToggleComment.
 let b:comment_starter = '//'
 " }}}
 
@@ -18,8 +18,8 @@ setlocal formatprg=indent
 " Disable auto insert line comment.
 setlocal comments-=:// comments+=f://
 
-" GNU C style indentation/format.
 " TODO parameters and variable declaration equal sign align.
+" GNU C style indentation/format.
 setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0,h2,p5,t0,+2,(0,u0,w1,m1
 setlocal shiftwidth=2
 setlocal softtabstop=2
