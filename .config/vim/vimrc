@@ -59,6 +59,9 @@ set expandtab
 " }}}
 
 " command-lines. {{{
+" Helps avoiding hit-enter prompts.
+set cmdheight=2
+
 " Ignore file pattern in cmdline completion.
 " Is that necessary?
 "set wildignore+=*.o
@@ -86,10 +89,10 @@ set mouse&
 
 " functions. {{{
 function! ToggleComment () " {{{
-    if !exists("b:comment_starter")
+    if !exists ("b:comment_starter")
         " TODO Fix this, commentstring=/*%s*/ in c, indent, xdefaults, .etc
         " files.
-        let b:comment_starter = split(&commentstring, '%s')[0]
+        let b:comment_starter = split (&commentstring, '%s')[0]
     endif
     if getline ('.') =~ '^\s*' . b:comment_starter
         execute ":normal! ^" . len (b:comment_starter) . "x"
@@ -100,16 +103,16 @@ endfunction " }}}
 
 " TODO Upgrade this function: [\_s*]
 function! IsAnAdjacentPairs () " {{{
-    let b:pairs = {"(" : ")", "[" : "]", "{" : "}", "<" : ">", "'" : "'", "\"" : "\""}
-    let b:mode = mode ()
-    if b:mode == 'i' " insert mode.
-        let b:open = getline ('.')[col ('.') - 2]
-        let b:close = getline ('.')[col ('.') - 1]
-    elseif b:mode == 'c' " command line mode.
-        let b:open = getcmdline ()[getcmdpos () - 2]
-        let b:close = getcmdline ()[getcmdpos () - 1]
+    let l:pairs = {"(" : ")", "[" : "]", "{" : "}", "<" : ">", "'" : "'", "\"" : "\""}
+    let l:mode = mode ()
+    if l:mode == 'i' " insert mode.
+        let l:open = getline ('.')[col ('.') - 2]
+        let l:close = getline ('.')[col ('.') - 1]
+    elseif l:mode == 'c' " command line mode.
+        let l:open = getcmdline ()[getcmdpos () - 2]
+        let l:close = getcmdline ()[getcmdpos () - 1]
     endif
-    return get (b:pairs, b:open, 'NONE') == b:close
+    return get (l:pairs, l:open, 'NONE') == l:close
 endfunction " }}}
 
 function! AddFileDescription () " {{{
@@ -117,7 +120,7 @@ function! AddFileDescription () " {{{
     " 0 if not found, no error.
     if search ("Description: .", "be")
         if expand ("%:p") =~ "^.*/problemset/.*$"
-            execute "normal! iCodeforce problemset \<C-R>=expand('%:p:h:t')\<CR> - \<Esc>l"
+            execute "normal! iCodeforce problemset \<C-R>=expand ('%:p:h:t')\<CR> - \<Esc>l"
         endif
         startinsert
     endif
@@ -141,9 +144,10 @@ noremap! <expr> <BS> IsAnAdjacentPairs () ? "<Del><BS>" : "<BS>"
 " Pairs auto completions in command line mode.
 cnoremap " ""<Left>
 cnoremap ' ''<Left>
+cnoremap ( ()<Left>
 cnoremap < <><Left>
-"cnoremap ( ()<Left>
-"cnoremap [ []<Left>
+cnoremap [ []<Left>
+cnoremap { {}<Left>
 
 " Basic pairs auto completions.
 inoremap <expr> " IsMatchOnLHS ('^\s*$') ? "\"" : "\"\"<Left>"
