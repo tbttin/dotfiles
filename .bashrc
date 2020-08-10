@@ -15,10 +15,12 @@ LIGHT_CAYAN="\[\e[1;96m\]"
 RED="\[\e[1;31m\]"
 LIGHT_RED="\[\e[1;91m\]"
 RESET="\[\e[0m\]"
-PS1="${CAYAN}\W/${RED}\$${RESET} "
+PS1="${CAYAN}\W/${RED}\$ ${RESET}"
 
 # Disable XON/XOFF flow control. (C-s/C-q)
 stty -ixon
+
+# Auto cd directory by typing its name.
 shopt -s "autocd"
 
 # History things.
@@ -28,6 +30,10 @@ HISTSIZE=1000
 
 # Source alias file.
 [[ -f "$XDG_CONFIG_HOME/bash/aliases.bash" ]] && . "$XDG_CONFIG_HOME/bash/aliases.bash"
+
+# Source git auto completion file.
+GIT_COMPLETION_SCRIPT="/usr/share/git/completion/git-completion.bash"
+[[ -f $GIT_COMPLETION_SCRIPT ]] && . $GIT_COMPLETION_SCRIPT
 
 # Create a new directory and enter it.
 function mkcd() { mkdir -p "$@" && cd "$1"; }
