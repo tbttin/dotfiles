@@ -59,9 +59,6 @@ set expandtab
 " }}}
 
 " command-lines. {{{
-" Helps avoiding hit-enter prompts.
-set cmdheight=2
-
 " Ignore file pattern in cmdline completion.
 " Is that necessary?
 "set wildignore+=*.o
@@ -165,6 +162,7 @@ nnoremap Y yg_
 
 " Tab to complete and literal tab.
 inoremap <expr> <Tab> IsMatchOnLHS ('^\s*$') ? "<Tab>" : "<C-N>"
+inoremap <S-Tab> <Tab>
 
 " Kill two birds with one stone.
 cabbrev H tab help
@@ -174,7 +172,7 @@ xnoremap <Up> <Esc>kV
 xnoremap <Down> <Esc>jV
 
 " Search selected text.
-xnoremap <Leader>ff "sy/\V<C-R>=escape (@s, '/\')<CR>
+xnoremap <Leader>ff "sy/\V<C-R>=escape (@s, '/\')<CR><CR>
 
 " Substitute last search pattern.
 nnoremap <Leader>fs :%substitute///gc<Left><Left><Left>
