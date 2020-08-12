@@ -1,8 +1,8 @@
 " loadded check, variables {{{
 " Only load this file when no other was loaded yet.
-if exists("b:loaded_c_ftplugin")
+if exists('b:loaded_c_ftplugin')
     " For fun.
-    echo "Reload detected in " . expand("$VIMDOTDIR/after/ftplugin/c.vim")
+    echo 'Reload detected in ' . expand('$VIMDOTDIR/after/ftplugin/c.vim')
     finish
 endif
 let b:loaded_c_ftplugin = 1
@@ -43,15 +43,11 @@ nnoremap <buffer> <Leader>mc :!clear<CR>:make clean<CR>
 nnoremap <buffer> <Leader>r :!./all<CR>
 
 " Smart less than sign.
-inoremap <expr> <buffer> < IsMatchOnLHS ('^#include\s*$') ? "<>\<Left>" : "<"
+inoremap <expr> <buffer> < IsMatchOnLHS ('^#include\s*$') ? "<><Left>" : "<"
 " }}}
 
 " plugins {{{
 " Load terminal debug plugin.
 packadd termdebug
 let g:termdebug_wide = 1
-" }}}
-
-" modeline {{{
-" vim: foldmethod=marker
 " }}}
