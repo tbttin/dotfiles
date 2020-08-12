@@ -49,6 +49,7 @@ alias um16='sudo umount /mnt/16g-usb'
 alias config='/usr/bin/git --work-tree=$HOME --git-dir=$HOME/.config/dotfiles/'
 alias cfs='config status'
 alias cfd='config diff'
+alias cfdt='config difftool'
 alias cfa='config add'
 alias cfc='config commit'
 alias cfl='config log'
@@ -65,7 +66,7 @@ alias wpacli='wpa_cli && rm -f ~/.wpa_cli_history'
 # Reconnect to home wifi via wpa_supplicant.
 alias recon='wpa_cli disable_network 0; sleep 5; wpa_cli enable_network 0'
 
-# Decrease seek interval by 5, supress printing copyright, build options and versions.
+# Decrease seek_interval by 5, supress printing copyright, build options and versions.
 alias ffplay='ffplay -hide_banner -seek_interval 5 -autoexit'
 alias ffmpeg='ffmpeg -hide_banner'
 
