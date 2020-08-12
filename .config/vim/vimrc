@@ -21,10 +21,10 @@ set viminfo+=n$XDG_DATA_HOME/vim/viminfo
 set runtimepath=$VIMDOTDIR,$VIMRUNTIME,$VIMDOTDIR/after
 
 " If not exist create it.
-if !isdirectory (&g:undodir)   | call mkdir (&g:undodir, "p", 0700)   | endif
-if !isdirectory (&g:directory) | call mkdir (&g:directory, "p", 0700) | endif
-if !isdirectory (&g:backupdir) | call mkdir (&g:backupdir, "p", 0700) | endif
-if !isdirectory (&g:viewdir)   | call mkdir (&g:viewdir, "p", 0700)   | endif
+if !isdirectory (&g:undodir)   | call mkdir (&g:undodir, 'p', 0700)   | endif
+if !isdirectory (&g:directory) | call mkdir (&g:directory, 'p', 0700) | endif
+if !isdirectory (&g:backupdir) | call mkdir (&g:backupdir, 'p', 0700) | endif
+if !isdirectory (&g:viewdir)   | call mkdir (&g:viewdir, 'p', 0700)   | endif
 " }}}
 
 " displays. {{{
@@ -72,7 +72,7 @@ let g:is_bash = 1
 " Enable function folding.
 let g:sh_fold_enabled = 1
 
-" This plugin makes the "%" command jump to matching HTML tags, if/else/endif in Vim scripts, etc.
+" This plugin makes the '%' command jump to matching HTML tags, if/else/endif in Vim scripts, etc.
 "if has ('syntax') && has ('eval')
 "  packadd! matchit
 "endif
@@ -85,22 +85,34 @@ set mouse&
 " }}}
 
 " functions. {{{
-function! ToggleComment () " {{{
-    if !exists ("b:comment_starter")
-        " TODO Fix this, commentstring=/*%s*/ in c, indent, xdefaults, .etc
-        " files.
+" TODO Fix this, commentstring=/*%s*/ in c, indent, xdefaults, .etc files.
+"function! ToggleComment () " {{{
+    "if !exists ('b:comment_starter')
+        "let b:comment_starter = split (&commentstring, '%s')[0]
+    "endif
+    "if getline ('.') =~ '^\s*' . b:comment_starter
+        "execute ':normal! ^' . len (b:comment_starter) . 'x'
+    "else
+        "execute ':normal! ^i' . b:comment_starter
+    "endif
+"endfunction " }}}
+
+function! ToggleComment () range " {{{
+    if !exists ('b:comment_starter')
         let b:comment_starter = split (&commentstring, '%s')[0]
     endif
-    if getline ('.') =~ '^\s*' . b:comment_starter
-        execute ":normal! ^" . len (b:comment_starter) . "x"
-    else
-        execute ":normal! ^i" . b:comment_starter
-    endif
+    for l:line in range (a:firstline, a:lastline)
+        if getline (l:line) =~ '^\s*' . b:comment_starter
+            execute l:line . 'normal! ^d' . len (b:comment_starter) . 'l'
+        else
+            execute l:line . 'normal! ^i' . b:comment_starter
+        endif
+    endfor
 endfunction " }}}
 
 " TODO Upgrade this function: [\_s*]
 function! IsAnAdjacentPairs () " {{{
-    let l:pairs = {"(" : ")", "[" : "]", "{" : "}", "<" : ">", "'" : "'", "\"" : "\""}
+    let l:pairs = { '(' : ')', '[' : ']', '{' : '}', '<' : '>', "'" : "'", '"' : '"' }
     let l:mode = mode ()
     if l:mode == 'i' " insert mode.
         let l:open = getline ('.')[col ('.') - 2]
@@ -115,8 +127,8 @@ endfunction " }}}
 function! AddFileDescription () " {{{
     " Search backward after parsing.
     " 0 if not found, no error.
-    if search ("Description: .", "be")
-        if expand ("%:p") =~ "^.*/problemset/.*$"
+    if search ('Description: .', 'be')
+        if expand ('%:p') =~ '^.*/problemset/.*$'
             execute "normal! iCodeforce problemset \<C-R>=expand ('%:p:h:t')\<CR> - \<Esc>l"
         endif
         startinsert
@@ -131,12 +143,13 @@ endfunction " }}}
 " mappings. {{{
 " TODO Comment and Uncomment, do we need that?
 " Toggle comments.
-command! ToggleComment :call ToggleComment ()
-nnoremap <Leader>c :ToggleComment<CR>
-xnoremap <Leader>c :g/./ToggleComment<CR>
+" command! ToggleComment :call ToggleComment ()
+" nnoremap <Leader>c :ToggleComment<CR>
+" xnoremap <Leader>c :g/./ToggleComment<CR>
+noremap <Leader>c :call ToggleComment ()<CR>
 
 " Auto delete adjacent pairs.
-noremap! <expr> <BS> IsAnAdjacentPairs () ? "<Del><BS>" : "<BS>"
+noremap! <expr> <BS> IsAnAdjacentPairs () ? '<Del><BS>' : '<BS>'
 
 " Pairs auto completions in command line mode.
 cnoremap " ""<Left>
@@ -147,12 +160,12 @@ cnoremap [ []<Left>
 cnoremap { {}<Left>
 
 " Basic pairs auto completions.
-inoremap <expr> " IsMatchOnLHS ('^\s*$') ? "\"" : "\"\"<Left>"
+inoremap <expr> " IsMatchOnLHS ('^\s*$') ? '"' : '""<Left>'
 inoremap <expr> ' getline ('.')[col ('.') - 2] =~ '\a' ? "'" : "''<Left>"
 inoremap ( ()<Left>
 inoremap < <><Left>
 inoremap [ []<Left>
-inoremap <expr> { IsMatchOnLHS ('^\s*$') ? "{<CR>}<Up><CR>" : "{}<Left>"
+inoremap <expr> { IsMatchOnLHS ('^\s*$') ? '{<CR>}<Up><CR>' : '{}<Left>'
 
 " Edit the file under cursor doesn't exist yet.
 nnoremap <Leader>gf :tabedit <cfile><CR>
@@ -161,7 +174,8 @@ nnoremap <Leader>gf :tabedit <cfile><CR>
 nnoremap Y yg_
 
 " Tab to complete and literal tab.
-inoremap <expr> <Tab> IsMatchOnLHS ('^\s*$') ? "<Tab>" : "<C-N>"
+inoremap <expr> <Tab> IsMatchOnLHS ('^\s*$') ? '<Tab>' : '<C-N>'
+"inoremap <expr> <S-Tab> IsMatchOnLHS ('^\s*$') ? '<S-Tab>' : '<C-P>'
 inoremap <S-Tab> <Tab>
 
 " Kill two birds with one stone.
@@ -191,6 +205,12 @@ nnoremap <Leader>vv :tabedit $MYVIMRC<CR>
 " }}}
 
 " autocommands. {{{
+augroup FoldMethod
+    autocmd!
+    " Set foldmethod for vim files.
+    autocmd FileType vim set foldmethod=marker
+augroup END
+
 augroup MakePrg
     autocmd!
     " Use the Makefile template when in problemset folder.
@@ -201,14 +221,10 @@ augroup Templates
     autocmd!
     " TODO Combine these three autocmds?
     " Read in template file with the same name.
-    autocmd BufNewFile ?* silent! execute '0read $VIMDOTDIR/templates/'.expand ("<afile>:p:t") | $d
+    autocmd BufNewFile ?* silent! execute '0read $VIMDOTDIR/templates/' . expand ('<afile>:p:t') | $d
     " Parse special text in the read template.
     autocmd BufNewFile ?* %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval (submatch (1))#ge
     " Auto start insert mode at the end of line containing 'Description:'.
     autocmd BufNewFile ?* call AddFileDescription ()
 augroup END
-" }}}
-
-" modeline {{{
-" vim: foldmethod=marker
 " }}}
