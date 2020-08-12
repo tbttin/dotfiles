@@ -38,9 +38,6 @@ GIT_COMPLETION_SCRIPT="/usr/share/git/completion/git-completion.bash"
 # Create a new directory and enter it.
 function mkcd() { mkdir -p "$@" && cd "$1"; }
 
-# Search in vim docs.
-function vdoc() { grep "$1" /usr/share/vim/vim82/doc/usr_*; }
-
 # Play all .mkv files with its subtitle in current directory.
 function ffps()
 {
