@@ -29,8 +29,10 @@ font pango:monospace 8
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
+
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
+#exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id xss-lock --transfer-sleep-lock -- ~/scripts/lock.sh
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
@@ -42,11 +44,14 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 
+# Use these keys for focus, movement, and resize directions when reaching for.
+set $up k
+set $down j
+set $left h
+set $right l
+
 # Use Mouse+$mod to drag floating windows to their wanted position.
 floating_modifier $mod
-
-# Start a terminal.
-bindsym $mod+Return exec i3-sensible-terminal
 
 # Kill focused window.
 bindsym $mod+Shift+q kill
@@ -55,23 +60,16 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec --no-startup-id dmenu_run
 
 # Change focus.
-#bindsym $mod+j focus left
-#bindsym $mod+k focus down
-#bindsym $mod+l focus up
-#bindsym $mod+semicolon focus right
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
 
 # Move focused window.
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
-
-# Centering floating window.
-bindsym $mod+z move position center
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
 
 # Split in vertical orientation.
 bindsym $mod+v split v
@@ -80,7 +78,7 @@ bindsym $mod+v split v
 bindsym $mod+Shift+v split h
 
 # Enter fullscreen mode for the focused container.
-bindsym $mod+f fullscreen toggle
+#bindsym $mod+f fullscreen toggle
 
 # Change container layout (stacked, tabbed, toggle split).
 #bindsym $mod+s layout stacking
@@ -98,6 +96,13 @@ bindsym $mod+a focus parent
 
 # Focus the child container.
 bindsym $mod+c focus child
+
+# Make the currently focused window a scratchpad.
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the first scratchpad window
+# to "remove it from scratchpad", you can simple make it tiling again (floating toggle).
+bindsym $mod+minus scratchpad show
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -146,24 +151,22 @@ bindsym $mod+Shift+e exit
 
 # Resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode.
+    # These bindings trigger as soon as you enter the resize mode.
+    bindsym $left resize shrink width 5 px or 5 ppt
+    bindsym $down resize grow height 5 px or 5 ppt
+    bindsym $up resize shrink height 5 px or 5 ppt
+    bindsym $right resize grow width 5 px or 5 ppt
 
-        bindsym h resize shrink width 5 px or 5 ppt
-        bindsym k resize grow height 5 px or 5 ppt
-        bindsym j resize shrink height 5 px or 5 ppt
-        bindsym l resize grow width 5 px or 5 ppt
-
-        # Back to normal: Enter or Escape or $mod+r.
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
+    # Back to normal: Enter or Escape or $mod+r.
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
 }
 
 bindsym $mod+r mode "resize"
 
 # System controls.
 set $Locker ~/scripts/lock.sh && sleep 1
-
 set $mode_system System: (l)ock, log(o)ut, (S)uspend, (h)ibernate, (r)eboot, (s)hutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id $Locker, mode "default"
@@ -183,16 +186,19 @@ bindsym $mod+Pause mode "$mode_system"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status -c "$XDG_CONFIG_HOME/i3/i3status.conf"
-	colors {
-	        separator #3652f5
-	}
-	mode hide
-#	hidden_state show
-	bindsym button4 nop
-	bindsym button5 nop
-	tray_output none
+    status_command i3status -c "$XDG_CONFIG_HOME/i3/i3status.conf"
+    colors {
+        separator #3652f5
+    }
+    mode hide
+    # hidden_state show
+    bindsym button4 nop
+    bindsym button5 nop
+    tray_output none
 }
+
+# Centering floating window.
+bindsym $mod+Shift+m move position center
 
 # Orientation for new workspaces.
 default_orientation vertical
@@ -206,28 +212,24 @@ hide_edge_borders smart
 # Disable focus follows mouse.
 focus_follows_mouse no
 
-# Make the currently focused window a scratchpad.
-bindsym $mod+Shift+minus move scratchpad
-# Show the first scratchpad window
-# to "remove it from scratchpad", you can simple make it tiling again (floating toggle).
-bindsym $mod+minus scratchpad show
-
 ## Keybindings for starting applications.
-# Firefox
-bindsym $mod+Shift+Return exec firefox
-# Transmission-daemon
+bindsym $mod+Return exec urxvt
+bindsym $mod+Shift+f exec firefox
 bindsym $mod+Shift+t exec --no-startup-id transmission-daemon
-# scrot
 bindsym Print --release exec --no-startup-id scrot "$(xdg-user-dir PICTURES)/screenshots/%Y-%m-%d-%H-%M-%S.png"
-# Zathura
-bindsym $mod+Shift+Z exec zathura
+bindsym $mod+Shift+z exec zathura
 
 # Reconnect with home network.
 bindsym $mod+Shift+w exec "wpa_cli disable_network 0; sleep 5; wpa_cli enable_network 0"
 
 # Start terminal on startup and move it to scratchpad.
-exec --no-startup-id i3-sensible-terminal -name terminal_scratchpad
+exec --no-startup-id urxvt -name terminal_scratchpad
 for_window [instance="terminal_scratchpad"] move scratchpad 
 
+#for_window [instance="terminal_scratchpad"] kill
+# The event will fire whenever the connection to the ipc is lost (including on i3-msg restart)
+# and the main loop will end afterwards.
+exec_always --no-startup-id i3-msg [instance="terminal_scratchpad"] kill
+
 # Start another terminal.
-exec --no-startup-id i3-sensible-terminal
+exec --no-startup-id urxvt
