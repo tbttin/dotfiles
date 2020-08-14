@@ -43,11 +43,13 @@ nnoremap <buffer> <Leader>mc :!clear<CR>:make clean<CR>
 nnoremap <buffer> <Leader>r :!./all<CR>
 
 " Smart less than sign.
-inoremap <expr> <buffer> < IsMatchOnLHS ('^#include\s*$') ? "<><Left>" : "<"
+inoremap <expr> <buffer> < <SID>is_match_on_lhs ('^#include\s*$') ? "<><Left>" : "<"
 " }}}
 
 " plugins {{{
 " Load terminal debug plugin.
 packadd termdebug
+
+" Enable vertical split without every changing &columns.
 let g:termdebug_wide = 1
 " }}}
