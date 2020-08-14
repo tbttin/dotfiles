@@ -59,10 +59,6 @@ set expandtab
 " }}}
 
 " command-lines. {{{
-" Ignore file pattern in cmdline completion.
-" Is that necessary?
-"set wildignore+=*.o
-
 " It's gotta be somewhere in there!
 set path-=, path+=**
 " }}}
@@ -86,32 +82,19 @@ set mouse&
 
 " functions. {{{
 " TODO Fix this, commentstring=/*%s*/ in c, indent, xdefaults, .etc files.
-"function! ToggleComment () " {{{
-    "if !exists ('b:comment_starter')
-        "let b:comment_starter = split (&commentstring, '%s')[0]
-    "endif
-    "if getline ('.') =~ '^\s*' . b:comment_starter
-        "execute ':normal! ^' . len (b:comment_starter) . 'x'
-    "else
-        "execute ':normal! ^i' . b:comment_starter
-    "endif
-"endfunction " }}}
-
-function! ToggleComment () range " {{{
+function! s:toggle_comment () " {{{
     if !exists ('b:comment_starter')
         let b:comment_starter = split (&commentstring, '%s')[0]
     endif
-    for l:line in range (a:firstline, a:lastline)
-        if getline (l:line) =~ '^\s*' . b:comment_starter
-            execute l:line . 'normal! ^d' . len (b:comment_starter) . 'l'
-        else
-            execute l:line . 'normal! ^i' . b:comment_starter
-        endif
-    endfor
+    if getline ('.') =~ '^\s*' . b:comment_starter
+        execute 'normal! ^d' . len (b:comment_starter) . 'l'
+    else
+        execute 'normal! ^i' . b:comment_starter
+    endif
 endfunction " }}}
 
 " TODO Upgrade this function: [\_s*]
-function! IsAnAdjacentPairs () " {{{
+function! s:is_adjacent_pairs () " {{{
     let l:pairs = { '(' : ')', '[' : ']', '{' : '}', '<' : '>', "'" : "'", '"' : '"' }
     let l:mode = mode ()
     if l:mode == 'i' " insert mode.
@@ -124,18 +107,18 @@ function! IsAnAdjacentPairs () " {{{
     return get (l:pairs, l:open, 'NONE') == l:close
 endfunction " }}}
 
-function! AddFileDescription () " {{{
+function! s:add_file_description () " {{{
     " Search backward after parsing.
     " 0 if not found, no error.
     if search ('Description: .', 'be')
-        if expand ('%:p') =~ '^.*/problemset/.*$'
+        if expand ('%:p') =~ '/problemset/'
             execute "normal! iCodeforce problemset \<C-R>=expand ('%:p:h:t')\<CR> - \<Esc>l"
         endif
         startinsert
     endif
 endfunction " }}}
 
-function! IsMatchOnLHS (str) " {{{
+function! s:is_match_on_lhs (str) " {{{
     return strpart (getline ('.'), 0, col ('.') - 1) =~ a:str
 endfunction " }}}
 " }}}
@@ -143,13 +126,10 @@ endfunction " }}}
 " mappings. {{{
 " TODO Comment and Uncomment, do we need that?
 " Toggle comments.
-" command! ToggleComment :call ToggleComment ()
-" nnoremap <Leader>c :ToggleComment<CR>
-" xnoremap <Leader>c :g/./ToggleComment<CR>
-noremap <Leader>c :call ToggleComment ()<CR>
+noremap <Leader>c :call <SID>toggle_comment ()<CR>
 
 " Auto delete adjacent pairs.
-noremap! <expr> <BS> IsAnAdjacentPairs () ? '<Del><BS>' : '<BS>'
+noremap! <expr> <BS> <SID>is_adjacent_pairs () ? '<Del><BS>' : '<BS>'
 
 " Pairs auto completions in command line mode.
 cnoremap " ""<Left>
@@ -160,12 +140,12 @@ cnoremap [ []<Left>
 cnoremap { {}<Left>
 
 " Basic pairs auto completions.
-inoremap <expr> " IsMatchOnLHS ('^\s*$') ? '"' : '""<Left>'
+inoremap <expr> " <SID>is_match_on_lhs ('^\s*$') ? '"' : '""<Left>'
 inoremap <expr> ' getline ('.')[col ('.') - 2] =~ '\a' ? "'" : "''<Left>"
 inoremap ( ()<Left>
 inoremap < <><Left>
 inoremap [ []<Left>
-inoremap <expr> { IsMatchOnLHS ('^\s*$') ? '{<CR>}<Up><CR>' : '{}<Left>'
+inoremap <expr> { <SID>is_match_on_lhs ('^\s*$') ? '{<CR>}<Up><CR>' : '{}<Left>'
 
 " Edit the file under cursor doesn't exist yet.
 nnoremap <Leader>gf :tabedit <cfile><CR>
@@ -174,8 +154,8 @@ nnoremap <Leader>gf :tabedit <cfile><CR>
 nnoremap Y yg_
 
 " Tab to complete and literal tab.
-inoremap <expr> <Tab> IsMatchOnLHS ('^\s*$') ? '<Tab>' : '<C-N>'
-"inoremap <expr> <S-Tab> IsMatchOnLHS ('^\s*$') ? '<S-Tab>' : '<C-P>'
+inoremap <expr> <Tab> <SID>is_match_on_lhs ('^\s*$') ? '<Tab>' : '<C-N>'
+"inoremap <expr> <S-Tab> <SID>is_match_on_lhs ('^\s*$') ? '<S-Tab>' : '<C-P>'
 inoremap <S-Tab> <Tab>
 
 " Kill two birds with one stone.
@@ -191,16 +171,10 @@ xnoremap <Leader>ff "sy/\V<C-R>=escape (@s, '/\')<CR><CR>
 " Substitute last search pattern.
 nnoremap <Leader>fs :%substitute///gc<Left><Left><Left>
 
-" Bring me Makefile template.
+" Bring me fimiliar files.
 nnoremap <Leader>vtM :tabedit $VIMDOTDIR/templates/Makefile<CR>
-
-" Bring me main.c template.
 nnoremap <Leader>vtm :tabedit $VIMDOTDIR/templates/main.c<CR>
-
-" Bring me c.vim plugin.
 nnoremap <Leader>vc :tabedit $VIMDOTDIR/after/ftplugin/c.vim<CR>
-
-" Bring $MYVIMRC in tab.
 nnoremap <Leader>vv :tabedit $MYVIMRC<CR>
 " }}}
 
@@ -225,6 +199,6 @@ augroup Templates
     " Parse special text in the read template.
     autocmd BufNewFile ?* %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval (submatch (1))#ge
     " Auto start insert mode at the end of line containing 'Description:'.
-    autocmd BufNewFile ?* call AddFileDescription ()
+    autocmd BufNewFile main.c call s:add_file_description ()
 augroup END
 " }}}
