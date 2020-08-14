@@ -80,7 +80,13 @@ set hidden
 set mouse&
 " }}}
 
-" functions. {{{
+" eunctions. {{{
+function! s:load_template () " {{{
+    silent! execute '0read $VIMDOTDIR/templates/' . expand ('<afile>:p:t')
+    %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval (submatch (1))#ge
+    $d
+endfunction " }}}
+
 " TODO Fix this, commentstring=/*%s*/ in c, indent, xdefaults, .etc files.
 function! s:toggle_comment () " {{{
     if !exists ('b:comment_starter')
@@ -118,8 +124,8 @@ function! s:add_file_description () " {{{
     endif
 endfunction " }}}
 
-function! s:is_match_on_lhs (str) " {{{
-    return strpart (getline ('.'), 0, col ('.') - 1) =~ a:str
+function! s:is_match_on_lhs (pattern) " {{{
+    return strpart (getline ('.'), 0, col ('.') - 1) =~ a:pattern
 endfunction " }}}
 " }}}
 
@@ -188,17 +194,14 @@ augroup END
 augroup MakePrg
     autocmd!
     " Use the Makefile template when in problemset folder.
-    autocmd BufNewFile,BufRead */problemset/*/*.c setlocal makeprg=make\ -f\ $VIMDOTDIR/templates/Makefile
+    autocmd BufNewFile,BufRead */problemset/*/*.[ch] setlocal makeprg=make\ -f\ $VIMDOTDIR/templates/Makefile
 augroup END
 
 augroup Templates
     autocmd!
-    " TODO Combine these three autocmds?
-    " Read in template file with the same name.
-    autocmd BufNewFile ?* silent! execute '0read $VIMDOTDIR/templates/' . expand ('<afile>:p:t') | $d
-    " Parse special text in the read template.
-    autocmd BufNewFile ?* %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval (submatch (1))#ge
-    " Auto start insert mode at the end of line containing 'Description:'.
+    " Read and parse templates.
+    autocmd BufNewFile ?* call s:load_template ()
+    " Auto start insert mode at the end of line containing 'Description: '.
     autocmd BufNewFile main.c call s:add_file_description ()
 augroup END
 " }}}
