@@ -43,7 +43,7 @@ nnoremap <buffer> <Leader>mc :!clear<CR>:make clean<CR>
 nnoremap <buffer> <Leader>r :!./all<CR>
 
 " Smart less than sign.
-inoremap <expr> <buffer> < <SID>is_match_on_lhs ('^#include\s*$') ? "<><Left>" : "<"
+inoremap <expr> <buffer> < IsMatchOnLHS ('^#include\s*$') ? "<><Left>" : "<"
 " }}}
 
 " plugins {{{
