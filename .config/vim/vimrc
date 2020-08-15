@@ -81,12 +81,6 @@ set mouse&
 " }}}
 
 " eunctions. {{{
-function! s:load_template () " {{{
-    silent! execute '0read $VIMDOTDIR/templates/' . expand ('<afile>:p:t')
-    %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval (submatch (1))#ge
-    $d
-endfunction " }}}
-
 " TODO Fix this, commentstring=/*%s*/ in c, indent, xdefaults, .etc files.
 function! s:toggle_comment () " {{{
     if !exists ('b:comment_starter')
@@ -124,7 +118,14 @@ function! s:add_file_description () " {{{
     endif
 endfunction " }}}
 
-function! s:is_match_on_lhs (pattern) " {{{
+function! s:load_template () " {{{
+    "silent! execute '0read $VIMDOTDIR/templates/' . expand ('<afile>:p:t')
+    silent! 0read $VIMDOTDIR/templates/<afile>:p:t
+    %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval (submatch (1))#ge
+    $d
+endfunction " }}}
+
+function! IsMatchOnLHS (pattern) " {{{
     return strpart (getline ('.'), 0, col ('.') - 1) =~ a:pattern
 endfunction " }}}
 " }}}
@@ -140,28 +141,22 @@ noremap! <expr> <BS> <SID>is_adjacent_pairs () ? '<Del><BS>' : '<BS>'
 " Pairs auto completions in command line mode.
 cnoremap " ""<Left>
 cnoremap ' ''<Left>
-cnoremap ( ()<Left>
-cnoremap < <><Left>
-cnoremap [ []<Left>
 cnoremap { {}<Left>
 
 " Basic pairs auto completions.
-inoremap <expr> " <SID>is_match_on_lhs ('^\s*$') ? '"' : '""<Left>'
+inoremap <expr> " IsMatchOnLHS ('^\s*$') ? '"' : '""<Left>'
 inoremap <expr> ' getline ('.')[col ('.') - 2] =~ '\a' ? "'" : "''<Left>"
-inoremap ( ()<Left>
-inoremap < <><Left>
-inoremap [ []<Left>
-inoremap <expr> { <SID>is_match_on_lhs ('^\s*$') ? '{<CR>}<Up><CR>' : '{}<Left>'
+noremap! ( ()<Left>
+noremap! < <><Left>
+noremap! [ []<Left>
+inoremap <expr> { IsMatchOnLHS ('^\s*$') ? '{<CR>}<Up><CR>' : '{}<Left>'
 
 " Edit the file under cursor doesn't exist yet.
 nnoremap <Leader>gf :tabedit <cfile><CR>
 
-" Yank to last non-blank.
-nnoremap Y yg_
-
 " Tab to complete and literal tab.
-inoremap <expr> <Tab> <SID>is_match_on_lhs ('^\s*$') ? '<Tab>' : '<C-N>'
-"inoremap <expr> <S-Tab> <SID>is_match_on_lhs ('^\s*$') ? '<S-Tab>' : '<C-P>'
+inoremap <expr> <Tab> IsMatchOnLHS ('^\s*$') ? '<Tab>' : '<C-N>'
+"inoremap <expr> <S-Tab> IsMatchOnLHS ('^\s*$') ? '<S-Tab>' : '<C-P>'
 inoremap <S-Tab> <Tab>
 
 " Kill two birds with one stone.
@@ -201,7 +196,7 @@ augroup Templates
     autocmd!
     " Read and parse templates.
     autocmd BufNewFile ?* call s:load_template ()
-    " Auto start insert mode at the end of line containing 'Description: '.
+    " Start insert mode at the end of line containing 'Description: '.
     autocmd BufNewFile main.c call s:add_file_description ()
 augroup END
 " }}}
