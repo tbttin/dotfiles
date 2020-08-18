@@ -28,7 +28,7 @@ if !isdirectory (&g:viewdir)   | call mkdir (&g:viewdir, 'p', 0700)   | endif
 " }}}
 
 " displays. {{{
-" Show function name + template in auto completion popup menu.
+" Show function name + template in auto completion pop-up menu.
 set showfulltag
 
 " When on, splitting a window will put the new window below the current one.
@@ -80,21 +80,79 @@ set hidden
 set mouse&
 " }}}
 
-" eunctions. {{{
-" TODO Fix this, commentstring=/*%s*/ in c, indent, xdefaults, .etc files.
-function! s:toggle_comment () " {{{
+" functions. {{{
+"function! AlignAssignments () " {{{
+    " TODO Use this function.
+    ""Patterns needed to locate assignment operators...
+    "let ASSIGN_OP   = '[-+*/%|&]\?=\@<!=[=~]\@!'
+    "let ASSIGN_LINE = '^\(.\{-}\)\s*\(' . ASSIGN_OP . '\)'
+
+    ""Locate block of code to be considered (same indentation, no blanks)
+    "let indent_pat = '^' . matchstr(getline('.'), '^\s*') . '\S'
+    "let firstline  = search('^\%('. indent_pat . '\)\@!','bnW') + 1
+    "let lastline   = search('^\%('. indent_pat . '\)\@!', 'nW') - 1
+    "if lastline < 0
+        "let lastline = line('$')
+    "endif
+
+    ""Find the column at which the operators should be aligned...
+    "let max_align_col = 0
+    "let max_op_width  = 0
+    "for linetext in getline(firstline, lastline)
+        ""Does this line have an assignment in it?
+        "let left_width = match(linetext, '\s*' . ASSIGN_OP)
+
+        ""If so, track the maximal assignment column and operator width...
+        "if left_width >= 0
+            "let max_align_col = max([max_align_col, left_width])
+
+            "let op_width      = strlen(matchstr(linetext, ASSIGN_OP))
+            "let max_op_width  = max([max_op_width, op_width+1])
+        "endif
+    "endfor
+
+    ""Code needed to reformat lines so as to align operators...
+    "let FORMATTER = '\=printf("%-*s%*s", max_align_col, submatch(1),
+                "\                                    max_op_width,  submatch(2))'
+
+    "" Reformat lines with operators aligned in the appropriate column...
+    "for linenum in range(firstline, lastline)
+        "let oldline = getline(linenum)
+        "let newline = substitute(oldline, ASSIGN_LINE, FORMATTER, "")
+        "call setline(linenum, newline)
+    "endfor
+"endfunction " }}}
+
+function! s:uncomment () range " {{{
     if !exists ('b:comment_starter')
         let b:comment_starter = split (&commentstring, '%s')[0]
     endif
-    if getline ('.') =~ '^\s*' . b:comment_starter
-        execute 'normal! ^d' . len (b:comment_starter) . 'l'
-    else
-        execute 'normal! ^i' . b:comment_starter
-    endif
+    execute a:firstline . ',' . a:lastline . 'substitute#\v^(\s*)' . b:comment_starter . '#\1#e'
 endfunction " }}}
 
-" TODO Upgrade this function: [\_s*]
+function! s:comment () range " {{{
+    if !exists ('b:comment_starter')
+        let b:comment_starter = split (&commentstring, '%s')[0]
+    endif
+    execute a:firstline . ',' . a:lastline . 'substitute#\v^(\s*)(\S)#\1' . b:comment_starter . '\2#e'
+endfunction " }}}
+
+function! s:toggle_comment () " {{{
+    if !exists ('b:comment_starter')
+        " TODO Fix this: commentstring=/*%s*/ in c, indent, xdefaults, .etc files.
+        let b:comment_starter = split (&commentstring, '%s')[0]
+    endif
+    let l:line = getline ('.')
+    if l:line =~ '^\s*' . b:comment_starter
+        let l:line = substitute (l:line, '\v^(\s*)' . b:comment_starter, '\1', 'e')
+    else
+        let l:line = substitute (l:line, '\v^(\s*)(\S)', '\1' . b:comment_starter. '\2', 'e')
+    endif
+    call setline ('.', l:line)
+endfunction " }}}
+
 function! s:is_adjacent_pairs () " {{{
+    " TODO Upgrade this function: [\_s*]
     let l:pairs = { '(' : ')', '[' : ']', '{' : '}', '<' : '>', "'" : "'", '"' : '"' }
     let l:mode = mode ()
     if l:mode == 'i' " insert mode.
@@ -111,8 +169,10 @@ function! s:add_file_description () " {{{
     " Search backward after parsing.
     " 0 if not found, no error.
     if search ('Description: .', 'be')
-        if expand ('%:p') =~ '/problemset/'
-            execute "normal! iCodeforce problemset \<C-R>=expand ('%:p:h:t')\<CR> - \<Esc>l"
+        if expand ('%:p') =~ '/codeforces/'
+            execute "normal! iCodeforces problemset \<C-R>=expand ('%:p:h:t')\<CR> - \<Esc>l"
+        elseif expand ('%:p') =~ '/codechef/'
+            execute "normal! iCodechef practice - \<Esc>l"
         endif
         startinsert
     endif
@@ -122,7 +182,7 @@ function! s:load_template () " {{{
     "silent! execute '0read $VIMDOTDIR/templates/' . expand ('<afile>:p:t')
     silent! 0read $VIMDOTDIR/templates/<afile>:p:t
     %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval (submatch (1))#ge
-    $d
+    $delete
 endfunction " }}}
 
 function! IsMatchOnLHS (pattern) " {{{
@@ -131,9 +191,12 @@ endfunction " }}}
 " }}}
 
 " mappings. {{{
-" TODO Comment and Uncomment, do we need that?
-" Toggle comments.
-noremap <Leader>c :call <SID>toggle_comment ()<CR>
+"nmap <silent>  ;=  :call AlignAssignments()<CR>
+
+" Comment stuffs.
+noremap <silent> <Leader>cu :call <SID>uncomment ()<CR>
+noremap <silent> <Leader>cc :call <SID>comment ()<CR>
+noremap <silent> <Leader>ct :call <SID>toggle_comment ()<CR>
 
 " Auto delete adjacent pairs.
 noremap! <expr> <BS> <SID>is_adjacent_pairs () ? '<Del><BS>' : '<BS>'
@@ -168,11 +231,10 @@ xnoremap <Down> <Esc>jV
 
 " Search selected text.
 xnoremap <Leader>ff "sy/\V<C-R>=escape (@s, '/\')<CR><CR>
-
 " Substitute last search pattern.
 nnoremap <Leader>fs :%substitute///gc<Left><Left><Left>
 
-" Bring me fimiliar files.
+" Bring me familiar files.
 nnoremap <Leader>vtM :tabedit $VIMDOTDIR/templates/Makefile<CR>
 nnoremap <Leader>vtm :tabedit $VIMDOTDIR/templates/main.c<CR>
 nnoremap <Leader>vc :tabedit $VIMDOTDIR/after/ftplugin/c.vim<CR>
@@ -188,8 +250,8 @@ augroup END
 
 augroup MakePrg
     autocmd!
-    " Use the Makefile template when in problemset folder.
-    autocmd BufNewFile,BufRead */problemset/*/*.[ch] setlocal makeprg=make\ -f\ $VIMDOTDIR/templates/Makefile
+    " Use the Makefile template when in practices folder.
+    autocmd BufNewFile,BufRead ?*/practices/?*/?*/?*.[ch] setlocal makeprg=make\ -f\ $VIMDOTDIR/templates/Makefile
 augroup END
 
 augroup Templates
