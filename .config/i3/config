@@ -214,9 +214,10 @@ focus_follows_mouse no
 
 ## Keybindings for starting applications.
 bindsym $mod+Return exec urxvt
+bindsym $mod+Shift+Return exec --no-startup-id urxvt -name terminal_scratchpad
 bindsym $mod+Shift+f exec firefox
 bindsym $mod+Shift+t exec --no-startup-id transmission-daemon
-bindsym Print --release exec --no-startup-id scrot "$(xdg-user-dir PICTURES)/screenshots/%Y-%m-%d-%H-%M-%S.png"
+bindsym Print --release exec --no-startup-id scrot "$(xdg-user-dir PICTURES)screenshots/%Y-%m-%d-%H-%M-%S.png"
 bindsym $mod+Shift+z exec zathura
 
 # Reconnect with home network.
@@ -225,11 +226,9 @@ bindsym $mod+Shift+w exec "wpa_cli disable_network 0; sleep 5; wpa_cli enable_ne
 # Start terminal on startup and move it to scratchpad.
 exec --no-startup-id urxvt -name terminal_scratchpad
 for_window [instance="terminal_scratchpad"] move scratchpad 
-
-#for_window [instance="terminal_scratchpad"] kill
 # The event will fire whenever the connection to the ipc is lost (including on i3-msg restart)
 # and the main loop will end afterwards.
-exec_always --no-startup-id i3-msg [instance="terminal_scratchpad"] kill
+# exec_always --no-startup-id i3-msg [instance="terminal_scratchpad"] kill &>> /dev/null
 
 # Start another terminal.
 exec --no-startup-id urxvt
