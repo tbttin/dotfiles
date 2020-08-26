@@ -1,7 +1,9 @@
 CC = gcc
 CFLAGS = -std=c11\
+	 -pedantic\
 	 -Wall\
 	 -Wextra\
+	 -O2\
 	 -lm\
 	 -Wshadow\
 	 -Wconversion\
@@ -9,6 +11,7 @@ CFLAGS = -std=c11\
 	 -Wformat=2\
 	 -Wfloat-equal
 DBGCFLAGS = -g -DDEBUG
+# OBJS = main.o
 OBJS = main.c
 
 all : $(OBJS)
