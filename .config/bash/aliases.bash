@@ -30,6 +30,7 @@ alias vv='vim $XDG_CONFIG_HOME/vim/vimrc'
 alias vc='vim $XDG_CONFIG_HOME/vim/after/ftplugin/c.vim'
 alias vtm='vim $XDG_CONFIG_HOME/vim/templates/main.c'
 alias vtM='vim $XDG_CONFIG_HOME/vim/templates/Makefile'
+alias vdoc='vim -S $(xdg-user-dir DOCUMENTS)vim/doc-session.vim'
 # Xresources.
 alias vx='vim $XDG_CONFIG_HOME/X11/xresources'
 # Urxvt.
@@ -61,13 +62,13 @@ alias ll='ls -lh'
 alias la='ll -a'
 alias grep='grep --color=auto'
 
-# Start wpa_supplicant client add cleanup history file.
+# Start wpa_supplicant client add cleanup history file after that.
 alias wpacli='wpa_cli && rm -f ~/.wpa_cli_history'
 # Reconnect to home wifi via wpa_supplicant.
 alias recon='wpa_cli disable_network 0; sleep 5; wpa_cli enable_network 0'
 
 # Decrease seek_interval by 5, supress printing copyright, build options and versions.
-alias ffplay='ffplay -hide_banner -seek_interval 5 -autoexit'
+alias ffplay='ffplay -nostats -seek_interval 5 -volume 60 -autoexit'
 alias ffmpeg='ffmpeg -hide_banner'
 
 # startx with xinitrc in $XDG_CONFIG_HOME.
