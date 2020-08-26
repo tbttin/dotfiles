@@ -1,4 +1,4 @@
-! vim: filetype=xdefaults
+! vim: ft=xdefaults cms=!%s
 
 URxvt.perl-ext:
 URxvt.perl-ext-common:
