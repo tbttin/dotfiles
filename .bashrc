@@ -39,15 +39,26 @@ GIT_COMPLETION_SCRIPT="/usr/share/git/completion/git-completion.bash"
 function mkcd() { mkdir -p "$@" && cd "$1"; }
 
 # Play all .mkv files with its subtitle in current directory.
+# ^Z kill %%
 function ffps()
 {
-    find . -maxdepth 1 -type f -name "*.mkv" -print0 | while read -d $'\0' file;
-do
-    exEnSub="${file}.en.srt"
-    if [ -f $exEnSub ]; then
-        ${BASH_ALIASES[ffplay]} ${file} -vf subtitles=${exEnSub}
-    else
-        ${BASH_ALIASES[ffplay]} ${file}
-    fi
-done
+    hidden=false
+    find . -maxdepth 1 -type f -name "*.mkv" -print0 | \
+        sort -z | \
+        while read -d $'\0' file;
+        do
+            # Hide i3 scratchpad window once.
+            if [ "$hidden" = false ]; then
+                i3-msg [instance="terminal_scratchpad"] move scratchpad &>> /dev/null
+                hidden=true
+            fi
+            # Detect external subtitle.
+            if [ -f "${file}.srt" ]; then
+                ${BASH_ALIASES[ffplay]} "${file}" -vf subtitles="${file}.srt"
+            elif [ -f "${file}.ass" ]; then
+                ${BASH_ALIASES[ffplay]} "${file}" -vf subtitles="${file}.ass"
+            else
+                ${BASH_ALIASES[ffplay]} "${file}"
+            fi
+        done
 }
