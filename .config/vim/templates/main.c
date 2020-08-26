@@ -1,8 +1,8 @@
 /*
- *        File: [:VIM_EVAL:]expand("<afile>:p:t")[:END_EVAL:]
- * Description: .
- *  Created on: [:VIM_EVAL:]strftime("%b %d %Y %R %z")[:END_EVAL:]
- *      Author: [:VIM_EVAL:]expand("$USER")[:END_EVAL:]
+ *        Author: [:VIM_EVAL:]expand("$USER")[:END_EVAL:]
+ *          File: [:VIM_EVAL:]expand("<afile>:p:t")[:END_EVAL:]
+ *   Description: .
+ *    Created on: [:VIM_EVAL:]strftime("%b %d %Y %R %z")[:END_EVAL:]
  */
 #include <stdio.h>
 #include <stdlib.h>
