@@ -1,22 +1,24 @@
+" TODO Make this filetype plugin.
 " loadded check, variables {{{
-" Only load this file when no other was loaded yet.
-if exists('b:loaded_c_ftplugin')
+" Only do this when not done yet for this buffer.
+if exists('b:loaded_after_ftplugin')
     " For fun.
-    echo 'Reload detected in ' . expand('$VIMDOTDIR/after/ftplugin/c.vim')
+    echo 'Reload detected in ' . expand('<sfile>:p')
     finish
 endif
-let b:loaded_c_ftplugin = 1
-
-" Comment string will be used in ToggleComment.
-let b:comment_starter = '//'
+" Don't load another plugin for this buffer.
+let b:loaded_after_ftplugin = 1
 " }}}
 
 " options {{{
-" GNU indent.
-setlocal formatprg=indent
+" A template for a comment.
+setlocal commentstring=//%s
 
 " Disable auto insert line comment.
 setlocal comments-=:// comments+=f://
+
+" GNU indent.
+setlocal formatprg=indent
 
 " TODO parameters and variable declaration equal sign align.
 " GNU C style indentation/format.
@@ -28,7 +30,7 @@ setlocal textwidth=79
 
 " mappings. {{{
 " Man page default section is section 3.
-nnoremap K 3K
+nnoremap <buffer> K 3K
 
 " Create tags file in $PWD recursively.
 nnoremap <buffer> <F5> :!ctags -R<CR>
@@ -43,7 +45,7 @@ nnoremap <buffer> <Leader>mc :!clear<CR>:make clean<CR>
 nnoremap <buffer> <Leader>r :!./all<CR>
 
 " Smart less than sign.
-inoremap <expr> <buffer> < IsMatchOnLHS ('^#include\s*$') ? "<><Left>" : "<"
+inoremap <expr> <buffer> < IsMatchOnLHS ('^#include\s*$') ? '<><Left>' : '<'
 " }}}
 
 " plugins {{{
