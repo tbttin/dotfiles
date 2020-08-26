@@ -1,4 +1,4 @@
-" options. {{{
+" options {{{
 " Always refer to the relevant :help before adding anything to vimrc.
 " Using short names has ONLY cons and ZERO pros.
 
@@ -10,24 +10,19 @@
 " Load vim's default configs.
 unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
-" }}}
+" end defaults.vim }}}
 
-" Use XDG Base Directory Specification. {{{
-set undodir=$XDG_DATA_HOME/vim/undo
-set directory=$XDG_DATA_HOME/vim/swap
-set backupdir=$XDG_DATA_HOME/vim/backup
-set viewdir=$XDG_DATA_HOME/vim/view
+" XDG Base Directory Specification {{{
+set undodir=$XDG_DATA_HOME/vim/undo     | call mkdir (&g:undodir, 'p', 0700)
+set directory=$XDG_DATA_HOME/vim/swap   | call mkdir (&g:directory, 'p', 0700)
+set backupdir=$XDG_DATA_HOME/vim/backup | call mkdir (&g:backupdir, 'p', 0700)
+set viewdir=$XDG_DATA_HOME/vim/view     | call mkdir (&g:viewdir, 'p', 0700)
 set viminfo+=n$XDG_DATA_HOME/vim/viminfo
 set runtimepath=$VIMDOTDIR,$VIMRUNTIME,$VIMDOTDIR/after
+let &g:packpath=&g:runtimepath
+" end XDG }}}
 
-" If not exist create it.
-if !isdirectory (&g:undodir)   | call mkdir (&g:undodir, 'p', 0700)   | endif
-if !isdirectory (&g:directory) | call mkdir (&g:directory, 'p', 0700) | endif
-if !isdirectory (&g:backupdir) | call mkdir (&g:backupdir, 'p', 0700) | endif
-if !isdirectory (&g:viewdir)   | call mkdir (&g:viewdir, 'p', 0700)   | endif
-" }}}
-
-" displays. {{{
+" displays {{{
 " Show function name + template in auto completion pop-up menu.
 set showfulltag
 
@@ -45,9 +40,9 @@ set number relativenumber
 let &t_SI .= "\<Esc>[3 q" " SI = INSERT mode.
 let &t_SR .= "\<Esc>[4 q" " SR = REPLACE mode.
 let &t_EI .= "\<Esc>[1 q" " EI = NORMAL mode (ELSE).
-" }}}
+" end displays }}}
 
-" indentations. {{{
+" indentations {{{
 " Number of spaces to use for each step of (auto)indent.
 set shiftwidth=4
 
@@ -56,21 +51,25 @@ set softtabstop=4
 
 " Don't use tabs for indentation. Spaces are nicer to work with.
 set expandtab
-" }}}
+" end indentation }}}
 
-" command-lines. {{{
+" command-lines {{{
 " It's gotta be somewhere in there!
 set path-=, path+=**
-" }}}
+" end command-line }}}
+
+" Disable <Leader> timout.
+set notimeout
 
 " Bash default syntax highlighting.
 let g:is_bash = 1
+
 " Enable function folding.
 let g:sh_fold_enabled = 1
 
-" This plugin makes the '%' command jump to matching HTML tags, if/else/endif in Vim scripts, etc.
+"" This plugin makes the '%' command jump to matching HTML tags, if/else/endif in Vim scripts, etc.
 "if has ('syntax') && has ('eval')
-"  packadd! matchit
+  "packadd! matchit
 "endif
 
 " Possibility to have more than one unsaved buffers.
@@ -78,9 +77,9 @@ set hidden
 
 " Reset defaults.vim mouse option.
 set mouse&
-" }}}
+" end options }}}
 
-" functions. {{{
+" functions {{{
 "function! AlignAssignments () " {{{
     " TODO Use this function.
     ""Patterns needed to locate assignment operators...
@@ -123,35 +122,7 @@ set mouse&
     "endfor
 "endfunction " }}}
 
-function! s:uncomment () range " {{{
-    if !exists ('b:comment_starter')
-        let b:comment_starter = split (&commentstring, '%s')[0]
-    endif
-    execute a:firstline . ',' . a:lastline . 'substitute#\v^(\s*)' . b:comment_starter . '#\1#e'
-endfunction " }}}
-
-function! s:comment () range " {{{
-    if !exists ('b:comment_starter')
-        let b:comment_starter = split (&commentstring, '%s')[0]
-    endif
-    execute a:firstline . ',' . a:lastline . 'substitute#\v^(\s*)(\S)#\1' . b:comment_starter . '\2#e'
-endfunction " }}}
-
-function! s:toggle_comment () " {{{
-    if !exists ('b:comment_starter')
-        " TODO Fix this: commentstring=/*%s*/ in c, indent, xdefaults, .etc files.
-        let b:comment_starter = split (&commentstring, '%s')[0]
-    endif
-    let l:line = getline ('.')
-    if l:line =~ '^\s*' . b:comment_starter
-        let l:line = substitute (l:line, '\v^(\s*)' . b:comment_starter, '\1', 'e')
-    else
-        let l:line = substitute (l:line, '\v^(\s*)(\S)', '\1' . b:comment_starter. '\2', 'e')
-    endif
-    call setline ('.', l:line)
-endfunction " }}}
-
-function! s:is_adjacent_pairs () " {{{
+function! s:IsAdjacentPairs () " {{{
     " TODO Upgrade this function: [\_s*]
     let l:pairs = { '(' : ')', '[' : ']', '{' : '}', '<' : '>', "'" : "'", '"' : '"' }
     let l:mode = mode ()
@@ -165,44 +136,61 @@ function! s:is_adjacent_pairs () " {{{
     return get (l:pairs, l:open, 'NONE') == l:close
 endfunction " }}}
 
-function! s:add_file_description () " {{{
+function! IsMatchOnLHS (pattern) " {{{
+    return strpart (getline ('.'), 0, col ('.') - 1) =~ a:pattern
+endfunction " }}}
+
+function! s:UpdateTimestamp () " {{{
+    let l:line = line ('$') > 10 ? 10 : line ('$')
+    kt
+    execute 1 . ',' . l:line . 'g/Last modified: /s/Last modified: .*/Last modified: ' .
+                \ strftime("%b %d %Y %R %z")
+    't
+endfunction " }}}
+
+function! s:AddFileDescription () " {{{
     " Search backward after parsing.
     " 0 if not found, no error.
-    if search ('Description: .', 'be')
-        if expand ('%:p') =~ '/codeforces/'
+    if search ('\cDescription: .', 'be')
+        if expand ('%:p') =~# '/cforces/'
             execute "normal! iCodeforces problemset \<C-R>=expand ('%:p:h:t')\<CR> - \<Esc>l"
-        elseif expand ('%:p') =~ '/codechef/'
+        elseif expand ('%:p') =~# '/cchef/'
             execute "normal! iCodechef practice - \<Esc>l"
         endif
         startinsert
     endif
 endfunction " }}}
 
-function! s:load_template () " {{{
-    "silent! execute '0read $VIMDOTDIR/templates/' . expand ('<afile>:p:t')
-    silent! 0read $VIMDOTDIR/templates/<afile>:p:t
-    %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval (submatch (1))#ge
-    $delete
+function! s:ParseTemplate () " {{{
+    let l:line = line ('$') > 10 ? 10 : line ('$')
+    execute 1 . ',' . l:line . 's/\v\[:VIM_EVAL:\](.{-})\[:END_EVAL:\]/\=eval (submatch (1))/ge'
 endfunction " }}}
 
-function! IsMatchOnLHS (pattern) " {{{
-    return strpart (getline ('.'), 0, col ('.') - 1) =~ a:pattern
+function! s:LoadTemplate (filename) " {{{
+    let l:fullpath = $VIMDOTDIR . '/templates/' . a:filename
+    if filereadable (l:fullpath)
+        execute '0read ' . l:fullpath
+        $delete
+        call s:ParseTemplate ()
+    endif
 endfunction " }}}
-" }}}
+" end functions }}}
 
-" mappings. {{{
+" mappings {{{
+nnoremap <Leader><C-]> <C-W><C-]><C-W>T
+
 "nmap <silent>  ;=  :call AlignAssignments()<CR>
 
-" Comment stuffs.
-noremap <silent> <Leader>cu :call <SID>uncomment ()<CR>
-noremap <silent> <Leader>cc :call <SID>comment ()<CR>
-noremap <silent> <Leader>ct :call <SID>toggle_comment ()<CR>
+" [count]{lhs} line comment (without space).
+noremap <silent> <Leader>cu :Uncomment<CR>
+noremap <silent> <Leader>cc :Comment<CR>
+noremap <silent> <Leader>ct :ToggleComment<CR>
 
 " Auto delete adjacent pairs.
-noremap! <expr> <BS> <SID>is_adjacent_pairs () ? '<Del><BS>' : '<BS>'
+noremap! <expr> <BS> <SID>IsAdjacentPairs () ? '<Del><BS>' : '<BS>'
 
 " Pairs auto completions in command line mode.
-cnoremap " ""<Left>
+cnoremap <expr> " getcmdline ()[getcmdpos () - 2] =~ '@' ? '"' : '""<Left>'
 cnoremap ' ''<Left>
 cnoremap { {}<Left>
 
@@ -219,46 +207,58 @@ nnoremap <Leader>gf :tabedit <cfile><CR>
 
 " Tab to complete and literal tab.
 inoremap <expr> <Tab> IsMatchOnLHS ('^\s*$') ? '<Tab>' : '<C-N>'
-"inoremap <expr> <S-Tab> IsMatchOnLHS ('^\s*$') ? '<S-Tab>' : '<C-P>'
-inoremap <S-Tab> <Tab>
+inoremap <expr> <S-Tab> IsMatchOnLHS ('^\s*$') ? '<S-Tab>' : '<C-P>'
+"inoremap <S-Tab> <Tab>
 
 " Kill two birds with one stone.
 cabbrev H tab help
+
+" Yank from first non-blank to last non-blank.
+nnoremap Y ^yg_
 
 " Highlight next/previous line.
 xnoremap <Up> <Esc>kV
 xnoremap <Down> <Esc>jV
 
-" Search selected text.
+" Search selected text (s register will be used).
 xnoremap <Leader>ff "sy/\V<C-R>=escape (@s, '/\')<CR><CR>
 " Substitute last search pattern.
+" TODO gdefault
 nnoremap <Leader>fs :%substitute///gc<Left><Left><Left>
 
 " Bring me familiar files.
+nnoremap <Leader>vpc :tabedit $VIMDOTDIR/pack/projects/start/tcmt/plugin/tcmt.vim<CR>
 nnoremap <Leader>vtM :tabedit $VIMDOTDIR/templates/Makefile<CR>
 nnoremap <Leader>vtm :tabedit $VIMDOTDIR/templates/main.c<CR>
 nnoremap <Leader>vc :tabedit $VIMDOTDIR/after/ftplugin/c.vim<CR>
 nnoremap <Leader>vv :tabedit $MYVIMRC<CR>
-" }}}
+nnoremap <Leader>vb :browse oldfiles<CR>
+" end mappings }}}
 
-" autocommands. {{{
-augroup FoldMethod
+" autocommands {{{
+augroup DocSession " {{{
+    autocmd!
+    autocmd VimLeave */doc/* execute 'mksession! ' . substitute (system ('xdg-user-dir DOCUMENTS'), '\n', '', 'e') . '/vim/doc-session.vim'
+augroup END " }}}
+
+augroup FoldMethod " {{{
     autocmd!
     " Set foldmethod for vim files.
     autocmd FileType vim set foldmethod=marker
-augroup END
+augroup END " }}}
 
-augroup MakePrg
+augroup MakePrg " {{{
     autocmd!
     " Use the Makefile template when in practices folder.
     autocmd BufNewFile,BufRead ?*/practices/?*/?*/?*.[ch] setlocal makeprg=make\ -f\ $VIMDOTDIR/templates/Makefile
-augroup END
+augroup END " }}}
 
-augroup Templates
+augroup Templates " {{{
     autocmd!
     " Read and parse templates.
-    autocmd BufNewFile ?* call s:load_template ()
+    autocmd BufNewFile ?* call s:LoadTemplate (expand ('<afile>:p:t'))
     " Start insert mode at the end of line containing 'Description: '.
-    autocmd BufNewFile main.c call s:add_file_description ()
-augroup END
-" }}}
+    autocmd BufNewFile main.c call s:AddFileDescription ()
+    "autocmd BufWritePre,FileWritePre main.c undojoin | call s:UpdateTimestamp ()
+augroup END " }}}
+" end autocommands }}}
