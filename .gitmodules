@@ -1,0 +1,6 @@
+[submodule ".config/vim/pack/plugins/.config/vim/pack/plugins/start"]
+	path = .config/vim/pack/plugins/.config/vim/pack/plugins/start
+	url = https://github.com/tpope/vim-surround.git
+[submodule ".config/vim/pack/plugins/vim-surround"]
+	path = .config/vim/pack/plugins/vim-surround
+	url = https://github.com/tpope/vim-surround.git
