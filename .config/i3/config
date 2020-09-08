@@ -44,6 +44,7 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 
+# Vi's style.
 # Use these keys for focus, movement, and resize directions when reaching for.
 set $up k
 set $down j
@@ -174,7 +175,7 @@ mode "$mode_system" {
     bindsym Shift+s exec --no-startup-id $Locker && systemctl suspend, mode "default"
     bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
-    bindsym s exec --no-startup-id systemctl poweroff -i, mode "default"  
+    bindsym s exec --no-startup-id systemctl poweroff -i, mode "default"
 
     # Back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -217,18 +218,18 @@ bindsym $mod+Return exec urxvt
 bindsym $mod+Shift+Return exec --no-startup-id urxvt -name terminal_scratchpad
 bindsym $mod+Shift+f exec firefox
 bindsym $mod+Shift+t exec --no-startup-id transmission-daemon
-bindsym Print --release exec --no-startup-id scrot "$(xdg-user-dir PICTURES)screenshots/%Y-%m-%d-%H-%M-%S.png"
 bindsym $mod+Shift+z exec zathura
+bindsym Print --release exec --no-startup-id \
+    import -window root "$(xdg-user-dir PICTURES)/screenshots/$(date '+%F_%H-%M-%S').png"
+bindsym Shift+Print --release exec --no-startup-id \
+    import "$(xdg-user-dir PICTURES)/screenshots/$(date '+%F_%H-%M-%S').png"
 
 # Reconnect with home network.
 bindsym $mod+Shift+w exec "wpa_cli disable_network 0; sleep 5; wpa_cli enable_network 0"
 
 # Start terminal on startup and move it to scratchpad.
 exec --no-startup-id urxvt -name terminal_scratchpad
-for_window [instance="terminal_scratchpad"] move scratchpad 
-# The event will fire whenever the connection to the ipc is lost (including on i3-msg restart)
-# and the main loop will end afterwards.
-# exec_always --no-startup-id i3-msg [instance="terminal_scratchpad"] kill &>> /dev/null
+for_window [instance="terminal_scratchpad"] move scratchpad
 
 # Start another terminal.
 exec --no-startup-id urxvt
