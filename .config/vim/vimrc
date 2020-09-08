@@ -1,6 +1,7 @@
 " options {{{
 " Always refer to the relevant :help before adding anything to vimrc.
 " Using short names has ONLY cons and ZERO pros.
+" TODO Make a teporaryly vimrc file? or a Git branch?
 
 " defaults.vim {{{
 " /etc/vimrc
@@ -55,8 +56,12 @@ set expandtab
 
 " command-lines {{{
 " It's gotta be somewhere in there!
-set path-=, path+=**
+"set path=.,**,$VIMDOTDIR/**
+set path=.,,$VIMDOTDIR/**
 " end command-line }}}
+
+" Insert two spaces after a '.', '?' and '!' with a join command.
+set nojoinspaces
 
 " Disable <Leader> timout.
 set notimeout
@@ -177,8 +182,6 @@ endfunction " }}}
 " end functions }}}
 
 " mappings {{{
-nnoremap <Leader><C-]> <C-W><C-]><C-W>T
-
 "nmap <silent>  ;=  :call AlignAssignments()<CR>
 
 " [count]{lhs} line comment (without space).
@@ -195,7 +198,7 @@ cnoremap ' ''<Left>
 cnoremap { {}<Left>
 
 " Basic pairs auto completions.
-inoremap <expr> " IsMatchOnLHS ('^\s*$') ? '"' : '""<Left>'
+inoremap <expr> " IsMatchOnLHS ('^\s*$') ? '" ' : '""<Left>'
 inoremap <expr> ' getline ('.')[col ('.') - 2] =~ '\a' ? "'" : "''<Left>"
 noremap! ( ()<Left>
 noremap! < <><Left>
@@ -223,24 +226,14 @@ xnoremap <Down> <Esc>jV
 " Search selected text (s register will be used).
 xnoremap <Leader>ff "sy/\V<C-R>=escape (@s, '/\')<CR><CR>
 " Substitute last search pattern.
-" TODO gdefault
+" TODO gdefault.
 nnoremap <Leader>fs :%substitute///gc<Left><Left><Left>
 
 " Bring me familiar files.
-nnoremap <Leader>vpc :tabedit $VIMDOTDIR/pack/projects/start/tcmt/plugin/tcmt.vim<CR>
-nnoremap <Leader>vtM :tabedit $VIMDOTDIR/templates/Makefile<CR>
-nnoremap <Leader>vtm :tabedit $VIMDOTDIR/templates/main.c<CR>
-nnoremap <Leader>vc :tabedit $VIMDOTDIR/after/ftplugin/c.vim<CR>
 nnoremap <Leader>vv :tabedit $MYVIMRC<CR>
-nnoremap <Leader>vb :browse oldfiles<CR>
 " end mappings }}}
 
 " autocommands {{{
-augroup DocSession " {{{
-    autocmd!
-    autocmd VimLeave */doc/* execute 'mksession! ' . substitute (system ('xdg-user-dir DOCUMENTS'), '\n', '', 'e') . '/vim/doc-session.vim'
-augroup END " }}}
-
 augroup FoldMethod " {{{
     autocmd!
     " Set foldmethod for vim files.
