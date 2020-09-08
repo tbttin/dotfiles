@@ -1,11 +1,11 @@
-! make Caps_Lock mod3 Mode_switch
+! Make Caps_Lock mod3 Mode_switch
 remove Lock = Caps_Lock
 keycode  66 = Mode_switch NoSymbol Mode_switch
 remove mod5 = Mode_switch
 add mod3 = Mode_switch
 
 ! New caps lock.
-keycode  65 = space NoSymbol Caps_Lock 
+keycode  65 = space NoSymbol Caps_Lock
 
 ! Caps lock + homerow = vi key bindings.
 keycode  43 = h H Left Left
