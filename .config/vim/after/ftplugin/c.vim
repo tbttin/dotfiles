@@ -11,14 +11,14 @@ let b:loaded_after_ftplugin = 1
 " }}}
 
 " options {{{
+"
+setlocal path=.,/usr/include,**
+
 " A template for a comment.
 setlocal commentstring=//%s
 
 " Disable auto insert line comment.
 setlocal comments-=:// comments+=f://
-
-" GNU indent.
-setlocal formatprg=indent
 
 " TODO parameters and variable declaration equal sign align.
 " GNU C style indentation/format.
