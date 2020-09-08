@@ -5,7 +5,7 @@ TMPBG=$(mktemp /tmp/XXXXXXXXXX.png)
 LOCK_ICON="$HOME/.config/i3/lock.png"
 
 # Take a screenshot.
-scrot -oz $TMPBG
+import -window root -silent $TMPBG
 
 # Simulate oil painting.
 convert $TMPBG -paint 3 $TMPBG
