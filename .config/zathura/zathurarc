@@ -1,7 +1,10 @@
-#vim: filetype=conf
+# vim: filetype=conf
 
 set guioptions ""
 set default-bg "#4d503c"
 set font "monospace nomal 10"
 set selection-notification false
 set abort-clear-search false
+set show-recent 5
+set filemonitor "noop"
+# set show-directories false
