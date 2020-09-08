@@ -1,11 +1,11 @@
-# Aliases are created and listed with the alias command, and removed with the unalias command. 
+# Aliases are created and listed with the alias command, and removed with the unalias command.
 
 # Some improving for movements.
 alias ..='cd ..'
 alias ...='cd ../..'
 # With most commands, you can pass -- as an argument,
 # and all subsequent arguments are treated as operands and not options even if they begin with a dash.
-alias -- --='cd -' 
+alias -- --='cd -'
 alias d='cd $(xdg-user-dir DOCUMENTS)'
 alias dl='cd $(xdg-user-dir DOWNLOAD)'
 alias p='cd $(xdg-user-dir PICTURES)'
@@ -30,7 +30,6 @@ alias vv='vim $XDG_CONFIG_HOME/vim/vimrc'
 alias vc='vim $XDG_CONFIG_HOME/vim/after/ftplugin/c.vim'
 alias vtm='vim $XDG_CONFIG_HOME/vim/templates/main.c'
 alias vtM='vim $XDG_CONFIG_HOME/vim/templates/Makefile'
-alias vdoc='vim -S $(xdg-user-dir DOCUMENTS)vim/doc-session.vim'
 # Xresources.
 alias vx='vim $XDG_CONFIG_HOME/X11/xresources'
 # Urxvt.
@@ -68,7 +67,7 @@ alias wpacli='wpa_cli && rm -f ~/.wpa_cli_history'
 alias recon='wpa_cli disable_network 0; sleep 5; wpa_cli enable_network 0'
 
 # Decrease seek_interval by 5, supress printing copyright, build options and versions.
-alias ffplay='ffplay -nostats -seek_interval 5 -volume 60 -autoexit'
+alias ffplay='ffplay -hide_banner -nostats -seek_interval 5 -volume 60 -autoexit'
 alias ffmpeg='ffmpeg -hide_banner'
 
 # startx with xinitrc in $XDG_CONFIG_HOME.
