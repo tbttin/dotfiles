@@ -31,9 +31,9 @@ HISTSIZE=1000
 # Source alias file.
 [[ -f "$XDG_CONFIG_HOME/bash/aliases.bash" ]] && . "$XDG_CONFIG_HOME/bash/aliases.bash"
 
-# Source git auto completion file.
-GIT_COMPLETION_SCRIPT="/usr/share/git/completion/git-completion.bash"
-[[ -f $GIT_COMPLETION_SCRIPT ]] && . $GIT_COMPLETION_SCRIPT
+## Source git auto completion file.
+#GIT_COMPLETION_SCRIPT="/usr/share/git/completion/git-completion.bash"
+#[[ -f $GIT_COMPLETION_SCRIPT ]] && . $GIT_COMPLETION_SCRIPT
 
 # Create a new directory and enter it.
 function mkcd() { mkdir -p "$@" && cd "$1"; }
@@ -42,15 +42,15 @@ function mkcd() { mkdir -p "$@" && cd "$1"; }
 # ^Z kill %%
 function ffps()
 {
-    hidden=false
     find . -maxdepth 1 -type f -name "*.mkv" -print0 | \
         sort -z | \
         while read -d $'\0' file;
         do
             # Hide i3 scratchpad window once.
-            if [ "$hidden" = false ]; then
+            # TODO How to check it once?
+            win_id=$(xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | cut -f 2)
+            if [ "$win_id" != "0x0" ]; then
                 i3-msg [instance="terminal_scratchpad"] move scratchpad &>> /dev/null
-                hidden=true
             fi
             # Detect external subtitle.
             if [ -f "${file}.srt" ]; then
@@ -61,4 +61,8 @@ function ffps()
                 ${BASH_ALIASES[ffplay]} "${file}"
             fi
         done
+        win_id=$(xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | cut -f 2)
+        if [ "$win_id" = "0x0" ]; then
+            i3-msg [instance="terminal_scratchpad"] scratchpad show &>> /dev/null
+        fi
 }
