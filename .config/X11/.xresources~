@@ -1,4 +1,4 @@
-# vim: filetype=xdefaults
+! vim: filetype=xdefaults commentstring=!%s
 
 ! terminal.sexy colors.
 ! special
