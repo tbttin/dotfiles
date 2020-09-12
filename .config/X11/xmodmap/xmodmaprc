@@ -4,11 +4,11 @@ keycode  66 = Mode_switch NoSymbol Mode_switch
 remove mod5 = Mode_switch
 add mod3 = Mode_switch
 
-! New caps lock.
-keycode  65 = space NoSymbol Caps_Lock
-
-! Caps lock + homerow = vi key bindings.
+! Caps_Lock + hjkl = vi's style.
 keycode  43 = h H Left Left
 keycode  44 = j J Down Down
 keycode  45 = k K Up Up
 keycode  46 = l L Right Right
+
+! Caps_Lock+Space to toggle Caps lock.
+keycode  65 = space NoSymbol Caps_Lock
