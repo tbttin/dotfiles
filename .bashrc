@@ -24,9 +24,8 @@ stty -ixon
 shopt -s "autocd"
 
 # History things.
-HISTTIMEFORMAT="%b %d %H:%M " # using strftime format.
-HISTCONTROL="ignoreboth:erasedups"
-HISTSIZE=1000
+HISTCONTROL="ignorespace:erasedups"
+HISTSIZE=2000
 
 # Source alias file.
 [[ -f "$XDG_CONFIG_HOME/bash/aliases.bash" ]] && . "$XDG_CONFIG_HOME/bash/aliases.bash"
@@ -46,8 +45,7 @@ function ffps()
         sort -z | \
         while read -d $'\0' file;
         do
-            # Hide i3 scratchpad window once.
-            # TODO How to check it once?
+            # Get current window id.
             win_id=$(xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | cut -f 2)
             if [ "$win_id" != "0x0" ]; then
                 i3-msg [instance="terminal_scratchpad"] move scratchpad &>> /dev/null
