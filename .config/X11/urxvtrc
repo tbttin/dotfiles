@@ -1,8 +1,10 @@
 ! vim: ft=xdefaults cms=!%s
 
+! Disable Perl extentions.
 URxvt.perl-ext:
 URxvt.perl-ext-common:
 
+! Still know nothing about fonts.
 URxvt.font: xft:bitstream vera sans mono:size=11:antialias=true
 URxvt.boldFont: xft:bitstream vera sans mono:bold:size=11:antialias=true
 
@@ -14,5 +16,5 @@ URxvt.scrollBar: false
 URxvt.iso14755: false
 URxvt.iso14755_52: false
 
-! Disable mouse scroll.
+! Disable mouse scroll. Use less instead.
 URxvt*saveLines: 0
