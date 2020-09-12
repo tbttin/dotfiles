@@ -12,10 +12,6 @@ alias p='cd $(xdg-user-dir PICTURES)'
 alias s='cd $(xdg-user-dir SCRIPTS)'
 alias v='cd $(xdg-user-dir VIDEOS)'
 
-# System stuffs.
-alias spf='systemctl poweroff -i'
-alias supa='sudo pacman'
-
 # Quick edit some config files.
 # Bash.
 alias vb='vim ~/.bashrc'
@@ -27,9 +23,6 @@ alias vin='vim $INPUTRC'
 alias vi3='vim $XDG_CONFIG_HOME/i3/config'
 # Vim.
 alias vv='vim $XDG_CONFIG_HOME/vim/vimrc'
-alias vc='vim $XDG_CONFIG_HOME/vim/after/ftplugin/c.vim'
-alias vtm='vim $XDG_CONFIG_HOME/vim/templates/main.c'
-alias vtM='vim $XDG_CONFIG_HOME/vim/templates/Makefile'
 # Xresources.
 alias vx='vim $XDG_CONFIG_HOME/X11/xresources'
 # Urxvt.
@@ -37,13 +30,23 @@ alias vu='vim $XDG_CONFIG_HOME/X11/urxvtrc'
 # Zathura.
 alias vz='vim $XDG_CONFIG_HOME/zathura/zathurarc'
 
+# Adding colors.
+alias ls='ls --color=auto'
+alias ll='ls -lh'
+alias la='ll -a'
+alias grep='grep --color=auto'
+
 # For safety.
 alias mv='mv -i'
 alias cp='cp -i'
 
-# Mount, unmount external drive/usb.
+# Mount, unmount external drives/USBs.
 alias m16='sudo mount /mnt/16g-usb && cd /mnt/16g-usb'
 alias um16='sudo umount /mnt/16g-usb'
+
+# System stuffs.
+alias spf='systemctl poweroff -i'
+alias supa='sudo pacman'
 
 # Git bare alias for dotfiles. Don't use $XDG_CONFIG_HOME here.
 alias config='/usr/bin/git --work-tree=$HOME --git-dir=$HOME/.config/dotfiles/'
@@ -55,19 +58,13 @@ alias cfc='config commit'
 alias cfl='config log'
 alias cfp='config push'
 
-# Adding colors.
-alias ls='ls --color=auto'
-alias ll='ls -lh'
-alias la='ll -a'
-alias grep='grep --color=auto'
-
 # Start wpa_supplicant client add cleanup history file after that.
 alias wpacli='wpa_cli && rm -f ~/.wpa_cli_history'
 # Reconnect to home wifi via wpa_supplicant.
 alias recon='wpa_cli disable_network 0; sleep 5; wpa_cli enable_network 0'
 
 # Decrease seek_interval by 5, supress printing copyright, build options and versions.
-alias ffplay='ffplay -hide_banner -nostats -seek_interval 5 -volume 60 -autoexit'
+alias ffplay='ffplay -hide_banner -nostats -seek_interval 5 -autoexit'
 alias ffmpeg='ffmpeg -hide_banner'
 
 # startx with xinitrc in $XDG_CONFIG_HOME.
