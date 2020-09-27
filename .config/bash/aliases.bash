@@ -5,7 +5,8 @@ alias ..='cd ..'
 alias ...='cd ../..'
 # With most commands, you can pass -- as an argument,
 # and all subsequent arguments are treated as operands and not options even if they begin with a dash.
-alias -- --='cd -'
+#alias -- --='cd -'
+alias -- --='cd $OLDPWD'
 alias d='cd $(xdg-user-dir DOCUMENTS)'
 alias dl='cd $(xdg-user-dir DOWNLOAD)'
 alias p='cd $(xdg-user-dir PICTURES)'
