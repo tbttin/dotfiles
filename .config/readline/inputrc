@@ -27,7 +27,7 @@ $if mode=vi
     # This example prefixes the line with sudo, if CTRL-S is pressed. It's safer because it won't input the <CR> key.
     "\C-s": "\e^isudo \eA"
     # Open current command man page, in which section?
-    "\C-q": "\e^iman  \ei"
+    "\C-f": "\e^iman  \ei"
     # Looking for something?
     "\C-g": "\eA 2>&1 | grep -i \"\"\ei"
     # No mouse scroll?
