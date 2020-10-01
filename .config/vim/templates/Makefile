@@ -19,8 +19,10 @@ all : $(OBJS)
 
 .PHONY : clean debug
 clean :
+#	rm -f all $(OBJS)
 	rm -f all
-#debug : $(OBJS)
-#	$(CC) $(CFLAGS) $(DBGCFLAGS) -o all $(OBJS)
+
+# debug : $(OBJS)
+# 	$(CC) $(CFLAGS) $(DBGCFLAGS) -o all $(OBJS)
 debug : CFLAGS += $(DBGCFLAGS)
 debug : all
