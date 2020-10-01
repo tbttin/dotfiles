@@ -12,7 +12,7 @@ let b:loaded_after_ftplugin = 1
 
 " options {{{
 "
-setlocal path=.,/usr/include,**
+setlocal path=.,/usr/include,**,$VIMDOTDIR/**
 
 " A template for a comment.
 setlocal commentstring=//%s
