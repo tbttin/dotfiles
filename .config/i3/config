@@ -224,12 +224,13 @@ bindsym Print --release exec --no-startup-id \
 bindsym Shift+Print --release exec --no-startup-id \
     import "$(xdg-user-dir PICTURES)/screenshots/$(date '+%F_%H-%M-%S').png"
 
+## Some scripts.
 # Reconnect with home network.
 bindsym $mod+Shift+w exec "wpa_cli disable_network 0; sleep 5; wpa_cli enable_network 0"
 
+## Start up.
 # Start terminal on startup and move it to scratchpad.
 exec --no-startup-id urxvt -name terminal_scratchpad
 for_window [instance="terminal_scratchpad"] move scratchpad
-
 # Start another terminal.
 exec --no-startup-id urxvt
