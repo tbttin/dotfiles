@@ -4,7 +4,7 @@ git clone --bare https://github.com/tbttin/dotfiles.git $HOME/.config/dotfiles
 function config {
     /usr/bin/git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME $@
 }
-CONF_BACKUP=~/.config-backup
+CONF_BACKUP=~/.config~
 mkdir -p ${CONF_BACKUP}
 config checkout
 if [ $? = 0 ]; then
