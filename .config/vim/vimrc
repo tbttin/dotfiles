@@ -212,8 +212,8 @@ nnoremap <Leader>gf :tabedit <cfile><CR>
 
 " Tab to complete and literal tab.
 inoremap <expr> <Tab> IsMatchOnLHS ('^\s*$') ? '<Tab>' : '<C-N>'
-inoremap <expr> <S-Tab> IsMatchOnLHS ('^\s*$') ? '<S-Tab>' : '<C-P>'
-"inoremap <S-Tab> <Tab>
+"inoremap <expr> <S-Tab> IsMatchOnLHS ('^\s*$') ? '<S-Tab>' : '<C-P>'
+inoremap <S-Tab> <Tab>
 
 " Kill two birds with one stone.
 cabbrev H tab help
