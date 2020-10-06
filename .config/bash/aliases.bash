@@ -5,8 +5,8 @@ alias ..='cd ..'
 alias ...='cd ../..'
 # With most commands, you can pass -- as an argument,
 # and all subsequent arguments are treated as operands and not options even if they begin with a dash.
-#alias -- --='cd -'
 alias -- --='cd $OLDPWD'
+#alias -- --='cd -'
 alias d='cd $(xdg-user-dir DOCUMENTS)'
 alias dl='cd $(xdg-user-dir DOWNLOAD)'
 alias p='cd $(xdg-user-dir PICTURES)'
@@ -36,6 +36,7 @@ alias ls='ls --color=auto'
 alias ll='ls -lh'
 alias la='ll -a'
 alias grep='grep --color=auto'
+alias ip='ip -color=auto'
 
 # For safety.
 alias mv='mv -i'
@@ -46,8 +47,9 @@ alias m16='sudo mount /mnt/16g-usb && cd /mnt/16g-usb'
 alias um16='sudo umount /mnt/16g-usb'
 
 # System stuffs.
-alias spf='systemctl poweroff -i'
 alias supa='sudo pacman'
+alias spo='systemctl poweroff -i'
+alias srb='systemctl reboot'
 
 # Git bare alias for dotfiles. Don't use $XDG_CONFIG_HOME here.
 alias config='/usr/bin/git --work-tree=$HOME --git-dir=$HOME/.config/dotfiles/'
@@ -62,7 +64,7 @@ alias cfp='config push'
 # Start wpa_supplicant client add cleanup history file after that.
 alias wpacli='wpa_cli && rm -f ~/.wpa_cli_history'
 # Reconnect to home wifi via wpa_supplicant.
-alias recon='wpa_cli disable_network 0; sleep 5; wpa_cli enable_network 0'
+alias recon='wpa_cli disable_network 0 && sleep 5 && wpa_cli enable_network 0'
 
 # Decrease seek_interval by 5, supress printing copyright, build options and versions.
 alias ffplay='ffplay -hide_banner -nostats -seek_interval 5 -autoexit'
