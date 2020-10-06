@@ -5,17 +5,38 @@
 # If not running interactively, don't do anything.
 [[ $- != *i* ]] && return
 
-# In Bash, the <Esc> character can be obtained with the following syntaxes:
-#   \e
-#   \033
-#   \x1B
-# \e[1m: Bold and Bright.
-CAYAN="\[\e[1;36m\]"
-LIGHT_CAYAN="\[\e[1;96m\]"
-RED="\[\e[1;31m\]"
-LIGHT_RED="\[\e[1;91m\]"
-RESET="\[\e[0m\]"
-PS1="${CAYAN}\W/${RED}\$ ${RESET}"
+# Linux console colors, framebuffer.
+# How to keep original colors?
+#if [ "$TERM" = "linux" ]; then
+#    echo -en "\e]P0232323" #black
+#    echo -en "\e]P82B2B2B" #darkgrey
+#    echo -en "\e]P1D75F5F" #darkred
+#    echo -en "\e]P9E33636" #red
+#    echo -en "\e]P287AF5F" #darkgreen
+#    echo -en "\e]PA98E34D" #green
+#    echo -en "\e]P3D7AF87" #brown
+#    echo -en "\e]PBFFD75F" #yellow
+#    echo -en "\e]P48787AF" #darkblue
+#    echo -en "\e]PC7373C9" #blue
+#    echo -en "\e]P5BD53A5" #darkmagenta
+#    echo -en "\e]PDD633B2" #magenta
+#    echo -en "\e]P65FAFAF" #darkcyan
+#    echo -en "\e]PE44C9C9" #cyan
+#    echo -en "\e]P7E5E5E5" #lightgrey
+#    echo -en "\e]PFFFFFFF" #white
+#    clear #for background artifacting
+#fi
+
+# Prompt colorizing.
+FG_RED="\[$(tput setaf 1)\]"
+FG_GREEN="\[$(tput setaf 2)\]"
+FG_YELLOW="\[$(tput setaf 3)\]"
+FG_BLUE="\[$(tput setaf 4)\]"
+FG_MAGENTA="\[$(tput setaf 5)\]"
+FG_CYAN="\[$(tput setaf 6)\]"
+CA_BOLD="\[$(tput bold)\]"
+CA_RESET="\[$(tput sgr0)\]"
+PS1="${CA_BOLD}${FG_CYAN}\W/${FG_RED}\$ ${CA_RESET}"
 
 # Disable XON/XOFF flow control. (C-s/C-q)
 stty -ixon
@@ -37,7 +58,7 @@ HISTSIZE=2000
 # Create a new directory and enter it.
 function mkcd() { mkdir -p "$@" && cd "$1"; }
 
-# Play all .mkv files with its subtitle in current directory.
+# Play all .mkv files with its external subtitle in current directory.
 # ^Z kill %%
 function ffps()
 {
