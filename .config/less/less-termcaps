@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# bold for headings, command synopses, and code font
+# underline for proper names, variable names, and type names in some manpages
+# inverse for the prompt at the bottom
+# Everything is in terminfo manpage.
+# Color       #define       Value       RGB
+# black     COLOR_BLACK       0     0, 0, 0
+# red       COLOR_RED         1     max,0,0
+# green     COLOR_GREEN       2     0,max,0
+# yellow    COLOR_YELLOW      3     max,max,0
+# blue      COLOR_BLUE        4     0,0,max
+# magenta   COLOR_MAGENTA     5     max,0,max
+# cyan      COLOR_CYAN        6     0,max,max
+# white     COLOR_WHITE       7     max,max,max
+# red - blue, yellow - cyan
+export LESS_TERMCAP_mb=$(tput blink; tput setaf 2)              # start blink, green
+export LESS_TERMCAP_md=$(tput bold; tput setaf 6)               # start bold, cyan
+export LESS_TERMCAP_me=$(tput sgr0)                             # reset bold/blink
+export LESS_TERMCAP_so=$(tput bold; tput setaf 3; tput setab 4) # start standout video, yellow on red
+#export LESS_TERMCAP_se=$(tput rmso; tput sgr0)                  # reset standout video
+export LESS_TERMCAP_se=$(tput sgr0)                             # reset standout video
+export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 7)    # start underline, white
+export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)                  # reset underline
+export LESS_TERMCAP_mr=$(tput rev)                              # start reverse
+export LESS_TERMCAP_mh=$(tput dim)                              # start haft bright
