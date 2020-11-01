@@ -25,9 +25,9 @@ alias vi3='vim $XDG_CONFIG_HOME/i3/config'
 # Vim.
 alias vv='vim $XDG_CONFIG_HOME/vim/vimrc'
 # Xresources.
-alias vx='vim $XDG_CONFIG_HOME/X11/xresources'
-# Urxvt.
-alias vu='vim $XDG_CONFIG_HOME/X11/urxvtrc'
+alias vxr='vim $XDG_CONFIG_HOME/X11/xresources'
+# xinitrc.
+alias vxi='vim $XDG_CONFIG_HOME/X11/xinitrc'
 # Zathura.
 alias vz='vim $XDG_CONFIG_HOME/zathura/zathurarc'
 
@@ -51,7 +51,7 @@ alias supa='sudo pacman'
 alias spo='systemctl poweroff -i'
 alias srb='systemctl reboot'
 
-# Git bare alias for dotfiles. Don't use $XDG_CONFIG_HOME here.
+# Git bare alias for dotfiles.
 alias config='/usr/bin/git --work-tree=$HOME --git-dir=$HOME/.config/dotfiles/'
 alias cfs='config status'
 alias cfd='config diff'
@@ -60,11 +60,6 @@ alias cfa='config add'
 alias cfc='config commit'
 alias cfl='config log'
 alias cfp='config push'
-
-# Start wpa_supplicant client add cleanup history file after that.
-alias wpacli='wpa_cli && rm -f ~/.wpa_cli_history'
-# Reconnect to home wifi via wpa_supplicant.
-alias recon='wpa_cli disable_network 0 && sleep 5 && wpa_cli enable_network 0'
 
 # Decrease seek_interval by 5, supress printing copyright, build options and versions.
 alias ffplay='ffplay -hide_banner -nostats -seek_interval 5 -autoexit'
