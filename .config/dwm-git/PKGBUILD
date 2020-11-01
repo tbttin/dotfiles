@@ -1,0 +1,48 @@
+# Maintainer: Tin Thai <>thaibachthanhtin@gmail.com>
+
+_pkgname=dwm
+pkgname=$_pkgname-git
+pkgver=6.2.r8.g61bb8b2
+pkgrel=1
+pkgdesc='A dynamic window manager for X.'
+url=http://dwm.suckless.org
+arch=('i686' 'x86_64')
+license=('MIT')
+options=('zipman')
+depends=('libx11' 'libxinerama' 'libxft' 'dmenu' 'st')
+makedepends=('git')
+provides=($_pkgname)
+conflicts=($_pkgname)
+source=('git+http://git.suckless.org/dwm'
+        'config.h'
+        'dwm-smartborders-2020-61bb8b2.diff')
+md5sums=('SKIP'
+         'SKIP'
+         '0a23ff6b081b659100b7ccfee91ca516')
+
+pkgver(){
+    cd $_pkgname
+    git describe --long --tags | sed -E 's/([^-]*-g)/r\1/;s/-/./g'
+}
+
+prepare() {
+    cd $_pkgname
+    if [ -f "$srcdir/config.h" ]; then
+        cp -fv "$srcdir/config.h" .
+    fi
+    for patch in $srcdir/*.diff; do
+        echo "Applying $patch ..."
+        patch -s -i "$patch"
+    done;
+}
+
+build() {
+    cd $_pkgname
+    make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
+}
+
+package() {
+    cd $_pkgname
+    make PREFIX=/usr DESTDIR="$pkgdir" install
+    install -m644 -D LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
