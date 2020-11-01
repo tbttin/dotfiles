@@ -33,6 +33,7 @@ font pango:monospace 8
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 #exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# Firefox suck.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- lock.sh
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
@@ -207,8 +208,8 @@ bindsym $mod+Shift+m move position center
 default_orientation vertical
 
 # Setting border style to pixel eliminates title bars.
-default_border pixel 1
-default_floating_border pixel 1
+default_border pixel 2
+default_floating_border pixel 2
 
 # Hiding borders adjacent to the screen edges.
 hide_edge_borders smart
@@ -216,9 +217,12 @@ hide_edge_borders smart
 # Disable focus follows mouse.
 focus_follows_mouse no
 
+# Disable focus wrapping
+focus_wrapping no
+
 ## Keybindings for starting applications.
-bindsym $mod+Return exec urxvt
-bindsym $mod+Shift+Return exec --no-startup-id urxvt -name terminal_scratchpad
+bindsym $mod+Return exec --no-startup-id st
+bindsym $mod+Shift+Return exec --no-startup-id st -n "terminal_scratchpad"
 bindsym $mod+Shift+f exec firefox
 bindsym $mod+Shift+t exec --no-startup-id transmission-daemon
 bindsym $mod+Shift+z exec zathura
@@ -229,11 +233,11 @@ bindsym Shift+Print --release exec --no-startup-id \
 
 ## Some scripts.
 # Reconnect with home network.
-bindsym $mod+Shift+w exec --no-startup-id "wpa_cli disable_network 0 && sleep 5 && wpa_cli enable_network 0"
+# bindsym $mod+Shift+w exec --no-startup-id "wpa_cli disable_network 0 && sleep 5 && wpa_cli enable_network 0"
 
 ## Start up.
 # Start terminal and move it to scratchpad.
-exec --no-startup-id urxvt -name terminal_scratchpad
+exec --no-startup-id st -n "terminal_scratchpad"
 for_window [instance="terminal_scratchpad"] move scratchpad
 # Start another terminal.
-exec --no-startup-id urxvt
+exec --no-startup-id st
