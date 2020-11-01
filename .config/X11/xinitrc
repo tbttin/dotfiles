@@ -1,9 +1,7 @@
-# vim: filetype=bash
+#!/bin/bash
 
-# Load corlor scheme.
-[[ -f $XDG_CONFIG_HOME/X11/xresources ]] && xrdb -load $XDG_CONFIG_HOME/X11/xresources
-# Load urxvt settings.
-[[ -f $XDG_CONFIG_HOME/X11/urxvtrc ]] && xrdb -merge $XDG_CONFIG_HOME/X11/urxvtrc
+# Load configs and corlor scheme.
+#[[ -f $XDG_CONFIG_HOME/X11/xresources ]] && xrdb -load $XDG_CONFIG_HOME/X11/xresources
 
 # Remap keyboard.
 [[ -f $XDG_CONFIG_HOME/X11/xmodmap/xmodmaprc ]] && xmodmap $XDG_CONFIG_HOME/X11/xmodmap/xmodmaprc
@@ -12,4 +10,17 @@
 #xinput set-button-map $(xinput list --id-only "Logitech Wireless Mouse") 3 2 1
 
 # Start i3 window manger.
-exec i3
+#exec i3
+
+#
+# dwm
+#
+while true; do
+    xsetroot -name "$(date +" %b (%m) %d %a %H:%M ")"
+    sleep 1m
+done &
+
+st &
+
+# Start dwm.
+exec dwm
