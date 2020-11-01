@@ -17,8 +17,10 @@ else
 fi
 config checkout
 config config status.showUntrackedFiles no
+config config diff.tool vimdiff
+config config difftool.prompt false
 echo "Create and update regular directories."
-mkdir -p ~/{documents,downloads,pictures{/screenshots,},videos}
+mkdir -p ~/{documents,downloads,pictures{,/screenshots},videos}
 if [ -x "$(command -v xdg-user-dirs-update)" ]; then
     rmdir --ignore-fail-on-non-empty ~/{Desktop,Documents,Downloads,Music,Pictures,Public,Templates,Videos}
     xdg-user-dirs-update
