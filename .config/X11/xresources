@@ -1,9 +1,14 @@
 ! vim: filetype=xdefaults commentstring=!%s
 
-! Still know nothing about fonts.
+!
+! Font specifiers.
+!
 *.font: xft:bitstream vera sans mono:size=11:antialias=true
 *.boldFont: xft:bitstream vera sans mono:bold:size=11:antialias=true
 
+!
+! Color settings.
+!
 ! Source: terminal.sexy.
 ! special
 *.foreground:   #c5c8c6
@@ -41,3 +46,28 @@
 !! white
 !*.color7:       #707880
 !*.color15:      #c5c8c6
+
+!
+! URxvt settings.
+!
+! Disable Perl extentions.
+URxvt.perl-ext:
+URxvt.perl-ext-common:
+
+! Hide scrollbar.
+URxvt.scrollBar: false
+
+! Disable Ctrl+Shift.
+! You have disabled keycap picture insert mode but not basic ISO 14755 mode. To disable both, set both to false.
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
+! Disable mouse scroll.
+URxvt.saveLines: 0
+
+! What is exactly bold?
+URxvt.intensityStyles: false
+
+URxvt.colorBD:      #e9ebeb
+URxvt.colorIT:      #87af5f
+URxvt.colorUL:      #33bbc8
