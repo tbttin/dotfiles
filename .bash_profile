@@ -17,20 +17,19 @@ export PATH="$PATH:$HOME/scripts"
 export VISUAL="vim"
 export EDITOR="$VISUAL"
 
-# Enable color in less, source: Arch Wiki.
-export LESS="-R"
-export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blink
-export LESS_TERMCAP_md=$'\E[1;36m'     # begin bold
-export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
-export LESS_TERMCAP_so=$'\E[01;44;33m' # begin reverse video
-export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
-export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
-export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
+# Get color support for 'less', change search highlight behavior.
+export LESS="-R-g"
+# Source less termcap variables.
+[[ -f "$XDG_CONFIG_HOME/less/less-termcaps" ]] && . "$XDG_CONFIG_HOME/less/less-termcaps"
 
 # Move less history seach file to $XDG_DATA_HOME.
 [[ ! -d "$XDG_DATA_HOME/less/" ]] && mkdir -p -m 0700 "$XDG_DATA_HOME/less/"
 export LESSHISTFILE="$XDG_DATA_HOME/less/history"
 #export LESSHISTFILE=- # can be used to disable this feature.
+
+# Bash history.
+[[ ! -d "$XDG_DATA_HOME/bash/" ]] && mkdir -p -m 0700 "$XDG_DATA_HOME/bash/"
+export HISTFILE="$XDG_DATA_HOME/bash/history"
 
 # GNU indent profile.
 export INDENT_PROFILE="$XDG_CONFIG_HOME/indent/indent.pro"
@@ -41,10 +40,6 @@ export VIMINIT='let $VIMDOTDIR = $XDG_CONFIG_HOME . "/vim" | let $MYVIMRC = $VIM
 # Readline config file.
 export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 
-# Bash history.
-[[ ! -d "$XDG_DATA_HOME/bash/" ]] && mkdir -p -m 0700 "$XDG_DATA_HOME/bash/"
-export HISTFILE="$XDG_DATA_HOME/bash/history"
-
 # What if xorg start up for the first time? Can i touch it?
 export XAUTHORITY="$XDG_DATA_HOME/xorg/Xauthority"
 
@@ -53,6 +48,10 @@ export XAUTHORITY="$XDG_DATA_HOME/xorg/Xauthority"
 #startx "$XDG_CONFIG_HOME/X11/xinitrc" -- "$XDG_CONFIG_HOME/X11/xserverrc" vt1
 export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
 #export XSERVERRC="$XDG_CONFIG_HOME"/X11/xserverrc
+
+# Terminfo.
+export TERMINFO="$XDG_DATA_HOME"/terminfo
+export TERMINFO_DIRS="$XDG_DATA_HOME"/terminfo:/usr/share/terminfo
 
 # Source .bashrc file.
 [[ -f ~/.bashrc ]] && . ~/.bashrc
