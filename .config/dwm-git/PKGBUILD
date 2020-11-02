@@ -1,26 +1,35 @@
-# Maintainer: Tin Thai <>thaibachthanhtin@gmail.com>
+# Maintainer: Tin Thai <thaibachthanhtin@gmail.com>
 
 _pkgname=dwm
 pkgname=$_pkgname-git
-pkgver=6.2.r8.g61bb8b2
+pkgver=6.2.r0.gcb3f58a
 pkgrel=1
 pkgdesc='A dynamic window manager for X.'
-url=http://dwm.suckless.org
 arch=('i686' 'x86_64')
+url='https://dwm.suckless.org'
 license=('MIT')
 options=('zipman')
 depends=('libx11' 'libxinerama' 'libxft' 'dmenu' 'st')
 makedepends=('git')
 provides=($_pkgname)
 conflicts=($_pkgname)
-source=('git+http://git.suckless.org/dwm'
-        'config.h'
-        'dwm-smartborders-2020-61bb8b2.diff')
-md5sums=('SKIP'
-         'SKIP'
-         '0a23ff6b081b659100b7ccfee91ca516')
+_patches=(
+    'https://dwm.suckless.org/patches/notitle/dwm-notitle-6.2.diff'
+    'https://dwm.suckless.org/patches/smartborders/dwm-smartborders-6.2.diff'
+)
+source=(
+    "git+https://git.suckless.org/${_pkgname}#tag=6.2"
+    'config.h'
+    ${_patches[@]}
+)
+md5sums=(
+    'SKIP'
+    'SKIP'
+    'ac1c8b6492c04db7c3ae773b95aed02d'
+    'fd3f0e205f552a6a39793107890bb9aa'
+)
 
-pkgver(){
+pkgver() {
     cd $_pkgname
     git describe --long --tags | sed -E 's/([^-]*-g)/r\1/;s/-/./g'
 }
@@ -30,19 +39,22 @@ prepare() {
     if [ -f "$srcdir/config.h" ]; then
         cp -fv "$srcdir/config.h" .
     fi
-    for patch in $srcdir/*.diff; do
-        echo "Applying $patch ..."
-        patch -s -i "$patch"
-    done;
+    for patch in ${_patches[@]}; do
+        pfile=$srcdir/${patch##*/}
+        echo "Applying ${patch} ..."
+        patch -s -i "${pfile}"
+    done
 }
 
 build() {
     cd $_pkgname
-    make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
+    make \
+        X11INC=/usr/include/X11 \
+        X11LIB=/usr/lib/X11
 }
 
 package() {
     cd $_pkgname
     make PREFIX=/usr DESTDIR="$pkgdir" install
-    install -m644 -D LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+    install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
