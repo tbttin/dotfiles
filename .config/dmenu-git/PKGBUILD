@@ -2,30 +2,30 @@
 
 _pkgname=dmenu
 pkgname=$_pkgname-git
-pkgver=5.0.0.g1a13d04
+pkgver=5.0.r0.g1a13d04
 pkgrel=1
 pkgdesc='A generic menu for X.'
 arch=('i686' 'x86_64')
-url='http://tools.suckless.org/dmenu/'
+url='https://tools.suckless.org/dmenu/'
 license=('MIT')
 depends=('sh' 'libxinerama' 'libxft')
 makedepends=('git')
 provides=($_pkgname)
 conflicts=($_pkgname)
-source=(git+https://git.suckless.org/$_pkgname)
+source=("git+https://git.suckless.org/$_pkgname")
 sha256sums=('SKIP')
 
 pkgver() {
     cd $_pkgname
-    git describe --tags --long | sed 's/-/./g'
+    git describe --long --tags | sed -E 's/([^-]*-g)/r\1/;s/-/./g'
 }
 
-build(){
+build() {
     cd $_pkgname
     make \
         X11INC=/usr/include/X11 \
         X11LIB=/usr/lib/X11
-    }
+}
 
 package() {
     cd $_pkgname
