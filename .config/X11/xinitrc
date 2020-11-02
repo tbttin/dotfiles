@@ -13,13 +13,15 @@
 #exec i3
 
 #
-# dwm
+# Dynamic window manager.
 #
 while true; do
+    # Set current time to root window name (statusbar).
     xsetroot -name "$(date +" %b (%m) %d %a %H:%M ")"
     sleep 1m
 done &
 
+# Start suckless terminal.
 st &
 
 # Start dwm.
