@@ -37,12 +37,13 @@ pkgver() {
 prepare() {
     cd $_pkgname
     if [ -f "$srcdir/config.h" ]; then
-        cp -fv "$srcdir/config.h" .
+        echo "Copying config.h ..."
+        cp -f "$srcdir/config.h" .
     fi
     for patch in ${_patches[@]}; do
-        pfile=$srcdir/${patch##*/}
-        echo "Applying ${patch} ..."
-        patch -s -i "${pfile}"
+        pfile=${patch##*/}
+        echo "Applying ${pfile} ..."
+        patch -s -i "$srcdir/${pfile}"
     done
 }
 
