@@ -37,6 +37,7 @@ alias ll='ls -lh'
 alias la='ll -a'
 alias grep='grep --color=auto'
 alias ip='ip -color=auto'
+alias diff='diff -color=auto'
 
 # For safety.
 alias mv='mv -i'
