@@ -20,8 +20,14 @@ alias vp='vim ~/.bash_profile'
 alias va='vim $XDG_CONFIG_HOME/bash/aliases.bash'
 # Readline.
 alias vin='vim $INPUTRC'
-# I3WM.
+# I3 window manager.
 alias vi3='vim $XDG_CONFIG_HOME/i3/config'
+# Dynamic window manager.
+alias vd='vim $XDG_CONFIG_HOME/dwm-git/config.h'
+# Suckless terminal.
+alias vs='vim $XDG_CONFIG_HOME/st-git/config.h'
+# Dynamic menu.
+alias vdm='vim $XDG_CONFIG_HOME/dmenu-git/config.h'
 # Vim.
 alias vv='vim $XDG_CONFIG_HOME/vim/vimrc'
 # Xresources.
