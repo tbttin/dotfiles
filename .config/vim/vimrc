@@ -14,16 +14,21 @@ source $VIMRUNTIME/defaults.vim
 " end defaults.vim }}}
 
 " XDG Base Directory Specification {{{
-set undodir=$XDG_DATA_HOME/vim/undo     | call mkdir (&g:undodir, 'p', 0700)
-set directory=$XDG_DATA_HOME/vim/swap   | call mkdir (&g:directory, 'p', 0700)
-set backupdir=$XDG_DATA_HOME/vim/backup | call mkdir (&g:backupdir, 'p', 0700)
-set viewdir=$XDG_DATA_HOME/vim/view     | call mkdir (&g:viewdir, 'p', 0700)
-set viminfo+=n$XDG_DATA_HOME/vim/viminfo
+set undodir=$XDG_CACHE_HOME/vim/undo     | call mkdir (&g:undodir, 'p', 0700)
+set directory=$XDG_CACHE_HOME/vim/swap   | call mkdir (&g:directory, 'p', 0700)
+set backupdir=$XDG_CACHE_HOME/vim/backup | call mkdir (&g:backupdir, 'p', 0700)
+set viewdir=$XDG_CACHE_HOME/vim/view     | call mkdir (&g:viewdir, 'p', 0700)
+set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
 set runtimepath=$VIMDOTDIR,$VIMRUNTIME,$VIMDOTDIR/after
 let &g:packpath=&g:runtimepath
 " end XDG }}}
 
 " displays {{{
+" Vim won't use dark background in st terminal.
+if &term =~ 'st'
+    set background=dark
+endif
+
 " Show function name + template in auto completion pop-up menu.
 set showfulltag
 
@@ -59,9 +64,6 @@ set expandtab
 set path=.,,$VIMDOTDIR/**
 " end command-line }}}
 
-" Auto save and restore undo history.
-set undofile
-
 " Insert two spaces after a '.', '?' and '!' with a join command.
 set nojoinspaces
 
@@ -82,7 +84,7 @@ let g:is_bash = 1
 " Possibility to have more than one unsaved buffers.
 set hidden
 
-" Reset the mouse option was set in defaults.vim.
+" I don't like mause setting in defaults.vim.
 set mouse&
 " end options }}}
 
