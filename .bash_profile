@@ -8,7 +8,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_DIRS="/usr/local/share/:/usr/share/"
 export XDG_CONFIG_DIRS="/etc/xdg"
 export XDG_CACHE_HOME="$HOME/.cache"
-# XDG_RUNTIME_DIR is set by default through pam_systemd
+# XDG_RUNTIME_DIR is set by default through pam_systemd.
 
 # Add ~/scripts to $PATH.
 export PATH="$PATH:$HOME/scripts"
@@ -17,6 +17,9 @@ export PATH="$PATH:$HOME/scripts"
 export VISUAL="vim"
 export EDITOR="$VISUAL"
 
+#
+# Clean up $HOME.
+#
 # Get color support for 'less', change search highlight behavior.
 export LESS="-R-g"
 # Source less termcap variables.
@@ -25,7 +28,6 @@ export LESS="-R-g"
 # Move less history seach file to $XDG_DATA_HOME.
 [[ ! -d "$XDG_DATA_HOME/less/" ]] && mkdir -p -m 0700 "$XDG_DATA_HOME/less/"
 export LESSHISTFILE="$XDG_DATA_HOME/less/history"
-#export LESSHISTFILE=- # can be used to disable this feature.
 
 # Bash history.
 [[ ! -d "$XDG_DATA_HOME/bash/" ]] && mkdir -p -m 0700 "$XDG_DATA_HOME/bash/"
@@ -50,8 +52,8 @@ export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
 #export XSERVERRC="$XDG_CONFIG_HOME"/X11/xserverrc
 
 # Terminfo.
-export TERMINFO="$XDG_DATA_HOME"/terminfo
-export TERMINFO_DIRS="$XDG_DATA_HOME"/terminfo:/usr/share/terminfo
+export TERMINFO="$XDG_DATA_HOME/terminfo"
+export TERMINFO_DIRS="$XDG_DATA_HOME/terminfo:/usr/share/terminfo"
 
 # Source .bashrc file.
 [[ -f ~/.bashrc ]] && . ~/.bashrc
