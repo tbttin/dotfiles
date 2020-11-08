@@ -3,23 +3,17 @@
 # Load configs and corlor scheme.
 #[[ -f $XDG_CONFIG_HOME/X11/xresources ]] && xrdb -load $XDG_CONFIG_HOME/X11/xresources
 
-# Remap keyboard.
+# Remap some keys.
 [[ -f $XDG_CONFIG_HOME/X11/xmodmap/xmodmaprc ]] && xmodmap $XDG_CONFIG_HOME/X11/xmodmap/xmodmaprc
 
 # Swap left and right mouse button.
 #xinput set-button-map $(xinput list --id-only "Logitech Wireless Mouse") 3 2 1
 
-# Start i3 window manger.
-#exec i3
-
 #
 # Dynamic window manager.
 #
-while true; do
-    # Set current time to root window name (statusbar).
-    xsetroot -name "$(date +" %b (%m) %d %a %H:%M ")"
-    sleep 1m
-done &
+# Start suckless status monitor.
+slstatus &
 
 # Start suckless terminal.
 st &
