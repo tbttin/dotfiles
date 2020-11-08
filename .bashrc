@@ -12,7 +12,7 @@ CA_BOLD="\[$(tput bold)\]"
 CA_RESET="\[$(tput sgr0)\]"
 PS1="${CA_BOLD}${FG_CYAN}\W/${FG_RED}\$${CA_RESET} "
 
-# Disable XON/XOFF flow control. (C-s/C-q)
+# Disable XON/XOFF flow control (C-s/C-q).
 stty -ixon
 
 # Auto cd directory by typing its name.
@@ -36,11 +36,6 @@ function ffps()
         sort -z | \
         while read -d $'\0' file;
         do
-            # Get current window id.
-#            win_id=$(xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | cut -f 2)
-#            if [ "$win_id" != "0x0" ]; then
-#                i3-msg [instance="terminal_scratchpad"] move scratchpad &>> /dev/null
-#            fi
             # Detect external subtitle.
             if [ -f "${file}.ass" ]; then
                 ${BASH_ALIASES[ffplay]} "${file}" -vf subtitles="${file}.ass"
@@ -50,8 +45,4 @@ function ffps()
                 ${BASH_ALIASES[ffplay]} "${file}"
             fi
         done
-#        win_id=$(xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | cut -f 2)
-#        if [ "$win_id" = "0x0" ]; then
-#            i3-msg [instance="terminal_scratchpad"] scratchpad show &>> /dev/null
-#        fi
 }
