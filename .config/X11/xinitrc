@@ -12,6 +12,9 @@
 #
 # Dynamic window manager.
 #
+# Start xss-lock with slock.
+xss-lock -- slock &
+
 # Start suckless status monitor.
 slstatus &
 
