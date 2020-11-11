@@ -70,9 +70,9 @@ static const struct arg args[] = {
 	{ load_avg,     "L: %s | ",   NULL },
 	{ ram_used,     "%s / ",      NULL },
 	{ ram_free,     "%s | ",      NULL },
-	{ wifi_perc,    "W: %s | ",   "wlan0" },
+	{ wifi_perc,    "W: %s (",    "wlan0" },
 	{ netspeed_rx,  "%s / ",      "wlan0" },
-	{ netspeed_tx,  "%s | ",      "wlan0" },
+	{ netspeed_tx,  "%s) | ",       "wlan0" },
         /* (%b) yess i still don't know it. :(( */
 	{ datetime,     "%s",         "%m-%d (%b) %a %R" },
 };
