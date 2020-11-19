@@ -66,9 +66,11 @@ static const char *pdfreadercmd[]  = { "zathura", NULL };
 static const char *mutecmd[] = { "pactl", "set-sink-mute", "0", "toggle", NULL };
 static const char *volupcmd[] = { "pactl", "set-sink-volume", "0", "+5%", NULL };
 static const char *voldowncmd[] = { "pactl", "set-sink-volume", "0", "-5%", NULL };
+static const char *lockcmd[]  = { "slock", NULL };
 
 static Key keys[] = {
 	/* modifier          key                        function         argument */
+	{ MODKEY,            XK_Pause,                  spawn,           {.v = lockcmd } },
         { 0,                 XF86XK_AudioMute,          spawn,           {.v = mutecmd } },
         { 0,                 XF86XK_AudioLowerVolume,   spawn,           {.v = voldowncmd } },
         { 0,                 XF86XK_AudioRaiseVolume,   spawn,           {.v = volupcmd } },
