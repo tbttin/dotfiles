@@ -12,14 +12,13 @@
 #
 # Dynamic window manager.
 #
-# Start xss-lock with slock.
-xss-lock -- slock &
-
 # Start suckless status monitor.
 slstatus &
-
+# Start xss-lock with slock.
+xss-lock -- slock &
 # Start suckless terminal.
 st &
-
-# Start dwm.
+# Start firefox.
+firefox &
+# Start dynamic window manager.
 exec dwm
