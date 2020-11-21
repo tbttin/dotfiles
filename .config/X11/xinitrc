@@ -1,13 +1,7 @@
 #!/bin/bash
 
-# Load configs and corlor scheme.
-#[[ -f $XDG_CONFIG_HOME/X11/xresources ]] && xrdb -load $XDG_CONFIG_HOME/X11/xresources
-
 # Remap some keys.
 [[ -f $XDG_CONFIG_HOME/X11/xmodmap/xmodmaprc ]] && xmodmap $XDG_CONFIG_HOME/X11/xmodmap/xmodmaprc
-
-# Swap left and right mouse button.
-#xinput set-button-map $(xinput list --id-only "Logitech Wireless Mouse") 3 2 1
 
 #
 # Dynamic window manager.
