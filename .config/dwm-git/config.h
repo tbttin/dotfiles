@@ -70,6 +70,10 @@ static const char *lockcmd[]  = { "slock", NULL };
 
 static Key keys[] = {
 	/* modifier          key                        function         argument */
+	{ MODKEY|ShiftMask,  XK_Print,                  spawn,           SHCMD("sleep 0.2; scrot -s \
+                                                                               \"$(xdg-user-dir PICTURES)/screenshots/%Y-%m-%d-%H%M%S.png\"") },
+	{ MODKEY,            XK_Print,                  spawn,           SHCMD("scrot \
+                                                                               \"$(xdg-user-dir PICTURES)/screenshots/%Y-%m-%d-%H%M%S.png\"") },
 	{ MODKEY,            XK_Pause,                  spawn,           {.v = lockcmd } },
         { 0,                 XF86XK_AudioMute,          spawn,           {.v = mutecmd } },
         { 0,                 XF86XK_AudioLowerVolume,   spawn,           {.v = voldowncmd } },
