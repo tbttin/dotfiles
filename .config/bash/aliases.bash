@@ -1,4 +1,7 @@
 # Aliases are created and listed with the alias command, and removed with the unalias command.
+# Single quotes are evaluated dynamically.
+# Double quotes are evaluated at time of creation and, thereafter, never changes.
+    # alias QS="echo \$PWD"
 
 # Some improving for movements.
 alias ..='cd ..'
@@ -20,20 +23,14 @@ alias vp='vim ~/.bash_profile'
 alias va='vim $XDG_CONFIG_HOME/bash/aliases.bash'
 # Readline.
 alias vin='vim $INPUTRC'
-# I3 window manager.
-alias vi3='vim $XDG_CONFIG_HOME/i3/config'
 # Dynamic window manager.
 alias vd='vim $XDG_CONFIG_HOME/dwm-git/config.h'
 # Suckless terminal.
 alias vs='vim $XDG_CONFIG_HOME/st-git/config.h'
-# Dynamic menu.
-alias vdm='vim $XDG_CONFIG_HOME/dmenu-git/config.h'
 # Vim.
 alias vv='vim $XDG_CONFIG_HOME/vim/vimrc'
-# Xresources.
-alias vxr='vim $XDG_CONFIG_HOME/X11/xresources'
 # xinitrc.
-alias vxi='vim $XDG_CONFIG_HOME/X11/xinitrc'
+alias vx='vim $XDG_CONFIG_HOME/X11/xinitrc'
 # Zathura.
 alias vz='vim $XDG_CONFIG_HOME/zathura/zathurarc'
 
