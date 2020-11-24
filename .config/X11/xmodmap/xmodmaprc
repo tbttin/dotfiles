@@ -9,19 +9,21 @@
 
 !
 ! Make Caps_Lock Mode_switch.
+!
 ! Modifier names is case insensitive.
 ! On the HP, some keycodes have differnt keysyms.
-!
 clear Lock
 remove Mod5 = Mode_switch
 keycode  66 = Mode_switch
 add Lock = Mode_switch
+! Caps_Lock + a to toggle Caps Lock.
+keycode  38 = a A Caps_Lock A
 
 !
 ! Make Alt_R Mod4.
 !
 remove Mod1 = Alt_R
-keycode 108 = Super_R
+keycode 108 = Super_R NoSymbol Super_R
 
 !
 ! Caps_Lock + hjkl = vi's style.
@@ -30,6 +32,3 @@ keycode  43 = h H Left Left
 keycode  44 = j J Down Down
 keycode  45 = k K Up Up
 keycode  46 = l L Right Right
-
-! Caps_Lock + a to toggle Caps Lock.
-keycode  38 = a A Caps_Lock A
