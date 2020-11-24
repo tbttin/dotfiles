@@ -1,7 +1,7 @@
 # Maintainer: Tin Thai <thaibachthanhtin@gmail.com>
 
 _pkgname=dwm
-pkgname=$_pkgname-git
+pkgname=${_pkgname}-git
 pkgver=6.2.r0.gcb3f58a
 pkgrel=1
 pkgdesc='A dynamic window manager for X.'
@@ -9,7 +9,7 @@ arch=('i686' 'x86_64')
 url='https://dwm.suckless.org'
 license=('custom:MIT')
 options=('zipman')
-depends=('libx11' 'libxinerama' 'libxft' 'dmenu' 'st')
+depends=('libx11' 'libxinerama' 'libxft')
 makedepends=('git')
 provides=($_pkgname)
 conflicts=($_pkgname)
@@ -23,12 +23,12 @@ source=(
     'config.h'
     ${_patches[@]}
 )
-md5sums=(
+sha256sums=(
     'SKIP'
     'SKIP'
-    'ac1c8b6492c04db7c3ae773b95aed02d'
-    'fd3f0e205f552a6a39793107890bb9aa'
-    '3ffc129b4227f0438ccc3405210ba71b'
+    '2ee1347c84428facff61830133146dd5467b0f9642703866e414212651a22753'
+    'bab74f6bf558a6a3b0b97c5727baab4ec23992a9e23a289888a1dbd6441c1d32'
+    '1e3ff12db59c7ec364f07d31c6383ec63fe2d6857f2298141b433612a7ebc7f8'
 )
 
 pkgver() {
@@ -38,14 +38,15 @@ pkgver() {
 
 prepare() {
     cd $_pkgname
-    if [ -f "$srcdir/config.h" ]; then
+    if [ -f "${srcdir}/config.h" ]; then
         echo "Copying config.h ..."
-        cp -f "$srcdir/config.h" .
+        cp -f "${srcdir}/config.h" .
     fi
     for patch in ${_patches[@]}; do
         pfile=${patch##*/}
         echo "Applying ${pfile} ..."
-        patch -s -i "$srcdir/${pfile}"
+#        patch -s -i "${srcdir}/${pfile}"
+        git apply "${srcdir}/${pfile}"
     done
 }
 
@@ -59,5 +60,5 @@ build() {
 package() {
     cd $_pkgname
     make PREFIX=/usr DESTDIR="$pkgdir" install
-    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+    install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
