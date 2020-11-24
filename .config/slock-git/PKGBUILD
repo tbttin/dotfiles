@@ -1,7 +1,7 @@
 # Maintainer: Tin Thai <thaibachthanhtin@gmail.com>
 
 _pkgname=slock
-pkgname=$_pkgname-git
+pkgname=${_pkgname}-git
 pkgver=1.4.r5.g35633d4
 pkgrel=1
 pkgdesc='Simple X display locker.'
@@ -19,7 +19,7 @@ _patches=(
 source=(
     'git+https://git.suckless.org/slock'
     'config.h'
-    "${_patches[@]}"
+    ${_patches[@]}
 )
 sha256sums=(
     'SKIP'
@@ -34,14 +34,14 @@ pkgver() {
 
 prepare() {
     cd $_pkgname
-    if [ -f "$srcdir/config.h" ]; then
+    if [ -f "${srcdir}/config.h" ]; then
         echo "Copying config.h ..."
-        cp -f "$srcdir/config.h" .
+        cp -f "${srcdir}/config.h" .
     fi
     for patch in ${_patches[@]}; do
         pfile=${patch##*/}
         echo "Applying ${pfile} ..."
-        patch -s -i "$srcdir/${pfile}"
+        git apply "${srcdir}/${pfile}"
     done
 }
 
@@ -55,5 +55,5 @@ build() {
 package() {
     cd $_pkgname
     make PREFIX=/usr DESTDIR="$pkgdir" install
-    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+    install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
