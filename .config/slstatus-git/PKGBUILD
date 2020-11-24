@@ -1,7 +1,7 @@
 # Maintainer: Tin Thai <thaibachthanhtin@gmail.com>
 
 _pkgname=slstatus
-pkgname=$_pkgname-git
+pkgname=${_pkgname}-git
 pkgver=r552.b14e039
 pkgrel=1
 pkgdesc='A status monitor for window managers.'
@@ -16,29 +16,33 @@ _patches=(
 source=(
     "git+https://git.suckless.org/${_pkgname}"
     'config.h'
-    "${_patches[@]}"
+    ${_patches[@]}
 )
-md5sums=(
+sha256sums=(
     'SKIP'
-    'SKIP'
-    'fddf6bc672a8be9f77418f7b9caa984b'
+    '2abcf16d56b26a4da0e30e89054ffd21665066044deabc4e88c3c498c3e96e75'
+    '5d27345c355d936141b3cc6bea06010c5c3bb7accda11cd835e785891fe8ae05'
 )
 
 pkgver() {
     cd $_pkgname
-    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+    (
+        set -o pipefail
+        git describe --long 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
+        printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+    )
 }
 
 prepare() {
     cd $_pkgname
-    if [ -f "$srcdir/config.h" ]; then
+    if [ -f "${srcdir}/config.h" ]; then
         echo "Copying config.h ..."
-        cp -f "$srcdir/config.h" .
+        cp -f "${srcdir}/config.h" .
     fi
     for patch in ${_patches[@]}; do
         pfile=${patch##*/}
         echo "Applying ${pfile} ..."
-        patch -s -i "$srcdir/${pfile}"
+        git apply "${srcdir}/${pfile}"
     done
 }
 
@@ -52,5 +56,5 @@ build() {
 package() {
     cd $_pkgname
     make PREFIX=/usr DESTDIR="$pkgdir" install
-    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+    install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
