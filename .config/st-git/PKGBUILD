@@ -1,7 +1,7 @@
 # Maintainer: Tin Thai <thaibachthanhtin@gmail.com>
 
 _pkgname=st
-pkgname=$_pkgname-git
+pkgname=${_pkgname}-git
 pkgver=0.8.4.r2.g4ef0cbd
 pkgrel=1
 pkgdesc='A simple virtual terminal emulator for X.'
@@ -14,18 +14,18 @@ provides=($_pkgname)
 conflicts=($_pkgname)
 _patches=(
     'https://st.suckless.org/patches/bold-is-not-bright/st-bold-is-not-bright-20190127-3be4cf1.diff'
-#    'https://st.suckless.org/patches/anysize/st-anysize-0.8.1.diff'
+    'https://st.suckless.org/patches/scrollback/st-scrollback-20200419-72e3f6c.diff'
 )
 source=(
     "git+https://git.suckless.org/${_pkgname}"
     'config.h'
-    "${_patches[@]}"
+    ${_patches[@]}
 )
 sha256sums=(
     'SKIP'
     'SKIP'
     '329169acac7ceaf901995d6e0897913089b799d8cd150c7f04c902f4a5b8eab2'
-#    '8118dbc50d2fe07ae10958c65366476d5992684a87a431f7ee772e27d5dee50f'
+    '1e41fe17a5ef5a8194eea07422b49d815e2c2bb4d58d84771f793be423005310'
 )
 
 pkgver() {
@@ -35,14 +35,14 @@ pkgver() {
 
 prepare() {
     cd $_pkgname
-    if [ -f "$srcdir/config.h" ]; then
+    if [ -f "${srcdir}/config.h" ]; then
         echo "Copying config.h ..."
-        cp -f "$srcdir/config.h" .
+        cp -f "${srcdir}/config.h" .
     fi
     for patch in ${_patches[@]}; do
         pfile=${patch##*/}
         echo "Applying ${pfile} ..."
-        patch -s -i "$srcdir/${pfile}"
+        git apply "${srcdir}/${pfile}"
     done
 }
 
@@ -56,5 +56,5 @@ build() {
 package() {
     cd $_pkgname
     make PREFIX=/usr DESTDIR="$pkgdir" install
-    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+    install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
