@@ -16,16 +16,16 @@ PS1="${CA_BOLD}${FG_CYAN}\W/${FG_RED}\$${CA_RESET} "
 stty -ixon
 
 # Auto cd directory by typing its name.
-shopt -s "autocd"
+shopt -s autocd
 
 # History things.
 HISTCONTROL="ignorespace:erasedups"
 HISTSIZE=2000
 
 # Source alias file.
-[[ -f "$XDG_CONFIG_HOME/bash/aliases.bash" ]] && . "$XDG_CONFIG_HOME/bash/aliases.bash"
+[[ -f "${XDG_CONFIG_HOME}/bash/aliases.bash" ]] && . "${XDG_CONFIG_HOME}/bash/aliases.bash"
 
-# Create a new directory and enter it.
+# Create new directory and enter it.
 function mkcd() { mkdir -p "$@" && cd "$1"; }
 
 # Play all .mkv files with its external subtitle in current directory.
