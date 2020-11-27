@@ -24,7 +24,7 @@ let &g:packpath=&g:runtimepath
 " end XDG }}}
 
 " displays {{{
-" Vim won't use dark background in st terminal.
+" Vim won't use dark background in st.
 if &term =~ 'st'
     set background=dark
 endif
@@ -89,48 +89,6 @@ set mouse&
 " end options }}}
 
 " functions {{{
-"function! AlignAssignments () " {{{
-    " TODO Use this function.
-    ""Patterns needed to locate assignment operators...
-    "let ASSIGN_OP   = '[-+*/%|&]\?=\@<!=[=~]\@!'
-    "let ASSIGN_LINE = '^\(.\{-}\)\s*\(' . ASSIGN_OP . '\)'
-
-    ""Locate block of code to be considered (same indentation, no blanks)
-    "let indent_pat = '^' . matchstr(getline('.'), '^\s*') . '\S'
-    "let firstline  = search('^\%('. indent_pat . '\)\@!','bnW') + 1
-    "let lastline   = search('^\%('. indent_pat . '\)\@!', 'nW') - 1
-    "if lastline < 0
-        "let lastline = line('$')
-    "endif
-
-    ""Find the column at which the operators should be aligned...
-    "let max_align_col = 0
-    "let max_op_width  = 0
-    "for linetext in getline(firstline, lastline)
-        ""Does this line have an assignment in it?
-        "let left_width = match(linetext, '\s*' . ASSIGN_OP)
-
-        ""If so, track the maximal assignment column and operator width...
-        "if left_width >= 0
-            "let max_align_col = max([max_align_col, left_width])
-
-            "let op_width      = strlen(matchstr(linetext, ASSIGN_OP))
-            "let max_op_width  = max([max_op_width, op_width+1])
-        "endif
-    "endfor
-
-    ""Code needed to reformat lines so as to align operators...
-    "let FORMATTER = '\=printf("%-*s%*s", max_align_col, submatch(1),
-                "\                                    max_op_width,  submatch(2))'
-
-    "" Reformat lines with operators aligned in the appropriate column...
-    "for linenum in range(firstline, lastline)
-        "let oldline = getline(linenum)
-        "let newline = substitute(oldline, ASSIGN_LINE, FORMATTER, "")
-        "call setline(linenum, newline)
-    "endfor
-"endfunction " }}}
-
 function! s:IsAdjacentPairs () " {{{
     " TODO Upgrade this function: [\_s*]
     let l:pairs = { '(' : ')', '[' : ']', '{' : '}', '<' : '>', "'" : "'", '"' : '"' }
@@ -186,8 +144,6 @@ endfunction " }}}
 " end functions }}}
 
 " mappings {{{
-"nmap <silent>  ;=  :call AlignAssignments()<CR>
-
 " [count]{lhs} line comment (without space).
 noremap <silent> <Leader>cu :Uncomment<CR>
 noremap <silent> <Leader>cc :Comment<CR>
@@ -200,14 +156,17 @@ noremap! <expr> <BS> <SID>IsAdjacentPairs () ? '<Del><BS>' : '<BS>'
 cnoremap <expr> " getcmdline ()[getcmdpos () - 2] =~ '@' ? '"' : '""<Left>'
 cnoremap ' ''<Left>
 cnoremap { {}<Left>
+cnoremap ( ()<Left>
+cnoremap < <><Left>
+cnoremap [ []<Left>
 
 " Basic pairs auto completions.
-inoremap <expr> " IsMatchOnLHS ('^\s*$') ? '" ' : '""<Left>'
-inoremap <expr> ' getline ('.')[col ('.') - 2] =~ '\a' ? "'" : "''<Left>"
-noremap! ( ()<Left>
-noremap! < <><Left>
-noremap! [ []<Left>
-inoremap <expr> { IsMatchOnLHS ('^\s*$') ? '{<CR>}<Up><CR>' : '{}<Left>'
+inoremap <expr> " IsMatchOnLHS ('^\s*$') ? '" ' : '""<C-G>U<Left>'
+inoremap <expr> ' getline ('.')[col ('.') - 2] =~ '\a' ? "'" : "''<C-G>U<Left>"
+inoremap ( ()<C-G>U<Left>
+inoremap < <><C-G>U<Left>
+inoremap [ []<C-G>U<Left>
+inoremap <expr> { IsMatchOnLHS ('^\s*$') ? '{<CR>}<C-G>U<Up><CR>' : '{}<C-G>U<Left>'
 
 " Edit the file under cursor doesn't exist yet.
 nnoremap <Leader>gf :tabedit <cfile><CR>
@@ -234,7 +193,7 @@ xnoremap <Leader>ff "sy/\V<C-R>=escape (@s, '/\')<CR><CR>
 " TODO gdefault.
 nnoremap <Leader>fs :%substitute///gc<Left><Left><Left>
 
-" Bring me familiar files.
+" Bring me familiar file.
 nnoremap <Leader>vv :tabedit $MYVIMRC<CR>
 " end mappings }}}
 
