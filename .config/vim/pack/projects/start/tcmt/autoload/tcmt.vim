@@ -1,18 +1,18 @@
-" TODO Make this a git submodule plugin.
+"if exists ('b:loaded_tcmt')
+"    finish
+"endif
+"let b:loaded_tcmt = 1
 
-if exists ('b:loaded_tcmt')
-    finish
-endif
-let b:loaded_tcmt = 1
+echom "Autoloading..."
 
-function! s:Uncomment () range " {{{
+function! tcmt#Uncomment () range " {{{
     if !exists ('b:comment_starter')
         let b:comment_starter = split (&commentstring, '%s')[0]
     endif
     silent execute a:firstline . ',' . a:lastline . 's/\v^(\s*)' . escape (b:comment_starter, '/') . '/\1/e'
 endfunction " }}}
 
-function! s:Comment () range " {{{
+function! tcmt#Comment () range " {{{
     if !exists ('b:comment_starter')
         let b:comment_starter = split (&commentstring, '%s')[0]
     endif
@@ -20,7 +20,7 @@ function! s:Comment () range " {{{
     silent execute a:firstline . ',' . a:lastline . 's/\v^(\s*\S)/' . escape (b:comment_starter, '/') . '\1/e'
 endfunction " }}}
 
-function! s:ToggleComment () " {{{
+function! tcmt#ToggleComment () " {{{
     " TODO Fix this: commentstring=/*%s*/ in c, indent, xdefaults, .etc files.
     if !exists ('b:comment_starter')
         let b:comment_starter = split (&commentstring, '%s')[0]
@@ -35,6 +35,6 @@ endfunction " }}}
 
 " TODO Keep cursor position.
 " TODO Add operations.
-command! -range Uncomment <line1>,<line2>call s:Uncomment ()
-command! -range Comment <line1>,<line2>call s:Comment ()
-command! -range ToggleComment <line1>,<line2>call s:ToggleComment ()
+"command! -range Uncomment <line1>,<line2>call s:Uncomment ()
+"command! -range Comment <line1>,<line2>call s:Comment ()
+"command! -range ToggleComment <line1>,<line2>call s:ToggleComment ()
