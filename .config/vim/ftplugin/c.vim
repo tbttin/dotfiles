@@ -1,4 +1,3 @@
-" TODO Make this filetype plugin.
 " loadded check, variables {{{
 " Only do this when not done yet for this buffer.
 if exists('b:loaded_ftplugin')
@@ -8,6 +7,7 @@ endif
 let b:loaded_ftplugin = 1
 " }}}
 
+" options {{{
 " TODO parameters and variable declaration equal sign align.
 " GNU C style indentation/format.
 setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0,h2,p5,t0,+2,(0,u0,w1,m1
@@ -16,6 +16,7 @@ setlocal softtabstop=2
 setlocal textwidth=79
 
 setlocal path=.,/usr/include,**,$VIMDOTDIR/**
+" end options }}}
 
 " mappings. {{{
 " Man page default section is section 3.
@@ -34,7 +35,7 @@ nnoremap <buffer> <Leader>mc :!clear<CR>:make clean<CR>
 nnoremap <buffer> <Leader>r :!./all<CR>
 
 " Smart less than sign.
-inoremap <expr> <buffer> < IsMatchOnLHS ('^#include\s*$') ? '<><C-G>U<Left>' : '<'
+inoremap <expr> <buffer> < pairs#IsMatchOnLHS ('^#include\s*$') ? '<><C-G>U<Left>' : '<'
 " }}}
 
 " plugins {{{

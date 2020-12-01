@@ -1,13 +1,14 @@
 " options {{{
 " Always refer to the relevant :help before adding anything to vimrc.
-" Using short names has ONLY cons and ZERO pros.
+" Using short names has ONLY cons and ZERO pros. Don't.
 " TODO Make a teporaryly vimrc file? or a Git branch?
 
 " defaults.vim {{{
-" /etc/vimrc
-" /usr/share/vim/vimfiles/archlinux.vim
-" $VIMDOTDIR/vimrc
-" $VIMRUNTIME/defaults.vim
+" Arch's startup order:
+"   /etc/vimrc
+"   /usr/share/vim/vimfiles/archlinux.vim
+"   $VIMDOTDIR/vimrc
+"   ($VIMRUNTIME/defaults.vim)
 " Load vim's default configs.
 unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
@@ -39,13 +40,14 @@ set splitbelow
 set linebreak
 
 " Display number and relative number.
-set number relativenumber
+set number
+set relativenumber
 
 " Cursor mode indicator.
 " TODO Change cursor shape when &term=linux.
-let &t_SI .= "\<Esc>[4 q" " SI = INSERT mode.
-let &t_SR .= "\<Esc>[4 q" " SR = REPLACE mode.
-let &t_EI .= "\<Esc>[2 q" " EI = NORMAL mode (ELSE).
+let &t_SI .= "\<Esc>[4 q" " Start Insert mode.
+let &t_SR .= "\<Esc>[4 q" " Start Replace mode.
+let &t_EI .= "\<Esc>[2 q" " End Insert mode (ELSE).
 " end displays }}}
 
 " indentations {{{
@@ -64,17 +66,12 @@ set expandtab
 set path=.,,$VIMDOTDIR/**
 " end command-line }}}
 
+" miscellaneous options {{{
 " Insert two spaces after a '.', '?' and '!' with a join command.
 set nojoinspaces
 
 " Disable <Leader> mapping timout.
 set notimeout
-
-" Bash default syntax highlighting.
-let g:is_bash = 1
-
-" Enable function folding.
-"let g:sh_fold_enabled = 1
 
 "" This plugin makes the '%' command jump to matching HTML tags, if/else/endif in Vim scripts, etc.
 "if has ('syntax') && has ('eval')
@@ -86,71 +83,30 @@ set hidden
 
 " I don't like mause setting in defaults.vim.
 set mouse&
+
+" Use bash syntax highlighting.
+let g:is_bash = 1
+
+" Enable function folding.
+"let g:sh_fold_enabled = 1
+" end miscellaneous options }}}
 " end options }}}
-
-" functions {{{
-function! s:IsAdjacentPairs () " {{{
-    " TODO Upgrade this function: [\_s*]
-    let l:pairs = { '(' : ')', '[' : ']', '{' : '}', '<' : '>', "'" : "'", '"' : '"' }
-    let l:mode = mode ()
-    if l:mode == 'i' " insert mode.
-        let l:open = getline ('.')[col ('.') - 2]
-        let l:close = getline ('.')[col ('.') - 1]
-    elseif l:mode == 'c' " command line mode.
-        let l:open = getcmdline ()[getcmdpos () - 2]
-        let l:close = getcmdline ()[getcmdpos () - 1]
-    endif
-    return get (l:pairs, l:open, 'NONE') == l:close
-endfunction " }}}
-
-function! IsMatchOnLHS (pattern) " {{{
-    return strpart (getline ('.'), 0, col ('.') - 1) =~ a:pattern
-endfunction " }}}
-
-function! s:UpdateTimestamp () " {{{
-    let l:line = line ('$') > 10 ? 10 : line ('$')
-    kt
-    execute 1 . ',' . l:line . 'g/Last modified: /s/Last modified: .*/Last modified: ' .
-                \ strftime("%b %d %Y %R %z")
-    't
-endfunction " }}}
-
-function! s:AddFileDescription () " {{{
-    " Search backward after parsing.
-    " 0 if not found, no error.
-    if search ('\cDescription: .', 'beW')
-        if expand ('%:p') =~# '/cforces/'
-            execute "normal! iCodeforces problemset \<C-R>=expand ('%:p:h:t')\<CR> - \<Esc>l"
-        elseif expand ('%:p') =~# '/cchef/'
-            execute "normal! iCodechef practice - \<Esc>l"
-        endif
-        startinsert
-    endif
-endfunction " }}}
-
-function! s:ParseTemplate () " {{{
-    let l:line = line ('$') > 10 ? 10 : line ('$')
-    execute 1 . ',' . l:line . 's/\v\[:VIM_EVAL:\](.{-})\[:END_EVAL:\]/\=eval (submatch (1))/ge'
-endfunction " }}}
-
-function! s:LoadTemplate (filename) " {{{
-    let l:fullpath = $VIMDOTDIR . '/templates/' . a:filename
-    if filereadable (l:fullpath)
-        execute '0read ' . l:fullpath
-        $delete
-        call s:ParseTemplate ()
-    endif
-endfunction " }}}
-" end functions }}}
 
 " mappings {{{
 " [count]{lhs} line comment (without space).
-noremap <silent> <Leader>cu :Uncomment<CR>
-noremap <silent> <Leader>cc :Comment<CR>
-noremap <silent> <Leader>ct :ToggleComment<CR>
+"noremap <silent> <Leader>cu :Uncomment<CR>
+"noremap <silent> <Leader>cc :Comment<CR>
+"noremap <silent> <Leader>ct :ToggleComment<CR>
+
+noremap <silent> <Leader>cu :call tcmt#Uncomment ()<CR>
+noremap <silent> <Leader>cc :call tcmt#Comment ()<CR>
+noremap <silent> <Leader>ct :call tcmt#ToggleComment ()<CR>
 
 " Auto delete adjacent pairs.
-noremap! <expr> <BS> <SID>IsAdjacentPairs () ? '<Del><BS>' : '<BS>'
+noremap! <expr> <BS> pairs#IsAdjacentPairs () ? '<Del><BS>' : '<BS>'
+
+" Quick sudo write.
+cnoremap w!! w !sudo tee % >/dev/null
 
 " Pairs auto completions in command line mode.
 cnoremap <expr> " getcmdline ()[getcmdpos () - 2] =~ '@' ? '"' : '""<Left>'
@@ -161,27 +117,23 @@ cnoremap < <><Left>
 cnoremap [ []<Left>
 
 " Basic pairs auto completions.
-inoremap <expr> " IsMatchOnLHS ('^\s*$') ? '" ' : '""<C-G>U<Left>'
+inoremap <expr> " pairs#IsMatchOnLHS ('^\s*$') ? '" ' : '""<C-G>U<Left>'
 inoremap <expr> ' getline ('.')[col ('.') - 2] =~ '\a' ? "'" : "''<C-G>U<Left>"
 inoremap ( ()<C-G>U<Left>
 inoremap < <><C-G>U<Left>
 inoremap [ []<C-G>U<Left>
-inoremap <expr> { IsMatchOnLHS ('^\s*$') ? '{<CR>}<C-G>U<Up><CR>' : '{}<C-G>U<Left>'
+inoremap <expr> { pairs#IsMatchOnLHS ('^\s*$') ? '{<CR>}<C-G>U<Up><CR>' : '{}<C-G>U<Left>'
 
-" Edit the file under cursor doesn't exist yet.
+" Edit the file under cursor which doesn't exist yet.
 nnoremap <Leader>gf :tabedit <cfile><CR>
 
 " Tab to complete and literal tab.
-inoremap <expr> <Tab> IsMatchOnLHS ('^\s*$') ? '<Tab>' : '<C-N>'
-"inoremap <expr> <S-Tab> IsMatchOnLHS ('^\s*$') ? '<S-Tab>' : '<C-P>'
+inoremap <expr> <Tab> pairs#IsMatchOnLHS ('^\s*$') ? '<Tab>' : '<C-N>'
+"inoremap <expr> <S-Tab> pairs#IsMatchOnLHS ('^\s*$') ? '<S-Tab>' : '<C-P>'
 inoremap <S-Tab> <Tab>
 
 " Kill two birds with one stone.
 cabbrev H tab help
-
-" Yank from first non-blank to last non-blank.
-" TODO How to use register with it?
-nnoremap Y ^yg_
 
 " Highlight next/previous line.
 xnoremap <Up> <Esc>kV
@@ -207,9 +159,10 @@ augroup END " }}}
 augroup Templates " {{{
     autocmd!
     " Read and parse templates.
-    autocmd BufNewFile ?* call s:LoadTemplate (expand ('<afile>:p:t'))
+    autocmd BufNewFile ?* call templates#LoadTemplate (expand ('<afile>:p:t'))
     " Start insert mode at the end of line containing 'Description: '.
-    autocmd BufNewFile main.c call s:AddFileDescription ()
-    "autocmd BufWritePre,FileWritePre main.c undojoin | call s:UpdateTimestamp ()
+    autocmd BufNewFile main.c call templates#AddFileDescription ()
+    " TODO Auto update timestamp? Store it in a variable and update when exit.
+    "autocmd BufWritePre,FileWritePre main.c undojoin | call templates#UpdateTimestamp ()
 augroup END " }}}
 " end autocommands }}}
