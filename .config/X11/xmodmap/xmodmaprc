@@ -11,7 +11,7 @@
 ! Make Caps_Lock Mode_switch.
 !
 ! Modifier names is case insensitive.
-! On the HP, some keycodes have differnt keysyms.
+! On the HP, some keycodes have different keysyms.
 clear Lock
 remove Mod5 = Mode_switch
 keycode  66 = Mode_switch
