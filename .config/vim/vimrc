@@ -1,20 +1,19 @@
-" options {{{
+" options {{{1
 " Always refer to the relevant :help before adding anything to vimrc.
 " Using short names has ONLY cons and ZERO pros. Don't.
-" TODO Make a teporaryly vimrc file? or a Git branch?
+" TODO Make a temp vimrc file? Or a Git branch?
 
-" defaults.vim {{{
+" defaults.vim {{{2
 " Arch's startup order:
 "   /etc/vimrc
 "   /usr/share/vim/vimfiles/archlinux.vim
 "   $VIMDOTDIR/vimrc
 "   ($VIMRUNTIME/defaults.vim)
-" Load vim's default configs.
+" Load vim's default configurations.
 unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
-" end defaults.vim }}}
 
-" XDG Base Directory Specification {{{
+" XDG Base Directory Specification {{{2
 set undodir=$XDG_CACHE_HOME/vim/undo     | call mkdir (&g:undodir, 'p', 0700)
 set directory=$XDG_CACHE_HOME/vim/swap   | call mkdir (&g:directory, 'p', 0700)
 set backupdir=$XDG_CACHE_HOME/vim/backup | call mkdir (&g:backupdir, 'p', 0700)
@@ -22,10 +21,22 @@ set viewdir=$XDG_CACHE_HOME/vim/view     | call mkdir (&g:viewdir, 'p', 0700)
 set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
 set runtimepath=$VIMDOTDIR,$VIMRUNTIME,$VIMDOTDIR/after
 let &g:packpath=&g:runtimepath
-" end XDG }}}
 
-" displays {{{
-" Vim won't use dark background in st.
+" indentations {{{2
+" Number of spaces to use for each step of (auto)indent.
+set shiftwidth=4
+
+" Virtual tab stop instead of 8-wide tabs.
+set softtabstop=4
+
+" Don't use tabs for indentation. Spaces are nicer to work with.
+set expandtab
+
+" displays {{{2
+" Yeah, I'm really bad at English :(
+"set spell
+
+" Vim won't use dark theme in st.
 if &term =~ 'st'
     set background=dark
 endif
@@ -39,8 +50,10 @@ set splitbelow
 " Wrap long lines at a character in 'breakat' rather than at the last character.
 set linebreak
 
-" Display number and relative number.
+" Print the line number in front of each line.
 set number
+
+" Show the line number relative to the line with the cursor in front of each line.
 set relativenumber
 
 " Cursor mode indicator.
@@ -48,29 +61,16 @@ set relativenumber
 let &t_SI .= "\<Esc>[4 q" " Start Insert mode.
 let &t_SR .= "\<Esc>[4 q" " Start Replace mode.
 let &t_EI .= "\<Esc>[2 q" " End Insert mode (ELSE).
-" end displays }}}
 
-" indentations {{{
-" Number of spaces to use for each step of (auto)indent.
-set shiftwidth=4
-
-" Virtual tab stop (compat for 8-wide tabs).
-set softtabstop=4
-
-" Don't use tabs for indentation. Spaces are nicer to work with.
-set expandtab
-" end indentation }}}
-
-" command-lines {{{
+" command-lines {{{2
 " It's gotta be somewhere in there!
 set path=.,,$VIMDOTDIR/**
-" end command-line }}}
 
-" miscellaneous options {{{
+" miscellaneous options {{{2
 " Insert two spaces after a '.', '?' and '!' with a join command.
 set nojoinspaces
 
-" Disable <Leader> mapping timout.
+" Disable <Leader> mapping timeout.
 set notimeout
 
 "" This plugin makes the '%' command jump to matching HTML tags, if/else/endif in Vim scripts, etc.
@@ -81,7 +81,7 @@ set notimeout
 " Possibility to have more than one unsaved buffers.
 set hidden
 
-" I don't like mause setting in defaults.vim.
+" I don't like mouse setting in defaults.vim.
 set mouse&
 
 " Use bash syntax highlighting.
@@ -89,15 +89,9 @@ let g:is_bash = 1
 
 " Enable function folding.
 "let g:sh_fold_enabled = 1
-" end miscellaneous options }}}
-" end options }}}
 
-" mappings {{{
-" [count]{lhs} line comment (without space).
-"noremap <silent> <Leader>cu :Uncomment<CR>
-"noremap <silent> <Leader>cc :Comment<CR>
-"noremap <silent> <Leader>ct :ToggleComment<CR>
-
+" mappings {{{1
+" [count] line comment.
 noremap <silent> <Leader>cu :call tcmt#Uncomment ()<CR>
 noremap <silent> <Leader>cc :call tcmt#Comment ()<CR>
 noremap <silent> <Leader>ct :call tcmt#ToggleComment ()<CR>
@@ -139,6 +133,9 @@ cabbrev H tab help
 xnoremap <Up> <Esc>kV
 xnoremap <Down> <Esc>jV
 
+" Toggle spell check.
+nnoremap <Leader>s :set spell!<CR>
+
 " Search selected text (s register will be used).
 xnoremap <Leader>ff "sy/\V<C-R>=escape (@s, '/\')<CR><CR>
 " Substitute last search pattern.
@@ -147,16 +144,15 @@ nnoremap <Leader>fs :%substitute///gc<Left><Left><Left>
 
 " Bring me familiar file.
 nnoremap <Leader>vv :tabedit $MYVIMRC<CR>
-" end mappings }}}
 
-" autocommands {{{
-augroup MakePrg " {{{
+" autocommands {{{1
+augroup MakePrg " {{{2
     autocmd!
     " Use the Makefile template when in practices folder.
     autocmd BufNewFile,BufRead ?*/practices/?*/?*/?*.[ch] setlocal makeprg=make\ -f\ $VIMDOTDIR/templates/Makefile
-augroup END " }}}
+augroup END
 
-augroup Templates " {{{
+augroup Templates " {{{2
     autocmd!
     " Read and parse templates.
     autocmd BufNewFile ?* call templates#LoadTemplate (expand ('<afile>:p:t'))
@@ -164,5 +160,4 @@ augroup Templates " {{{
     autocmd BufNewFile main.c call templates#AddFileDescription ()
     " TODO Auto update timestamp? Store it in a variable and update when exit.
     "autocmd BufWritePre,FileWritePre main.c undojoin | call templates#UpdateTimestamp ()
-augroup END " }}}
-" end autocommands }}}
+augroup END
