@@ -1,3 +1,4 @@
+" TODO Make a plugin when it is possible.
 function! pairs#IsAdjacentPairs () " {{{1
     " TODO Upgrade this function: [\_s*]
     let l:pairs = { '(' : ')', '[' : ']', '{' : '}', '<' : '>', "'" : "'", '"' : '"' }
