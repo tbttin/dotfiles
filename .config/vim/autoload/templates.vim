@@ -19,7 +19,7 @@ function! templates#AddFileDescription () " {{{1
     endif
 endfunction
 
-function! templates#ParseTemplate () " {{{1
+function! s:ParseTemplate () " {{{1
     let l:line = line ('$') > 10 ? 10 : line ('$')
     execute 1 . ',' . l:line . 's/\v\[:VIM_EVAL:\](.{-})\[:END_EVAL:\]/\=eval (submatch (1))/ge'
 endfunction
@@ -29,6 +29,6 @@ function! templates#LoadTemplate (filename) " {{{1
     if filereadable (l:fullpath)
         execute '0read ' . l:fullpath
         $delete
-        call templates#ParseTemplate ()
+        call <SID>ParseTemplate ()
     endif
 endfunction
