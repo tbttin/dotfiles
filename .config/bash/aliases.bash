@@ -1,7 +1,7 @@
 # Aliases are created and listed with the alias command, and removed with the unalias command.
 # Single quotes are evaluated dynamically.
 # Double quotes are evaluated at time of creation and, thereafter, never changes.
-    # alias QS="echo \$PWD"
+    #alias QS="echo \$PWD"
 
 # Some improving for movements.
 alias ..='cd ..'
@@ -11,7 +11,7 @@ alias ...='cd ../..'
 alias -- --='cd $OLDPWD'
 #alias -- --='cd -'
 alias d='cd $(xdg-user-dir DOCUMENTS)'
-alias dl='cd $(xdg-user-dir DOWNLOAD)'
+alias l='cd $(xdg-user-dir DOWNLOAD)'
 alias p='cd $(xdg-user-dir PICTURES)'
 alias s='cd $(xdg-user-dir SCRIPTS)'
 alias v='cd $(xdg-user-dir VIDEOS)'
@@ -22,7 +22,7 @@ alias vb='vim ~/.bashrc'
 alias vp='vim ~/.bash_profile'
 alias va='vim $XDG_CONFIG_HOME/bash/aliases.bash'
 # Readline.
-alias vin='vim $INPUTRC'
+alias vn='vim $INPUTRC'
 # Dynamic window manager.
 alias vd='vim $XDG_CONFIG_HOME/dwm-git/config.h'
 # Suckless terminal.
@@ -65,7 +65,7 @@ alias cfc='config commit'
 alias cfl='config log'
 alias cfp='config push'
 
-# Decrease seek_interval by 5, supress printing copyright, build options and versions.
+# Decrease seek_interval by 5, suppress printing copyright, build options and versions.
 alias ffplay='ffplay -hide_banner -nostats -seek_interval 5 -autoexit'
 alias ffmpeg='ffmpeg -hide_banner'
 
