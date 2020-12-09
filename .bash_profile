@@ -27,7 +27,7 @@ export LESS="-R-g"
 # Source less termcap variables.
 [[ -f "${XDG_CONFIG_HOME}/less/less-termcaps" ]] && . "${XDG_CONFIG_HOME}/less/less-termcaps"
 
-# Move less history seach file to $XDG_DATA_HOME.
+# Move less search history file to $XDG_DATA_HOME.
 [[ ! -d "${XDG_DATA_HOME}/less/" ]] && mkdir -p -m 0700 "${XDG_DATA_HOME}/less/"
 export LESSHISTFILE="${XDG_DATA_HOME}/less/history"
 
