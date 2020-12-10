@@ -1,0 +1,21 @@
+diff --git a/dwm.c b/dwm.c
+index 4465af1..0480fc2 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -1034,6 +1034,7 @@ manage(Window w, XWindowAttributes *wa)
+ 	if (XGetTransientForHint(dpy, w, &trans) && (t = wintoclient(trans))) {
+ 		c->mon = t->mon;
+ 		c->tags = t->tags;
++                c->isfloating = 1;
+ 	} else {
+ 		c->mon = selmon;
+ 		applyrules(c);
+@@ -1059,7 +1060,7 @@ manage(Window w, XWindowAttributes *wa)
+ 	XSelectInput(dpy, w, EnterWindowMask|FocusChangeMask|PropertyChangeMask|StructureNotifyMask);
+ 	grabbuttons(c, 0);
+ 	if (!c->isfloating)
+-		c->isfloating = c->oldstate = trans != None || c->isfixed;
++		c->isfloating = c->oldstate = c->isfixed;
+ 	if (c->isfloating)
+ 		XRaiseWindow(dpy, c->win);
+ 	attach(c);
