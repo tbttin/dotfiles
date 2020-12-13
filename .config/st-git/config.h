@@ -1,5 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
+// This is C comment.
+
 /*
  * appearance
  *
