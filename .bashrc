@@ -38,11 +38,11 @@ function ffps()
         do
             # Detect external subtitle.
             if [ -f "${file}.ass" ]; then
-                ${BASH_ALIASES[ffplay]} "${file}" -vf subtitles="${file}.ass"
+                ${BASH_ALIASES[ffplay]} "$@" -vf subtitles="${file}.ass" "${file}"
             elif [ -f "${file}.srt" ]; then
-                ${BASH_ALIASES[ffplay]} "${file}" -vf subtitles="${file}.srt"
+                ${BASH_ALIASES[ffplay]} "$@" -vf subtitles="${file}.srt" "${file}"
             else
-                ${BASH_ALIASES[ffplay]} "${file}"
+                ${BASH_ALIASES[ffplay]} "$@" "${file}"
             fi
         done
 }
