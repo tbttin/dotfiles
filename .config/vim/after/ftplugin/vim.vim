@@ -10,4 +10,4 @@ let b:loaded_after_ftplugin = 1
 
 " options {{{1
 " Do not automatically insert the current comment leader after hitting 'o' or 'O' in Normal mode.
-set formatoptions-=o
+setlocal formatoptions-=o
