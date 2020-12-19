@@ -9,12 +9,11 @@ alias ...='cd ../..'
 # With most commands, you can pass -- as an argument,
 # and all subsequent arguments are treated as operands and not options even if they begin with a dash.
 alias -- --='cd $OLDPWD'
-#alias -- --='cd -'
-alias d='cd $(xdg-user-dir DOCUMENTS)'
-alias l='cd $(xdg-user-dir DOWNLOAD)'
-alias p='cd $(xdg-user-dir PICTURES)'
-alias s='cd $(xdg-user-dir SCRIPTS)'
-alias v='cd $(xdg-user-dir VIDEOS)'
+alias d="cd $(xdg-user-dir DOCUMENTS)"
+alias l="cd $(xdg-user-dir DOWNLOAD)"
+alias p="cd $(xdg-user-dir PICTURES)"
+alias s="cd $(xdg-user-dir SCRIPTS)"
+alias v="cd $(xdg-user-dir VIDEOS)"
 
 # Quick edit some config files.
 # Bash.
