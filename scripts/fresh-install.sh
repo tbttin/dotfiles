@@ -11,7 +11,7 @@ function config {
 git clone --bare 'https://github.com/tbttin/dotfiles.git' "${HOME}/.config/dotfiles"
 # Backup stock config files if they exist and install my dotfiles.
 CONFIG_BACKUP_DIR=~/.config~
-mkdir -p ${CONFIG_BACKUP_DIR}
+mkdir -pv ${CONFIG_BACKUP_DIR}
 config checkout | sed 's/^/  /'
 # Piped command exit status: ${PIPESTATUS[0]}, in zsh: ${pipestatus[1]}.
 if [ ${PIPESTATUS[0]} = 0 ]; then
@@ -23,7 +23,7 @@ fi
 config checkout
 config config status.showUntrackedFiles no
 echo 'Create and update regular directories.'
-mkdir -p ~/{documents,downloads,pictures/screenshots,videos}
+mkdir -pv ~/{documents,downloads,pictures/screenshots,videos}
 if [ -x "$(command -v xdg-user-dirs-update)" ]; then
     rmdir -v --ignore-fail-on-non-empty ~/{Desktop,Documents,Downloads,Music,Pictures,Public,Templates,Videos}
     xdg-user-dirs-update
