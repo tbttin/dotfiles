@@ -3,6 +3,10 @@
 # Download this script from github repo and execute it with bash.
 # curl -Ls https://git.io/fresh-install | /bin/bash
 
+function indent {
+   sed 's/^/  -> /'
+}
+
 function config {
     /usr/bin/git --git-dir="${HOME}/.config/dotfiles" --work-tree="${HOME}" "$@"
 }
@@ -11,26 +15,27 @@ function config {
 git clone --bare 'https://github.com/tbttin/dotfiles.git' "${HOME}/.config/dotfiles"
 # Backup stock config files if they exist and install my dotfiles.
 CONFIG_BACKUP_DIR=~/.config~
-config checkout 2>&1 | sed 's/^/  -> /'
+echo 'Attempt to install dotfiles to home folder.'
+config checkout 2>&1 | indent
 # Piped command exit status: ${PIPESTATUS[0]}, in zsh: ${pipestatus[1]}.
 if [ ${PIPESTATUS[0]} = 0 ]; then
     echo 'Checked out config.'
 else
-    echo "Backing up pre-existing dotfiles to ${CONFIG_BACKUP_DIR}."
-    mkdir -pv ${CONFIG_BACKUP_DIR}
-    config checkout 2>&1 | egrep '\s+\.' | awk {'print $1'} | xargs -I{} mv {} $CONFIG_BACKUP_DIR
+    echo "Backing up pre-existing dotfiles to '${CONFIG_BACKUP_DIR}'."
+    mkdir -pv "${CONFIG_BACKUP_DIR}" | indent
+    config checkout 2>&1 | egrep '\s+\.' | awk {'print $1'} | xargs -I{} mv -v {} "${CONFIG_BACKUP_DIR}" | indent
 fi
 config checkout
-config config status.showUntrackedFiles no
+config config -- status.showUntrackedFiles no
 echo 'Creating regular dirs.'
-mkdir -pv ~/{documents,downloads,pictures/screenshots,videos}
+mkdir -pv ~/{documents,downloads,pictures/screenshots,videos} | indent
 if [ -x "$(command -v xdg-user-dirs-update)" ]; then
     echo 'Deleting XDG default dirs.'
-    rmdir -v --ignore-fail-on-non-empty ~/{Desktop,Documents,Downloads,Music,Pictures,Public,Templates,Videos}
+    rmdir -v --ignore-fail-on-non-empty ~/{Desktop,Documents,Downloads,Music,Pictures,Public,Templates,Videos} | indent
     xdg-user-dirs-update
 fi
 # Additional configs.
 # Vimdiff as default difftool.
-config config diff.tool vimdiff
-config config difftool.prompt false
+config config -- diff.tool vimdiff
+config config -- difftool.prompt false
 echo 'Done.'
