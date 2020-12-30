@@ -57,10 +57,9 @@ set number
 set relativenumber
 
 " Cursor mode indicator.
-" TODO Change cursor shape when &term=linux.
-let &t_SI .= "\<Esc>[4 q" " Start Insert mode.
+let &t_SI .= "\<Esc>[4 q" " Start Insert mode (Steady underline).
 let &t_SR .= "\<Esc>[4 q" " Start Replace mode.
-let &t_EI .= "\<Esc>[2 q" " End Insert mode (ELSE).
+let &t_EI .= "\<Esc>[2 q" " End Insert mode (otherwise, full-steady block).
 
 " command-lines {{{2
 " It's gotta be somewhere in there!
@@ -121,10 +120,11 @@ inoremap <expr> { pairs#IsMatchOnLHS ('^\s*$') ? '{<CR>}<C-G>U<Up><CR>' : '{}<C-
 " Edit the file under cursor which doesn't exist yet.
 nnoremap <Leader>gf :tabedit <cfile><CR>
 
-" Tab to complete and literal tab.
+" Tab completion and literal tab.
 inoremap <expr> <Tab> pairs#IsMatchOnLHS ('^\s*$') ? '<Tab>' : '<C-N>'
-"inoremap <expr> <S-Tab> pairs#IsMatchOnLHS ('^\s*$') ? '<S-Tab>' : '<C-P>'
-inoremap <S-Tab> <Tab>
+inoremap <expr> <S-Tab> pairs#IsMatchOnLHS ('^\s*$') ? '<S-Tab>' : '<C-P>'
+" <C-V><Tab>
+"inoremap <S-Tab> <Tab>
 
 " Kill two birds with one stone.
 cabbrev H tab help
@@ -136,13 +136,14 @@ xnoremap <Down> <Esc>jV
 " Toggle spell check.
 nnoremap <Leader>s :set spell!<CR>
 
-" Search selected text (s register will be used).
+" Search forward for selected text (s register will be used).
 xnoremap <Leader>ff "sy/\V<C-R>=escape (@s, '/\')<CR><CR>
-" Substitute last search pattern.
+
 " TODO gdefault.
+" Substitute the last-pattern.
 nnoremap <Leader>fs :%substitute///gc<Left><Left><Left>
 
-" Bring me familiar file.
+" Edit vimrc in new tab.
 nnoremap <Leader>vv :tabedit $MYVIMRC<CR>
 
 " autocommands {{{1
