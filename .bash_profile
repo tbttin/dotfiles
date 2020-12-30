@@ -16,20 +16,24 @@ export XDG_CACHE_HOME="${HOME}/.cache"
 #export PATH="${PATH}:${HOME}/scripts"
 
 # Set default text editor.
-export VISUAL=vim
-export EDITOR=$VISUAL
+export VISUAL='vim'
+export EDITOR="$VISUAL"
 
 #
 # Clean up $HOME.
 #
-# Get color support for 'less', change search highlight behavior.
-export LESS="-R-g"
-# Source less termcap variables.
-[[ -f "${XDG_CONFIG_HOME}/less/less-termcaps" ]] && . "${XDG_CONFIG_HOME}/less/less-termcaps"
+# Terminfo.
+export TERMINFO="${XDG_DATA_HOME}/terminfo"
+export TERMINFO_DIRS="${XDG_DATA_HOME}/terminfo:/usr/share/terminfo"
 
 # Move less search history file to $XDG_DATA_HOME.
 [[ ! -d "${XDG_DATA_HOME}/less/" ]] && mkdir -p -m 0700 "${XDG_DATA_HOME}/less/"
 export LESSHISTFILE="${XDG_DATA_HOME}/less/history"
+
+# Get color support for 'less', change search highlight behavior.
+export LESS='-R-g'
+# Source less termcap variables.
+[[ -f "${XDG_CONFIG_HOME}/less/less-termcaps" ]] && . "${XDG_CONFIG_HOME}/less/less-termcaps"
 
 # Bash history.
 [[ ! -d "${XDG_DATA_HOME}/bash/" ]] && mkdir -p -m 0700 "${XDG_DATA_HOME}/bash/"
@@ -44,7 +48,7 @@ export VIMINIT='let $VIMDOTDIR = $XDG_CONFIG_HOME . "/vim" | let $MYVIMRC = $VIM
 # Readline config file.
 export INPUTRC="${XDG_CONFIG_HOME}/readline/inputrc"
 
-# What if xorg start up for the first time? Can i touch it?
+# What if xorg start up for the first time?
 export XAUTHORITY="${XDG_DATA_HOME}/xorg/Xauthority"
 
 # Note that these variables are respected by xinit, but not by startx.
@@ -52,10 +56,6 @@ export XAUTHORITY="${XDG_DATA_HOME}/xorg/Xauthority"
 #startx "${XDG_CONFIG_HOME}/X11/xinitrc" -- "${XDG_CONFIG_HOME}/X11/xserverrc" vt1
 export XINITRC="${XDG_CONFIG_HOME}/X11/xinitrc"
 #export XSERVERRC="${XDG_CONFIG_HOME}/X11/xserverrc"
-
-# Terminfo.
-export TERMINFO="${XDG_DATA_HOME}/terminfo"
-export TERMINFO_DIRS="${XDG_DATA_HOME}/terminfo:/usr/share/terminfo"
 
 # Source .bashrc file.
 [[ -f ~/.bashrc ]] && . ~/.bashrc
