@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Remap some keys.
-[[ -f $XDG_CONFIG_HOME/X11/xmodmap/xmodmaprc ]] && xmodmap $XDG_CONFIG_HOME/X11/xmodmap/xmodmaprc
+[[ -f "${XDG_CONFIG_HOME}/X11/xmodmap/xmodmaprc" ]] && xmodmap "${XDG_CONFIG_HOME}/X11/xmodmap/xmodmaprc"
 
 #
 # Dynamic window manager.
 #
 # Start suckless status monitor.
 slstatus &
-# Start xss-lock with slock.
+# Start xss-lock to trigger slock.
 xss-lock -- slock &
 # Start suckless terminal.
 st &
