@@ -1,4 +1,4 @@
-" TODO Support both line comment and block comment.
+" TODO Support both line comment and multi-line comment.
 " TODO Add comment operations.
 
 function! s:GetCmtStarter () " {{{1
@@ -16,7 +16,7 @@ endfunction
 
 function! tcmt#Comment () range " {{{1
     call s:GetCmtStarter ()
-    execute a:firstline . ',' . a:lastline . 's/\v^(\s*\S)/' . b:escaped_line_cms . '\1/e'
+    execute a:firstline . ',' . a:lastline . 's/\v^/' . b:escaped_line_cms . '/e'
 endfunction
 
 function! tcmt#ToggleComment () " {{{1
