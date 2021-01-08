@@ -8,7 +8,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 # With most commands, you can pass -- as an argument,
 # and all subsequent arguments are treated as operands and not options even if they begin with a dash.
-alias -- --='cd $OLDPWD'
+alias -- --='cd ${OLDPWD}'
 alias d="cd $(xdg-user-dir DOCUMENTS)"
 alias l="cd $(xdg-user-dir DOWNLOAD)"
 alias p="cd $(xdg-user-dir PICTURES)"
@@ -19,19 +19,19 @@ alias v="cd $(xdg-user-dir VIDEOS)"
 # Bash.
 alias vb='vim ~/.bashrc'
 alias vp='vim ~/.bash_profile'
-alias va='vim $XDG_CONFIG_HOME/bash/aliases.bash'
+alias va='vim ${XDG_CONFIG_HOME}/bash/aliases.bash'
 # Readline.
-alias vn='vim $INPUTRC'
+alias vn='vim ${INPUTRC}'
 # Dynamic window manager.
-alias vd='vim $XDG_CONFIG_HOME/dwm-git/config.h'
+alias vd='vim ${XDG_CONFIG_HOME}/dwm-git/config.h'
 # Suckless terminal.
-alias vs='vim $XDG_CONFIG_HOME/st-git/config.h'
+alias vs='vim ${XDG_CONFIG_HOME}/st-git/config.h'
 # Vim.
-alias vv='vim $XDG_CONFIG_HOME/vim/vimrc'
+alias vv='vim ${XDG_CONFIG_HOME}/vim/vimrc'
 # xinitrc.
-alias vx='vim $XDG_CONFIG_HOME/X11/xinitrc'
+alias vx='vim ${XINITRC}'
 # Zathura.
-alias vz='vim $XDG_CONFIG_HOME/zathura/zathurarc'
+alias vz='vim ${XDG_CONFIG_HOME}/zathura/zathurarc'
 
 # Adding colors.
 alias ls='ls --color=auto'
@@ -42,10 +42,12 @@ alias ip='ip -color=auto'
 alias diff='diff -color=auto'
 
 # For safety.
+# BECAREFUL WHEN YOU USE ANOTHER SYSTEM.
 alias mv='mv -i'
 alias cp='cp -i'
+alias ln='ln -i'
 
-# Mount, unmount external drives/USBs.
+# [U]mount external drives/USBs.
 alias m16='sudo mount /mnt/16g-usb && cd /mnt/16g-usb'
 alias um16='sudo umount /mnt/16g-usb'
 
@@ -54,8 +56,8 @@ alias supa='sudo pacman'
 alias spo='systemctl poweroff -i'
 alias srb='systemctl reboot'
 
-# Git bare alias for dotfiles.
-alias config='/usr/bin/git --work-tree=$HOME --git-dir=$HOME/.config/dotfiles/'
+# Dotfiles git bare aliases.
+alias config='/usr/bin/git --work-tree=${HOME} --git-dir=${HOME}/.config/dotfiles/'
 alias cfs='config status'
 alias cfd='config diff'
 alias cfdt='config difftool'
@@ -69,4 +71,6 @@ alias ffplay='ffplay -hide_banner -nostats -seek_interval 5 -autoexit'
 alias ffmpeg='ffmpeg -hide_banner'
 
 # startx with xinitrc in $XDG_CONFIG_HOME.
-alias startx='startx $XDG_CONFIG_HOME/X11/xinitrc'
+alias startx='startx ${XINITRC}'
+
+alias type='type -a'
