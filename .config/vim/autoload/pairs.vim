@@ -14,5 +14,10 @@ function! pairs#IsAdjacentPairs () " {{{1
 endfunction
 
 function! pairs#IsMatchOnLHS (pattern) " {{{1
-    return strpart (getline ('.'), 0, col ('.') - 1) =~ a:pattern
+    let l:mode = mode ()
+    if l:mode ==# 'i'
+        return strpart (getline ('.'), 0, col ('.') - 1) =~ a:pattern
+    elseif l:mode ==# 'c'
+        return strpart (getcmdline (), 0, getcmdpos () - 1) =~ a:pattern
+    endif
 endfunction
