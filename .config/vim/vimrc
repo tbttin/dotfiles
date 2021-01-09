@@ -93,38 +93,38 @@ let g:is_bash = 1
 " [count] line comment.
 noremap <silent> <Leader>cu :call tcmt#Uncomment ()<CR>
 noremap <silent> <Leader>cc :call tcmt#Comment ()<CR>
-noremap <silent> <Leader>ct :call tcmt#ToggleComment ()<CR>
-
-" Auto delete adjacent pairs.
-noremap! <expr> <BS> pairs#IsAdjacentPairs () ? '<Del><BS>' : '<BS>'
-
-" Quick sudo write.
-cnoremap w!! w !sudo tee % >/dev/null
+"noremap <silent> <Leader>ct :call tcmt#ToggleComment ()<CR>
 
 " Pairs auto completions in command line mode.
-cnoremap <expr> " getcmdline ()[getcmdpos () - 2] =~ '@' ? '"' : '""<Left>'
-cnoremap ' ''<Left>
+cnoremap <expr> " pairs#IsMatchOnLHS ('\S$') ? '"' : '""<Left>'
+cnoremap <expr> ' pairs#IsMatchOnLHS ('\S$') ? "'" : "''<Left>"
 cnoremap { {}<Left>
 cnoremap ( ()<Left>
 cnoremap < <><Left>
 cnoremap [ []<Left>
 
 " Basic pairs auto completions.
-inoremap <expr> " pairs#IsMatchOnLHS ('^\s*$') ? '" ' : '""<C-G>U<Left>'
-inoremap <expr> ' getline ('.')[col ('.') - 2] =~ '\a' ? "'" : "''<C-G>U<Left>"
+inoremap <expr> " pairs#IsMatchOnLHS ('\v(^\s*$)\|(\S$)') ? '"' : '""<C-G>U<Left>'
+inoremap <expr> ' pairs#IsMatchOnLHS ('\S$') ? "'" : "''<C-G>U<Left>"
 inoremap ( ()<C-G>U<Left>
 inoremap < <><C-G>U<Left>
 inoremap [ []<C-G>U<Left>
 inoremap <expr> { pairs#IsMatchOnLHS ('^\s*$') ? '{<CR>}<C-G>U<Up><CR>' : '{}<C-G>U<Left>'
 
-" Edit the file under cursor which doesn't exist yet.
-nnoremap <Leader>gf :tabedit <cfile><CR>
+" Auto delete adjacent pairs.
+noremap! <expr> <BS> pairs#IsAdjacentPairs () ? '<Del><BS>' : '<BS>'
 
 " Tab completion and literal tab.
 inoremap <expr> <Tab> pairs#IsMatchOnLHS ('^\s*$') ? '<Tab>' : '<C-N>'
 inoremap <expr> <S-Tab> pairs#IsMatchOnLHS ('^\s*$') ? '<S-Tab>' : '<C-P>'
 " <C-V><Tab>
 "inoremap <S-Tab> <Tab>
+
+" Edit the file under cursor which doesn't exist yet.
+nnoremap <Leader>gf :tabedit <cfile><CR>
+
+" Quick sudo write.
+cabbrev w!! w !sudo tee % >/dev/null
 
 " Kill two birds with one stone.
 cabbrev H tab help
