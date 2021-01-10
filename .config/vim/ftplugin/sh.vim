@@ -11,3 +11,9 @@ let b:loaded_ftplugin = 1
 " options {{{1
 " Curly-braced variable.
 setlocal isfname+={,}
+
+" Use bash syntax highlighting.
+let g:is_bash = 1
+
+" Enable function folding.
+"let g:sh_fold_enabled = 1
