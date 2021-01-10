@@ -9,7 +9,7 @@
 stty -ixon
 
 # Auto cd directory by typing its name.
-shopt -s autocd
+#shopt -s autocd
 
 # History things.
 HISTCONTROL='ignorespace:erasedups'
@@ -32,14 +32,14 @@ function mkcd() { mkdir -pv "$@" && cd "$1"; }
 # ^z + kill %% to kill this function.
 function ffps()
 {
-    find . -maxdepth 1 -type f -name "*.mkv" -print0 | \
+    find . -maxdepth 1 -type f -name '*.mkv' -print0 | \
         sort -z | \
-        while read -d $'\0' file
+        while read -rd $'\0' file
         do
             if [ -f "${file}.ass" ]; then
-                ${BASH_ALIASES[ffplay]} "$@" -vf subtitles="${file}.ass" "${file}"
+                ${BASH_ALIASES[ffplay]} "$@" -vf subtitles="'${file}.ass'" "${file}"
             elif [ -f "${file}.srt" ]; then
-                ${BASH_ALIASES[ffplay]} "$@" -vf subtitles="${file}.srt" "${file}"
+                ${BASH_ALIASES[ffplay]} "$@" -vf subtitles="'${file}.srt'" "${file}"
             else
                 ${BASH_ALIASES[ffplay]} "$@" "${file}"
             fi
