@@ -16,6 +16,9 @@ setlocal textwidth=79
 
 setlocal path=.,/usr/include,**,$VIMDOTDIR/**
 
+" Show function name + template in auto completion pop-up menu.
+setlocal showfulltag
+
 " mappings. {{{1
 " Man page default section is section 3.
 nnoremap <buffer> K 3K
