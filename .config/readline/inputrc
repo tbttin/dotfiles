@@ -28,10 +28,6 @@ $if mode=vi
     set keymap vi-insert
 
     # These are for vi-insert mode.
-    # Comm[Tab], man this command, but which section?
-    "\C-f": "\eIman  \ei"
-    # Looking for something?
-#     "\C-g": "\eA 2>&1 | grep -i \"\"\ei"
     # No scrolling?
     "\C-l": "\eA 2>&1 | less\C-m"
 $endif
