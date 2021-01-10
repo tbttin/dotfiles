@@ -33,16 +33,10 @@ set softtabstop=4
 set expandtab
 
 " displays {{{2
-" Yeah, I'm really bad at English :(
-"set spell
-
 " Vim won't use dark theme in st.
 if &term =~ 'st'
     set background=dark
 endif
-
-" Show function name + template in auto completion pop-up menu.
-set showfulltag
 
 " When on, splitting a window will put the new window below the current one.
 set splitbelow
@@ -74,7 +68,7 @@ set notimeout
 
 "" This plugin makes the '%' command jump to matching HTML tags, if/else/endif in Vim scripts, etc.
 "if has ('syntax') && has ('eval')
-  "packadd! matchit
+"  packadd! matchit
 "endif
 
 " Possibility to have more than one unsaved buffers.
@@ -82,12 +76,6 @@ set hidden
 
 " I don't like mouse setting in defaults.vim.
 set mouse&
-
-" Use bash syntax highlighting.
-let g:is_bash = 1
-
-" Enable function folding.
-"let g:sh_fold_enabled = 1
 
 " mappings {{{1
 " [count] line comment.
