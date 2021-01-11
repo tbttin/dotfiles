@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
 # Download this script from github repo and execute it with bash.
-# curl -Ls https://git.io/fresh-install | /bin/bash
+# curl -Ls https://git.io/fresh-install | /bin/sh
 
 function indent {
    sed 's/^/  -> /'
@@ -29,6 +29,8 @@ config checkout
 config config -- status.showUntrackedFiles no
 echo 'Creating regular dirs.'
 mkdir -pv ~/{documents,downloads,pictures/screenshots,videos} | indent
+# TODO: What is this?
+#if command -v given-command > /dev/null 2>&1; then
 if [ -x "$(command -v xdg-user-dirs-update)" ]; then
     echo 'Deleting XDG default dirs.'
     rmdir -v --ignore-fail-on-non-empty ~/{Desktop,Documents,Downloads,Music,Pictures,Public,Templates,Videos} | indent

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Everything is in terminfo manpage.
 # Color       #define       Value       RGB

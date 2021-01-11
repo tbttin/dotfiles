@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Remap some keys.
 [[ -f "${XDG_CONFIG_HOME}/X11/xmodmap/xmodmaprc" ]] && xmodmap "${XDG_CONFIG_HOME}/X11/xmodmap/xmodmaprc"
