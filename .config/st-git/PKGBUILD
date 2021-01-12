@@ -1,7 +1,7 @@
 # Maintainer: Tin Thai <thaibachthanhtin@gmail.com>
 
-_pkgname=st
-pkgname=${_pkgname}-git
+_pkgname='st'
+pkgname="${_pkgname}-git"
 pkgver=0.8.4.r2.g4ef0cbd
 pkgrel=1
 pkgdesc='A simple virtual terminal emulator for X.'
@@ -10,8 +10,8 @@ url='https://st.suckless.org'
 license=('custom:MIT')
 depends=('libxft')
 makedepends=('ncurses' 'libxext' 'git')
-provides=($_pkgname)
-conflicts=($_pkgname)
+provides=(${_pkgname})
+conflicts=(${_pkgname})
 _patches=(
     'https://st.suckless.org/patches/bold-is-not-bright/st-bold-is-not-bright-20190127-3be4cf1.diff'
     'https://st.suckless.org/patches/scrollback/st-scrollback-20200419-72e3f6c.diff'
@@ -29,12 +29,12 @@ sha256sums=(
 )
 
 pkgver() {
-    cd $_pkgname
+    cd ${_pkgname}
     git describe --long --tags | sed -E 's/([^-]*-g)/r\1/;s/-/./g'
 }
 
 prepare() {
-    cd $_pkgname
+    cd ${_pkgname}
     if [ -f "${srcdir}/config.h" ]; then
         echo "Copying config.h ..."
         cp -f "${srcdir}/config.h" .
@@ -47,14 +47,14 @@ prepare() {
 }
 
 build() {
-    cd $_pkgname
+    cd ${_pkgname}
     make \
         X11INC=/usr/include/X11 \
         X11LIB=/usr/lib/X11
 }
 
 package() {
-    cd $_pkgname
-    make PREFIX=/usr DESTDIR="$pkgdir" install
+    cd ${_pkgname}
+    make PREFIX=/usr DESTDIR="${pkgdir}" install
     install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }

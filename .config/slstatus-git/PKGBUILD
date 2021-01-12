@@ -1,15 +1,17 @@
 # Maintainer: Tin Thai <thaibachthanhtin@gmail.com>
 
-_pkgname=slstatus
-pkgname=${_pkgname}-git
+_pkgname='slstatus'
+pkgname="${_pkgname}-git"
 pkgver=r561.84a2f11
 pkgrel=1
 pkgdesc='A status monitor for window managers.'
 arch=('i686' 'x86_64')
 url='https://tools.suckless.org/slstatus'
+license=('custom:ISC')
 depends=('libx11')
 makedepends=('git')
-license=('custom:ISC')
+provides=("${_pkgname}")
+conflicts=("${_pkgname}")
 _patches=(
     'slstatus-rmtrailingspacenetspeeds-20201104-b14e039.diff'
 )
@@ -25,7 +27,7 @@ sha256sums=(
 )
 
 pkgver() {
-    cd $_pkgname
+    cd ${_pkgname}
     (
         set -o pipefail
         git describe --long 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
@@ -34,7 +36,7 @@ pkgver() {
 }
 
 prepare() {
-    cd $_pkgname
+    cd ${_pkgname}
     if [ -f "${srcdir}/config.h" ]; then
         echo "Copying config.h ..."
         cp -f "${srcdir}/config.h" .
@@ -47,14 +49,14 @@ prepare() {
 }
 
 build() {
-    cd $_pkgname
+    cd ${_pkgname}
     make \
         X11INC=/usr/include/X11 \
         X11LIB=/usr/lib/X11
 }
 
 package() {
-    cd $_pkgname
-    make PREFIX=/usr DESTDIR="$pkgdir" install
+    cd ${_pkgname}
+    make PREFIX=/usr DESTDIR="${pkgdir}" install
     install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
