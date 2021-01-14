@@ -8,8 +8,8 @@
 # Disable XON/XOFF flow control (C-s/C-q).
 stty -ixon
 
-# Auto cd directory by typing its name.
-#shopt -s autocd
+# Auto cd directory by typing its name (../{dir}).
+shopt -s autocd
 
 # History things.
 HISTCONTROL='ignorespace:erasedups'
@@ -25,7 +25,7 @@ PS1="${CA_BOLD}${FG_CYAN}\W/${FG_RED}\$${CA_RESET} "
 # Source alias file.
 [[ -f "${XDG_CONFIG_HOME}/bash/aliases.bash" ]] && . "${XDG_CONFIG_HOME}/bash/aliases.bash"
 
-# Create new directory and enter it.
+# Create new directorie[s] and enter the first one.
 function mkcd() { mkdir -pv "$@" && cd "$1"; }
 
 # Play all .mkv files with its external subtitle in current directory.
@@ -37,9 +37,9 @@ function ffps()
         while read -rd $'\0' file
         do
             if [ -f "${file}.ass" ]; then
-                ${BASH_ALIASES[ffplay]} "$@" -vf subtitles="'${file}.ass'" "${file}"
+                ${BASH_ALIASES[ffplay]} "$@" -vf "subtitles='${file}.ass'" "${file}"
             elif [ -f "${file}.srt" ]; then
-                ${BASH_ALIASES[ffplay]} "$@" -vf subtitles="'${file}.srt'" "${file}"
+                ${BASH_ALIASES[ffplay]} "$@" -vf "subtitles='${file}.srt'" "${file}"
             else
                 ${BASH_ALIASES[ffplay]} "$@" "${file}"
             fi
