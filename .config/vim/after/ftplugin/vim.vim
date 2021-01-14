@@ -1,13 +1,9 @@
 " load guard {{{1
-" Only do this when not done yet for this buffer.
-if exists('b:loaded_after_ftplugin')
-    echo 'Reload detected in ' . expand('<sfile>:p')
+if exists('b:loaded_after_ftplugin') " Only do this when not done yet for this buffer.
     finish
 endif
 
-" Don't load another plugin for this buffer.
-let b:loaded_after_ftplugin = 1
+let b:loaded_after_ftplugin = 1      " Loaded flag.
 
 " options {{{1
-" Do not automatically insert the current comment leader after hitting 'o' or 'O' in Normal mode.
-setlocal formatoptions-=o
+setlocal formatoptions-=ro           " Do not automatically insert the current comment leader.

@@ -1,23 +1,24 @@
 " load guard {{{1
-" Only do this when not done yet for this buffer.
-if exists('b:loaded_ftplugin')
+if exists('b:loaded_ftplugin')                " Only do this when not done yet for this buffer.
     finish
 endif
-" Don't load another plugin for this buffer.
-let b:loaded_ftplugin = 1
+
+let b:loaded_ftplugin = 1                     " Loaded flag.
 
 " options {{{1
-" TODO parameters and variable declaration equal sign align.
-" GNU C style indentation/format.
+" GNU C format and indentation style.
 setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0,h2,p5,t0,+2,(0,u0,w1,m1
 setlocal shiftwidth=2
 setlocal softtabstop=2
 setlocal textwidth=79
 
-setlocal path=.,/usr/include,**,$VIMDOTDIR/**
+setlocal path=.,/usr/include,**,$VIMDOTDIR/** " Current file's dir ('%:p:h'), headers, $PWD/ and $VIMDOTDIR/ recursively.
+setlocal showfulltag                          " Show function name + template in auto completion pop-up menu.
 
-" Show function name + template in auto completion pop-up menu.
-setlocal showfulltag
+" plugins {{{1
+packadd termdebug                             " Load terminal debug plugin.
+
+let g:termdebug_wide = 1                      " Enable vertical split without every changing &columns.
 
 " mappings. {{{1
 " Man page default section is section 3.
@@ -37,10 +38,3 @@ nnoremap <buffer> <Leader>r :!./all<CR>
 
 " Smart less than sign.
 inoremap <expr> <buffer> < pairs#IsMatchOnLHS ('^#include\s*$') ? '<><C-G>U<Left>' : '<'
-
-" plugins {{{1
-" Load terminal debug plugin.
-packadd termdebug
-
-" Enable vertical split without every changing &columns.
-let g:termdebug_wide = 1
