@@ -51,18 +51,12 @@ set mouse&                " Idon't like mouse setting in defaults.vim.
 packadd! matchit          " Improved '%' will jump to matching HTML tags, if/else/endif in Vim scripts, etc.
 
 " mappings {{{1
-" [count] line comment.
+" Note: Only in a mapping, the special <SID> prefix is actually necessary.
+
+" Mappings for my comment script ([count]<lhs> works too).
 noremap <silent> <Leader>cu :call tcmt#Uncomment ()<CR>
 noremap <silent> <Leader>cc :call tcmt#Comment ()<CR>
 "noremap <silent> <Leader>ct :call tcmt#ToggleComment ()<CR>
-
-" Pairs auto completions in command line mode.
-cnoremap <expr> " pairs#IsMatchOnLHS ('\S$') ? '"' : '""<Left>'
-cnoremap <expr> ' pairs#IsMatchOnLHS ('\S$') ? "'" : "''<Left>"
-cnoremap { {}<Left>
-cnoremap ( ()<Left>
-cnoremap < <><Left>
-cnoremap [ []<Left>
 
 " Basic pairs auto completions.
 inoremap <expr> " pairs#IsMatchOnLHS ('\v(^\s*$)\|(\S$)') ? '"' : '""<C-G>U<Left>'
@@ -72,20 +66,30 @@ inoremap < <><C-G>U<Left>
 inoremap [ []<C-G>U<Left>
 inoremap <expr> { pairs#IsMatchOnLHS ('^\s*$') ? '{<CR>}<C-G>U<Up><CR>' : '{}<C-G>U<Left>'
 
+" Pairs auto completions in cmd-line.
+cnoremap <expr> " pairs#IsMatchOnLHS ('\S$') ? '"' : '""<Left>'
+cnoremap <expr> ' pairs#IsMatchOnLHS ('\S$') ? "'" : "''<Left>"
+cnoremap { {}<Left>
+cnoremap ( ()<Left>
+cnoremap < <><Left>
+cnoremap [ []<Left>
+
 " Auto delete adjacent pairs.
 noremap! <expr> <BS> pairs#IsAdjacentPairs () ? '<Del><BS>' : '<BS>'
 
 " Tab completion and literal tab.
 inoremap <expr> <Tab> pairs#IsMatchOnLHS ('^\s*$') ? '<Tab>' : '<C-N>'
 inoremap <expr> <S-Tab> pairs#IsMatchOnLHS ('^\s*$') ? '<S-Tab>' : '<C-P>'
-" <C-V><Tab>
+" Use i_<C-V><Tab> instead but no 'expandtab', 'softtabstop', .etc
 "inoremap <S-Tab> <Tab>
 
-" Edit the file under cursor which doesn't exist yet.
+" Edit the file under cursor (<cfile> or c_^r_^f) which doesn't exist yet.
 nnoremap <Leader>gf :tabedit <cfile><CR>
 
 " Quick sudo write.
-cabbrev w!! w !sudo tee % >/dev/null
+" cabbrev suck with double quote autocompletion.
+"cabbrev w!! w !sudo tee "%" > /dev/null
+command W execute 'silent write !sudo tee "%" > /dev/null' | edit!
 
 " Kill two birds with one stone.
 cabbrev H tab help
@@ -94,15 +98,15 @@ cabbrev H tab help
 xnoremap <Up> <Esc>kV
 xnoremap <Down> <Esc>jV
 
-" Toggle spell check.
+" Toggle spell check. My bad :(
 nnoremap <Leader>s :set spell!<CR>
 
-" Search forward for selected text (s register will be used).
+" Search forward for selected text (@s will be used).
 xnoremap <Leader>ff "sy/\V<C-R>=escape (@s, '/\')<CR><CR>
 
-" TODO: gdefault.
-" Substitute the last-pattern.
-nnoremap <Leader>fs :%substitute///gc<Left><Left><Left>
+" Substitute the 'last-pattern'.
+" TODO: Check 'gdefault'.
+nnoremap <Leader>fs :%s///gc<Left><Left><Left>
 
 " Edit vimrc in new tab.
 nnoremap <Leader>vv :tabedit $MYVIMRC<CR>
@@ -111,7 +115,7 @@ nnoremap <Leader>vv :tabedit $MYVIMRC<CR>
 augroup MakePrg " {{{2
     autocmd!
 
-    " Use the $VIMDOTDIR/templates/Makefile when in practices folder.
+    " Use the Makefile in "$VIMDOTDIR/templates" when in practices folder.
     autocmd BufNewFile,BufRead */practices/*/*/?\+.[ch] setlocal makeprg=make\ -f\ $VIMDOTDIR/templates/Makefile
 augroup END
 
@@ -124,6 +128,6 @@ augroup Templates " {{{2
     " Start insert mode at the end of line containing 'Description: '.
     autocmd BufNewFile main.c call templates#AddFileDescription ()
 
-    " TODO Auto update timestamp? Store it in a variable and update when exit.
-    "autocmd BufWritePre,FileWritePre main.c undojoin | call templates#UpdateTimestamp ()
+    " Auto update file "Last modified: " if it exist.
+    "autocmd FileWritePre main.c undojoin | call templates#UpdateTimestamp ()
 augroup END
