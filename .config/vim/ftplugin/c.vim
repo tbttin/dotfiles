@@ -38,3 +38,6 @@ nnoremap <buffer> <Leader>r :!./all<CR>
 
 " Smart less than sign.
 inoremap <expr> <buffer> < pairs#IsMatchOnLHS ('^#include\s*$') ? '<><C-G>U<Left>' : '<'
+
+" Auto insert multi-line comment terminator.
+inoremap <buffer> /* /*  */<C-G>U<Left><Left><Left>
