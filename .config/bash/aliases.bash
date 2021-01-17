@@ -73,4 +73,5 @@ alias ffmpeg='ffmpeg -hide_banner'
 # startx with xinitrc in $XDG_CONFIG_HOME.
 alias startx='startx ${XINITRC}'
 
+# Display all locations containing an executable named includes aliases, builtins, and functions.
 alias type='type -a'
