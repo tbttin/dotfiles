@@ -32,6 +32,8 @@ alias vv='vim ${XDG_CONFIG_HOME}/vim/vimrc'
 alias vx='vim ${XINITRC}'
 # Zathura.
 alias vz='vim ${XDG_CONFIG_HOME}/zathura/zathurarc'
+# Font config.
+alias vf='vim ${XDG_CONFIG_HOME}/fontconfig/fonts.conf'
 
 # Adding colors.
 alias ls='ls --color=auto'
