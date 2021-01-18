@@ -87,7 +87,7 @@ inoremap <expr> <S-Tab> pairs#IsMatchOnLHS ('^\s*$') ? '<S-Tab>' : '<C-P>'
 nnoremap <Leader>gf :tabedit <cfile><CR>
 
 " Quick sudo write.
-" cabbrev suck with double quote autocompletion.
+" cabbrev suck with cnoremap.
 "cabbrev w!! w !sudo tee "%" > /dev/null
 command W execute 'silent write !sudo tee "%" > /dev/null' | edit!
 
@@ -109,7 +109,7 @@ xnoremap <Leader>ff "sy/\V<C-R>=escape (@s, '/\')<CR><CR>
 nnoremap <Leader>fs :%s///gc<Left><Left><Left>
 
 " Edit vimrc in new tab.
-nnoremap <Leader>vv :tabedit $MYVIMRC<CR>
+nnoremap <Leader>vv :tabedit $VIMDOTDIR/vimrc<CR>
 
 " autocommands {{{1
 augroup MakePrg " {{{2
