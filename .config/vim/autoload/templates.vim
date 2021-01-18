@@ -1,10 +1,12 @@
-function! templates#UpdateTimestamp () " {{{1
-    let l:line = line ('$') > 10 ? 10 : line ('$')
-    kt
-    execute 1 . ',' . l:line . 'g/Last modified: /s/Last modified: .*/Last modified: ' .
-                \ strftime("%b %d %Y %R %z")
-    't
-endfunction
+" UpdateTimestamp {{{1
+" TODO: Store timestamp in a variable and update it when exit.
+"function! templates#UpdateTimestamp ()
+"    let l:line = line ('$') > 10 ? 10 : line ('$')
+"    kt
+"    execute 1 . ',' . l:line . 'g/Last modified: /s/Last modified: .*/Last modified: ' .
+"                \ strftime("%b %d %Y %R %z")
+"    't
+"endfunction
 
 function! templates#AddFileDescription () " {{{1
     " Search backward after parsing.
@@ -29,6 +31,6 @@ function! templates#LoadTemplate (filename) " {{{1
     if filereadable (l:fullpath)
         execute '0read ' . l:fullpath
         $delete
-        call <SID>ParseTemplate ()
+        call s:ParseTemplate ()
     endif
 endfunction
