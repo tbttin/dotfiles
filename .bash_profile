@@ -3,11 +3,11 @@
 #
 
 #
-# XDG Base Directory specification.
+# XDG Base Directory Specification.
 #
 export XDG_DATA_HOME="${HOME}/.local/share"
 export XDG_CONFIG_HOME="${HOME}/.config"
-export XDG_DATA_DIRS="/usr/local/share/:/usr/share/"
+export XDG_DATA_DIRS="/usr/local/share:/usr/share"
 export XDG_CONFIG_DIRS="/etc/xdg"
 export XDG_CACHE_HOME="${HOME}/.cache"
 # XDG_RUNTIME_DIR is set by default through pam_systemd.
@@ -15,7 +15,7 @@ export XDG_CACHE_HOME="${HOME}/.cache"
 # Add ~/scripts to $PATH.
 #export PATH="${PATH}:${HOME}/scripts"
 
-# Set default text editor.
+# Default text editor.
 export VISUAL='vim'
 export EDITOR="$VISUAL"
 
@@ -27,7 +27,7 @@ export TERMINFO="${XDG_DATA_HOME}/terminfo"
 export TERMINFO_DIRS="${XDG_DATA_HOME}/terminfo:/usr/share/terminfo"
 
 # Move less search history file to $XDG_DATA_HOME.
-[[ ! -d "${XDG_DATA_HOME}/less/" ]] && mkdir -p -m 0700 "${XDG_DATA_HOME}/less/"
+[[ ! -d "${XDG_DATA_HOME}/less" ]] && mkdir -p -m 0700 "${XDG_DATA_HOME}/less"
 export LESSHISTFILE="${XDG_DATA_HOME}/less/history"
 
 # Get color support for 'less', change search highlight behavior.
@@ -36,7 +36,7 @@ export LESS='-R-g'
 [[ -f "${XDG_CONFIG_HOME}/less/less-termcaps" ]] && . "${XDG_CONFIG_HOME}/less/less-termcaps"
 
 # Bash history.
-[[ ! -d "${XDG_DATA_HOME}/bash/" ]] && mkdir -p -m 0700 "${XDG_DATA_HOME}/bash/"
+[[ ! -d "${XDG_DATA_HOME}/bash" ]] && mkdir -p -m 0700 "${XDG_DATA_HOME}/bash"
 export HISTFILE="${XDG_DATA_HOME}/bash/history"
 
 # GNU indent profile.
