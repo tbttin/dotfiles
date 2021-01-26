@@ -19,6 +19,11 @@ export XDG_CACHE_HOME="${HOME}/.cache"
 export VISUAL='vim'
 export EDITOR="$VISUAL"
 
+# Enable color support for 'less', change search highlight behavior.
+export LESS='-R -g'
+# Source less termcap variables.
+#[[ -f "${XDG_CONFIG_HOME}/less/less-termcaps" ]] && . "${XDG_CONFIG_HOME}/less/less-termcaps"
+
 #
 # Clean up $HOME.
 #
@@ -29,11 +34,6 @@ export TERMINFO_DIRS="${XDG_DATA_HOME}/terminfo:/usr/share/terminfo"
 # Move less search history file to $XDG_DATA_HOME.
 [[ ! -d "${XDG_DATA_HOME}/less" ]] && mkdir -p -m 0700 "${XDG_DATA_HOME}/less"
 export LESSHISTFILE="${XDG_DATA_HOME}/less/history"
-
-# Get color support for 'less', change search highlight behavior.
-export LESS='-R-g'
-# Source less termcap variables.
-[[ -f "${XDG_CONFIG_HOME}/less/less-termcaps" ]] && . "${XDG_CONFIG_HOME}/less/less-termcaps"
 
 # Bash history.
 [[ ! -d "${XDG_DATA_HOME}/bash" ]] && mkdir -p -m 0700 "${XDG_DATA_HOME}/bash"
