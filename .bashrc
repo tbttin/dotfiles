@@ -11,22 +11,50 @@ stty -ixon
 # Auto cd directory by typing its name (../{dir}).
 shopt -s autocd
 
-# History things.
-HISTCONTROL='ignorespace:erasedups'
+# History settings.
+# The number of commands to remember in the command history.
 HISTSIZE=2000
+# 'ignorespace': lines which begin with a space character are not saved in the history list.
+# 'erasedups'  : causes all previous lines matching the current line to be removed from the history list before that line is saved.
+HISTCONTROL='ignorespace:erasedups'
 
 # Prompt colorizing.
 FG_RED="\[$(tput setaf 1)\]"
 FG_CYAN="\[$(tput setaf 6)\]"
 CA_BOLD="\[$(tput bold)\]"
 CA_RESET="\[$(tput sgr0)\]"
-PS1="${CA_BOLD}${FG_CYAN}\W/${FG_RED}\$${CA_RESET} "
+PS1="${CA_RESET}${CA_BOLD}${FG_CYAN}\W/${FG_RED}\$${CA_RESET} "
 
 # Source alias file.
 [[ -f "${XDG_CONFIG_HOME}/bash/aliases.bash" ]] && . "${XDG_CONFIG_HOME}/bash/aliases.bash"
 
 # Create new directorie[s] and enter the first one.
 function mkcd() { mkdir -pv "$@" && cd "$1"; }
+
+# Man page corlorizing.
+function man ()
+{
+    # Everything is in terminfo(5).
+    # Color       #define       Value       RGB
+    # black     COLOR_BLACK       0     0, 0, 0
+    # red       COLOR_RED         1     max,0,0
+    # green     COLOR_GREEN       2     0,max,0
+    # yellow    COLOR_YELLOW      3     max,max,0
+    # blue      COLOR_BLUE        4     0,0,max
+    # magenta   COLOR_MAGENTA     5     max,0,max
+    # cyan      COLOR_CYAN        6     0,max,max
+    # white     COLOR_WHITE       7     max,max,max
+    # FG - BG: red - blue, yellow - cyan.
+
+    # Bold for headings, command synopses, and code font.
+    # Underline for proper names, variable names, and type names in some manpages.
+    # Inverse (or reverse) for the prompt at the bottom.
+
+    # Use cyan color instead of underline (italic -> underline is included).
+    LESS_TERMCAP_us="$(tput setaf 6)" \
+    LESS_TERMCAP_ue="$(tput sgr0)" \
+    command man "$@"
+}
 
 # Play all .mkv files with its external subtitle in current directory.
 # ^z + kill %% to kill this function.
