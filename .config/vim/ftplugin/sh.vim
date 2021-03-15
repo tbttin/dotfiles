@@ -9,4 +9,4 @@ let b:loaded_ftplugin = 1      " Loaded flag.
 setlocal isfname+={,}          " E.g. ${XDG_CONFIG_HOME}/vim/vimrc
 
 let g:is_bash = 1              " Use bash syntax highlighting.
-"let g:sh_fold_enabled = 1      " Enable function folding.
+let g:sh_fold_enabled = 1      " Enable function folding.
