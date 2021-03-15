@@ -14,6 +14,7 @@ setlocal textwidth=79
 
 setlocal path=.,/usr/include,**,$VIMDOTDIR/** " Current file's dir ('%:p:h'), headers, $PWD/ and $VIMDOTDIR/ recursively.
 setlocal showfulltag                          " Show function name + template in auto completion pop-up menu.
+setlocal suffixes+=.d                         " Ignore source file dependencies file (make).
 
 " plugins {{{1
 packadd termdebug                             " Load terminal debug plugin.
@@ -24,17 +25,16 @@ let g:termdebug_wide = 1                      " Enable vertical split without ev
 " Man page default section is section 3.
 nnoremap <buffer> K 3K
 
-" Create tags file in $PWD recursively.
-nnoremap <buffer> <F5> :!ctags -R<CR>
-
 " Build.
-nnoremap <buffer> <Leader>mb :write \| make \| cwindow<CR>
+nnoremap <buffer> <Leader>mb :wall \| make! \| cwindow<CR>
 " Debug.
-nnoremap <buffer> <Leader>md :write \| make debug \| Termdebug all<CR>
+nnoremap <buffer> <Leader>md :wall \| make debug \| Termdebug prog<CR>
 " Make clean after clear terminal screen.
 nnoremap <buffer> <Leader>mc :!clear<CR>:make clean<CR>
+" Ctags.
+nnoremap <buffer> <Leader>mt :wall \| make tags<CR>
 " Run.
-nnoremap <buffer> <Leader>r :!./all<CR>
+nnoremap <buffer> <Leader>mr :make run<CR>
 
 " Smart less than sign.
 inoremap <expr> <buffer> < pairs#IsMatchOnLHS ('^#include\s*$') ? '<><C-G>U<Left>' : '<'
