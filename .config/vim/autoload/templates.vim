@@ -29,7 +29,7 @@ endfunction
 function! templates#LoadTemplate (filename) " {{{1
     let l:fullpath = $VIMDOTDIR . '/templates/' . a:filename
     if filereadable (l:fullpath)
-        execute '0read ' . l:fullpath
+        execute 'silent 0read ' . l:fullpath
         $delete
         call s:ParseTemplate ()
     endif
