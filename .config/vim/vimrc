@@ -122,8 +122,11 @@ augroup END
 augroup Templates " {{{2
     autocmd!
 
-    " Read and parse templates in $VIMDOTDIR/templates.
+    " Read and parse "same name" templates in $VIMDOTDIR/templates.
     autocmd BufNewFile ?\+ call templates#LoadTemplate (expand ('<afile>:p:t'))
+
+    " Read and parse C header template.
+    autocmd BufNewFile ?\+.h call templates#LoadTemplate ('skeleton.' . expand ('<afile>:p:e')) | 3 | startinsert
 
     " Start insert mode at the end of line containing 'Description: '.
     autocmd BufNewFile main.c call templates#AddFileDescription ()
