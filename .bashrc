@@ -6,7 +6,7 @@
 [[ $- != *i* ]] && return
 
 # Disable XON/XOFF flow control (C-s/C-q).
-stty -ixon
+#stty -ixon
 
 # Auto cd directory by typing its name (../{dir}).
 shopt -s autocd
@@ -17,6 +17,8 @@ HISTSIZE=2000
 # 'ignorespace': lines which begin with a space character are not saved in the history list.
 # 'erasedups'  : causes all previous lines matching the current line to be removed from the history list before that line is saved.
 HISTCONTROL='ignorespace:erasedups'
+
+#complete -D -o default
 
 # Prompt colorizing.
 FG_RED="\[$(tput setaf 1)\]"
@@ -29,9 +31,9 @@ PS1="${CA_RESET}${CA_BOLD}${FG_CYAN}\W/${FG_RED}\$${CA_RESET} "
 [[ -f "${XDG_CONFIG_HOME}/bash/aliases.bash" ]] && . "${XDG_CONFIG_HOME}/bash/aliases.bash"
 
 # Create new directorie[s] and enter the first one.
-function mkcd() { mkdir -pv "$@" && cd "$1"; }
+function mkcd() { mkdir -p "$@" && cd "$1"; }
 
-# Man page corlorizing.
+# Trick less command to use color instead of underline escape sequence.
 function man ()
 {
     # Everything is in terminfo(5).
@@ -49,6 +51,8 @@ function man ()
     # Bold for headings, command synopses, and code font.
     # Underline for proper names, variable names, and type names in some manpages.
     # Inverse (or reverse) for the prompt at the bottom.
+
+    # The p subsection is for POSIX specifications; the x subsection is for X Window System documentation.
 
     # Use cyan color instead of underline (italic -> underline is included).
     LESS_TERMCAP_us="$(tput setaf 6)" \
