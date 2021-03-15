@@ -1,28 +1,44 @@
-CC = gcc
-CFLAGS = -std=c11\
-	 -pedantic\
-	 -Wall\
-	 -Wextra\
-	 -O2\
-	 -lm\
-	 -Wshadow\
-	 -Wconversion\
-	 -Wstrict-overflow=5\
-	 -Wformat=2\
-	 -Wfloat-equal
-DBGCFLAGS = -g -DDEBUG
-# OBJS = main.o
-OBJS = main.c
+CC            := cc
+CFLAGS        := -std=c11\
+	        -pedantic\
+	        -Wall\
+	        -Wextra\
+	        -O2\
+	        -Wshadow\
+	        -Wconversion\
+	        -Wstrict-overflow=5\
+	        -Wformat=2\
+	        -Wfloat-equal
+# 	        -g
+# 	        -lm
+DBGCFLAGS     := -g\
+		-DDEBUG
+PROG          := prog
+RM            := rm -f
+TAG           := ctags -R
+OUTPUT_OPTION = -MMD -MP -o $@
 
-all : $(OBJS)
-	$(CC) $(CFLAGS) -o all $(OBJS)
+SOURCE := $(wildcard *.c)
+OBJS   := $(SOURCE:.c=.o)
+DEPS   := $(SOURCE:.c=.d)
+.PHONY: all debug clean tags run
 
-.PHONY : clean debug
-clean :
-#	rm -f all $(OBJS)
-	rm -f all
+all: ${PROG}
 
-# debug : $(OBJS)
-# 	$(CC) $(CFLAGS) $(DBGCFLAGS) -o all $(OBJS)
-debug : CFLAGS += $(DBGCFLAGS)
-debug : all
+${PROG}: ${OBJS}
+	${CC} -o ${PROG} ${OBJS}
+
+-include ${DEPS}
+
+debug: clean
+debug: CFLAGS += ${DBGCFLAGS}
+debug: all
+
+clean:
+	${RM} ${PROG} ${OBJS} ${DEPS}
+
+tags:
+	${TAG}
+
+run:
+	-@./${PROG}
