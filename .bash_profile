@@ -5,24 +5,20 @@
 #
 # XDG Base Directory Specification.
 #
-export XDG_DATA_HOME="${HOME}/.local/share"
-export XDG_CONFIG_HOME="${HOME}/.config"
-export XDG_DATA_DIRS="/usr/local/share:/usr/share"
-export XDG_CONFIG_DIRS="/etc/xdg"
-export XDG_CACHE_HOME="${HOME}/.cache"
+# If nuset assign this value.
+export XDG_DATA_HOME="${XDG_DATA_HOME:=${HOME}/.local/share}"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:=${HOME}/.config}"
+export XDG_DATA_DIRS="${XDG_DATA_DIRS:=/usr/local/share:/usr/share}"
+export XDG_CONFIG_DIRS="${XDG_CONFIG_DIRS:=/etc/xdg}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:=${HOME}/.cache}"
 # XDG_RUNTIME_DIR is set by default through pam_systemd.
-
-# Add ~/scripts to $PATH.
-#export PATH="${PATH}:${HOME}/scripts"
 
 # Default text editor.
 export VISUAL='vim'
 export EDITOR="$VISUAL"
 
-# Enable color support for 'less', change search highlight behavior.
+# Causes raw ASCII color escape sequences are displayed, change search highlight behavior.
 export LESS='-R -g'
-# Source less termcap variables.
-#[[ -f "${XDG_CONFIG_HOME}/less/less-termcaps" ]] && . "${XDG_CONFIG_HOME}/less/less-termcaps"
 
 #
 # Clean up $HOME.
