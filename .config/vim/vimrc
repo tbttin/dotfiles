@@ -36,8 +36,8 @@ set relativenumber        " Show the line number relative to the line with the c
 let &t_SI .= "\<Esc>[4 q" " Start Insert mode (Steady underline cursor).
 let &t_SR .= "\<Esc>[4 q" " Start Replace mode (Same as Insert mode).
 let &t_EI .= "\<Esc>[2 q" " End Insert mode (Otherwise, full-steady block cursor).
-if &term =~ 'st'          " Vim will not use dark background theme in st.
-    set background=dark
+if &term =~ 'st'
+    set background=dark   " Vim will not use dark background theme in st.
 endif
 
 " cmdlines {{{2
@@ -86,10 +86,10 @@ inoremap <expr> <S-Tab> pairs#IsMatchOnLHS ('^\s*$') ? '<S-Tab>' : '<C-P>'
 " Edit the file under cursor (<cfile> or c_^r_^f) which doesn't exist yet.
 nnoremap <Leader>gf :tabedit <cfile><CR>
 
-" Quick sudo write.
+" Quick write as supper user.
 " cabbrev suck with cnoremap.
 "cabbrev w!! w !sudo tee "%" > /dev/null
-command W execute 'silent write !sudo tee "%" > /dev/null' | edit!
+command W execute 'write !doas tee "%" > /dev/null' | edit!
 
 " Kill two birds with one stone.
 cabbrev H tab help
