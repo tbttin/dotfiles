@@ -43,18 +43,12 @@ alias grep='grep --color=auto'
 alias ip='ip -color=auto'
 alias diff='diff -color=auto'
 
-# For safety.
-# BECAREFUL WHEN YOU USE ANOTHER SYSTEM.
-alias mv='mv -i'
-alias cp='cp -i'
-alias ln='ln -i'
-
 # [U]mount external drives/USBs.
-alias m16='sudo mount /mnt/16g-usb && cd /mnt/16g-usb'
-alias um16='sudo umount /mnt/16g-usb'
+alias m16='doas mount /mnt/16g-usb && cd /mnt/16g-usb'
+alias um16='doas umount /mnt/16g-usb'
 
 # System stuffs.
-alias supa='sudo pacman'
+alias supa='doas pacman'
 alias spo='systemctl poweroff -i'
 alias srb='systemctl reboot'
 
