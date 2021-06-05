@@ -18,13 +18,15 @@ HISTSIZE=2000
 # 'erasedups'  : causes all previous lines matching the current line to be removed from the history list before that line is saved.
 HISTCONTROL='ignorespace:erasedups'
 
-#complete -D -o default
+# Ignore compiled c file (.out), prefer source file (.c).
+complete -f -X '*.@(out)' vim
 
 # Prompt colorizing.
 FG_RED="\[$(tput setaf 1)\]"
 FG_CYAN="\[$(tput setaf 6)\]"
 CA_BOLD="\[$(tput bold)\]"
 CA_RESET="\[$(tput sgr0)\]"
+# Single machine user, so make it simple.
 PS1="${CA_RESET}${CA_BOLD}${FG_CYAN}\W/${FG_RED}\$${CA_RESET} "
 
 # Source alias file.
@@ -56,11 +58,11 @@ function man ()
 
     # Use cyan color instead of underline (italic -> underline is included).
     LESS_TERMCAP_us="$(tput setaf 6)" \
-    LESS_TERMCAP_ue="$(tput sgr0)" \
-    command man "$@"
+        LESS_TERMCAP_ue="$(tput sgr0)" \
+        command man "$@"
 }
 
-# Play all .mkv files with its external subtitle in current directory.
+# Play all .mkv files with its external subtitle (if exist) in current directory.
 # ^z + kill %% to kill this function.
 function ffps()
 {
