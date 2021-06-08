@@ -13,7 +13,7 @@ CFLAGS        := -std=c11\
 # 	        -lm
 DBGCFLAGS     := -g\
 		-DDEBUG
-PROG          := prog
+PROG          := prog.out
 RM            := rm -f
 TAG           := ctags -R
 OUTPUT_OPTION = -MMD -MP -o $@
