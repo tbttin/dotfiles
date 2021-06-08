@@ -18,8 +18,10 @@ HISTSIZE=2000
 # 'erasedups'  : causes all previous lines matching the current line to be removed from the history list before that line is saved.
 HISTCONTROL='ignorespace:erasedups'
 
-# Ignore compiled c file (.out), prefer source file (.c).
-complete -f -X '*.@(out)' vim
+# Make bash completin ignore all linked or compiled c files (.o, .out), prefer source file (.c) for some text editors.
+complete -f -X '*.@([ao]|so|so.!(conf|*/*)|[rs]pm|gif|jp?(e)g|mp3|mp?(e)g|avi|asf|ogg|class|mkv|o|out)' vi vim gvim rvim view rview rgvim rgview gview emacs xemacs sxemacs kate kwrite
+# Global solution for every single command (rm, mv).
+#FIGNORE='.out:.o'
 
 # Prompt colorizing.
 FG_RED="\[$(tput setaf 1)\]"
