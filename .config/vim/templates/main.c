@@ -5,14 +5,17 @@
  *    Created on: [:VIM_EVAL:]strftime("%b %d %Y %R %z")[:END_EVAL:]
  */
 #include <stdio.h>
-#include <stdlib.h>
-#include <inttypes.h>
 
 int
 main (void)
 {
+/* TODO: Move this preprocessor to codeforce flag file. */
 #ifndef ONLINE_JUDGE
   freopen ("input.txt", "r", stdin);
 #endif
-  return EXIT_SUCCESS;
+
+#ifndef ONLINE_JUDGE
+  fclose (stdin);
+#endif
+  return 0;
 }
