@@ -19,7 +19,7 @@ HISTSIZE=2000
 HISTCONTROL='ignorespace:erasedups'
 
 # Make bash completin ignore all linked or compiled c files (.o, .out), prefer source file (.c) for some text editors.
-complete -f -X '*.@([ao]|so|so.!(conf|*/*)|[rs]pm|gif|jp?(e)g|mp3|mp?(e)g|avi|asf|ogg|class|mkv|o|out)' vi vim gvim rvim view rview rgvim rgview gview emacs xemacs sxemacs kate kwrite
+complete -f -X '*.@([ao]|so|so.!(conf|*/*)|[rs]pm|gif|jp?(e)g|mp3|mp?(e)g|avi|asf|ogg|class|mkv|o|out|d)' vi vim gvim rvim view rview rgvim rgview gview emacs xemacs sxemacs kate kwrite
 # Global solution for every single command (rm, mv).
 #FIGNORE='.out:.o'
 
