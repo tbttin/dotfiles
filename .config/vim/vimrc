@@ -7,7 +7,7 @@
 " Arch's startup order:
 "   /etc/vimrc
 "   /usr/share/vim/vimfiles/archlinux.vim
-"   $VIMDOTDIR/vimrc
+"   $VIMHOME/vimrc
 "   ($VIMRUNTIME/defaults.vim)
 
 " Load vim's default configurations.
@@ -20,7 +20,7 @@ set directory=$XDG_CACHE_HOME/vim/swap   | call mkdir (&g:directory, 'p', 0700)
 set backupdir=$XDG_CACHE_HOME/vim/backup | call mkdir (&g:backupdir, 'p', 0700)
 set viewdir=$XDG_CACHE_HOME/vim/view     | call mkdir (&g:viewdir, 'p', 0700)
 set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
-set runtimepath=$VIMDOTDIR,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$VIMDOTDIR/after
+set runtimepath=$VIMHOME,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$VIMHOME/after
 let &g:packpath = &g:runtimepath
 
 " indentations {{{2
@@ -41,7 +41,7 @@ if &term =~ 'st'
 endif
 
 " cmdlines {{{2
-set path=.,,$VIMDOTDIR/** " It's gotta be somewhere in there!
+set path=.,,$VIMHOME/** " It's gotta be somewhere in there!
 
 " miscellany {{{2
 set nojoinspaces          " Insert two spaces after a '.', '?' and '!' with a join command.
@@ -109,28 +109,28 @@ xnoremap <Leader>ff "sy/\V<C-R>=escape (@s, '/\')<CR><CR>
 nnoremap <Leader>fs :%s///gc<Left><Left><Left>
 
 " Edit vimrc in new tab.
-nnoremap <Leader>vv :tabedit $VIMDOTDIR/vimrc<CR>
+nnoremap <Leader>vv :tabedit $VIMHOME/vimrc<CR>
 
 " autocommands {{{1
 augroup MakePrg " {{{2
     autocmd!
 
-    " Use the Makefile in "$VIMDOTDIR/templates" when in practices folder.
-    autocmd BufNewFile,BufRead */practices/*/*/?\+.[ch] setlocal makeprg=make\ -f\ $VIMDOTDIR/templates/Makefile
+    " Use the Makefile in "$VIMHOME/tmplts" when in practices folder.
+"    autocmd BufNewFile,BufRead */practices/*/*/?\+.[ch] setlocal makeprg=make\ -f\ $VIMHOME/tmplts/Makefile
 augroup END
 
 augroup Templates " {{{2
     autocmd!
 
-    " Read and parse "same name" templates in $VIMDOTDIR/templates.
-    autocmd BufNewFile ?\+ call templates#LoadTemplate (expand ('<afile>:p:t'))
+    " Read and parse "same name" tmplts in $VIMHOME/tmplts.
+    autocmd BufNewFile ?\+ call tmplts#LoadTemplate (expand ('<afile>:p:t'))
 
     " Read and parse C header template.
-    autocmd BufNewFile ?\+.h call templates#LoadTemplate ('skeleton.' . expand ('<afile>:p:e')) | 3 | startinsert
+    autocmd BufNewFile ?\+.h call tmplts#LoadTemplate ('skeleton.' . expand ('<afile>:p:e')) | 3 | startinsert
 
     " Start insert mode at the end of line containing 'Description: '.
-    autocmd BufNewFile main.c call templates#AddFileDescription ()
+    autocmd BufNewFile main.c call tmplts#AddFileDescription ()
 
     " Auto update file "Last modified: " if it exist.
-    "autocmd FileWritePre main.c undojoin | call templates#UpdateTimestamp ()
+    "autocmd FileWritePre main.c undojoin | call tmplts#UpdateTimestamp ()
 augroup END

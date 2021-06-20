@@ -1,9 +1,9 @@
 " load guard {{{1
-if exists('b:loaded_ftplugin')                " Only do this when not done yet for this buffer.
+if exists('b:loaded_ftplugin')                      " Only do this when not done yet for this buffer.
     finish
 endif
 
-let b:loaded_ftplugin = 1                     " Loaded flag.
+let b:loaded_ftplugin = 1                           " Loaded flag.
 
 " options {{{1
 " GNU C format and indentation style.
@@ -12,14 +12,16 @@ setlocal shiftwidth=2
 setlocal softtabstop=2
 setlocal textwidth=79
 
-setlocal path=.,/usr/include,**,$VIMDOTDIR/** " Current file's dir ('%:p:h'), headers, $PWD/ and $VIMDOTDIR/ recursively.
-setlocal showfulltag                          " Show function name + template in auto completion pop-up menu.
-setlocal suffixes+=.d                         " Ignore source file dependencies file (make).
+setlocal path=.,/usr/include,**,$VIMHOME/**         " Current file's dir ('%:p:h'), headers, $PWD/ and $VIMHOME/ recursively.
+setlocal showfulltag                                " Show function name + template in auto completion pop-up menu.
+setlocal suffixes+=.d                               " Ignore source file dependencies file (make).
+
+setlocal makeprg=make\ -f\ $VIMHOME/tmplts/Makefile " Global Makefile.
 
 " plugins {{{1
-packadd termdebug                             " Load terminal debug plugin.
+packadd termdebug                                   " Load terminal debug plugin.
 
-let g:termdebug_wide = 1                      " Enable vertical split without every changing &columns.
+let g:termdebug_wide = 1                            " Enable vertical split without every changing &columns.
 
 " mappings. {{{1
 " Man page default section is section 3.

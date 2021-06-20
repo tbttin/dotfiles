@@ -1,6 +1,6 @@
 " UpdateTimestamp {{{1
 " TODO: Store timestamp in a variable and update it when exit.
-"function! templates#UpdateTimestamp ()
+"function! tmplts#UpdateTimestamp ()
 "    let l:line = line ('$') > 10 ? 10 : line ('$')
 "    kt
 "    execute 1 . ',' . l:line . 'g/Last modified: /s/Last modified: .*/Last modified: ' .
@@ -8,7 +8,7 @@
 "    't
 "endfunction
 
-function! templates#AddFileDescription () " {{{1
+function! tmplts#AddFileDescription () " {{{1
     " Search backward after parsing.
     " 0 if not found, no error.
     if search ('\cDescription: .', 'beW')
@@ -26,8 +26,8 @@ function! s:ParseTemplate () " {{{1
     execute 1 . ',' . l:line . 's/\v\[:VIM_EVAL:\](.{-})\[:END_EVAL:\]/\=eval (submatch (1))/ge'
 endfunction
 
-function! templates#LoadTemplate (filename) " {{{1
-    let l:fullpath = $VIMDOTDIR . '/templates/' . a:filename
+function! tmplts#LoadTemplate (filename) " {{{1
+    let l:fullpath = $VIMHOME . '/tmplts/' . a:filename
     if filereadable (l:fullpath)
         execute 'silent 0read ' . l:fullpath
         $delete
