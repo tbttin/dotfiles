@@ -28,8 +28,7 @@ $if mode=vi
     set keymap vi-insert
 
     # These are for vi-insert mode.
-    # No scrolling?
-    "\C-l": "\eA 2>&1 | less\C-m"
+
 $endif
 
 #
