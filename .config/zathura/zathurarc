@@ -3,9 +3,9 @@
 set guioptions ""
 set default-bg "#4d503c"
 set font "monospace nomal 10"
-set selection-notification false
 set abort-clear-search false
 set show-recent 3
 set filemonitor "noop"
-# set first-page-column 1:1
 set link-zoom false
+# set selection-notification false
+# set first-page-column 1:1
