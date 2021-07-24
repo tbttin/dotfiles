@@ -75,9 +75,9 @@ static Key keys[] = {
 	{ MODKEY,            XK_Print,                  spawn,           SHCMD("scrot \
                                                                                \"$(xdg-user-dir PICTURES)/screenshots/%Y-%m-%d-%H%M%S.png\"") },
 	{ MODKEY,            XK_Pause,                  spawn,           {.v = lockcmd } },
-        { 0,                 XF86XK_AudioMute,          spawn,           {.v = mutecmd } },
-        { 0,                 XF86XK_AudioLowerVolume,   spawn,           {.v = voldowncmd } },
-        { 0,                 XF86XK_AudioRaiseVolume,   spawn,           {.v = volupcmd } },
+        { MODKEY,            XK_F11,                    spawn,           {.v = mutecmd } },
+        { MODKEY,            XK_F10,                    spawn,           {.v = voldowncmd } },
+        { MODKEY,            XK_F12,                    spawn,           {.v = volupcmd } },
 	{ MODKEY|ShiftMask,  XK_f,                      spawn,           {.v = browsercmd } },
 	{ MODKEY|ShiftMask,  XK_z,                      spawn,           {.v = pdfreadercmd } },
 	{ MODKEY,            XK_p,                      spawn,           {.v = dmenucmd } },
