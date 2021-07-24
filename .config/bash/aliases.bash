@@ -49,7 +49,7 @@ alias m16='doas mount /mnt/16g-usb && cd /mnt/16g-usb'
 alias um16='doas umount /mnt/16g-usb'
 
 # System stuffs.
-alias supa='doas pacman'
+alias dapm='doas pacman'
 alias spo='systemctl poweroff -i'
 alias srb='systemctl reboot'
 
