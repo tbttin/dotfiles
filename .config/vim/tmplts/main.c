@@ -9,13 +9,5 @@
 int
 main (void)
 {
-/* TODO: Move this preprocessor to codeforce flag file. */
-#ifndef ONLINE_JUDGE
-  freopen ("input.txt", "r", stdin);
-#endif
-
-#ifndef ONLINE_JUDGE
-  fclose (stdin);
-#endif
   return 0;
 }
