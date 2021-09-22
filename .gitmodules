@@ -1,3 +1,6 @@
 [submodule ".config/vim/pack/plugins/start/pear-tree"]
 	path = .config/vim/pack/plugins/start/pear-tree
 	url = https://github.com/tmsvg/pear-tree.git
+[submodule ".config/vim/pack/plugins/start/vim-easy-align"]
+	path = .config/vim/pack/plugins/start/vim-easy-align
+	url = https://github.com/junegunn/vim-easy-align.git
