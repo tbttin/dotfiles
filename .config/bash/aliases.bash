@@ -29,12 +29,13 @@ alias vd='vim ${XDG_CONFIG_HOME}/dwm-git/config.h'
 alias vs='vim ${XDG_CONFIG_HOME}/st-git/config.h'
 # Vim.
 alias vv='vim ${XDG_CONFIG_HOME}/vim/vimrc'
+alias vc='vim ${XDG_CONFIG_HOME}/vim/ftplugin/c.vim'
 # xinitrc.
 alias vx='vim ${XINITRC}'
 # Zathura.
 alias vz='vim ${XDG_CONFIG_HOME}/zathura/zathurarc'
-# Font config.
-alias vf='vim ${XDG_CONFIG_HOME}/fontconfig/fonts.conf'
+# Makefie template.
+alias vm='vim ${XDG_CONFIG_HOME}/vim/tmplts/Makefile'
 
 # Adding colors.
 alias ls='ls --color=auto'
