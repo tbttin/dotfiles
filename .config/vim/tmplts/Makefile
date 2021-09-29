@@ -15,7 +15,7 @@ PROG      := $(BIN_DIR)/prog.out
 SOURCES   := $(wildcard $(SRC_DIR)/*.c)
 OBJS      := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SOURCES))
 
-.PHONY: a all debug clean run
+.PHONY: all debug clean run
 
 all: $(PROG)
 
@@ -41,5 +41,5 @@ $(DIRS):
 # If the make goal is irrelevant don't include dependency files.
 ifeq (,$(filter $(MAKECMDGOALS),clean run))
 # Wew can use shell file name patterns with include directive too.
-include $(patsubst $(SRC_DIR)/%.c,$(DEP_DIR)/%.d,$(SOURCES))
+-include $(patsubst $(SRC_DIR)/%.c,$(DEP_DIR)/%.d,$(SOURCES))
 endif
