@@ -10,6 +10,7 @@ SRC_DIR   := src
 OBJ_DIR   := obj
 BIN_DIR   := bin
 DEP_DIR   := .deps
+DIRS      := $(OBJ_DIR) $(BIN_DIR) $(DEP_DIR)
 PROG      := $(BIN_DIR)/prog.out
 SOURCES   := $(wildcard $(SRC_DIR)/*.c)
 OBJS      := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SOURCES))
@@ -23,7 +24,7 @@ debug: CFLAGS += $(DBGCFLAGS)
 debug: all
 
 clean:
-	$(RM) $(OBJ_DIR) $(BIN_DIR) $(DEP_DIR)
+	$(RM) $(DIRS)
 
 run:
 	-@./$(PROG)
@@ -34,13 +35,11 @@ $(PROG): $(OBJS) | $(BIN_DIR)
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR) $(DEP_DIR)
 	$(CC) $(CFLAGS) $(DEPFLAGS) -c -o $@ $<
 
-$(BIN_DIR): ; $(MKDIR) $@
-
-$(OBJ_DIR): ; $(MKDIR) $@
-
-$(DEP_DIR): ; $(MKDIR) $@
+$(DIRS):
+	$(MKDIR) $@
 
 # If the make goal is irrelevant don't include dependency files.
 ifneq ($(MAKECMDGOALS),$(or clean,run))
--include := $(patsubst $(SRC_DIR)/%.c,$(DEP_DIR)/%.d,$(SOURCES))
+# Wew can use shell file name patterns with include directive.
+-include $(patsubst $(SRC_DIR)/%.c,$(DEP_DIR)/%.d,$(SOURCES))
 endif
