@@ -2,7 +2,7 @@
 
 _pkgname='dmenu'
 pkgname="${_pkgname}-git"
-pkgver=5.0.r0.g1a13d04
+pkgver=5.0.r4.gd78ff08
 pkgrel=1
 pkgdesc='A generic menu for X.'
 arch=('i686' 'x86_64')
