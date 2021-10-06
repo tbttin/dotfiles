@@ -1,8 +1,3 @@
-# Aliases are created and listed with the alias command, and removed with the unalias command.
-# Single quotes are evaluated dynamically.
-# Double quotes are evaluated at time of creation and, thereafter, never changes.
-    #alias QS="echo \$PWD"
-
 # Some improving for movements.
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -17,7 +12,7 @@ alias s="cd $(xdg-user-dir SCRIPTS)"
 alias v="cd $(xdg-user-dir VIDEOS)"
 
 # Quick edit some config files.
-# Bash.
+# Bashes.
 alias vb='vim ~/.bashrc'
 alias vp='vim ~/.bash_profile'
 alias va='vim ${XDG_CONFIG_HOME}/bash/aliases.bash'
@@ -27,7 +22,7 @@ alias vn='vim ${INPUTRC}'
 alias vd='vim ${XDG_CONFIG_HOME}/dwm-git/config.h'
 # Suckless terminal.
 alias vs='vim ${XDG_CONFIG_HOME}/st-git/config.h'
-# Vim.
+# Vims.
 alias vv='vim ${XDG_CONFIG_HOME}/vim/vimrc'
 alias vc='vim ${XDG_CONFIG_HOME}/vim/ftplugin/c.vim'
 # xinitrc.
@@ -64,12 +59,21 @@ alias cfc='config commit'
 alias cfl='config log'
 alias cfp='config push'
 
+# For the sake of videos and movies.
 # Decrease seek_interval by 5, suppress printing copyright, build options and versions.
 alias ffplay='ffplay -hide_banner -nostats -seek_interval 5 -autoexit'
-alias ffmpeg='ffmpeg -hide_banner'
+# Seeking for file infomation.
+alias ffprobe='ffprobe -hide_banner'
 
 # startx with xinitrc in $XDG_CONFIG_HOME.
 alias startx='startx ${XINITRC}'
 
 # Display all locations containing an executable named includes aliases, builtins, and functions.
 alias type='type -a'
+
+# Aliases are created and listed with the alias command, and removed with the unalias command.
+# Do not overuse alias, we'll lose autocompletion ability.
+# '' vs ""
+#   Single quotes are evaluated dynamically.
+#   Double quotes are evaluated at time of creation and, thereafter, never changes.
+      #alias QS="echo \$PWD"
