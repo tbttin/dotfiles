@@ -83,24 +83,19 @@ noremap <silent> <Leader>cc :call tcmt#Comment ()<CR>
 
 "" Auto delete adjacent pairs.
 "noremap! <expr> <BS> pairs#IsAdjacentPairs () ? '<Del><BS>' : '<BS>'
-" end maintaining }}}
+" End maintaining }}}
 
 " Tab completion and literal tab.
 inoremap <expr> <Tab> pairs#IsMatchOnLHS ('^\s*$') ? '<Tab>' : '<C-N>'
 " Use i_<C-V><Tab> instead but no 'expandtab', 'softtabstop', .etc
 inoremap <S-Tab> <Tab>
-"inoremap <expr> <S-Tab> pairs#IsMatchOnLHS ('^\s*$') ? '<S-Tab>' : '<C-P>'
 
 " Edit the file under cursor (<cfile> or c_^r_^f) which doesn't exist yet.
 nnoremap <Leader>gf :tabedit <cfile><CR>
 
 " Quick write as supper user, reload file content.
-" cabbrev suck with cnoremap.
-"cabbrev w!! w !sudo tee "%" > /dev/null
-command W execute 'write !doas tee "%" > /dev/null' | edit!
-
-" Kill two birds with one stone.
-cabbrev H tab help
+" TODO: Do not reload file content after doas cancellation.
+command SW execute 'write !doas tee "%" > /dev/null' | edit!
 
 " Toggle spell check. Rip my English :(
 nnoremap <Leader>s :set spell!<CR>
@@ -116,16 +111,8 @@ nnoremap <Leader>fs :%s///gc<Left><Left><Left>
 nnoremap <Leader>vv :tabedit $VIMHOME/vimrc<CR>
 
 " autocommands {{{1
-augroup MakePrg " {{{2
-    autocmd!
-
-    " Use the Makefile in "$VIMHOME/tmplts" when in practices folder.
-"    autocmd BufNewFile,BufRead */practices/*/*/?\+.[ch] setlocal makeprg=make\ -f\ $VIMHOME/tmplts/Makefile
-augroup END
-
 augroup Templates " {{{2
     autocmd!
-
     " Read and parse "same name" tmplts in $VIMHOME/tmplts.
     autocmd BufNewFile ?\+ call tmplts#LoadTemplate (expand ('<afile>:p:t'))
 
@@ -134,7 +121,4 @@ augroup Templates " {{{2
 
     " Start insert mode at the end of line containing 'Description: '.
     autocmd BufNewFile main.c call tmplts#AddFileDescription ()
-
-    " Auto update file "Last modified: " if it exist.
-    "autocmd FileWritePre main.c undojoin | call tmplts#UpdateTimestamp ()
 augroup END
