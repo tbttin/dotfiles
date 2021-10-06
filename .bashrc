@@ -5,17 +5,13 @@
 # If not running interactively, don't do anything.
 [[ $- != *i* ]] && return
 
-# Disable XON/XOFF flow control (C-s/C-q).
-#stty -ixon
-
 # Auto cd directory by typing its name (../{dir}).
 shopt -s autocd
 
 # History settings.
 # The number of commands to remember in the command history.
 HISTSIZE=2000
-# 'ignorespace': lines which begin with a space character are not saved in the history list.
-# 'erasedups'  : causes all previous lines matching the current line to be removed from the history list before that line is saved.
+# 'erasedups': causes all previous lines matching the current line to be removed from the history list before that line is saved.
 HISTCONTROL='ignorespace:erasedups'
 
 # Prompt colorizing.
