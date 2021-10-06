@@ -21,14 +21,15 @@ $if mode=vi
 
     set keymap vi-command
 
-    # These are for vi-command mode.
+    # These are for vi-command mode:
     j: history-search-forward
     k: history-search-backward
 
     set keymap vi-insert
 
-    # These are for vi-insert mode.
-
+    # These are for vi-insert mode:
+    # Redirect both 1 and 2 to less.
+    "\C-p": "\eA2>&1 | less"
 $endif
 
 #
