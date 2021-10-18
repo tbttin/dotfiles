@@ -25,10 +25,10 @@ PS1="${CA_RESET}${CA_BOLD}${FG_CYAN}\W/${FG_RED}\$${CA_RESET} "
 # Source alias file.
 [[ -f "${XDG_CONFIG_HOME}/bash/aliases.bash" ]] && . "${XDG_CONFIG_HOME}/bash/aliases.bash"
 
-# Create new directorie[s] and enter the first one.
+# Create new directorie[s] and enter the first created one.
 function mkcd() { mkdir -p "$@" && cd "$1"; }
 
-# Trick less command to use color instead of underline escape sequence.
+# Add some colors and hard-set pager width.
 function man ()
 {
     # Everything is in terminfo(5).
@@ -47,11 +47,11 @@ function man ()
     # Underline for proper names, variable names, and type names in some manpages.
     # Inverse (or reverse) for the prompt at the bottom.
 
-    # The p subsection is for POSIX specifications; the x subsection is for X Window System documentation.
-
     # Use cyan color instead of underline (italic -> underline is included).
+    # Manpage's pager resizing (with tiling WM) is a headache. Stupid solution.
     LESS_TERMCAP_us="$(tput setaf 6)" \
         LESS_TERMCAP_ue="$(tput sgr0)" \
+        MANWIDTH=70 \
         command man "$@"
 }
 
