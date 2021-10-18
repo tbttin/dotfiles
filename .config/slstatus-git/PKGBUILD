@@ -1,3 +1,6 @@
+# vim: filetype=sh
+
+
 # Maintainer: Tin Thai <thaibachthanhtin@gmail.com>
 
 _pkgname='slstatus'
@@ -13,7 +16,7 @@ makedepends=('git')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 _patches=(
-    'slstatus-rmtrailingspacenetspeeds-20201104-b14e039.diff'
+    'slstatus-rmtrailingspaceinnetspeedsoutput-20201104-b14e039.diff'
 )
 source=(
     "git+https://git.suckless.org/${_pkgname}"
