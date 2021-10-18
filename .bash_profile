@@ -13,15 +13,13 @@ export XDG_CONFIG_DIRS="${XDG_CONFIG_DIRS:=/etc/xdg}"
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:=${HOME}/.cache}"
 # XDG_RUNTIME_DIR is set by default through pam_systemd.
 
-# Manpages with tiling WM.
-# Stupid solution.
-export MANWIDTH=70
-
 # Default text editor.
-export VISUAL='vim'
-export EDITOR="$VISUAL"
+export EDITOR='/usr/bin/vim'
+# v in Bash (vi mode).
+export VISUAL='/usr/bin/vim'
 
-# Causes raw ASCII color escape sequences are displayed, change search highlight behavior.
+# R: causes raw ASCII color escape sequences are displayed.
+# g: change default search highlight behavior.
 export LESS='-R -g'
 
 #
