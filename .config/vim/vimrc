@@ -9,12 +9,11 @@
 "   /usr/share/vim/vimfiles/archlinux.vim
 "   $VIMHOME/vimrc
 "   ($VIMRUNTIME/defaults.vim)
-
 " Load vim's default configurations.
 unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
 
-" XDG Base Directory Specification {{{2
+" Respect XDG Base Directory Specification {{{2
 set undodir=$XDG_CACHE_HOME/vim/undo     | call mkdir (&g:undodir, 'p', 0700)
 set directory=$XDG_CACHE_HOME/vim/swap   | call mkdir (&g:directory, 'p', 0700)
 set backupdir=$XDG_CACHE_HOME/vim/backup | call mkdir (&g:backupdir, 'p', 0700)
@@ -41,13 +40,13 @@ if &term =~ 'st'
 endif
 
 " cmdlines {{{2
-set path=.,,$VIMHOME/** " It's gotta be somewhere in there!
+set path=.,,$VIMHOME/**   " It's gotta be somewhere in there!
 
 " miscellany {{{2
 set nojoinspaces          " Insert two spaces after a '.', '?' and '!' with a join command.
 set notimeout             " Disable <Leader> mapping timeout.
 set hidden                " Possibility to have more than one unsaved buffers.
-set mouse&                " Idon't like mouse setting in defaults.vim.
+set mouse&                " I don't like mouse setting in defaults.vim.
 packadd! matchit          " Improved '%' will jump to matching HTML tags, if/else/endif in Vim scripts, etc.
 
 " mappings {{{1
@@ -90,9 +89,6 @@ inoremap <expr> <Tab> pairs#IsMatchOnLHS ('^\s*$') ? '<Tab>' : '<C-N>'
 " Use i_<C-V><Tab> instead but no 'expandtab', 'softtabstop', .etc
 inoremap <S-Tab> <Tab>
 
-" Edit the file under cursor (<cfile> or c_^r_^f) which doesn't exist yet.
-nnoremap <Leader>gf :tabedit <cfile><CR>
-
 " Quick write as supper user, reload file content.
 " TODO: Do not reload file content after doas cancellation.
 command SW execute 'write !doas tee "%" > /dev/null' | edit!
@@ -113,11 +109,11 @@ nnoremap <Leader>vv :tabedit $VIMHOME/vimrc<CR>
 " autocommands {{{1
 augroup Templates " {{{2
     autocmd!
-    " Read and parse "same name" tmplts in $VIMHOME/tmplts.
+    " Read and parse template which have the same name in t$VIMHOME/tmplts.
     autocmd BufNewFile ?\+ call tmplts#LoadTemplate (expand ('<afile>:p:t'))
 
-    " Read and parse C header template.
-    autocmd BufNewFile ?\+.h call tmplts#LoadTemplate ('skeleton.' . expand ('<afile>:p:e')) | 3 | startinsert
+    " Read and parse template according file extension.
+    autocmd BufNewFile ?\+ call tmplts#LoadTemplate ('skeleton.' . expand ('<afile>:p:e'))
 
     " Start insert mode at the end of line containing 'Description: '.
     autocmd BufNewFile main.c call tmplts#AddFileDescription ()
