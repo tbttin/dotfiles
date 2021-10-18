@@ -1,53 +1,55 @@
-CC        := cc
-CFLAGS     = -std=c17 -pedantic -Wall -Wextra -O2 -Wshadow -Wconversion -Wstrict-overflow=5 -Wformat=2 -Wfloat-equal -o $(OBJ_DIR)/$*.o
-#LDLIBS    := -lm
-DBGCFLAGS := -g -DDEBUGGING
-DEPFLAGS   = -MMD -MP -MF $(DEP_DIR)/$*.d
-MAKEFLAGS := --no-builtin-rules --no-builtin-variables
+CC            := cc
+CFLAGS         = -std=c17 -pedantic -Wall -Wextra -O2 -Wshadow -Wconversion -Wstrict-overflow=5 -Wformat=2 -Wfloat-equal
+DBGCFLAGS     := -g -DDEBUGGING
+OUTPUT_OPTION  = -MMD -MP -MF $(dep_dir)/$*.d -o $(obj_dir)/$*.o
+MAKEFLAGS     += --no-builtin-rules --no-builtin-variables
 
-RM        := rm -rf
-MKDIR     := @mkdir -p
-SRC_DIR   := src
-OBJ_DIR   := obj
-BIN_DIR   := bin
-DEP_DIR   := .deps
-DIRS      := $(OBJ_DIR) $(BIN_DIR) $(DEP_DIR)
-PROG      := $(BIN_DIR)/prog.out
-SOURCES   := $(wildcard $(SRC_DIR)/*.c)
-OBJS      := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SOURCES))
+src_dir       := $(CURDIR)/src
+obj_dir       := $(CURDIR)/obj
+bin_dir       := $(CURDIR)/bin
+dep_dir       := $(CURDIR)/.deps
+dirs          := $(obj_dir) $(bin_dir) $(dep_dir)
+prog          := $(bin_dir)/prog
+rm            := rm -rf
+mkdir         := mkdir -p
+tags	      := ctags $(src_dir)/*.{h,c}
+sources       := $(wildcard $(src_dir)/*.c)
+objs          := $(patsubst $(src_dir)/%.c,$(obj_dir)/%.o,$(sources))
 
-all: $(PROG)
+all: $(prog) tags
 
 debug: clean
 debug: CFLAGS += $(DBGCFLAGS)
 debug: all
 
 clean:
-	$(RM) $(DIRS)
+	$(rm) $(dirs)
 
 run:
-	-@./$(PROG)
+	@$(prog)
 
-$(PROG): $(OBJS) | $(BIN_DIR)
+tags:
+	@$(tags)
+
+$(prog): $(objs) | $(bin_dir)
 	$(CC) $^ -o $@
 
-$(OBJ_DIR)/%.o $(DEP_DIR)/%.d&: $(SRC_DIR)/%.c | $(OBJ_DIR) $(DEP_DIR)
-	$(CC) $(CFLAGS) $(DEPFLAGS) -c $<
+$(obj_dir)/%.o $(dep_dir)/%.d&: $(src_dir)/%.c | $(obj_dir) $(dep_dir)
+	$(CC) $(CFLAGS) $(OUTPUT_OPTION) -c $<
 
-$(DIRS):
-	$(MKDIR) $@
+$(dirs):
+	@$(mkdir) $@
 
 # If the make goal is irrelevant don't include dependency files.
-ifeq (,$(filter $(MAKECMDGOALS),clean run))
-# If an included makefile cannot be found in any of these directories, a warning message is generated, but it is not an immediately fatal error; \
-# processing of the makefile containing the include continues. Once it has finished reading makefiles, make will try to remake any that are \
-# out of date or don’t exist. See How Makefiles Are Remade. Only after it has tried to find a way to remake a makefile and failed, \
-# will make diagnose the missing makefile as a fatal error.
-# We can use shell file name patterns with include directive too.
--include $(patsubst $(SRC_DIR)/%.c,$(DEP_DIR)/%.d,$(SOURCES))
+ifeq (,$(filter $(MAKECMDGOALS),clean run tags))
+# If an included makefile cannot be found in any of include directories, a warning message is generated, but it is not an immediately fatal error; \
+# processing of the makefile containing the include continues.
+# Once it has finished reading makefiles, make will try to remake any that are out of date or don’t exist. See How Makefiles Are Remade.
+# Only after it has tried to find a way to remake a makefile and failed, will make diagnose the missing makefile as a fatal error.
+include $(patsubst $(src_dir)/%.c,$(dep_dir)/%.d,$(sources))
 endif
 
-.PHONY: all debug clean run
+.PHONY: all debug clean run tags
 
 # Expansion of a deferred construct part is delayed until the expansion is used: either when it is referenced in an immediate context, \
 # or when it is needed during the second phase.
@@ -55,9 +57,20 @@ endif
 # 	immediate  ?= deferred
 # 	immediate  := immediate
 # 	immediate ::= immediate
-# 	immediate  += deferred or immediate (depend on right-hand side)
+# 	immediate  += deferred or immediate (depend on left-hand side)
 # 	immediate  != immediate
 
+file_list != find . -name '*.c'
+foo = $(bar)
+bar = $(ugh)
+ugh = Huh?
 .PHONY: test
 test:
-	@echo MAKEFLAGS: $(MAKEFLAGS)
+	echo $(tags)
+# 	echo $(.VARIABLES)
+# 	@echo $(MAKE_TERMOUT) $(MAKE_TERMERR)
+# 	echo $(file_list)
+# 	echo $(foo)
+# 	echo $(MAKEFLAGS)
+# 	$(MAKE) -C src
+# 	make -C src
