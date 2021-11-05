@@ -5,7 +5,7 @@
 #
 # XDG Base Directory Specification.
 #
-# If nuset assign this value.
+# If unset or null assign this value.
 export XDG_DATA_HOME="${XDG_DATA_HOME:=${HOME}/.local/share}"
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:=${HOME}/.config}"
 export XDG_DATA_DIRS="${XDG_DATA_DIRS:=/usr/local/share:/usr/share}"
@@ -15,12 +15,13 @@ export XDG_CACHE_HOME="${XDG_CACHE_HOME:=${HOME}/.cache}"
 
 # Default text editor.
 export EDITOR='/usr/bin/vim'
-# v in Bash (vi mode).
+# In bash: ^X-^E or v in vi mode.
 export VISUAL='/usr/bin/vim'
 
 # R: causes raw ASCII color escape sequences are displayed.
 # g: change default search highlight behavior.
-export LESS='-R -g'
+# j: Specifies a line on the screen where the "target" line is to be positioned.
+export LESS='-R -g -j5'
 
 #
 # Clean up $HOME.
@@ -63,5 +64,5 @@ export XINITRC="${XDG_CONFIG_HOME}/X11/xinitrc"
 # On systems which are using systemd, $XDG_VTNR will be set both in graphical (by lightdm, gdm, etc) and in text-mode sessions (by /bin/login).
 # If you would like to remain logged in when the X session ends, remove exec.
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-	startx # startx is an alias, xinitrc is included.
+  startx # startx is an alias, xinitrc is included.
 fi
