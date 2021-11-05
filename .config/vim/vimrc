@@ -1,9 +1,9 @@
-" options {{{1
+" Options {{{1
 " Always refer to the relevant :help before adding anything to vimrc.
 " Using short names has ONLY cons and ZERO pros. Don't.
 " TODO Make a temp vimrc file? Or a Git branch?
 
-" defaults.vim {{{2
+" Defaults.vim {{{2
 " Arch's startup order:
 "   /etc/vimrc
 "   /usr/share/vim/vimfiles/archlinux.vim
@@ -22,12 +22,12 @@ set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
 set runtimepath=$VIMHOME,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$VIMHOME/after
 let &g:packpath = &g:runtimepath
 
-" indentations {{{2
-set shiftwidth=4          " Number of spaces to use for each step of (auto)indent.
-set softtabstop=4         " Virtual tab stop instead of 8-wide tabs.
+" Indentations {{{2
+set shiftwidth=2          " Number of spaces to use for each step of (auto)indent.
+set softtabstop=2         " Virtual tab stop instead of 8-wide tabs.
 set expandtab             " Don't use tabs for indentation. Spaces are nicer to work with.
 
-" displays {{{2
+" Displays {{{2
 set splitbelow            " When on, splitting a window will put the new window below the current one.
 set linebreak             " Wrap long lines at a character in 'breakat' rather than at the last character.
 set number                " Print the line number in front of each line.
@@ -36,32 +36,31 @@ let &t_SI .= "\<Esc>[4 q" " Start Insert mode (Steady underline cursor).
 let &t_SR .= "\<Esc>[4 q" " Start Replace mode (Same as Insert mode).
 let &t_EI .= "\<Esc>[2 q" " End Insert mode (Otherwise, full-steady block cursor).
 if &term =~ 'st'
-    set background=dark   " Vim will not use dark background theme in st.
+  set background=dark     " Vim will not use dark background theme in st.
 endif
 
-" cmdlines {{{2
-set path=.,,$VIMHOME/**   " It's gotta be somewhere in there!
+" Cmdlines {{{2
+set path=.,,$VIMHOME/**   " It's must be somewhere in there!
 
-" miscellany {{{2
+" Miscellany {{{2
 set nojoinspaces          " Insert two spaces after a '.', '?' and '!' with a join command.
-set notimeout             " Disable <Leader> mapping timeout.
+" set notimeout             " Disable mapping timeout.
 set hidden                " Possibility to have more than one unsaved buffers.
 set mouse&                " I don't like mouse setting in defaults.vim.
 packadd! matchit          " Improved '%' will jump to matching HTML tags, if/else/endif in Vim scripts, etc.
 
-" mappings {{{1
+" Mappings {{{1
 " Note: Only in a mapping, the special <SID> prefix is actually necessary.
 
-" XXX: Why noremap does not work?
 " Start interactive EasyAlign in visual mode.
-xmap <silent> <Leader>a <Plug>(EasyAlign)
+xmap <silent> gla <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object.
-nmap <silent> <Leader>a <Plug>(EasyAlign)
+nmap <silent> gla <Plug>(EasyAlign)
 
-" Mappings for my comment script ([count]<lhs> works too).
-noremap <silent> <Leader>cu :call tcmt#Uncomment ()<CR>
-noremap <silent> <Leader>cc :call tcmt#Comment ()<CR>
-"noremap <silent> <Leader>ct :call tcmt#ToggleComment ()<CR>
+" Mappings for TCmt plugin.
+nmap <silent> glc  <Plug>(TCmt)
+xmap <silent> glc  <Plug>(TCmt)
+nmap <silent> glcc <Plug>(TCmtLine)
 
 " Maintaining {{{2
 "" Basic pairs auto completions.
@@ -84,37 +83,39 @@ noremap <silent> <Leader>cc :call tcmt#Comment ()<CR>
 "noremap! <expr> <BS> pairs#IsAdjacentPairs () ? '<Del><BS>' : '<BS>'
 " End maintaining }}}
 
+" TODO: Cursor at beginning of the line case.
 " Tab completion and literal tab.
-inoremap <expr> <Tab> pairs#IsMatchOnLHS ('^\s*$') ? '<Tab>' : '<C-N>'
-" Use i_<C-V><Tab> instead but no 'expandtab', 'softtabstop', .etc
-inoremap <S-Tab> <Tab>
+inoremap <expr> <Tab>   pairs#IsMatchOnLHS ('\s$') ? '<Tab>' : '<C-N>'
+inoremap <expr> <S-Tab> pairs#IsMatchOnLHS ('\s$') ? '<Tab>' : '<C-P>'
 
-" Quick write as supper user, reload file content.
-" TODO: Do not reload file content after doas cancellation.
-command SW execute 'write !doas tee "%" > /dev/null' | edit!
+" Quick supper user write and reload file content.
+command SW execute 'write !doas tee "%" > /dev/null' | if !v:shell_error | edit! | endif
 
-" Toggle spell check. Rip my English :(
-nnoremap <Leader>s :set spell!<CR>
+" Toggle spell check.
+nnoremap glts :set spell! spell?<CR>
+" Toggle paste.
+nnoremap gltp :set paste! paste?<CR>
+" Toggle highlight search.
+nnoremap glth :set hlsearch! hlsearch?<CR>
 
 " Search forward for selected text (@s will be used).
-xnoremap <Leader>ff "sy/\V<C-R>=escape (@s, '/\')<CR><CR>
+xnoremap glff "sy/\V<C-R>=escape (@s, '/\')<CR><CR>
 
 " Substitute the 'last-pattern'.
-" TODO: Check 'gdefault'.
-nnoremap <Leader>fs :%s///gc<Left><Left><Left>
+nnoremap glfs :%s///gc<Left><Left><Left>
 
 " Edit vimrc in new tab.
-nnoremap <Leader>vv :tabedit $VIMHOME/vimrc<CR>
+nnoremap glvv :tabedit $VIMHOME/vimrc<CR>
 
-" autocommands {{{1
+" Autocommands {{{1
 augroup Templates " {{{2
-    autocmd!
-    " Read and parse template which have the same name in t$VIMHOME/tmplts.
-    autocmd BufNewFile ?\+ call tmplts#LoadTemplate (expand ('<afile>:p:t'))
+  autocmd!
+  " Read and parse template which have the same name in t$VIMHOME/tmplts.
+  autocmd BufNewFile ?\+ call tmplts#LoadTemplate (expand ('<afile>:p:t'))
 
-    " Read and parse template according file extension.
-    autocmd BufNewFile ?\+ call tmplts#LoadTemplate ('skeleton.' . expand ('<afile>:p:e'))
+  " Read and parse template according file extension.
+  autocmd BufNewFile ?\+ call tmplts#LoadTemplate ('skeleton.' . expand ('<afile>:p:e'))
 
-    " Start insert mode at the end of line containing 'Description: '.
-    autocmd BufNewFile main.c call tmplts#AddFileDescription ()
+  " Start insert mode at the end of line containing 'Description: '.
+  autocmd BufNewFile main.c call tmplts#AddFileDescription ()
 augroup END
