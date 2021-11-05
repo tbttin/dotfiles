@@ -1,6 +1,4 @@
 # vim: filetype=sh
-
-
 # Maintainer: Tin Thai <thaibachthanhtin@gmail.com>
 
 _pkgname='dwm'
@@ -11,59 +9,59 @@ pkgdesc='A dynamic window manager for X.'
 arch=('i686' 'x86_64')
 url='https://dwm.suckless.org'
 license=('custom:MIT')
-options=('zipman')
 depends=('libx11' 'libxinerama' 'libxft')
 makedepends=('git')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 _patches=(
-    'dwm-fix-ffplay-transient-20201210-6.2.diff'
-    'https://dwm.suckless.org/patches/notitle/dwm-notitle-6.2.diff'
-    'https://dwm.suckless.org/patches/smartborders/dwm-smartborders-6.2.diff'
-    'https://dwm.suckless.org/patches/switchtotag/dwm-switchtotag-6.2.diff'
+  'dwm-fix-ffplay-transient-20201210-6.2.diff'
+  'https://dwm.suckless.org/patches/notitle/dwm-notitle-6.2.diff'
+  'https://dwm.suckless.org/patches/smartborders/dwm-smartborders-6.2.diff'
+  'https://dwm.suckless.org/patches/switchtotag/dwm-switchtotag-6.2.diff'
 )
 source=(
-    "git+https://git.suckless.org/${_pkgname}#tag=6.2"
-    'config.h'
-    ${_patches[@]}
+  "git+https://git.suckless.org/${_pkgname}#tag=6.2"
+  'config.h'
+  ${_patches[@]}
 )
 sha256sums=(
-    'SKIP'
-    'SKIP'
-    '957f38f2fc53406e36891af7506165e4e5efd4e316d64084275cee8a7e907f60'
-    '2ee1347c84428facff61830133146dd5467b0f9642703866e414212651a22753'
-    'bab74f6bf558a6a3b0b97c5727baab4ec23992a9e23a289888a1dbd6441c1d32'
-    '1e3ff12db59c7ec364f07d31c6383ec63fe2d6857f2298141b433612a7ebc7f8'
+  'SKIP'
+  'SKIP'
+  '957f38f2fc53406e36891af7506165e4e5efd4e316d64084275cee8a7e907f60'
+  '2ee1347c84428facff61830133146dd5467b0f9642703866e414212651a22753'
+  'bab74f6bf558a6a3b0b97c5727baab4ec23992a9e23a289888a1dbd6441c1d32'
+  '1e3ff12db59c7ec364f07d31c6383ec63fe2d6857f2298141b433612a7ebc7f8'
 )
 
 pkgver() {
-    cd ${_pkgname}
-    git describe --long --tags | sed -E 's/([^-]*-g)/r\1/;s/-/./g'
+  cd ${_pkgname}
+  git describe --long --tags | sed -E 's/([^-]*-g)/r\1/;s/-/./g'
 }
 
 prepare() {
-    cd ${_pkgname}
-    if [ -f "${srcdir}/config.h" ]; then
-        echo "Copying config.h ..."
-        cp -f "${srcdir}/config.h" .
-    fi
-    for patch in ${_patches[@]}; do
-        pfile=${patch##*/}
-        echo "Applying ${pfile} ..."
-#        patch -s -i "${srcdir}/${pfile}"
-        git apply "${srcdir}/${pfile}"
-    done
+  cd ${_pkgname}
+  if [ -f "${srcdir}/config.h" ]; then
+    echo "Copying config.h ..."
+    cp -f "${srcdir}/config.h" .
+  fi
+  for patch in ${_patches[@]}; do
+    pfile=${patch##*/}
+    echo "Applying ${pfile} ..."
+    #        patch -s -i "${srcdir}/${pfile}"
+    git apply "${srcdir}/${pfile}"
+  done
 }
 
 build() {
-    cd ${_pkgname}
-    make \
-        X11INC=/usr/include/X11 \
-        X11LIB=/usr/lib/X11
-}
+  cd ${_pkgname}
+  make \
+    X11INC=/usr/include/X11 \
+    X11LIB=/usr/lib/X11
+  }
 
 package() {
-    cd ${_pkgname}
-    make PREFIX=/usr DESTDIR="${pkgdir}" install
-    install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  cd ${_pkgname}
+  make PREFIX=/usr DESTDIR="${pkgdir}" install
+  install -m644 -D LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -m644 -D README "${pkgdir}/usr/share/doc/${pkgname}/README"
 }
