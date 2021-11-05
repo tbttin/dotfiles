@@ -10,7 +10,7 @@ alias p="cd $(xdg-user-dir PICTURES)"
 alias s="cd $(xdg-user-dir SCRIPTS)"
 alias v="cd $(xdg-user-dir VIDEOS)"
 alias pc="cd $(xdg-user-dir C)"
-alias pv="cd $(xdf-user-dir VIM)"
+alias pv="cd $(xdg-user-dir VIM)"
 
 # Quick open some config files.
 # Bashes.
