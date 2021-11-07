@@ -14,7 +14,7 @@ makedepends=('git')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 _patches=(
-  'dwm-fix-ffplay-transient-20201210-6.2.diff'
+  'dwm-fix-ffplay-transient-issue-20201210-6.2.diff'
   'https://dwm.suckless.org/patches/notitle/dwm-notitle-6.2.diff'
   'https://dwm.suckless.org/patches/smartborders/dwm-smartborders-6.2.diff'
   'https://dwm.suckless.org/patches/switchtotag/dwm-switchtotag-6.2.diff'
