@@ -42,7 +42,7 @@ config config -- difftool.prompt false
 #
 # TODO: How to get the directory list from XDG?
 echo 'Creating regular dirs.'
-mkdir -pv ~/{documents,downloads,pictures/screenshots,projects/{c,vim},videos} | indent
+mkdir -pv ~/{documents,downloads,pictures/ss,projects/{c,vim},videos} | indent
 if [ -x "$(command -v xdg-user-dirs-update)" ]; then
   echo 'Deleting XDG default dirs.'
   rmdir -v --ignore-fail-on-non-empty ~/{Desktop,Documents,Downloads,Music,Pictures,Public,Templates,Videos} | indent
