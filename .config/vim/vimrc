@@ -58,9 +58,9 @@ xmap <silent> gla <Plug>(EasyAlign)
 nmap <silent> gla <Plug>(EasyAlign)
 
 " Mappings for TCmt plugin.
-nmap <silent> glc  <Plug>(TCmt)
-xmap <silent> glc  <Plug>(TCmt)
-nmap <silent> glcc <Plug>(TCmtLine)
+nmap glc  <Plug>TCmt
+xmap glc  <Plug>TCmt
+nmap glcc <Plug>TCmtLine
 
 " Maintaining {{{2
 "" Basic pairs auto completions.
@@ -106,6 +106,17 @@ nnoremap glfs :%s///gc<Left><Left><Left>
 
 " Edit vimrc in new tab.
 nnoremap glvv :tabedit $VIMHOME/vimrc<CR>
+
+" Plugin extras {{{1
+" Easy-align {{{2
+if !exists('g:easy_align_delimiters')
+  let g:easy_align_delimiters = {}
+endif
+
+let g:easy_align_delimiters['d'] = {
+\ 'pattern': '\(const\|static\|unsigned\)\@<! ',
+\ 'left_margin': 0, 'right_margin': 0
+\ }
 
 " Autocommands {{{1
 augroup Templates " {{{2
