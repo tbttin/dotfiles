@@ -26,10 +26,10 @@ static const Rule rules[] = {
      *   WM_CLASS(STRING) = instance, class
      *   WM_NAME(STRING)  = title
      */
-    /*  class         instance    title     tags mask    switchtotag    isfloating    monitor */
-      { "firefox",    NULL,       NULL,     1 << 8,      1,             0,            -1 },
-      { "Zathura",    NULL,       NULL,     1 << 7,      1,             0,            -1 },
-      { "ffplay",     NULL,       NULL,     1 << 2,      0,             0,            -1 },
+    /*  class      instance  title  tags mask  switchtotag  isfloating  monitor */
+      { "firefox", NULL,     NULL,  1 << 8,    1,           0,          -1 },
+      { "Zathura", NULL,     NULL,  1 << 7,    1,           0,          -1 },
+      { "ffplay",  NULL,     NULL,  1 << 2,    0,           0,          -1 },
 };
 
 /* layout(s) */
@@ -38,10 +38,10 @@ static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
-    /*  symbol      arrange function */
-      { "[]=",      tile },    /* first entry is default */
-      { "><>",      NULL },    /* no layout function means floating behavior */
-      { "[M]",      monocle },
+    /*  symbol  arrange function */
+      { "[]=",  tile }, /* first entry is default */
+      { "><>",  NULL }, /* no layout function means floating behavior */
+      { "[M]",  monocle },
 };
 
 /* key definitions */
@@ -69,9 +69,9 @@ static const char *lockcmd[]      = { "slock", NULL };
 
 static Key keys[] = {
     /*  modifier          key        function        argument */
-      { MODKEY|ShiftMask, XK_Print,  spawn,          SHCMD("sleep 0.2; scrot -s \
-                                                           \"$(xdg-user-dir PICTURES)/ss/%Y-%m-%d-%H%M%S.png\"") },
       { MODKEY,           XK_Print,  spawn,          SHCMD("scrot \
+                                                           \"$(xdg-user-dir PICTURES)/ss/%Y-%m-%d-%H%M%S.png\"") },
+      { MODKEY|ShiftMask, XK_Print,  spawn,          SHCMD("sleep 0.2; scrot -s \
                                                            \"$(xdg-user-dir PICTURES)/ss/%Y-%m-%d-%H%M%S.png\"") },
       { MODKEY,           XK_Pause,  spawn,          {.v = lockcmd } },
       { MODKEY,           XK_F10,    spawn,          {.v = mutecmd } },
