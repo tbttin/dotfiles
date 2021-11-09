@@ -1,7 +1,8 @@
 #!/bin/sh
 
-# Download this script from github repo and execute it with sh (or where it point to).
-# curl -Ls https://git.io/fresh-install | /bin/sh
+# Download this raw script from github and execute it with sh (or where it point to):
+#   curl -Ls https://git.io/fi.sh | /bin/sh
+# Shorten URL: curl -i https://git.io -F "url=YOUR_GITHUB_URL_HERE" -F "code=YOUR_CUSTOM_NAME"
 
 CONFIG_BACKUP_DIR="${HOME}/.config~"
 
@@ -49,3 +50,4 @@ if [ -x "$(command -v xdg-user-dirs-update)" ]; then
   xdg-user-dirs-update
 fi
 echo 'Done.'
+
