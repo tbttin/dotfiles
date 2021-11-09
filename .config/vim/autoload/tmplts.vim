@@ -1,26 +1,27 @@
-function! s:ParseTemplate () " {{{1
-    let l:line = line ('$') > 10 ? 10 : line ('$')
-    execute 1 . ',' . l:line . 's/\v\[:VIM_EVAL:\](.{-})\[:END_EVAL:\]/\=eval (submatch (1))/ge'
+function! s:ParseTemplate() abort " {{{1
+  let l:line_start = 1
+  let l:line_end = line('$') > 10 ? 10 : line('$')
+  let l:lines = []
+  for l:lnum in range(l:line_start, l:line_end)
+    let l:line = substitute(getline(l:lnum), '\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]', '\=eval(submatch(1))', 'ge')
+    call add(l:lines, l:line)
+  endfor
+  call setline(l:line_start, l:lines)
 endfunction
 
-function! tmplts#LoadTemplate (filename) " {{{1
-    let l:fullpath = $VIMHOME . '/tmplts/' . a:filename
-    if filereadable (l:fullpath)
-        execute 'silent 0read ' . l:fullpath
-        $delete
-        call s:ParseTemplate ()
-    endif
+function! tmplts#LoadTemplate(filename) abort " {{{1
+  let l:fullpath = $VIMHOME . '/tmplts/' . a:filename
+  if filereadable(l:fullpath)
+    silent execute '0read ' . l:fullpath
+    $delete
+    call s:ParseTemplate()
+  endif
 endfunction
 
-function! tmplts#AddFileDescription () " {{{1
-    " Search backward after parsing.
-    " 0 if not found, no error.
-    if search ('\cDescription: .', 'beW')
-        if expand ('%:p') =~# '/cforces/'
-            execute "normal! iCodeforces problemset \<C-R>=expand ('%:p:h:t')\<CR> - \<Esc>l"
-        elseif expand ('%:p') =~# '/cchef/'
-            execute "normal! iCodechef practice - \<Esc>l"
-        endif
-        startinsert
-    endif
+function! tmplts#AddFileDescription() " {{{1
+  " Search backward after parsing.
+  " 0 if not found, no error.
+  if search('\cDescription:.\+\zs', 'beW')
+    startinsert
+  endif
 endfunction
