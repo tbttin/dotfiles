@@ -83,10 +83,9 @@ nmap glcc <Plug>TCmtLine
 "noremap! <expr> <BS> pairs#IsAdjacentPairs () ? '<Del><BS>' : '<BS>'
 " End maintaining }}}
 
-" TODO: Cursor at beginning of the line case.
 " Tab completion and literal tab.
-inoremap <expr> <Tab>   pairs#IsMatchOnLHS ('\s$') ? '<Tab>' : '<C-N>'
-inoremap <expr> <S-Tab> pairs#IsMatchOnLHS ('\s$') ? '<Tab>' : '<C-P>'
+inoremap <expr> <Tab>   pairs#IsMatchOnLHS ('\S$') ? '<C-N>' : '<Tab>'
+inoremap <expr> <S-Tab> pairs#IsMatchOnLHS ('\S$') ? '<C-P>' : '<Tab>'
 
 " Quick supper user write and reload file content.
 command SW execute 'write !doas tee "%" > /dev/null' | if !v:shell_error | edit! | endif
