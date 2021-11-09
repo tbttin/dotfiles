@@ -6,26 +6,28 @@ $include /etc/inputrc
 set editing-mode vi
 # Vi editing mode key bindings.
 $if mode=vi
-    # SHOW THE VIM MODE IN THE PROMPT (COMMAND OR INSERT)
-    set show-mode-in-prompt on
-    # SET THE MODE STRING AND CURSOR TO INDICATE THE VIM MODE
-    $if term=linux
-        set vi-ins-mode-string \1\e[?2c\2
-        set vi-cmd-mode-string \1\e[?8c\2
-    $else
-        set vi-ins-mode-string \1\e[4 q\2
-        set vi-cmd-mode-string \1\e[2 q\2
-    $endif
-    set keymap vi-command
-    # These are for vi-command mode:
-    j: history-search-forward
-    k: history-search-backward
-    set keymap vi-insert
-    # These are for vi-insert mode:
-    # Redirect both 1 and 2 to less.
-    "\C-p": "\eA2>&1 | less"
-    # Alias expansion.
-    "\C-e": alias-expand-line
+  # SHOW THE VIM MODE IN THE PROMPT (COMMAND OR INSERT)
+  set show-mode-in-prompt on
+  # SET THE MODE STRING AND CURSOR TO INDICATE THE VIM MODE
+  $if term=linux
+    set vi-ins-mode-string \1\e[?2c\2
+    set vi-cmd-mode-string \1\e[?8c\2
+  $else
+    set vi-ins-mode-string \1\e[4 q\2
+    set vi-cmd-mode-string \1\e[2 q\2
+  $endif
+  #
+  # NORMAL MODE MAPPINGS.
+  set keymap vi-command
+  j: history-search-forward
+  k: history-search-backward
+  #
+  # INSERT MODE MAPPINGS.
+  set keymap vi-insert
+  # Redirect both 1 and 2 to less. Overide default history search.
+  "\C-r": "\eA2>&1 | less"
+  # Expand alias. Just overide self-insert.
+  "\C-e": alias-expand-line
 $endif
 
 #
@@ -51,8 +53,3 @@ set colored-completion-prefix on
 # Color the common prefix in menu-complete.
 set menu-complete-display-prefix on
 
-#
-# OTHER SETTINGS.
-#
-# Temporarily fix Del problem in st.
-set enable-keypad on
