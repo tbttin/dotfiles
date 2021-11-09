@@ -1,4 +1,5 @@
 ! setxkbmap will reset to the startup default.
+! xev or showkey (in real console) to see keycodes.
 ! xmodmap -pke
 !   1. Key
 !   2. Shift+Key
