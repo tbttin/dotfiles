@@ -1,9 +1,9 @@
-" load guard {{{1
+" Load guard {{{1
 if exists('b:loaded_after_ftplugin') " Only do this when not done yet for this buffer.
-    finish
+  finish
 endif
-
 let b:loaded_after_ftplugin = 1      " Loaded flag.
 
-" options {{{1
-setlocal formatoptions-=ro           " Do not automatically insert the current comment leader.
+" Options {{{1
+setlocal formatoptions-=o            " Do not automatically insert the current comment leader.
+setlocal iskeyword+=:                " For vim variable autocompletion.
