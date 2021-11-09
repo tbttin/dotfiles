@@ -3,14 +3,14 @@ alias ..='cd ..'
 alias ...='cd ../..'
 # With most commands, you can pass -- as an argument,
 # and all subsequent arguments are treated as operands and not options even if they begin with a dash.
-alias -- --='cd ${OLDPWD}'
-alias d="cd $(xdg-user-dir DOCUMENTS)"
-alias l="cd $(xdg-user-dir DOWNLOAD)"
-alias p="cd $(xdg-user-dir PICTURES)"
-alias s="cd $(xdg-user-dir SCRIPTS)"
-alias v="cd $(xdg-user-dir VIDEOS)"
-alias pc="cd $(xdg-user-dir C)"
-alias pv="cd $(xdg-user-dir VIM)"
+alias -- --='cd ${OLDPWD}/'
+alias d="cd $(xdg-user-dir DOCUMENTS)/"
+alias l="cd $(xdg-user-dir DOWNLOAD)/"
+alias p="cd $(xdg-user-dir PICTURES)/"
+alias s="cd $(xdg-user-dir SCRIPTS)/"
+alias v="cd $(xdg-user-dir VIDEOS)/"
+alias pc="cd $(xdg-user-dir C)/"
+alias pv="cd $(xdg-user-dir VIM)/"
 
 # Quick open some config files.
 # Bashes.
