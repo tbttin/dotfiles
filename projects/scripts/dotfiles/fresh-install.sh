@@ -8,7 +8,7 @@
 CONFIG_BACKUP_DIR="${HOME}/.config~"
 
 function indent {
-  sed 's/^/  -> /'
+  sed 's/^/ > /'
 }
 
 function config {
