@@ -15,7 +15,7 @@ export XDG_CACHE_HOME="${XDG_CACHE_HOME:=${HOME}/.cache}"
 
 # Default text editor.
 export EDITOR='/usr/bin/vim'
-# In bash: ^X-^E or v in vi mode.
+# Which editor bash gonna use when pressing ^X-^E (or v in vi normal mode).
 export VISUAL='/usr/bin/vim'
 
 # R: causes raw ASCII color escape sequences are displayed.
@@ -47,8 +47,10 @@ export VIMINIT="let \$VIMHOME = fnameescape(\$XDG_CONFIG_HOME) . '/vim' | source
 # Readline config file.
 export INPUTRC="${XDG_CONFIG_HOME}/readline/inputrc"
 
-# What if xorg start up for the first time?
-export XAUTHORITY="${XDG_DATA_HOME}/xorg/Xauthority"
+# What if first time startx? So after the first startx move this file manually.
+if [ -f "${XDG_DATA_HOME}/xorg/Xauthority" ]; then
+  export XAUTHORITY="${XDG_DATA_HOME}/xorg/Xauthority"
+fi
 
 # Note that these variables are respected by xinit, but not by startx.
 # Instead, specify the filename as an argument:
