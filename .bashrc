@@ -51,11 +51,11 @@ function man ()
 
   # Use cyan color instead of underline (italic -> underline is included).
   # Manpage's pager resizing (with tiling WM) is a headache. Here is a simple stupid solution.
-  LESS_TERMCAP_us="$(tput setaf 6)" \
+  MANWIDTH=70 \
+    LESS_TERMCAP_us="$(tput setaf 6)" \
     LESS_TERMCAP_ue="$(tput sgr0)" \
-    MANWIDTH=70 \
     /usr/bin/man "$@"
-}
+  }
 
 # Play all .mkv files with its external subtitle (if exist) in current directory.
 # ^z + kill %% to kill this function.
