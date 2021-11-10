@@ -62,17 +62,17 @@ static const char unknown_str[] = "n/a";
  * wifi_essid          WiFi ESSID                      interface name (wlan0)
  */
 static const struct arg args[] = {
-	/* function     format        argument */
-        /* find /sys -type l -printf '%p -> %l\n' | grep hwmon' */
-	{ temp,         "T0: %s | ",  "/sys/devices/virtual/thermal/thermal_zone0/temp" },
-	{ temp,         "T1: %s | ",  "/sys/devices/virtual/thermal/thermal_zone1/temp" },
-	{ cpu_perc,     "P: %s | ",   NULL },
-	{ load_avg,     "L: %s | ",   NULL },
-	{ ram_used,     "%s / ",      NULL },
-	{ ram_free,     "%s | ",      NULL },
-	{ wifi_perc,    "W: %s (",    "wlan0" },
-	{ netspeed_rx,  "%s / ",      "wlan0" },
-	{ netspeed_tx,  "%s) | ",       "wlan0" },
-        /* (%b) yess i still don't know it. :(( */
-	{ datetime,     "%s",         "%m-%d (%b) %a %R" },
+    /*  function     format   argument */
+    /* find /sys -type l -printf '%p -> %l\n' | grep hwmon' */
+      { temp,        "%s - ", "/sys/devices/virtual/thermal/thermal_zone0/temp" },
+      { temp,        "%s | ", "/sys/devices/virtual/thermal/thermal_zone1/temp" },
+      { cpu_perc,    "%s | ", NULL },
+      { load_avg,    "%s | ", NULL },
+      { ram_used,    "%s / ", NULL },
+      { ram_free,    "%s | ", NULL },
+      { wifi_perc,   "%s ",   "wlan0" },
+      { netspeed_rx, "%s - ", "wlan0" },
+      { netspeed_tx, "%s | ", "wlan0" },
+      { datetime,    "%s",    "%m-%d (%b) %a %R" },
 };
+
