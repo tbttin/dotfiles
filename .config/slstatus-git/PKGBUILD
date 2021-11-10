@@ -14,7 +14,7 @@ makedepends=('git')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 _patches=(
-  'slstatus-rmtrailingspaceinnetspeedsoutput-20201104-b14e039.diff'
+  'slstatus-rm-trailing-space-in-netspeeds-20201104-b14e039.diff'
 )
 source=(
   "git+https://git.suckless.org/${_pkgname}"
@@ -23,7 +23,7 @@ source=(
 )
 sha256sums=(
   'SKIP'
-  '2abcf16d56b26a4da0e30e89054ffd21665066044deabc4e88c3c498c3e96e75'
+  'SKIP'
   'fabbb1a14e86f3309cf03f45f6043b525ca1c49cf383e7fbc36420f19260e797'
 )
 
