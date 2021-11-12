@@ -13,7 +13,7 @@ static const char         col_gray3[]  = "#bbbbbb";
 static const char         col_gray4[]  = "#eeeeee";
 static const char         col_cyan[]   = "#005577";
 static const char         *colors[][3] = {
-    /*               fg         bg         border   */
+    /*               fg,        bg,        border   */
     [SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
     [SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 };
@@ -26,7 +26,7 @@ static const Rule rules[] = {
      *   WM_CLASS(STRING) = instance, class
      *   WM_NAME(STRING)  = title
      */
-    /*  class      instance  title  tags mask  switchtotag  isfloating  monitor */
+    /*  class,     instance, title, tags mask, switchtotag, isfloating, monitor */
       { "firefox", NULL,     NULL,  1 << 8,    1,           0,          -1 },
       { "Zathura", NULL,     NULL,  1 << 7,    1,           0,          -1 },
       { "ffplay",  NULL,     NULL,  1 << 2,    0,           0,          -1 },
@@ -38,7 +38,7 @@ static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
-    /*  symbol  arrange function */
+    /*  symbol, arrange function */
       { "[]=",  tile }, /* first entry is default */
       { "><>",  NULL }, /* no layout function means floating behavior */
       { "[M]",  monocle },
@@ -68,7 +68,7 @@ static const char *voldowncmd[]   = { "pactl", "set-sink-volume", "0", "-5%", NU
 static const char *lockcmd[]      = { "slock", NULL };
 
 static Key keys[] = {
-    /*  modifier          key        function        argument */
+    /*  modifier,         key,       function,       argument */
       { MODKEY,           XK_Print,  spawn,          SHCMD("scrot \
                                                            \"$(xdg-user-dir PICTURES)/ss/%Y-%m-%d-%H%M%S.png\"") },
       { MODKEY|ShiftMask, XK_Print,  spawn,          SHCMD("sleep 0.2; scrot -s \
@@ -117,7 +117,7 @@ static Key keys[] = {
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
-    /*  click         event mask  button   function        argument */
+    /*  click,        event mask, button,  function,       argument */
       { ClkClientWin, MODKEY,     Button1, movemouse,      {0} },
       { ClkClientWin, MODKEY,     Button2, togglefloating, {0} },
       { ClkClientWin, MODKEY,     Button3, resizemouse,    {0} },
