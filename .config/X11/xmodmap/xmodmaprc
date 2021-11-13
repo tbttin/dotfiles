@@ -1,5 +1,7 @@
+! Modifier names is case insensitive.
+! On the HP, some keycodes have different keysyms.
 ! setxkbmap will reset to the startup default.
-! xev or showkey (in real console) to see keycodes.
+! showkey (in real console) or xev to see keycodes.
 ! xmodmap -pke
 !   1. Key
 !   2. Shift+Key
@@ -8,28 +10,29 @@
 !   5. ISO_Level3_Shift+Key
 !   6. ISO_Level3_Shift+Shift+Key
 
-!
 ! Make Caps_Lock Mode_switch.
-!
-! Modifier names is case insensitive.
-! On the HP, some keycodes have different keysyms.
-clear Lock
+! Create whole new layer.
+remove Lock = Caps_Lock
 remove Mod5 = Mode_switch
-keycode  66 = Mode_switch
-add Lock = Mode_switch
-! Caps_Lock + a to toggle Caps Lock.
-keycode  38 = a A Caps_Lock A
+keycode 66  = Mode_switch
+add Lock    = Mode_switch
 
-!
-! Make Alt_R Mod4.
-!
+! Caps+c to toggle Caps Lock.
+keycode 54  = c C Caps_Lock C
+
+! Caps+[hjkl] = vi's style.
+keycode 43  = h H Left Left
+keycode 44  = j J Down Down
+keycode 45  = k K Up Up
+keycode 46  = l L Right Right
+
+! Caps+6 = F6. Change Firefox focus easily.
+keycode 15  = 6 asciicircum F6 asciicircum
+
+! Caps+e = Escape.
+keycode 26  = e E Escape E
+
+! Make Alt_R Mod4 for one-handed convenience.
 remove Mod1 = Alt_R
 keycode 108 = Super_R NoSymbol Super_R
 
-!
-! Caps_Lock + hjkl = vi's style.
-!
-keycode  43 = h H Left Left
-keycode  44 = j J Down Down
-keycode  45 = k K Up Up
-keycode  46 = l L Right Right
