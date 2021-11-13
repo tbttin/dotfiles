@@ -1,7 +1,6 @@
 " Options {{{1
 " Always refer to the relevant :help before adding anything to vimrc.
 " Using short names has ONLY cons and ZERO pros. Don't.
-" TODO Make a temp vimrc file? Or a Git branch?
 
 " Defaults.vim {{{2
 " Arch's startup order:
@@ -29,22 +28,21 @@ set expandtab             " Don't use tabs for indentation. Spaces are nicer to 
 
 " Displays {{{2
 set splitbelow            " When on, splitting a window will put the new window below the current one.
-set linebreak             " Wrap long lines at a character in 'breakat' rather than at the last character.
+" set linebreak             " Wrap long lines at a character in 'breakat' rather than at the last character.
 set number                " Print the line number in front of each line.
 set relativenumber        " Show the line number relative to the line with the cursor in front of each line.
 let &t_SI .= "\<Esc>[4 q" " Start Insert mode (Steady underline cursor).
 let &t_SR .= "\<Esc>[4 q" " Start Replace mode (Same as Insert mode).
 let &t_EI .= "\<Esc>[2 q" " End Insert mode (Otherwise, full-steady block cursor).
 if &term =~ 'st'
-  set background=dark     " Vim will not use dark background theme in st.
+  set background=dark     " Because vim will not use dark-background theme in st.
 endif
 
 " Cmdlines {{{2
-set path=.,,$VIMHOME/**   " It's must be somewhere in there!
+set path=.,,$VIMHOME/**   " It's must be somewhere in there. Find it!
 
 " Miscellany {{{2
 set nojoinspaces          " Insert two spaces after a '.', '?' and '!' with a join command.
-" set notimeout             " Disable mapping timeout.
 set hidden                " Possibility to have more than one unsaved buffers.
 set mouse&                " I don't like mouse setting in defaults.vim.
 packadd! matchit          " Improved '%' will jump to matching HTML tags, if/else/endif in Vim scripts, etc.
@@ -83,24 +81,24 @@ nmap glcc <Plug>TCmtLine
 "noremap! <expr> <BS> pairs#IsAdjacentPairs () ? '<Del><BS>' : '<BS>'
 " End maintaining }}}
 
-" Tab completion and literal tab.
+" A better [S-]Tab.
 inoremap <expr> <Tab>   pairs#IsMatchOnLHS ('\S$') ? '<C-N>' : '<Tab>'
 inoremap <expr> <S-Tab> pairs#IsMatchOnLHS ('\S$') ? '<C-P>' : '<Tab>'
 
-" Quick supper user write and reload file content.
+" Quick supper user write and reload file content when necessary.
 command SW execute 'write !doas tee "%" > /dev/null' | if !v:shell_error | edit! | endif
 
-" Toggle spell check.
+" Toggle spell check. Just "]s" and "z=".
 nnoremap glts :set spell! spell?<CR>
 " Toggle paste.
 nnoremap gltp :set paste! paste?<CR>
 " Toggle highlight search.
 nnoremap glth :set hlsearch! hlsearch?<CR>
 
-" Search forward for selected text (@s will be used).
+" Search forward the visual selected text (@s will be used).
 xnoremap glff "sy/\V<C-R>=escape (@s, '/\')<CR><CR>
 
-" Substitute the 'last-pattern'.
+" Substitute the "last-pattern".
 nnoremap glfs :%s///gc<Left><Left><Left>
 
 " Edit vimrc in new tab.
@@ -112,6 +110,7 @@ if !exists('g:easy_align_delimiters')
   let g:easy_align_delimiters = {}
 endif
 
+" Align variable definitions by name. Just "glaipd" then "glaip=".
 let g:easy_align_delimiters['d'] = {
 \ 'pattern': '\(const\|static\|unsigned\)\@<! ',
 \ 'left_margin': 0, 'right_margin': 0
