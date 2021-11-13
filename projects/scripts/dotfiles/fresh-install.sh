@@ -39,6 +39,8 @@ config config -- status.showUntrackedFiles no
 # Use vimdiff as default difftool.
 config config -- diff.tool vimdiff
 config config -- difftool.prompt false
+# Clone all submodules.
+config submodule update --init --recursive
 #
 # Bonus.
 #
