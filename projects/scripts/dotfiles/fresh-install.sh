@@ -19,7 +19,7 @@ function config {
 # Backup first.
 #
 # Clone my dotfiles repo as a bare repo.
-git clone --bare --recurse-submodules 'https://github.com/tbttin/dotfiles.git' "${HOME}/.config/dotfiles"
+git clone --bare 'https://github.com/tbttin/dotfiles.git' "${HOME}/.config/dotfiles"
 # Backup stock config files if they exist and install my dotfiles.
 echo 'Attempt to install dotfiles to home folder.'
 config checkout 2>&1 | indent
