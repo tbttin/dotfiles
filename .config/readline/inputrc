@@ -24,10 +24,12 @@ $if mode=vi
   #
   # INSERT MODE MAPPINGS.
   set keymap vi-insert
+  # Expand alias.
+  "\C-a": alias-expand-line
+  # Redirect both 1 and 2 to grep. Just overide self-insert.
+  "\C-g": "\eA2>&1 | grep ''\ei"
   # Redirect both 1 and 2 to less. Overide default history search.
   "\C-r": "\eA2>&1 | less"
-  # Expand alias. Just overide self-insert.
-  "\C-e": alias-expand-line
 $endif
 
 #
