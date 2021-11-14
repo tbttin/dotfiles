@@ -31,7 +31,7 @@ PS1="${CA_RESET}${CA_BOLD}${FG_CYAN}\W/${FG_RED}\$${CA_RESET} "
 function mkcd() { mkdir -p "$@" && cd "$1"; }
 
 # Add some colors and hard-set pager width.
-function man ()
+function man()
 {
   # Everything is in terminfo(5).
   # Color       #define       Value       RGB
@@ -70,6 +70,6 @@ function ffps()
       elif [ -f "${mkv_file}.srt" ]; then
         sn="${mkv_file}.srt"
       fi
-      ffplay $@ ${sn:+-vf subtitles="${sn}"} -- "${mkv_file}"
+      ffplay $@ ${sn:+-vf subtitles=\'"${sn}"\'} -- "${mkv_file}"
     done
 }
