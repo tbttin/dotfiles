@@ -86,7 +86,7 @@ inoremap <expr> <Tab>   pairs#IsMatchOnLHS ('\S$') ? '<C-N>' : '<Tab>'
 inoremap <expr> <S-Tab> pairs#IsMatchOnLHS ('\S$') ? '<C-P>' : '<Tab>'
 
 " Quick supper user write and reload file content when necessary.
-command SW execute 'write !doas tee "%" > /dev/null' | if !v:shell_error | edit! | endif
+command SW execute 'write !/usr/bin/doas /usr/bin/tee "%" > /dev/null' | if !v:shell_error | edit! | endif
 
 " Toggle spell check. Just "]s" and "z=".
 nnoremap glts :set spell! spell?<CR>
@@ -128,3 +128,4 @@ augroup Templates " {{{2
   " Start insert mode at the end of line containing 'Description: '.
   autocmd BufNewFile main.c call tmplts#AddFileDescription ()
 augroup END
+
