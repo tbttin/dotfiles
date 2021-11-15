@@ -7,10 +7,12 @@ alias -- --='cd ${OLDPWD}'
 alias d="cd $(xdg-user-dir DOCUMENTS)/"
 alias l="cd $(xdg-user-dir DOWNLOAD)/"
 alias p="cd $(xdg-user-dir PICTURES)/"
+xdg_prj_dir=$(xdg-user-dir PROJECTS)
+alias j="cd ${xdg_prj_dir}/"
 alias s="cd $(xdg-user-dir SCRIPTS)/"
 alias v="cd $(xdg-user-dir VIDEOS)/"
-alias pc="cd $(xdg-user-dir C)/"
-alias pv="cd $(xdg-user-dir VIM)/"
+alias jc="cd ${xdg_prj_dir}/c/"
+alias jv="cd ${xdg_prj_dir}/vim/"
 
 # Quick open some config files.
 # Bashes.
@@ -78,3 +80,4 @@ alias type='type -a'
 #   '' are evaluated dynamically.
 #   "" are evaluated at time of creation and, thereafter, never changes.
 #   alias QS="echo \$PWD"
+
