@@ -57,7 +57,7 @@ alias cfs='config status'
 alias cfd='config diff'
 alias cfdt='config difftool'
 alias cfa='config add'
-alias cfc='config commit'
+alias cfc='config commit -v'
 alias cfl='config log'
 alias cfp='config push'
 
