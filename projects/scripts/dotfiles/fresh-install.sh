@@ -7,11 +7,13 @@
 
 CONFIG_BACKUP_DIR="${HOME}/.config~"
 
-function indent {
-  sed 's/^/ > /'
+indent()
+{
+  /usr/bin/sed 's/^/ > /'
 }
 
-function config {
+config()
+{
   /usr/bin/git --git-dir="${HOME}/.config/dotfiles" --work-tree="${HOME}" "$@"
 }
 
@@ -19,17 +21,18 @@ function config {
 # Backup first.
 #
 # Clone my dotfiles repo as a bare repo.
-git clone --bare 'https://github.com/tbttin/dotfiles.git' "${HOME}/.config/dotfiles"
+/usr/bin/git clone --bare 'https://github.com/tbttin/dotfiles.git' "${HOME}/.config/dotfiles"
 # Backup stock config files if they exist and install my dotfiles.
-echo 'Attempt to install dotfiles to home folder.'
+/usr/bin/echo 'Attempt to install dotfiles to home folder.'
 config checkout 2>&1 | indent
 # Piped command exit status: ${PIPESTATUS[0]}, in zsh: ${pipestatus[1]}.
 if [ ${PIPESTATUS[0]} = 0 ]; then
-  echo 'Checked out config.'
+  /usr/bin/echo 'Checked out config.'
 else
-  echo "Backing up pre-existing dotfiles to '${CONFIG_BACKUP_DIR}'."
-  mkdir -pv "${CONFIG_BACKUP_DIR}" | indent
-  config checkout 2>&1 | egrep '\s+\.' | awk {'print $1'} | xargs -I{} mv -v {} "${CONFIG_BACKUP_DIR}" | indent
+  /usr/bin/echo "Backing up pre-existing dotfiles to '${CONFIG_BACKUP_DIR}'."
+  /usr/bin/mkdir -pv "${CONFIG_BACKUP_DIR}" | indent
+  config checkout 2>&1 | /usr/bin/egrep '\s+\.' | /usr/bin/awk {'print $1'} | \
+    /usr/bin/xargs -I{} mv -v {} "${CONFIG_BACKUP_DIR}" | indent
 fi
 #
 # Checkout and config.
@@ -45,12 +48,12 @@ config submodule update --init --recursive
 # Bonus.
 #
 # TODO: How to get the directory list from XDG?
-echo 'Creating regular dirs.'
-mkdir -pv ~/{documents,downloads,pictures/ss,projects/{c,vim},videos} | indent
+/usr/bin/echo 'Creating regular dirs.'
+/usr/bin/mkdir -pv ~/{documents,downloads,pictures/ss,projects/{c,vim},videos} | indent
 if [ -x "$(command -v xdg-user-dirs-update)" ]; then
-  echo 'Deleting XDG default dirs.'
-  rmdir -v --ignore-fail-on-non-empty ~/{Desktop,Documents,Downloads,Music,Pictures,Public,Templates,Videos} | indent
-  xdg-user-dirs-update
+  /usr/bin/echo 'Deleting XDG default dirs.'
+  /usr/bin/rmdir -v --ignore-fail-on-non-empty ~/{Desktop,Documents,Downloads,Music,Pictures,Public,Templates,Videos} | indent
+  /usr/bin/xdg-user-dirs-update
 fi
-echo 'Done.'
+/usr/bin/echo 'Done.'
 
