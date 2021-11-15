@@ -43,7 +43,7 @@ export HISTFILE="${XDG_DATA_HOME}/bash/history"
 export INDENT_PROFILE="${XDG_CONFIG_HOME}/indent/indent.pro"
 
 # Make vim respect XDG specifications.
-export VIMINIT="let \$VIMHOME = fnameescape(\$XDG_CONFIG_HOME .. '/vim') | source \$VIMHOME/vimrc"
+export VIMINIT="let \$VIMHOME = fnameescape(\$XDG_CONFIG_HOME) .. '/vim' | source \$VIMHOME/vimrc"
 
 # Readline config file.
 export INPUTRC="${XDG_CONFIG_HOME}/readline/inputrc"
