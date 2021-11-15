@@ -49,7 +49,7 @@ alias um16='/usr/bin/doas /usr/bin/umount /mnt/16g-usb'
 
 # System stuffs.
 alias dapm='/usr/bin/doas /usr/bin/pacman'
-alias spo='/usr/bin/systemctl /usr/bin/poweroff -i'
+alias spo='/usr/bin/systemctl poweroff -i'
 
 # Bare git dotfiles aliases.
 alias config="/usr/bin/git --work-tree=${HOME} --git-dir=${HOME}/.config/dotfiles/"
