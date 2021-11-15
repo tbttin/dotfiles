@@ -52,7 +52,7 @@ alias dapm='doas pacman'
 alias spo='systemctl poweroff -i'
 
 # Bare git dotfiles aliases.
-alias config='/usr/bin/git --work-tree=${HOME} --git-dir=${HOME}/.config/dotfiles/'
+alias config="/usr/bin/git --work-tree=${HOME} --git-dir=${HOME}/.config/dotfiles/"
 alias cfs='config status'
 alias cfd='config diff'
 alias cfdt='config difftool'
