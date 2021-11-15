@@ -1,18 +1,18 @@
 #!/bin/sh
 
 # Remap some keys.
-[[ -f "${XDG_CONFIG_HOME}/X11/xmodmap/xmodmaprc" ]] && xmodmap "${XDG_CONFIG_HOME}/X11/xmodmap/xmodmaprc"
+[[ -f "${XDG_CONFIG_HOME}/X11/xmodmap/xmodmaprc" ]] && /usr/bin/xmodmap "${XDG_CONFIG_HOME}/X11/xmodmap/xmodmaprc"
 
 #
 # Dynamic window manager.
 #
 # Start suckless status monitor.
-slstatus &
+/usr/bin/slstatus &
 # Start xss-lock to trigger slock.
-xss-lock -- slock &
+/usr/bin/xss-lock -- /usr/bin/slock &
 # Start suckless terminal.
-st &
+/usr/bin/st &
 # Start firefox.
-firefox &
+/usr/bin/firefox &
 # Start dynamic window manager.
-exec dwm
+exec /usr/bin/dwm
