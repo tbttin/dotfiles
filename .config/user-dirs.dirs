@@ -5,16 +5,18 @@
 # homedir-relative path, or XDG_xxx_DIR="/yyy", where /yyy is an
 # absolute path. No other format is supported.
 
-XDG_C_DIR="$HOME/projects/c"
-XDG_VIM_DIR="$HOME/projects/vim"
+# I don't use these common dirs. So point it all to $HOME.
+XDG_DESKTOP_DIR="$HOME"
+XDG_TEMPLATES_DIR="$HOME"
+XDG_PUBLICSHARE_DIR="$HOME"
+XDG_MUSIC_DIR="$HOME"
 
+# I do use these common dirs, but lowercase name instead.
 XDG_DOWNLOAD_DIR="$HOME/downloads"
 XDG_DOCUMENTS_DIR="$HOME/documents"
 XDG_PICTURES_DIR="$HOME/pictures"
-XDG_SCRIPTS_DIR="$HOME/scripts"
 XDG_VIDEOS_DIR="$HOME/videos"
 
-XDG_DESKTOP_DIR="$HOME/"
-XDG_TEMPLATES_DIR="$HOME/"
-XDG_PUBLICSHARE_DIR="$HOME/"
-XDG_MUSIC_DIR="$HOME/"
+# Custom dirs.
+XDG_PROJECTS_DIR="$HOME/projects"
+
