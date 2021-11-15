@@ -28,10 +28,13 @@ PS1="${CA_RESET}${CA_BOLD}${FG_CYAN}\W/${FG_RED}\$${CA_RESET} "
 [[ -f "${XDG_CONFIG_HOME}/bash/aliases.bash" ]] && . "${XDG_CONFIG_HOME}/bash/aliases.bash"
 
 # Create new directory and enter the first created one.
-function mkcd() { mkdir -p "$@" && cd "$1"; }
+mkcd()
+{
+  /usr/bin/mkdir -p "$@" && cd "$1"
+}
 
 # Add some colors and hard-set pager width.
-function man()
+man()
 {
   # Everything is in terminfo(5).
   # Color       #define       Value       RGB
@@ -52,24 +55,25 @@ function man()
   # Use cyan color instead of underline (italic -> underline is included).
   # Manpage's pager resizing (with tiling WM) is a headache. Here is a simple stupid solution.
   MANWIDTH=70 \
-    LESS_TERMCAP_us="$(tput setaf 6)" \
-    LESS_TERMCAP_ue="$(tput sgr0)" \
+    LESS_TERMCAP_us="$(/usr/bin/tput setaf 6)" \
+    LESS_TERMCAP_ue="$(/usr/bin/tput sgr0)" \
     /usr/bin/man "$@"
 }
 
 # Play all .mkv files with its external subtitle (if exist) in current directory.
 # ^z + kill %% to kill this function.
-function ffps()
+ffps()
 {
-  find . -maxdepth 1 -type f -name '*.mkv' -print0 | \
-    sort -z | \
+  /usr/bin/find . -maxdepth 1 -type f -name '*.mkv' -print0 | \
+    /usr/bin/sort -z | \
     while read -rd $'\0' mkv_file
     do
       if [ -f "${mkv_file}.ass" ]; then
-        sn="${mkv_file}.ass"
+        sf="${mkv_file}.ass"
       elif [ -f "${mkv_file}.srt" ]; then
-        sn="${mkv_file}.srt"
+        sf="${mkv_file}.srt"
       fi
-      ffplay $@ ${sn:+-vf subtitles=\'"${sn}"\'} -- "${mkv_file}"
+      ffplay "$@" ${sf:+-vf subtitles=\'"${sf}"\'} -- "${mkv_file}"
     done
 }
+
