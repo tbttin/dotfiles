@@ -18,6 +18,7 @@ export EDITOR='/usr/bin/vim'
 # Which editor bash gonna use when pressing ^X-^E (or v in vi normal mode).
 export VISUAL='/usr/bin/vim'
 
+# Less options.
 # R: causes raw ASCII color escape sequences are displayed.
 # g: change default search highlight behavior.
 # j: Specifies a line on the screen where the "target" line is to be positioned.
@@ -31,40 +32,42 @@ export TERMINFO="${XDG_DATA_HOME}/terminfo"
 export TERMINFO_DIRS="${XDG_DATA_HOME}/terminfo:/usr/share/terminfo"
 
 # Move less search history file to $XDG_DATA_HOME.
-[[ ! -d "${XDG_DATA_HOME}/less" ]] && mkdir -p -m 0700 "${XDG_DATA_HOME}/less"
+[[ ! -d "${XDG_DATA_HOME}/less" ]] && /usr/bin/mkdir -p -m 0700 "${XDG_DATA_HOME}/less"
 export LESSHISTFILE="${XDG_DATA_HOME}/less/history"
 
 # Bash history.
-[[ ! -d "${XDG_DATA_HOME}/bash" ]] && mkdir -p -m 0700 "${XDG_DATA_HOME}/bash"
+[[ ! -d "${XDG_DATA_HOME}/bash" ]] && /usr/bin/mkdir -p -m 0700 "${XDG_DATA_HOME}/bash"
 export HISTFILE="${XDG_DATA_HOME}/bash/history"
 
 # GNU indent profile.
 export INDENT_PROFILE="${XDG_CONFIG_HOME}/indent/indent.pro"
 
 # Make vim respect XDG specifications.
-export VIMINIT="let \$VIMHOME = fnameescape(\$XDG_CONFIG_HOME) . '/vim' | source \$VIMHOME/vimrc"
+export VIMINIT="let \$VIMHOME = fnameescape(\$XDG_CONFIG_HOME .. '/vim') | source \$VIMHOME/vimrc"
 
 # Readline config file.
 export INPUTRC="${XDG_CONFIG_HOME}/readline/inputrc"
 
-# What if first time startx? So after the first startx move this file manually.
-if [ -f "${XDG_DATA_HOME}/xorg/Xauthority" ]; then
+# What if first time startx? Is this an error? So after the first startx move this file manually.
+# if [ -f "${XDG_DATA_HOME}/xorg/Xauthority" ]; then
   export XAUTHORITY="${XDG_DATA_HOME}/xorg/Xauthority"
-fi
+# fi
 
 # Note that these variables are respected by xinit, but not by startx.
 # Instead, specify the filename as an argument:
-#startx "${XDG_CONFIG_HOME}/X11/xinitrc" -- "${XDG_CONFIG_HOME}/X11/xserverrc" vt1
+  # startx "${XDG_CONFIG_HOME}/X11/xinitrc" -- "${XDG_CONFIG_HOME}/X11/xserverrc" vt1
 export XINITRC="${XDG_CONFIG_HOME}/X11/xinitrc"
 #export XSERVERRC="${XDG_CONFIG_HOME}/X11/xserverrc"
 
 # Source .bashrc file.
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-# It's set by the pam_systemd PAM module, and is only set on machines which are using systemd, which means that you should not rely on it in your scripts,
-# unless you want to make them depend on systemd.
-# On systems which are using systemd, $XDG_VTNR will be set both in graphical (by lightdm, gdm, etc) and in text-mode sessions (by /bin/login).
+# It's set by the pam_systemd PAM module, and is only set on machines which are using systemd,
+# which means that you should not rely on it in your scripts, unless you want to make them depend on systemd.
+# On systems which are using systemd, $XDG_VTNR will be set both in graphical (by lightdm, gdm, etc) and
+# in text-mode sessions (by /bin/login).
 # If you would like to remain logged in when the X session ends, remove exec.
-if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+if /usr/bin/systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
   startx # startx is an alias, xinitrc is included.
 fi
+
