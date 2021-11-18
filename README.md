@@ -1,11 +1,11 @@
-This is a bare reppository of my $HOME. It indludes configuration file for:
+This is a bare reppository of my $HOME. It indludes configuration files (default on Bash and Arch Linux) for:
   - Vim
-  - Suckless programs: dwm, st, slstatus, .etc
-  - Bash
+  - Suckless programs: dwm, st, slstatus
   - Makepkg
+  - Bash
   - Zathura
   - Some X related config files.
-  ...
+  - Git
+  - ...
 
-This [durdn's tutorial](https://www.atlassian.com/git/tutorials/dotfiles) might help you to know
- how to make the same repo to store your own configuration files/dotfiles and QUICKLY bring your dotfiles back with a single line of command.
+Ofcourse, we have many way to store config files but this durdn's tutorial [How to store dotfiles?](https://www.atlassian.com/git/tutorials/dotfiles) is a good introduction about how to use git to manage dotfiles and QUICKLY bring it back with a single-line of command. Have fun!
