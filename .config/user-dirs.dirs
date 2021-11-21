@@ -6,7 +6,7 @@
 # absolute path. No other format is supported.
 
 # I don't use these common dirs. So point it all to $HOME.
-XDG_DESKTOP_DIR="$HOME"
+XDG_DESKTOP_DIR="$HOME/"
 XDG_TEMPLATES_DIR="$HOME"
 XDG_PUBLICSHARE_DIR="$HOME"
 XDG_MUSIC_DIR="$HOME"
