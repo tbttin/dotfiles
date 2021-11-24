@@ -1,15 +1,18 @@
-# vim: filetype=sh
 # Maintainer: Tin Thai <thaibachthanhtin@gmail.com>
 
 _pkgname='dwm'
 pkgname="${_pkgname}-git"
 pkgver=6.2.r0.gcb3f58a
 pkgrel=1
-pkgdesc='A dynamic window manager for X.'
+pkgdesc='A dynamic window manager for X11'
 arch=('i686' 'x86_64')
 url='https://dwm.suckless.org'
 license=('custom:MIT')
-depends=('libx11' 'libxinerama' 'libxft')
+depends=('libx11' 'libxinerama' 'libxft') # 'freetype2'
+optdepends=(
+  'dmenu: dynamic menu'
+  'st:    a simple terminal'
+)
 makedepends=('git')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
@@ -34,34 +37,35 @@ sha256sums=(
 )
 
 pkgver() {
-  cd ${_pkgname}
+  cd "${_pkgname}"
   git describe --long --tags | sed -E 's/([^-]*-g)/r\1/;s/-/./g'
 }
 
 prepare() {
-  cd ${_pkgname}
+  cd "${_pkgname}"
   if [ -f "${srcdir}/config.h" ]; then
-    echo "Copying config.h ..."
-    cp -f "${srcdir}/config.h" .
+    cp --force --verbose "${srcdir}/config.h" .
   fi
-  for patch in ${_patches[@]}; do
-    pfile=${patch##*/}
-    echo "Applying ${pfile} ..."
-    #        patch -s -i "${srcdir}/${pfile}"
-    git apply "${srcdir}/${pfile}"
+  for patch in ${_patches[@]##*/}; do
+    echo "Applying ${patch} patch..."
+    patch --silent --input="${srcdir}/${patch}"
+    # git apply "${srcdir}/${patch}"
   done
 }
 
 build() {
-  cd ${_pkgname}
+  cd "${_pkgname}"
   make \
     X11INC=/usr/include/X11 \
     X11LIB=/usr/lib/X11
-  }
+}
 
 package() {
-  cd ${_pkgname}
-  make PREFIX=/usr DESTDIR="${pkgdir}" install
-  install -m644 -D LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-  install -m644 -D README "${pkgdir}/usr/share/doc/${pkgname}/README"
+  cd "${_pkgname}"
+  make DESTDIR="${pkgdir}" PREFIX='/usr' install
+  install --mode=644 -D LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install --mode=644 -D README "${pkgdir}/usr/share/doc/${pkgname}/README"
 }
+
+# vim: filetype=sh
+
