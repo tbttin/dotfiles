@@ -18,11 +18,8 @@ export EDITOR='/usr/bin/vim'
 # Which editor bash gonna use when pressing ^X-^E (or v in vi normal mode).
 export VISUAL='/usr/bin/vim'
 
-# Less options.
-# R: causes raw ASCII color escape sequences are displayed.
-# g: change default search highlight behavior.
-# j: Specifies a line on the screen where the "target" line is to be positioned.
-export LESS='-R -g -j5'
+# less options.
+export LESS='--RAW-CONTROL-CHARS --hilite-search --jump-target=5'
 
 #
 # Clean up $HOME.
