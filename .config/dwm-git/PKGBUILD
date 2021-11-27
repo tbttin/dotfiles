@@ -46,6 +46,7 @@ prepare() {
   if [ -f "${srcdir}/config.h" ]; then
     cp --force --verbose "${srcdir}/config.h" .
   fi
+  local patch
   for patch in ${_patches[@]##*/}; do
     echo "Applying ${patch} patch..."
     patch --silent --input="${srcdir}/${patch}"
@@ -66,8 +67,9 @@ build() {
 package() {
   cd "${_pkgname}"
   make DESTDIR="${pkgdir}" PREFIX='/usr' install
-  install -D --mode=644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-  install -D --mode=644 README  "${pkgdir}/usr/share/doc/${pkgname}/README"
+  local ins_opts='-D --mode=644'
+  install ${ins_opts} LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install ${ins_opts} README  "${pkgdir}/usr/share/doc/${pkgname}/README"
 }
 
 # vim: filetype=sh
