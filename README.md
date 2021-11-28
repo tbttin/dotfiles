@@ -8,7 +8,7 @@ This is just a bare reppository of my $HOME. It indludes some configuration file
   - Git
   - ...
 
-We have many way to store config files, this durdn's tutorial [How to store dotfiles?](https://www.atlassian.com/git/tutorials/dotfiles) is a good introduction to using git to manage dotfiles and QUICKLY bring them back with a single-line of command.
+We have many way to store config files, this durdn's tutorial [How to store dotfiles?](www.atlassian.com/git/tutorials/dotfiles) is a good introduction to using git to manage dotfiles and QUICKLY bring them back with a single-line of command.
 
 Have fun!
 
