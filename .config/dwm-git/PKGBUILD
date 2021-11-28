@@ -8,7 +8,7 @@ pkgdesc='A dynamic window manager for X11'
 arch=('i686' 'x86_64')
 url='https://dwm.suckless.org'
 license=('custom:MIT')
-depends=('libx11' 'libxinerama' 'libxft') # 'freetype2'
+depends=('libx11' 'libxinerama' 'fontconfig' 'libxft') # 'freetype2'
 optdepends=(
   'dmenu: dynamic menu'
   'st:    a simple terminal'
