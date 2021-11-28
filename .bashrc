@@ -17,10 +17,10 @@ HISTFILESIZE=5000
 HISTCONTROL='ignorespace:erasedups'
 
 # Prompt colorizing.
-FG_RED="\[$(tput setaf 1)\]"
-FG_CYAN="\[$(tput setaf 6)\]"
-CA_BOLD="\[$(tput bold)\]"
-CA_RESET="\[$(tput sgr0)\]"
+FG_RED="\[$(/usr/bin/tput setaf 1)\]"
+FG_CYAN="\[$(/usr/bin/tput setaf 6)\]"
+CA_BOLD="\[$(/usr/bin/tput bold)\]"
+CA_RESET="\[$(/usr/bin/tput sgr0)\]"
 # Single machine user, so make it simple.
 PS1="${CA_RESET}${CA_BOLD}${FG_CYAN}\W/${FG_RED}\$${CA_RESET} "
 
@@ -52,12 +52,16 @@ man()
   # Underline for proper names, variable names, and type names in some manpages.
   # Inverse (or reverse) for the prompt at the bottom.
 
-  # Use cyan color instead of underline (italic -> underline is included).
-  # Manpage's pager resizing (with tiling WM) is a headache. Here is a simple stupid solution.
-  MANWIDTH=70 \
-    LESS_TERMCAP_us="$(/usr/bin/tput setaf 6)" \
-    LESS_TERMCAP_ue="$(/usr/bin/tput sgr0)" \
+  if [ "$TERM" = 'linux' ]; then
     /usr/bin/man "$@"
+  else
+    # Manpage's pager resizing (with tiling WM) is a headache. Here is a simple stupid solution.
+    # Use cyan color instead of underline (italic -> underline is included).
+    MANWIDTH=70 \
+      LESS_TERMCAP_us="$(/usr/bin/tput setaf 6)" \
+      LESS_TERMCAP_ue="$(/usr/bin/tput sgr0)" \
+      /usr/bin/man "$@"
+  fi
 }
 
 # Play all .mkv files with its external subtitle (if exist) in current directory.
