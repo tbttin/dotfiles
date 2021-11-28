@@ -1,11 +1,10 @@
-# vim: filetype=sh
 # Maintainer: Tin Thai <thaibachthanhtin@gmail.com>
 
 _pkgname='slstatus'
 pkgname="${_pkgname}-git"
 pkgver=r561.84a2f11
 pkgrel=1
-pkgdesc='A status monitor for window managers.'
+pkgdesc='A status monitor for window managers'
 arch=('i686' 'x86_64')
 url='https://tools.suckless.org/slstatus'
 license=('custom:ISC')
@@ -28,7 +27,7 @@ sha256sums=(
 )
 
 pkgver() {
-  cd ${_pkgname}
+  cd "${_pkgname}"
   (
   set -o pipefail
   git describe --long 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
@@ -37,28 +36,33 @@ pkgver() {
 }
 
 prepare() {
-  cd ${_pkgname}
+  cd "${_pkgname}"
   if [ -f "${srcdir}/config.h" ]; then
-    echo "Copying config.h ..."
-    cp -f "${srcdir}/config.h" .
+    cp --force --verbose "${srcdir}/config.h" .
   fi
-  for patch in ${_patches[@]}; do
-    pfile=${patch##*/}
-    echo "Applying ${pfile} ..."
-    git apply "${srcdir}/${pfile}"
+  local patch
+  for patch in ${_patches[@]##*/}; do
+    echo "Applying ${patch} patch..."
+    patch --silent --input="${srcdir}/${patch}"
   done
 }
 
 build() {
-  cd ${_pkgname}
+  cd "${_pkgname}"
+  local comps="battery|disk|entropy|hostname|ip|kernel_release|keyboard_indicators|keymap|num_files|run_command|separator|swap|uptime|user|volume"
+  sed --regexp-extended --in-place "/^[[:space:]]*components\/(${comps})/d" Makefile
   make \
     X11INC=/usr/include/X11 \
     X11LIB=/usr/lib/X11
-  }
+}
 
 package() {
-  cd ${_pkgname}
-  make PREFIX=/usr DESTDIR="${pkgdir}" install
-  install -m644 -D LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-  install -m644 -D README "${pkgdir}/usr/share/doc/${pkgname}/README"
+  cd "${_pkgname}"
+  make DESTDIR="${pkgdir}" PREFIX='/usr' install
+  local ins_opts='-D --mode=644'
+  install ${ins_opts} LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install ${ins_opts} README  "${pkgdir}/usr/share/doc/${pkgname}/README"
 }
+
+# vim: filetype=sh
+
