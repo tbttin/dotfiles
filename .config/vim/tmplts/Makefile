@@ -1,7 +1,7 @@
-CC            := /usr/bin/cc
-CFLAGS         = -std=c17 -pedantic -Wall -Wextra -O2 -Wshadow -Wconversion -Wstrict-overflow=5 -Wformat=2 -Wfloat-equal
-DBGCFLAGS     := -g -DDEBUGGING
-OUTPUT_OPTION  = -MMD -MP -MF $(dep_dir)/$*.d -o $(obj_dir)/$*.o
+CC            := cc
+CFLAGS        += -std=c17 -pedantic -Wall -Wextra -O2 -Wshadow -Wconversion -Wstrict-overflow=5 -Wformat=2 -Wfloat-equal
+DBGCFLAGS     += -g -DDEBUGGING
+OUTPUT_OPTION += -MMD -MP -MF $(dep_dir)/$*.d -o $(obj_dir)/$*.o
 MAKEFLAGS     += --no-builtin-rules --no-builtin-variables
 
 src_dir       := $(CURDIR)/src
@@ -10,9 +10,9 @@ bin_dir       := $(CURDIR)/bin
 dep_dir       := $(CURDIR)/.deps
 dirs          := $(obj_dir) $(bin_dir) $(dep_dir)
 prog          := $(bin_dir)/prog
-rm            := /usr/bin/rm -rf
-mkdir         := /usr/bin/mkdir -p
-tags          := /usr/bin/ctags $(src_dir)/*.{h,c}
+rm            := rm -rf
+mkdir         := mkdir -p
+tags          := ctags $(src_dir)/*.{h,c}
 sources       := $(wildcard $(src_dir)/*.c)
 objs          := $(patsubst $(src_dir)/%.c,$(obj_dir)/%.o,$(sources))
 
