@@ -57,8 +57,8 @@ prepare() {
 build() {
   cd "${_pkgname}"
   # Use some flags in default makepkg.conf
-  sed --in-place 's/^\(CFLAGS\ *\)=/\1+=/g' config.mk
-  sed --in-place 's/^\(LDFLAGS\ *\)=/\1+=/g' config.mk
+  sed --in-place 's/^\(CFLAGS *\)=/\1+=/g' config.mk
+  sed --in-place 's/^\(LDFLAGS *\)=/\1+=/g' config.mk
   make \
     X11INC=/usr/include/X11 \
     X11LIB=/usr/lib/X11
