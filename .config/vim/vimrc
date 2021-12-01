@@ -5,22 +5,25 @@
 " Defaults.vim {{{2
 " Arch's startup order:
 "   /etc/vimrc
-"   /usr/share/vim/vimfiles/archlinux.vim
+"   $VIM/vimfiles/archlinux.vim
 "   $VIMHOME/vimrc
-"   ($VIMRUNTIME/defaults.vim)
+"   [$VIMRUNTIME/defaults.vim]
 " Load vim's default configurations.
 unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
 
-" Respect XDG Base Directory Specification {{{2
-set undodir=$XDG_CACHE_HOME/vim/undo     | call mkdir (&g:undodir, 'p', 0700)
-set directory=$XDG_CACHE_HOME/vim/swap   | call mkdir (&g:directory, 'p', 0700)
-set backupdir=$XDG_CACHE_HOME/vim/backup | call mkdir (&g:backupdir, 'p', 0700)
-set viewdir=$XDG_CACHE_HOME/vim/view     | call mkdir (&g:viewdir, 'p', 0700)
-set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
+" Respect XDGBDS {{{2
+let $VIMDATA = fnameescape($XDG_STATE_HOME) .. '/vim'
+set undodir=$VIMDATA/undo                     | call mkdir (&g:undodir, 'p', 0700)
+set directory=$VIMDATA/swap                   | call mkdir (&g:directory, 'p', 0700)
+set backupdir=$VIMDATA/backup                 | call mkdir (&g:backupdir, 'p', 0700)
+set viewdir=$VIMDATA/view                     | call mkdir (&g:viewdir, 'p', 0700)
+exe 'let g:netrw_home = $VIMDATA .. "/netrw"' | call mkdir (g:netrw_home, 'p', 0700)
+set viminfo+=n$VIMDATA/viminfo
 set runtimepath=$VIMHOME,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$VIMHOME/after
 let &g:packpath = &g:runtimepath
 
+" TODO: Test tab indentation and space alignment.
 " Indentations {{{2
 set shiftwidth=2          " Number of spaces to use for each step of (auto)indent.
 set softtabstop=2         " Virtual tab stop instead of 8-wide tabs.
@@ -31,9 +34,17 @@ set splitbelow            " When on, splitting a window will put the new window 
 " set linebreak             " Wrap long lines at a character in 'breakat' rather than at the last character.
 set number                " Print the line number in front of each line.
 set relativenumber        " Show the line number relative to the line with the cursor in front of each line.
-let &t_SI .= "\<Esc>[4 q" " Start Insert mode (Steady underline cursor).
-let &t_SR .= "\<Esc>[4 q" " Start Replace mode (Same as Insert mode).
-let &t_EI .= "\<Esc>[2 q" " End Insert mode (Otherwise, full-steady block cursor).
+if &term !~ 'linux'
+  let &t_SI .= "\e[4 q"   " Start Insert mode (Steady underline cursor).
+  let &t_EI .= "\e[2 q"   " End Insert mode (Otherwise, full-steady block cursor).
+  " let &t_SR .= "\e[4 q"   " Start Replace mode (Same as Insert mode).
+else
+  " TODO: How does it work?
+  " let &t_ve = "\e[?25h"
+  " let &t_vi = "\e[?25l"
+  " let &t_SI = "\e[?0c"
+  " let &t_EI = "\e[?16;143;255c"
+endif
 if &term =~ 'st'
   set background=dark     " Because vim will not use dark-background theme in st.
 endif
@@ -82,11 +93,11 @@ nmap glcc <Plug>TCmtLine
 " End maintaining }}}
 
 " A better [S-]Tab.
-inoremap <expr> <Tab>   pairs#IsMatchOnLHS ('\S$') ? '<C-N>' : '<Tab>'
-inoremap <expr> <S-Tab> pairs#IsMatchOnLHS ('\S$') ? '<C-P>' : '<Tab>'
+inoremap <expr> <Tab>   pairs#IsMatchOnLHS ('\k$') ? '<C-N>' : '<Tab>'
+inoremap <expr> <S-Tab> pairs#IsMatchOnLHS ('\k$') ? '<C-P>' : '<Tab>'
 
 " Quick supper user write and reload file content when necessary.
-command SW execute 'write !/usr/bin/doas /usr/bin/tee "%" > /dev/null' | if !v:shell_error | edit! | endif
+command SW execute 'write !/usr/bin/doas /usr/bin/tee "%" >/dev/null' | if !v:shell_error | edit! | endif
 
 " Toggle spell check. Just "]s" and "z=".
 nnoremap glts :set spell! spell?<CR>
@@ -121,10 +132,8 @@ augroup Templates " {{{2
   autocmd!
   " Read and parse template which have the same name in t$VIMHOME/tmplts.
   autocmd BufNewFile ?\+ call tmplts#LoadTemplate (expand ('<afile>:p:t'))
-
   " Read and parse template according file extension.
   autocmd BufNewFile ?\+ call tmplts#LoadTemplate ('skeleton.' . expand ('<afile>:p:e'))
-
   " Start insert mode at the end of line containing 'Description: '.
   autocmd BufNewFile main.c call tmplts#AddFileDescription ()
 augroup END
