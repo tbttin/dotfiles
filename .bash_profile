@@ -5,17 +5,15 @@
 #
 # XDG Base Directory Specification.
 #
-# If unset or null use this value.
-export XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
-export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}"
-export XDG_DATA_DIRS="${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
-export XDG_CONFIG_DIRS="${XDG_CONFIG_DIRS:-/etc/xdg}"
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:-${HOME}/.cache}"
-# XDG_RUNTIME_DIR is set by default through pam_systemd.
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
+export XDG_STATE_HOME="${XDG_STATE_HOME:-${HOME}/.local/state}"
+# XDG_RUNTIME_DIR is set to /run/user/$UID by default through pam_systemd.
 
 # Default text editor.
 export EDITOR='/usr/bin/vim'
-# Which editor bash gonna use when pressing ^X-^E (or v in vi normal mode).
+# Which editor bash gonna use when pressing ^X-^E (or v in vi-normal-mode).
 export VISUAL='/usr/bin/vim'
 
 # less options.
@@ -28,27 +26,26 @@ export LESS='--RAW-CONTROL-CHARS --hilite-search --jump-target=5'
 export TERMINFO="${XDG_DATA_HOME}/terminfo"
 export TERMINFO_DIRS="${XDG_DATA_HOME}/terminfo:/usr/share/terminfo"
 
-# Move less search history file to $XDG_DATA_HOME.
-[[ ! -d "${XDG_DATA_HOME}/less" ]] && /usr/bin/mkdir -p -m 0700 "${XDG_DATA_HOME}/less"
-export LESSHISTFILE="${XDG_DATA_HOME}/less/history"
+# What if first time startx? Is this an error?
+xd="${XDG_DATA_HOME}/xorg"
+/usr/bin/mkdir --parents --mode=0700 "${xd}" && export XAUTHORITY="${xd}/Xauthority"
 
-# Bash history.
-[[ ! -d "${XDG_DATA_HOME}/bash" ]] && /usr/bin/mkdir -p -m 0700 "${XDG_DATA_HOME}/bash"
-export HISTFILE="${XDG_DATA_HOME}/bash/history"
+# Less command and search history file.
+ld="${XDG_STATE_HOME}/less"
+/usr/bin/mkdir --parents --mode=0700 "${ld}" && export LESSHISTFILE="${ld}/lesshst"
+
+# Bash command history file.
+bd="${XDG_STATE_HOME}/bash"
+/usr/bin/mkdir --parents --mode=0700 "${bd}" && export HISTFILE="${bd}/bashhst"
 
 # GNU indent profile.
 export INDENT_PROFILE="${XDG_CONFIG_HOME}/indent/indent.pro"
 
-# Make vim respect XDG specifications.
+# Make vim respect XDGBDS.
 export VIMINIT="let \$VIMHOME = fnameescape(\$XDG_CONFIG_HOME) .. '/vim' | source \$VIMHOME/vimrc"
 
 # Readline config file.
 export INPUTRC="${XDG_CONFIG_HOME}/readline/inputrc"
-
-# What if first time startx? Is this an error? So after the first startx move this file manually.
-# if [ -f "${XDG_DATA_HOME}/xorg/Xauthority" ]; then
-  export XAUTHORITY="${XDG_DATA_HOME}/xorg/Xauthority"
-# fi
 
 # Note that these variables are respected by xinit, but not by startx.
 # Instead, specify the filename as an argument:
