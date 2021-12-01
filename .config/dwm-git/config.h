@@ -29,7 +29,7 @@ static const Rule rules[] = {
     /*  class,     instance, title, tags mask, switchtotag, isfloating, monitor */
       { "firefox", NULL,     NULL,  1 << 8,    1,           0,          -1 },
       { "Zathura", NULL,     NULL,  1 << 7,    1,           0,          -1 },
-      { "ffplay",  NULL,     NULL,  1 << 2,    0,           0,          -1 },
+      { "ffplay",  NULL,     NULL,  1 << 2,    1,           0,          -1 },
 };
 
 /* layout(s) */
