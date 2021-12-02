@@ -3,15 +3,6 @@
 #
 
 #
-# XDG Base Directory Specification.
-#
-export XDG_CACHE_HOME="${XDG_CACHE_HOME:-${HOME}/.cache}"
-export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}"
-export XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
-export XDG_STATE_HOME="${XDG_STATE_HOME:-${HOME}/.local/state}"
-# XDG_RUNTIME_DIR is set to /run/user/$UID by default through pam_systemd.
-
-#
 # Some configurations.
 #
 # Default text editor.
@@ -26,35 +17,36 @@ export LESS='--RAW-CONTROL-CHARS --hilite-search --jump-target=5'
 # Movements. Clean up $HOME.
 #
 # Terminfo.
-export TERMINFO="${XDG_DATA_HOME}/terminfo"
-export TERMINFO_DIRS="${XDG_DATA_HOME}/terminfo:/usr/share/terminfo"
+export TERMINFO="${HOME}/.local/share/terminfo"
+export TERMINFO_DIRS="${HOME}/.local/share/terminfo:/usr/share/terminfo"
 
-# What if first time startx? Is this an error?
-xd="${XDG_DATA_HOME}/xorg"
+# Xauthority to data dir.
+xd="${HOME}/.local/share/xorg"
 /usr/bin/mkdir --parents --mode=0700 "${xd}" && export XAUTHORITY="${xd}/Xauthority"
 
-# Less command and search history file.
-ld="${XDG_STATE_HOME}/less"
+# Less command and search history file to state dir.
+ld="${HOME}/.local/state/less"
 /usr/bin/mkdir --parents --mode=0700 "${ld}" && export LESSHISTFILE="${ld}/lesshst"
 
-# Bash command history file.
-bd="${XDG_STATE_HOME}/bash"
+# Bash command history file to state dir.
+bd="${HOME}/.local/state/bash"
 /usr/bin/mkdir --parents --mode=0700 "${bd}" && export HISTFILE="${bd}/bash_history"
 
-# GNU indent profile.
-export INDENT_PROFILE="${XDG_CONFIG_HOME}/indent/indent.pro"
+# GNU indent profile to config dir.
+export INDENT_PROFILE="${HOME}/.config/indent/indent.pro"
 
-# Make vim respect XDGBDS.
-export VIMINIT="let \$VIMHOME = fnameescape(\$XDG_CONFIG_HOME) .. '/vim' | source \$VIMHOME/vimrc"
+# Vim please respect XDGBDS; vimrc to config dir.
+export VIMINIT="let \$VIMHOME = '${HOME}/.config/vim' | source \$VIMHOME/vimrc"
 
-# Readline config file.
-export INPUTRC="${XDG_CONFIG_HOME}/readline/inputrc"
+# Readline config file to config dir.
+export INPUTRC="${HOME}/.config/readline/inputrc"
 
+# X xinitrc to config dir.
 # Note that these variables are respected by xinit, but not by startx.
 # Instead, specify the filename as an argument:
-  # startx "${XDG_CONFIG_HOME}/X11/xinitrc" -- "${XDG_CONFIG_HOME}/X11/xserverrc" vt1
-export XINITRC="${XDG_CONFIG_HOME}/X11/xinitrc"
-#export XSERVERRC="${XDG_CONFIG_HOME}/X11/xserverrc"
+  # startx "${HOME}/.config/X11/xinitrc" -- "${HOME}/.config/X11/xserverrc" vt1
+export XINITRC="${HOME}/.config/X11/xinitrc"
+#export XSERVERRC="${HOME}/.config/X11/xserverrc"
 
 #
 # Sourcing and other stuff.

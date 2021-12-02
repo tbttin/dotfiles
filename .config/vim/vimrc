@@ -12,8 +12,8 @@
 unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
 
-" Respect XDGBDS {{{2
-let $VIMDATA = fnameescape($XDG_STATE_HOME) .. '/vim'
+" Please respect XDGBDS {{{2
+let $VIMDATA = $HOME .. '/.local/state/vim'
 set undodir=$VIMDATA/undo                     | call mkdir (&g:undodir, 'p', 0700)
 set directory=$VIMDATA/swap                   | call mkdir (&g:directory, 'p', 0700)
 set backupdir=$VIMDATA/backup                 | call mkdir (&g:backupdir, 'p', 0700)

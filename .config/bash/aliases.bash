@@ -18,22 +18,22 @@ alias jv="cd ${xdg_prj_dir}/vim/"
 # Bashes.
 alias vb='/usr/bin/vim ~/.bashrc'
 alias vp='/usr/bin/vim ~/.bash_profile'
-alias va='/usr/bin/vim ${XDG_CONFIG_HOME}/bash/aliases.bash'
+alias va='/usr/bin/vim ${HOME}/.config/bash/aliases.bash'
 # Readline.
 alias vn='/usr/bin/vim ${INPUTRC}'
 # Dynamic window manager.
-alias vd='/usr/bin/vim ${XDG_CONFIG_HOME}/dwm-git/config.h'
+alias vd='/usr/bin/vim ${HOME}/.config/dwm-git/config.h'
 # Suckless terminal.
-alias vs='/usr/bin/vim ${XDG_CONFIG_HOME}/st-git/config.h'
+alias vs='/usr/bin/vim ${HOME}/.config/st-git/config.h'
 # Vims.
-alias vv='/usr/bin/vim ${XDG_CONFIG_HOME}/vim/vimrc'
-alias vc='/usr/bin/vim ${XDG_CONFIG_HOME}/vim/ftplugin/c.vim'
+alias vv='/usr/bin/vim ${HOME}/.config/vim/vimrc'
+alias vc='/usr/bin/vim ${HOME}/.config/vim/ftplugin/c.vim'
 # xinitrc.
 alias vx='/usr/bin/vim ${XINITRC}'
 # Zathura.
-alias vz='/usr/bin/vim ${XDG_CONFIG_HOME}/zathura/zathurarc'
+alias vz='/usr/bin/vim ${HOME}/.config/zathura/zathurarc'
 # Makefie template.
-alias vm='/usr/bin/vim ${XDG_CONFIG_HOME}/vim/tmplts/Makefile'
+alias vm='/usr/bin/vim ${HOME}/.config/vim/tmplts/Makefile'
 
 # Adding colors.
 alias ls='/usr/bin/ls --color=auto'
@@ -52,7 +52,7 @@ alias dapm='/usr/bin/doas /usr/bin/pacman'
 alias spo='/usr/bin/systemctl poweroff -i'
 
 # Bare git dotfiles aliases.
-alias config="/usr/bin/git --work-tree=${HOME} --git-dir=${HOME}/.config/dotfiles/"
+alias config='/usr/bin/git --work-tree=${HOME} --git-dir=${HOME}/.config/dotfiles/'
 alias cfs='config status'
 alias cfd='config diff'
 alias cfdt='config difftool'
@@ -68,7 +68,7 @@ alias ffplay='/usr/bin/ffplay -hide_banner -nostats -seek_interval 3 -autoexit -
 # Seeking for file infomation.
 alias ffprobe='/usr/bin/ffprobe -hide_banner'
 
-# Start X with xinitrc in $XDG_CONFIG_HOME.
+# Start X with "~/.config/xorg/xinitrc"
 alias startx="/usr/bin/startx ${XINITRC}"
 
 # Display all locations containing an executable named includes aliases, builtins, and functions.
