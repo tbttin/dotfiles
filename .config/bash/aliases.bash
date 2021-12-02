@@ -13,6 +13,7 @@ alias s="cd $(/usr/bin/xdg-user-dir SCRIPTS)/"
 alias v="cd $(/usr/bin/xdg-user-dir VIDEOS)/"
 alias jc="cd ${xdg_prj_dir}/c/"
 alias jv="cd ${xdg_prj_dir}/vim/"
+unset xdg_prj_dir
 
 # Quick open some config files.
 # Bashes.
