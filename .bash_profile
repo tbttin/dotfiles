@@ -11,6 +11,9 @@ export XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
 export XDG_STATE_HOME="${XDG_STATE_HOME:-${HOME}/.local/state}"
 # XDG_RUNTIME_DIR is set to /run/user/$UID by default through pam_systemd.
 
+#
+# Some configurations.
+#
 # Default text editor.
 export EDITOR='/usr/bin/vim'
 # Which editor bash gonna use when pressing ^X-^E (or v in vi-normal-mode).
@@ -20,7 +23,7 @@ export VISUAL='/usr/bin/vim'
 export LESS='--RAW-CONTROL-CHARS --hilite-search --jump-target=5'
 
 #
-# Clean up $HOME.
+# Movements. Clean up $HOME.
 #
 # Terminfo.
 export TERMINFO="${XDG_DATA_HOME}/terminfo"
@@ -36,7 +39,7 @@ ld="${XDG_STATE_HOME}/less"
 
 # Bash command history file.
 bd="${XDG_STATE_HOME}/bash"
-/usr/bin/mkdir --parents --mode=0700 "${bd}" && export HISTFILE="${bd}/bashhst"
+/usr/bin/mkdir --parents --mode=0700 "${bd}" && export HISTFILE="${bd}/bash_history"
 
 # GNU indent profile.
 export INDENT_PROFILE="${XDG_CONFIG_HOME}/indent/indent.pro"
@@ -53,6 +56,9 @@ export INPUTRC="${XDG_CONFIG_HOME}/readline/inputrc"
 export XINITRC="${XDG_CONFIG_HOME}/X11/xinitrc"
 #export XSERVERRC="${XDG_CONFIG_HOME}/X11/xserverrc"
 
+#
+# Sourcing and other stuff.
+#
 # Source .bashrc file.
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
