@@ -7,7 +7,7 @@ alias -- --='cd ${OLDPWD}'
 alias d="cd $(/usr/bin/xdg-user-dir DOCUMENTS)/"
 alias l="cd $(/usr/bin/xdg-user-dir DOWNLOAD)/"
 alias p="cd $(/usr/bin/xdg-user-dir PICTURES)/"
-xdg_prj_dir=$(/usr/bin/xdg-user-dir PROJECTS)
+xdg_prj_dir="$(/usr/bin/xdg-user-dir PROJECTS)"
 alias j="cd ${xdg_prj_dir}/"
 alias s="cd $(/usr/bin/xdg-user-dir SCRIPTS)/"
 alias v="cd $(/usr/bin/xdg-user-dir VIDEOS)/"
@@ -47,7 +47,7 @@ alias diff='/usr/bin/diff -color=auto'
 alias m16='/usr/bin/doas /usr/bin/mount /mnt/16g-usb && cd /mnt/16g-usb'
 alias um16='/usr/bin/doas /usr/bin/umount /mnt/16g-usb'
 
-# System stuffs.
+# System stuff.
 alias dapm='/usr/bin/doas /usr/bin/pacman'
 alias spo='/usr/bin/systemctl poweroff -i'
 
@@ -60,15 +60,16 @@ alias cfa='config add'
 alias cfc='config commit -v'
 alias cfl='config log'
 alias cfp='config push'
+alias cfw='config switch -'
 
 # For the sake of videos and movies.
-# Decrease seek_interval by 5, suppress printing copyright, build options and versions.
-alias ffplay='/usr/bin/ffplay -hide_banner -nostats -seek_interval 5 -autoexit'
+# Do not print copyright, build options and versions; set seek_interval to 3, start in fullscreen mode.
+alias ffplay='/usr/bin/ffplay -hide_banner -nostats -seek_interval 3 -autoexit -fs'
 # Seeking for file infomation.
 alias ffprobe='/usr/bin/ffprobe -hide_banner'
 
 # Start X with xinitrc in $XDG_CONFIG_HOME.
-alias startx='/usr/bin/startx ${XINITRC}'
+alias startx="/usr/bin/startx ${XINITRC}"
 
 # Display all locations containing an executable named includes aliases, builtins, and functions.
 alias type='type -a'
