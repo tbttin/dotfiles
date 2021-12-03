@@ -9,7 +9,6 @@ alias l="cd $(/usr/bin/xdg-user-dir DOWNLOAD)/"
 alias p="cd $(/usr/bin/xdg-user-dir PICTURES)/"
 xdg_prj_dir="$(/usr/bin/xdg-user-dir PROJECTS)"
 alias j="cd ${xdg_prj_dir}/"
-alias s="cd $(/usr/bin/xdg-user-dir SCRIPTS)/"
 alias v="cd $(/usr/bin/xdg-user-dir VIDEOS)/"
 alias jc="cd ${xdg_prj_dir}/c/"
 alias jv="cd ${xdg_prj_dir}/vim/"
@@ -70,16 +69,16 @@ alias ffplay='/usr/bin/ffplay -hide_banner -nostats -seek_interval 3 -autoexit -
 alias ffprobe='/usr/bin/ffprobe -hide_banner'
 
 # Start X with "~/.config/xorg/xinitrc"
-alias startx="/usr/bin/startx ${XINITRC}"
+alias startx="/usr/bin/startx '${XINITRC}'"
 
 # Display all locations containing an executable named includes aliases, builtins, and functions.
 alias type='type -a'
 
 # Notes {{{1
 # Aliases are created and listed with the alias command, and removed with the unalias command.
-# Do not overuse alias, we'll lose autocompletion ability.
 # Single quotes vs double quotes:
 #   '' are evaluated dynamically.
 #   "" are evaluated at time of creation and, thereafter, never changes.
 #   alias QS="echo \$PWD"
+# echo $foo is slower than echo "$foo"
 
