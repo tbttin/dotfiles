@@ -20,10 +20,6 @@ export LESS='--RAW-CONTROL-CHARS --hilite-search --jump-target=5'
 export TERMINFO="${HOME}/.local/share/terminfo"
 export TERMINFO_DIRS="${HOME}/.local/share/terminfo:/usr/share/terminfo"
 
-# Xauthority to data dir.
-xd="${HOME}/.local/share/xorg"
-/usr/bin/mkdir --parents --mode=0700 "${xd}" && export XAUTHORITY="${xd}/Xauthority"
-
 # Less command and search history file to state dir.
 ld="${HOME}/.local/state/less"
 /usr/bin/mkdir --parents --mode=0700 "${ld}" && export LESSHISTFILE="${ld}/lesshst"
@@ -31,6 +27,10 @@ ld="${HOME}/.local/state/less"
 # Bash command history file to state dir.
 bd="${HOME}/.local/state/bash"
 /usr/bin/mkdir --parents --mode=0700 "${bd}" && export HISTFILE="${bd}/bash_history"
+
+# X authority cookie file to $XDG_RUNTIME_DIR
+# Note: $XDG_RUNTIME_DIR is set to "/run/user/$UID" by default through pam_systemd.
+export XAUTHORITY="${XDG_RUNTIME_DIR}/Xauthority"
 
 # GNU indent profile to config dir.
 export INDENT_PROFILE="${HOME}/.config/indent/indent.pro"
