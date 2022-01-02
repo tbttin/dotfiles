@@ -3,3 +3,7 @@
 [user]
 	email = thaibachthanhtin@gmail.com
 	name = Tin Thai
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
