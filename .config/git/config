@@ -7,3 +7,12 @@
 	tool = vimdiff
 [difftool]
 	prompt = false
+[alias]
+	a = add
+	f = fetch
+	p = push
+	s = status
+	c = commit --verbose
+	l = log
+	d = diff
+	sw = switch
