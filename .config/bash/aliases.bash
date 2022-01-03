@@ -41,7 +41,7 @@ alias ll='ls -lh'
 alias la='ll -a'
 alias grep='/usr/bin/grep --color=auto'
 alias ip='/usr/bin/ip -color=auto'
-alias diff='/usr/bin/diff -color=auto'
+alias diff='/usr/bin/diff --color=auto'
 
 # [U]mount external drives/USBs.
 alias m16='/usr/bin/doas /usr/bin/mount /mnt/16g-usb && cd /mnt/16g-usb'
@@ -57,7 +57,7 @@ alias cfs='config status'
 alias cfd='config diff'
 alias cfdt='config difftool'
 alias cfa='config add'
-alias cfc='config commit -v'
+alias cfc='config commit --verbose'
 alias cfl='config log'
 alias cfp='config push'
 alias cfw='config switch -'
@@ -74,11 +74,14 @@ alias startx="/usr/bin/startx '${XINITRC}'"
 # Display all locations containing an executable named includes aliases, builtins, and functions.
 alias type='type -a'
 
+# Shorthand for transmission-remote command.
+alias tmr='transmission-remote'
+
 # Notes {{{1
 # Aliases are created and listed with the alias command, and removed with the unalias command.
 # Single quotes vs double quotes:
-#   '' are evaluated dynamically.
-#   "" are evaluated at time of creation and, thereafter, never changes.
-#   alias QS="echo \$PWD"
+#    '' are evaluated dynamically.
+#    "" are evaluated at time of creation and, thereafter, never changes.
+#    alias QS="echo \$PWD" same as ''
 # echo $foo is slower than echo "$foo"
 
