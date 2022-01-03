@@ -5,11 +5,21 @@ endif
 let b:loaded_ftplugin = 1      " Loaded flag.
 
 " Options {{{1
-" GNU C style format and indentation. Some options are included in vimrc. {{{2
-setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0,h2,p5,t0,+2,(0,u0,w1,m1
-setlocal textwidth=79
+" " GNU indentation style (all spaces) {{{2
+" setlocal expandtab                    " Don't use tabs for indentation. Spaces are nicer to work with.
+" setlocal shiftwidth=2                 " Number of spaces to use for each step of (auto)indent.
+" setlocal softtabstop=2                " Virtual tab stop instead of 8-wide tabs.
+" setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0,h2,p5,t0,+2,(0,u0,w1,m1
+
+" Indent with tabs, align with spaces {{{2
+setlocal copyindent
+setlocal preserveindent
+" setlocal shiftwidth=4
+" setlocal tabstop=4
+setlocal cinoptions+=(0,u0,U0
 
 " Miscellany {{{2
+" setlocal textwidth=79
 setlocal formatprg=/usr/bin/indent                           " GNU indent formator.
 setlocal path=.,/usr/include,**,$VIMHOME/**                  " Current file's dir ('%:p:h'), sys include, $PWD then $VIMHOME.
 setlocal showfulltag                                         " Show function name + template in auto completion pop-up menu.
