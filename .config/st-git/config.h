@@ -5,10 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = {
-    /* "Liberation Mono:pixelsize=13:antialias=true:autohint=true" */
-    "xos4 Terminus:pixelsize=14:antialias=false:autohint=false"
-};
+static char *font = "xos4 Terminus:pixelsize=14:antialias=false:autohint=false";
 static int borderpx = 1;
 
 /*
@@ -142,7 +139,7 @@ static unsigned int defaultrcs = 257;
  * 6: Bar ("|")
  * 7: Snowman ("☃")
  */
-static unsigned int cursorshape = 6;
+static unsigned int cursorshape = 4;
 
 /*
  * Default columns and rows numbers
