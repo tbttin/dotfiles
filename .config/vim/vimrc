@@ -2,8 +2,8 @@
 " Always refer to the relevant :help before adding anything to vimrc.
 " Using short names has ONLY cons and ZERO pros. Don't.
 
-" Defaults.vim {{{2
-" Arch's startup order:
+" defaults.vim {{{2
+" NOTE: Vim startup order in Arch:
 "   /etc/vimrc
 "   $VIM/vimfiles/archlinux.vim
 "   $VIMHOME/vimrc
@@ -12,7 +12,7 @@
 unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
 
-" Please respect XDGBDS {{{2
+" XDGBDS {{{2
 let $VIMDATA = $HOME .. '/.local/state/vim'
 set undodir=$VIMDATA/undo                     | call mkdir (&g:undodir, 'p', 0700)
 set directory=$VIMDATA/swap                   | call mkdir (&g:directory, 'p', 0700)
@@ -23,42 +23,37 @@ set viminfo+=n$VIMDATA/viminfo
 set runtimepath=$VIMHOME,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$VIMHOME/after
 let &g:packpath = &g:runtimepath
 
-" TODO: Test tab indentation and space alignment.
 " Indentations {{{2
 " TODO: Indent with tabs, align with spaces.
 
 " Displays {{{2
-set splitbelow            " When on, splitting a window will put the new window below the current one.
-" set linebreak             " Wrap long lines at a character in 'breakat' rather than at the last character.
-set number                " Print the line number in front of each line.
-set relativenumber        " Show the line number relative to the line with the cursor in front of each line.
-if &term !~ 'linux'
-  let &t_SI .= "\e[4 q"   " Start Insert mode (Steady underline cursor).
-  let &t_EI .= "\e[2 q"   " End Insert mode (Otherwise, full-steady block cursor).
-  " let &t_SR .= "\e[4 q"   " Start Replace mode (Same as Insert mode).
-else
-  " TODO: How does it work?
-  " let &t_ve = "\e[?25h"
-  " let &t_vi = "\e[?25l"
-  " let &t_SI = "\e[?0c"
-  " let &t_EI = "\e[?16;143;255c"
-endif
 if &term =~ 'st'
-  set background=dark     " Because vim will not use dark-background theme in st.
+	set background=dark   " Vim will not use dark-background theme in st.
 endif
+if &term !~ 'linux'
+	let &t_SI .= "\e[4 q" " Start Insert mode (Steady underline cursor).
+	let &t_EI .= "\e[2 q" " End Insert mode (Otherwise, full-steady block cursor).
+else
+	" TODO: How does it work?
+	let &t_ve = "\e[?25h"
+	let &t_vi = "\e[?25l"
+	let &t_SI = "\e[?0c"
+	let &t_EI = "\e[?16;143;255c"
+endif
+set splitbelow          " When on, splitting a window will put the new window below the current one.
+set number              " Print the line number in front of each line.
+set relativenumber      " Show the line number relative to the line with the cursor in front of each line.
 
 " Cmdlines {{{2
-set path=.,,$VIMHOME/**   " It's must be somewhere in there. Find it!
+set path=.,,$VIMHOME/** " It's here. Go get it!
 
 " Miscellany {{{2
-set nojoinspaces          " Insert two spaces after a '.', '?' and '!' with a join command.
-set hidden                " Possibility to have more than one unsaved buffers.
-set mouse&                " I don't like mouse setting in defaults.vim.
-packadd! matchit          " Improved '%' will jump to matching HTML tags, if/else/endif in Vim scripts, etc.
+set nojoinspaces        " Insert two spaces after a '.', '?' and '!' with a join command.
+set hidden              " Possibility to have more than one unsaved buffers.
+set mouse&              " I don't like mouse setting in defaults.vim.
+packadd! matchit        " Improved '%' will jump to matching HTML tags, if/else/endif in Vim scripts, etc.
 
 " Mappings {{{1
-" Note: Only in a mapping, the special <SID> prefix is actually necessary.
-
 " Start interactive EasyAlign in visual mode.
 xmap <silent> gla <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object.
@@ -88,7 +83,7 @@ nmap glcc <Plug>TCmtLine
 
 "" Auto delete adjacent pairs.
 "noremap! <expr> <BS> pairs#IsAdjacentPairs () ? '<Del><BS>' : '<BS>'
-" End maintaining }}}
+" End maintaining }}}2
 
 " A better [S-]Tab.
 inoremap <expr> <Tab>   pairs#IsMatchOnLHS ('\k$') ? '<C-N>' : '<Tab>'
@@ -113,26 +108,26 @@ nnoremap glfs :%s///gc<Left><Left><Left>
 " Edit vimrc in new tab.
 nnoremap glvv :tabedit $VIMHOME/vimrc<CR>
 
-" Plugin extras {{{1
+" Plugin-extras {{{1
 " Easy-align {{{2
 if !exists('g:easy_align_delimiters')
-  let g:easy_align_delimiters = {}
+	let g:easy_align_delimiters = {}
 endif
 
 " Align variable definitions by name. Just "glaipd" then "glaip=".
 let g:easy_align_delimiters['d'] = {
-\ 'pattern': '\(const\|static\|unsigned\)\@<! ',
-\ 'left_margin': 0, 'right_margin': 0
-\ }
+			\ 'pattern': '\(const\|static\|unsigned\)\@<! ',
+			\ 'left_margin': 0, 'right_margin': 0
+			\ }
 
 " Autocommands {{{1
 augroup Templates " {{{2
-  autocmd!
-  " Read and parse template which have the same name in t$VIMHOME/tmplts.
-  autocmd BufNewFile ?\+ call tmplts#LoadTemplate (expand ('<afile>:p:t'))
-  " Read and parse template according file extension.
-  autocmd BufNewFile ?\+ call tmplts#LoadTemplate ('skeleton.' . expand ('<afile>:p:e'))
-  " Start insert mode at the end of line containing 'Description: '.
-  autocmd BufNewFile main.c call tmplts#AddFileDescription ()
+	autocmd!
+	" Read and parse template which have the same name in t$VIMHOME/tmplts.
+	autocmd BufNewFile ?\+ call tmplts#LoadTemplate (expand ('<afile>:p:t'))
+	" Read and parse template according file extension.
+	autocmd BufNewFile ?\+ call tmplts#LoadTemplate ('skeleton.' . expand ('<afile>:p:e'))
+	" Start insert mode at the end of line containing 'Description: '.
+	autocmd BufNewFile main.c call tmplts#AddFileDescription ()
 augroup END
 
