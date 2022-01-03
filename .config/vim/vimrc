@@ -25,9 +25,7 @@ let &g:packpath = &g:runtimepath
 
 " TODO: Test tab indentation and space alignment.
 " Indentations {{{2
-set shiftwidth=2          " Number of spaces to use for each step of (auto)indent.
-set softtabstop=2         " Virtual tab stop instead of 8-wide tabs.
-set expandtab             " Don't use tabs for indentation. Spaces are nicer to work with.
+" TODO: Indent with tabs, align with spaces.
 
 " Displays {{{2
 set splitbelow            " When on, splitting a window will put the new window below the current one.
