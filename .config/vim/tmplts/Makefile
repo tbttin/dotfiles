@@ -4,17 +4,17 @@ DBGCFLAGS     += -g -DDEBUGGING
 OUTPUT_OPTION += -MMD -MP -MF $(dep_dir)/$*.d -o $(obj_dir)/$*.o
 MAKEFLAGS     += --no-builtin-rules --no-builtin-variables
 
-src_dir       := $(CURDIR)/src
-obj_dir       := $(CURDIR)/obj
-bin_dir       := $(CURDIR)/bin
-dep_dir       := $(CURDIR)/.deps
-dirs          := $(obj_dir) $(bin_dir) $(dep_dir)
-prog          := $(bin_dir)/prog
-rm            := rm -rf
-mkdir         := mkdir -p
-tags          := ctags $(src_dir)/*.{h,c}
-sources       := $(wildcard $(src_dir)/*.c)
-objs          := $(patsubst $(src_dir)/%.c,$(obj_dir)/%.o,$(sources))
+src_dir := $(CURDIR)/src
+obj_dir := $(CURDIR)/obj
+bin_dir := $(CURDIR)/bin
+dep_dir := $(CURDIR)/.deps
+dirs    := $(obj_dir) $(bin_dir) $(dep_dir)
+prog    := $(bin_dir)/prog
+rm      := rm -rf
+mkdir   := mkdir -p
+tags    := ctags $(src_dir)/*.{h,c}
+sources := $(wildcard $(src_dir)/*.c)
+objs    := $(patsubst $(src_dir)/%.c,$(obj_dir)/%.o,$(sources))
 
 all: $(prog) tags
 
