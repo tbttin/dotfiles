@@ -64,6 +64,7 @@ alias cfap='config add --patch'
 alias cfc='config commit --verbose'
 alias cfl='config log'
 alias cfp='config push'
+alias cfr='config restore --staged'
 
 # For the sake of videos and movies.
 # Do not print copyright, build options and versions; set seek_interval to 3, start in fullscreen mode.
