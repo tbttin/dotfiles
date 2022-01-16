@@ -4,14 +4,14 @@ DBGCFLAGS     += -g -DDEBUGGING
 OUTPUT_OPTION  = -MMD -MP -MF $(dep_dir)/$*.d -o $(obj_dir)/$*.o
 MAKEFLAGS     += --no-builtin-rules --no-builtin-variables
 
-src_dir := $(CURDIR)/src
-obj_dir := $(CURDIR)/obj
-bin_dir := $(CURDIR)/bin
-dep_dir := $(CURDIR)/.deps
-dirs    := $(obj_dir) $(bin_dir) $(dep_dir)
-prog    := $(bin_dir)/prog
-rm      := rm -rf
-mkdir   := mkdir -p
+src_dir := src
+bld_dir := build
+obj_dir := $(bld_dir)/obj
+dep_dir := $(bld_dir)/dep
+dirs    := $(obj_dir) $(dep_dir)
+prog    := $(bld_dir)/prog
+rm      := rm --recursive --force --
+mkdir   := mkdir --parents
 tags    := ctags $(src_dir)/*.{h,c}
 sources := $(wildcard $(src_dir)/*.c)
 objs    := $(patsubst $(src_dir)/%.c,$(obj_dir)/%.o,$(sources))
@@ -23,7 +23,11 @@ debug: CFLAGS += $(DBGCFLAGS)
 debug: all
 
 clean:
-	$(rm) $(dirs)
+	$(rm) $(bld_dir)/
+clean-obj:
+	$(rm) $(bld_obj)/
+clean-dep:
+	$(rm) $(bld_dep)/
 
 run:
 	@$(prog)
@@ -31,7 +35,7 @@ run:
 tags:
 	@$(tags)
 
-$(prog): $(objs) | $(bin_dir)
+$(prog): $(objs)
 	$(CC) $^ -o $@
 
 $(obj_dir)/%.o $(dep_dir)/%.d&: $(src_dir)/%.c | $(obj_dir) $(dep_dir)
@@ -54,7 +58,7 @@ ifeq ($(filter-out all,$(MAKECMDGOALS)),)
 -include $(patsubst $(src_dir)/%.c,$(dep_dir)/%.d,$(sources))
 endif
 
-.PHONY: all debug clean run tags
+.PHONY: all debug clean clean-obj clean-dep run tags
 
 # Expansion of a deferred construct part is delayed until the expansion is used: either when it is referenced in an immediate context,
 # or when it is needed during the second phase.
