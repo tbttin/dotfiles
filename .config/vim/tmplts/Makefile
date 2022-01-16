@@ -30,7 +30,7 @@ clean-dep:
 	$(rm) $(bld_dep)/
 
 run:
-	@$(prog)
+	@$(prog) $(RUN_ARGS)
 
 tags:
 	@$(tags)
@@ -44,10 +44,17 @@ $(obj_dir)/%.o $(dep_dir)/%.d&: $(src_dir)/%.c | $(obj_dir) $(dep_dir)
 $(dirs):
 	@$(mkdir) $@
 
+# If the first argument is "run"...
+ifeq (run,$(firstword $(MAKECMDGOALS)))
+# use the rest as arguments for "run"
+RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+# ...and turn them into do-nothing targets
+$(eval $(RUN_ARGS):;@:)
+endif
+
+# Debugging
 # $(warning warn: '$(filter-out all,$(MAKECMDGOALS))')
-# TODO:
-# 	- Fix: make clean && make "invalid target".
-# 	- make mul ti tar get
+
 # If the make goal is irrelevant don't include dependency files.
 ifeq ($(filter-out all,$(MAKECMDGOALS)),)
 # If an included makefile cannot be found in any of include directories, a warning message is generated,
