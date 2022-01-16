@@ -44,7 +44,7 @@ export INPUTRC="${HOME}/.config/readline/inputrc"
 # X xinitrc to config dir.
 # Note that these variables are respected by xinit, but not by startx.
 # Instead, specify the filename as an argument:
-  # startx "${HOME}/.config/X11/xinitrc" -- "${HOME}/.config/X11/xserverrc" vt1
+#   startx "${HOME}/.config/X11/xinitrc" -- "${HOME}/.config/X11/xserverrc" vt1
 export XINITRC="${HOME}/.config/X11/xinitrc"
 #export XSERVERRC="${HOME}/.config/X11/xserverrc"
 
@@ -60,6 +60,6 @@ export XINITRC="${HOME}/.config/X11/xinitrc"
 # in text-mode sessions (by /bin/login).
 # If you would like to remain logged in when the X session ends, remove exec.
 if /usr/bin/systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-  startx # startx is an alias, xinitrc is included.
+	startx # startx is an alias, xinitrc is included.
 fi
 
