@@ -1,5 +1,5 @@
 CC            := cc
-CFLAGS        += -std=c17 -pedantic -Wall -Wextra -O2 -Wshadow -Wconversion -Wstrict-overflow=5 -Wformat=2 -Wfloat-equal
+CFLAGS        += -pedantic -Wall -Wextra -O2 -Wshadow -Wconversion -Wstrict-overflow=5 -Wformat=2 -Wfloat-equal
 DBGCFLAGS     += -g -DDEBUGGING
 OUTPUT_OPTION  = -MMD -MP -MF $(dep_dir)/$*.d -o $(obj_dir)/$*.o
 MAKEFLAGS     += --no-builtin-rules --no-builtin-variables
