@@ -19,7 +19,6 @@ setlocal preserveindent
 setlocal cinoptions+=(0,u0,U0
 
 " Miscellany {{{2
-" setlocal textwidth=79
 setlocal formatprg=/usr/bin/indent                           " GNU indent formator.
 setlocal path=.,/usr/include,**,$VIMHOME/**                  " Current file's dir ('%:p:h'), sys include, $PWD then $VIMHOME.
 setlocal showfulltag                                         " Show function name + template in auto completion pop-up menu.
