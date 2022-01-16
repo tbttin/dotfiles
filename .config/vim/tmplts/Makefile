@@ -38,7 +38,7 @@ tags:
 $(prog): $(objs)
 	$(CC) $^ -o $@
 
-$(obj_dir)/%.o $(dep_dir)/%.d&: $(src_dir)/%.c | $(obj_dir) $(dep_dir)
+$(obj_dir)/%.o $(dep_dir)/%.d &: $(src_dir)/%.c | $(obj_dir) $(dep_dir)
 	$(CC) $(CFLAGS) $(OUTPUT_OPTION) -c $<
 
 $(dirs):
@@ -52,9 +52,6 @@ RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 $(eval $(RUN_ARGS):;@:)
 endif
 
-# Debugging
-# $(warning warn: '$(filter-out all,$(MAKECMDGOALS))')
-
 # If the make goal is irrelevant don't include dependency files.
 ifeq ($(filter-out all,$(MAKECMDGOALS)),)
 # If an included makefile cannot be found in any of include directories, a warning message is generated,
@@ -66,6 +63,9 @@ ifeq ($(filter-out all,$(MAKECMDGOALS)),)
 endif
 
 .PHONY: all debug clean clean-obj clean-dep run tags
+
+# Debugging
+# $(warning warn: '$(filter-out all,$(MAKECMDGOALS))')
 
 # Expansion of a deferred construct part is delayed until the expansion is used: either when it is referenced in an immediate context,
 # or when it is needed during the second phase.
