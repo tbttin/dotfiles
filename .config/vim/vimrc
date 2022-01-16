@@ -27,6 +27,7 @@ let &g:packpath = &g:runtimepath
 " TODO: Indent with tabs, align with spaces.
 
 " Displays {{{2
+set textwidth=79                           " A long line will be broken after white space to get this width.
 set splitbelow                             " When on, splitting a window will put the new window below the current one.
 set number                                 " Print the line number in front of each line.
 set relativenumber                         " Show the line number relative to the line with the cursor in front of each line.
