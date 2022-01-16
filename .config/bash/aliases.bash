@@ -62,7 +62,6 @@ alias cfa='config add'
 alias cfc='config commit --verbose'
 alias cfl='config log'
 alias cfp='config push'
-alias cfw='config switch -'
 
 # For the sake of videos and movies.
 # Do not print copyright, build options and versions; set seek_interval to 3, start in fullscreen mode.
