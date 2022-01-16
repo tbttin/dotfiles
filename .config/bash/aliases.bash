@@ -34,6 +34,8 @@ alias vx='/usr/bin/vim ${XINITRC}'
 alias vz='/usr/bin/vim ${HOME}/.config/zathura/zathurarc'
 # Makefie template.
 alias vm='/usr/bin/vim ${HOME}/.config/vim/tmplts/Makefile'
+# Run with args quickly.
+alias r='/usr/bin/make run --'
 
 # Adding colors.
 alias ls='/usr/bin/ls --color=auto'
