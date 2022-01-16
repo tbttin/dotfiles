@@ -55,16 +55,17 @@ alias spo='/usr/bin/systemctl poweroff -i'
 
 # Bare git dotfiles aliases.
 alias config='/usr/bin/git --work-tree=${HOME} --git-dir=${HOME}/.config/dotfiles/'
-alias cfs='config status'
-alias cfd='config diff'
-alias cfds='config diff --staged'
-alias cfdt='config difftool'
 alias cfa='config add'
 alias cfap='config add --patch'
 alias cfc='config commit --verbose'
+alias cfd='config diff'
+alias cfds='config diff --staged'
+alias cfdt='config difftool'
 alias cfl='config log'
 alias cfp='config push'
-alias cfr='config restore --staged'
+alias cfr='config restore'
+alias cfrs='config restore --staged'
+alias cfs='config status'
 
 # For the sake of videos and movies.
 # Do not print copyright, build options and versions; set seek_interval to 3, start in fullscreen mode.
