@@ -24,7 +24,6 @@ setlocal foldnestmax=1                                       " Just function bod
 setlocal formatprg=/usr/bin/indent                           " GNU indent formator.
 setlocal path=.,/usr/include,**,$VIMHOME/**                  " Current file's dir ('%:p:h'), sys include, $PWD then $VIMHOME.
 setlocal showfulltag                                         " Show function name + template in auto completion pop-up menu.
-setlocal makeprg=/usr/bin/make\ -C\ ..                       " Usually $PWD = project/src
 setlocal tags+=./tags;$HOME/projects/c,tags;$HOME/projects/c " Upward search for tags file recursively.
 
 " Plugins {{{1
@@ -45,9 +44,10 @@ inoremap <buffer> /* /*  */<C-G>U<Left><Left><Left>
 " Build.
 nnoremap <buffer> glmb :wall \| make! \| cwindow<CR>
 " Debug with terminal debug plugin.
-nnoremap <buffer> glmd :wall \| make debug \| Termdebug ../bin/prog<CR>
+nnoremap <buffer> glmd :wall \| make debug \| Termdebug build/prog<CR>
 " Make clean after clear terminal screen.
 nnoremap <buffer> glmc :!clear<CR>:make clean<CR>
 " Run.
+" !make run -- --args
 nnoremap <buffer> glmr :make run<CR>
 
