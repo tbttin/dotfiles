@@ -18,6 +18,7 @@ objs    := $(patsubst $(src_dir)/%.c,$(obj_dir)/%.o,$(sources))
 
 all: $(prog) tags
 
+# Threading?
 debug: clean
 debug: CFLAGS += $(DBGCFLAGS)
 debug: all
@@ -29,7 +30,7 @@ clean-obj:
 clean-dep:
 	$(rm) $(bld_dep)/
 
-run:
+run: $(prog)
 	@$(prog) $(RUN_ARGS)
 
 tags:
