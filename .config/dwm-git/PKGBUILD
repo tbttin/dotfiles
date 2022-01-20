@@ -43,20 +43,21 @@ pkgver() {
 
 prepare() {
 	cd "${_pkgname}"
-	if [ -f "${srcdir}/config.h" ]; then
+	if [ -f "${srcdir}/config.h" ]
+	then
 		cp --force --verbose "${srcdir}/config.h" .
 	fi
-	local patch
-	for patch in ${_patches[@]##*/}; do
-		echo "Applying ${patch}..."
-		patch --silent --input="${srcdir}/${patch}"
-		# git apply "${srcdir}/${patch}"
+	local patch_file
+	for patch_file in ${_patches[@]##*/}
+	do
+		echo "Applying ${patch_file}..."
+		patch --silent --input="${srcdir}/${patch_file}"
 	done
 }
 
 build() {
 	cd "${_pkgname}"
-	# Use some flags in default makepkg.conf
+	# Use system flags in /etc/makepkg.conf
 	sed --in-place 's/^\(CFLAGS *\)=/\1+=/g' config.mk
 	sed --in-place 's/^\(LDFLAGS *\)=/\1+=/g' config.mk
 	make \
