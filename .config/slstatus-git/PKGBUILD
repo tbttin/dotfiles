@@ -54,6 +54,9 @@ build() {
 	# Don't build unused components.
 	local rm_comps='battery|disk|entropy|hostname|ip|kernel_release|keyboard_indicators|keymap|num_files|run_command|separator|swap|uptime|user|volume'
 	sed --regexp-extended --in-place "/^[[:space:]]*components\/(${rm_comps})/d" Makefile
+	# Use system flags in /etc/makepkg.conf
+	sed --in-place 's/^\(CFLAGS *\)=/\1+=/g' config.mk
+	sed --in-place 's/^\(LDFLAGS *\)=/\1+=/g' config.mk
 	make \
 		X11INC=/usr/include/X11 \
 		X11LIB=/usr/lib/X11
