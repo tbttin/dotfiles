@@ -13,55 +13,58 @@ makedepends=('git')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 _patches=(
-  'slstatus-rm-trailing-space-in-netspeeds-20201104-b14e039.diff'
+	'slstatus-rm-trailing-space-in-netspeeds-20201104-b14e039.diff'
 )
 source=(
-  "git+https://git.suckless.org/${_pkgname}"
-  'config.h'
-  ${_patches[@]}
+	"git+https://git.suckless.org/${_pkgname}"
+	'config.h'
+	${_patches[@]}
 )
 sha256sums=(
-  'SKIP'
-  'SKIP'
-  'fabbb1a14e86f3309cf03f45f6043b525ca1c49cf383e7fbc36420f19260e797'
+	'SKIP'
+	'SKIP'
+	'fabbb1a14e86f3309cf03f45f6043b525ca1c49cf383e7fbc36420f19260e797'
 )
 
 pkgver() {
-  cd "${_pkgname}"
-  (
-  set -o pipefail
-  git describe --long 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
-    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
-  )
+	cd "${_pkgname}"
+	(
+	set -o pipefail
+	git describe --long 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
+		printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+	)
 }
 
 prepare() {
-  cd "${_pkgname}"
-  if [ -f "${srcdir}/config.h" ]; then
-    cp --force --verbose "${srcdir}/config.h" .
-  fi
-  local patch
-  for patch in ${_patches[@]##*/}; do
-    echo "Applying ${patch} patch..."
-    patch --silent --input="${srcdir}/${patch}"
-  done
+	cd "${_pkgname}"
+	if [ -f "${srcdir}/config.h" ]
+	then
+		cp --force --verbose "${srcdir}/config.h" .
+	fi
+	local patch_file
+	for patch_file in ${_patches[@]##*/}
+	do
+		echo "Applying ${patch_file}..."
+		patch --silent --input="${srcdir}/${patch_file}"
+	done
 }
 
 build() {
-  cd "${_pkgname}"
-  local comps="battery|disk|entropy|hostname|ip|kernel_release|keyboard_indicators|keymap|num_files|run_command|separator|swap|uptime|user|volume"
-  sed --regexp-extended --in-place "/^[[:space:]]*components\/(${comps})/d" Makefile
-  make \
-    X11INC=/usr/include/X11 \
-    X11LIB=/usr/lib/X11
+	cd "${_pkgname}"
+	# Don't build unused components.
+	local rm_comps='battery|disk|entropy|hostname|ip|kernel_release|keyboard_indicators|keymap|num_files|run_command|separator|swap|uptime|user|volume'
+	sed --regexp-extended --in-place "/^[[:space:]]*components\/(${rm_comps})/d" Makefile
+	make \
+		X11INC=/usr/include/X11 \
+		X11LIB=/usr/lib/X11
 }
 
 package() {
-  cd "${_pkgname}"
-  make DESTDIR="${pkgdir}" PREFIX='/usr' install
-  local ins_opts='-D --mode=644'
-  install ${ins_opts} LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-  install ${ins_opts} README  "${pkgdir}/usr/share/doc/${pkgname}/README"
+	cd "${_pkgname}"
+	make DESTDIR="${pkgdir}" PREFIX='/usr' install
+	local ins_opts='-D --mode=644'
+	install ${ins_opts} LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+	install ${ins_opts} README  "${pkgdir}/usr/share/doc/${pkgname}/README"
 }
 
 # vim: filetype=sh
