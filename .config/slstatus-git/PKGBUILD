@@ -13,7 +13,7 @@ makedepends=('git')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 _patches=(
-	'slstatus-rm-trailing-space-in-netspeeds-20201104-b14e039.diff'
+	'slstatus-rm-netspeeds-trailing-space-20201104-b14e039.diff'
 )
 source=(
 	"git+https://git.suckless.org/${_pkgname}"
