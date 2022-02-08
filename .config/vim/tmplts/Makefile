@@ -49,8 +49,10 @@ $(dirs):
 ifeq (run,$(firstword $(MAKECMDGOALS)))
 # use the rest as arguments for "run"
 RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-# ...and turn them into do-nothing targets
-$(eval $(RUN_ARGS):;@:)
+# ...and turn them into do-nothing targets.
+# Semi colon mean target and recipe are in the same line.
+# The @: is a recipe; the : means do nothing, and the @ means do it silently.
+$(eval $(RUN_ARGS): ; @:)
 endif
 
 # If the make goal is irrelevant don't include dependency files.
