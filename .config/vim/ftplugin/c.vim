@@ -5,25 +5,31 @@ endif
 let b:loaded_ftplugin = 1      " Loaded flag.
 
 " Options {{{1
-" " GNU indentation style (all spaces) {{{2
+
+" Displays {{{2
+setlocal foldmethod=syntax                                   " Fold function body.
+setlocal foldnestmax=1                                       " Just function body; and not if, else, for, ...
+
+" Autocompletions {{{2
+setlocal showfulltag                                         " Show function name + template in auto completion pop-up menu.
+setlocal completeopt-=preview                                " Turn off preview window.
+
+" " Indent with spaces, align with spaces (GNU style) {{{2
 " setlocal expandtab                    " Don't use tabs for indentation. Spaces are nicer to work with.
 " setlocal shiftwidth=2                 " Number of spaces to use for each step of (auto)indent.
 " setlocal softtabstop=2                " Virtual tab stop instead of 8-wide tabs.
 " setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0,h2,p5,t0,+2,(0,u0,w1,m1
 
 " Indent with tabs, align with spaces {{{2
+" setlocal tabstop=4
+" setlocal shiftwidth=4
 setlocal copyindent
 setlocal preserveindent
-" setlocal shiftwidth=4
-" setlocal tabstop=4
-setlocal cinoptions+=(0,u0,U0
+setlocal cinoptions+=(0,u0,U0,t0,l1
 
 " Miscellany {{{2
-setlocal foldmethod=syntax                                   " Fold function body.
-setlocal foldnestmax=1                                       " Just function body; and not if, else, for, ...
 setlocal formatprg=/usr/bin/indent                           " GNU indent formator.
 setlocal path=.,/usr/include,**,$VIMHOME/**                  " Current file's dir ('%:p:h'), sys include, $PWD then $VIMHOME.
-setlocal showfulltag                                         " Show function name + template in auto completion pop-up menu.
 setlocal tags+=./tags;$HOME/projects/c,tags;$HOME/projects/c " Upward search for tags file recursively.
 
 " Plugins {{{1
@@ -49,5 +55,5 @@ nnoremap <buffer> glmd :wall \| make debug \| Termdebug build/prog<CR>
 nnoremap <buffer> glmc :!clear<CR>:make clean<CR>
 " Run.
 " !make run -- --args
-nnoremap <buffer> glmr :make run<CR>
+nnoremap <buffer> glmr :cclose \| make run<CR>
 
