@@ -63,16 +63,6 @@ set mouse&                                 " I don't like mouse setting in defau
 packadd! matchit                           " Improved '%' will jump to matching HTML tags, if/else/endif in Vim scripts, etc.
 
 " Mappings {{{1
-" Start interactive EasyAlign in visual mode.
-xmap <silent> gla <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object.
-nmap <silent> gla <Plug>(EasyAlign)
-
-" Mappings for TCmt plugin.
-nmap glc  <Plug>TCmt
-xmap glc  <Plug>TCmt
-nmap glcc <Plug>TCmtLine
-
 " Maintaining {{{2
 "" Basic pairs auto completions.
 "inoremap <expr> " pairs#IsMatchOnLHS ('\v(^\s*$)\|(\S$)') ? '"' : '""<C-G>U<Left>'
@@ -117,7 +107,18 @@ nnoremap glfs :%s///gc<Left><Left><Left>
 " Edit vimrc in new tab.
 nnoremap glvv :tabedit $VIMHOME/vimrc<CR>
 
-" Plugin-extras {{{1
+" Plugins {{{1
+" EasyAlign {{{2
+" Start interactive EasyAlign in visual mode.
+xmap <silent> gla <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object.
+nmap <silent> gla <Plug>(EasyAlign)
+
+" TCmt {{{2
+nmap glc  <Plug>TCmt
+xmap glc  <Plug>TCmt
+nmap glcc <Plug>TCmtLine
+
 " Easy-align {{{2
 if !exists('g:easy_align_delimiters')
 	let g:easy_align_delimiters = {}
