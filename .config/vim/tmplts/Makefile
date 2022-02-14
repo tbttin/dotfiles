@@ -1,5 +1,5 @@
 CC            := cc
-CFLAGS        += -pedantic -Wall -Wextra -O2 -Wshadow -Wconversion -Wstrict-overflow=5 -Wformat=2 -Wfloat-equal
+CFLAGS        += -pedantic -Wall -Wextra -O3 -Wshadow -Wconversion -Wstrict-overflow=5 -Wformat=2 -Wfloat-equal
 DBGCFLAGS     += -g -DDEBUGGING
 OUTPUT_OPTION  = -MMD -MP -MF $(dep_dir)/$*.d -o $(obj_dir)/$*.o
 MAKEFLAGS     += --no-builtin-rules --no-builtin-variables
@@ -16,19 +16,19 @@ tags    := ctags $(src_dir)/*.{h,c}
 sources := $(wildcard $(src_dir)/*.c)
 objs    := $(patsubst $(src_dir)/%.c,$(obj_dir)/%.o,$(sources))
 
-all: $(prog) tags
+all: tags $(prog)
 
-# Threading?
+# Threads?
 debug: clean
 debug: CFLAGS += $(DBGCFLAGS)
 debug: all
 
 clean:
-	$(rm) $(bld_dir)/
+	$(rm) tags $(bld_dir)/
 clean-obj:
-	$(rm) $(bld_obj)/
+	$(rm) $(obj_dir)/
 clean-dep:
-	$(rm) $(bld_dep)/
+	$(rm) $(dep_dir)/
 
 run: $(prog)
 	@$(prog) $(RUN_ARGS)
