@@ -16,3 +16,4 @@
 	l = log
 	d = diff
 	sw = switch
+	co = checkout
