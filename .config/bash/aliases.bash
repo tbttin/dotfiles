@@ -39,8 +39,8 @@ alias r='/usr/bin/make run --'
 
 # Adding colors.
 alias ls='/usr/bin/ls --color=auto'
-alias ll='ls -lh'
-alias la='ll -a'
+alias la='ls --all'
+alias ll='ls -l --all --human-readable'
 alias grep='/usr/bin/grep --color=auto'
 alias ip='/usr/bin/ip -color=auto'
 alias diff='/usr/bin/diff --color=auto'
