@@ -21,7 +21,12 @@ set viewdir=$VIMDATA/view                     | call mkdir (&g:viewdir, 'p', 070
 exe 'let g:netrw_home = $VIMDATA .. "/netrw"' | call mkdir (g:netrw_home, 'p', 0700)
 set viminfo+=n$VIMDATA/viminfo
 set runtimepath=$VIMHOME,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$VIMHOME/after
-let &g:packpath = &g:runtimepath
+let &packpath = &runtimepath
+
+" Backup {{{2
+" TODO: Learn this!
+set backup
+set undofile
 
 " Indentations {{{2
 " TODO: Indent with tabs, align with spaces.
