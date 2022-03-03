@@ -1,14 +1,15 @@
-This is just a bare reppository of my $HOME. It indludes some configuration files (default on Bash and Arch Linux):
+This is a bare repository of my $HOME. Yeah, I choose git bare method to store dotfiles because it's simple.
+This repo contains some personal configuration files (default on Arch Linux) for:
   - Vim
-  - Suckless programs: dwm, st, slstatus.
-  - Makepkg and suckless program's PKGBUILD.
+  - Suckless programs: dwm, st, slstatus, ...
+  - Makepkg and some suckless's PKGBUILDs.
   - Bash
   - Zathura
   - Some X related config files.
   - Git
   - ...
 
-We have many way to store config files, this durdn's tutorial [How to store dotfiles?](https://www.atlassian.com/git/tutorials/dotfiles) is a good introduction to using git to manage dotfiles and QUICKLY bring them back with a single-line of command.
+[This durdn's tutorial](https://www.atlassian.com/git/tutorials/dotfiles) brought me here D)
 
 Have fun!
 
