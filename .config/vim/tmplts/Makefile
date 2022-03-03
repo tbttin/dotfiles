@@ -1,4 +1,4 @@
-CC            := cc
+CC            := /usr/bin/cc
 CFLAGS        += -pedantic -Wall -Wextra -O3 -Wshadow -Wconversion -Wstrict-overflow=5 -Wformat=2 -Wfloat-equal
 DBGCFLAGS     += -g -DDEBUGGING
 OUTPUT_OPTION  = -MMD -MP -MF $(dep_dir)/$*.d -o $(obj_dir)/$*.o
@@ -8,13 +8,13 @@ src_dir := src
 bld_dir := build
 obj_dir := $(bld_dir)/obj
 dep_dir := $(bld_dir)/dep
-dirs    := $(obj_dir) $(dep_dir)
-prog    := $(bld_dir)/prog
-rm      := rm --recursive --force --
-mkdir   := mkdir --parents
-tags    := ctags $(src_dir)/*.{h,c}
 sources := $(wildcard $(src_dir)/*.c)
 objs    := $(patsubst $(src_dir)/%.c,$(obj_dir)/%.o,$(sources))
+prog    := $(bld_dir)/prog
+dirs    := $(obj_dir) $(dep_dir)
+rm      := /usr/bin/rm --recursive --force --
+mkdir   := /usr/bin/mkdir --parents --
+tags    := /usr/bin/ctags $(src_dir)/*.{h,c}
 
 all: tags $(prog)
 
@@ -22,6 +22,18 @@ all: tags $(prog)
 debug: clean
 debug: CFLAGS += $(DBGCFLAGS)
 debug: all
+
+$(prog): $(objs)
+	$(CC) $^ -o $@
+
+$(obj_dir)/%.o $(dep_dir)/%.d &: $(src_dir)/%.c | $(dirs)
+	$(CC) $(CFLAGS) $(OUTPUT_OPTION) -c $<
+
+$(dirs):
+	@$(mkdir) $@
+
+tags:
+	@$(tags)
 
 clean:
 	$(rm) tags $(bld_dir)/
@@ -32,18 +44,6 @@ clean-dep:
 
 run: $(prog)
 	@$(prog) $(RUN_ARGS)
-
-tags:
-	@$(tags)
-
-$(prog): $(objs)
-	$(CC) $^ -o $@
-
-$(obj_dir)/%.o $(dep_dir)/%.d &: $(src_dir)/%.c | $(obj_dir) $(dep_dir)
-	$(CC) $(CFLAGS) $(OUTPUT_OPTION) -c $<
-
-$(dirs):
-	@$(mkdir) $@
 
 # If the first argument is "run"...
 ifeq (run,$(firstword $(MAKECMDGOALS)))
@@ -69,6 +69,7 @@ endif
 
 # Debugging
 # $(warning warn: '$(filter-out all,$(MAKECMDGOALS))')
+# $(info info: 'bla blah')
 
 # Expansion of a deferred construct part is delayed until the expansion is used: either when it is referenced in an immediate context,
 # or when it is needed during the second phase.
