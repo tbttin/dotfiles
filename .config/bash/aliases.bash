@@ -11,6 +11,7 @@ xdg_prj_dir="$(/usr/bin/xdg-user-dir PROJECTS)"
 alias j="cd ${xdg_prj_dir}/"
 alias v="cd $(/usr/bin/xdg-user-dir VIDEOS)/"
 alias jc="cd ${xdg_prj_dir}/c/"
+alias jn="cd ${xdg_prj_dir}/notes/"
 alias jv="cd ${xdg_prj_dir}/vim/"
 unset xdg_prj_dir
 
@@ -34,7 +35,7 @@ alias vx='/usr/bin/vim ${XINITRC}'
 alias vz='/usr/bin/vim ${HOME}/.config/zathura/zathurarc'
 # Makefie template.
 alias vm='/usr/bin/vim ${HOME}/.config/vim/tmplts/Makefile'
-# Run with args quickly.
+# Makefile: run with args quickly.
 alias r='/usr/bin/make run --'
 
 # Adding colors.
@@ -57,7 +58,7 @@ alias spo='/usr/bin/systemctl poweroff -i'
 alias config='/usr/bin/git --work-tree=${HOME} --git-dir=${HOME}/.config/dotfiles/'
 alias cfa='config add'
 alias cfap='config add --patch'
-alias cfc='config commit --verbose'
+alias cfc='config c'
 alias cfd='config diff'
 alias cfdi='config diff --staged'
 alias cfdt='config difftool'
