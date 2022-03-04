@@ -9,19 +9,18 @@ alias l="cd $(/usr/bin/xdg-user-dir DOWNLOAD)/"
 alias p="cd $(/usr/bin/xdg-user-dir PICTURES)/"
 xdg_prj_dir="$(/usr/bin/xdg-user-dir PROJECTS)"
 alias j="cd ${xdg_prj_dir}/"
-alias v="cd $(/usr/bin/xdg-user-dir VIDEOS)/"
 alias jc="cd ${xdg_prj_dir}/c/"
 alias jn="cd ${xdg_prj_dir}/notes/"
 alias jv="cd ${xdg_prj_dir}/vim/"
-unset xdg_prj_dir
+alias v="cd $(/usr/bin/xdg-user-dir VIDEOS)/"
 
 # Quick open some config files.
 # Bashes.
 alias vb='/usr/bin/vim ~/.bashrc'
 alias vp='/usr/bin/vim ~/.bash_profile'
 alias va='/usr/bin/vim ${HOME}/.config/bash/aliases.bash'
-# Readline.
-alias vn='/usr/bin/vim ${INPUTRC}'
+# Readline's inputrc.
+alias vr='/usr/bin/vim ${INPUTRC}'
 # Dynamic window manager.
 alias vd='/usr/bin/vim ${HOME}/.config/dwm-git/config.h'
 # Suckless terminal.
@@ -35,8 +34,11 @@ alias vx='/usr/bin/vim ${XINITRC}'
 alias vz='/usr/bin/vim ${HOME}/.config/zathura/zathurarc'
 # Makefie template.
 alias vm='/usr/bin/vim ${HOME}/.config/vim/tmplts/Makefile'
-# Makefile: run with args quickly.
+# Makefile: quickly invoke run target with args.
 alias r='/usr/bin/make run --'
+# Take note.
+alias vn="/usr/bin/vim ${xdg_prj_dir}/notes/index.md"
+
 
 # Adding colors.
 alias ls='/usr/bin/ls --color=auto'
@@ -82,6 +84,9 @@ alias type='type -a'
 
 # Shorthand for transmission-remote command.
 alias tmr='transmission-remote'
+
+# Unset local variables.
+unset xdg_prj_dir
 
 # Notes {{{1
 # Aliases are created and listed with the alias command, and removed with the unalias command.
