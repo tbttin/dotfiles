@@ -2,18 +2,18 @@
 	defaultBranch = main
 [user]
 	email = thaibachthanhtin@gmail.com
-	name = Tin Thai
+	name  = Tin Thai
 [diff]
 	tool = vimdiff
 [difftool]
 	prompt = false
 [alias]
-	a = add
-	f = fetch
-	p = push
-	s = status
-	c = commit --verbose
-	l = log
-	d = diff
+	a  = add
+	f  = fetch
+	p  = push
+	s  = status
+	c  = commit --verbose
+	l  = log
+	d  = diff
 	sw = switch
 	co = checkout
