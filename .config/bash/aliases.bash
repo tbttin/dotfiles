@@ -39,6 +39,8 @@ alias r='/usr/bin/make run --'
 # Take note.
 alias vn="/usr/bin/vim ${xdg_prj_dir}/notes/index.md"
 
+# Unset local variables.
+unset xdg_prj_dir
 
 # Adding colors.
 alias ls='/usr/bin/ls --color=auto'
@@ -60,7 +62,7 @@ alias spo='/usr/bin/systemctl poweroff -i'
 alias config='/usr/bin/git --work-tree=${HOME} --git-dir=${HOME}/.config/dotfiles/'
 alias cfa='config add'
 alias cfap='config add --patch'
-alias cfc='config c'
+alias cfc='config commit'
 alias cfd='config diff'
 alias cfdi='config diff --staged'
 alias cfdt='config difftool'
@@ -71,7 +73,8 @@ alias cfri='config restore --staged'
 alias cfs='config status'
 
 # For the sake of videos and movies.
-# Do not print copyright, build options and versions; set seek_interval to 3, start in fullscreen mode.
+# Do not print copyright, build options and versions; set seek_interval to 3,
+# start in full-screen mode.
 alias ffplay='/usr/bin/ffplay -hide_banner -nostats -seek_interval 3 -autoexit -fs'
 # Seeking for file infomation.
 alias ffprobe='/usr/bin/ffprobe -hide_banner'
@@ -83,10 +86,7 @@ alias startx="/usr/bin/startx '${XINITRC}'"
 alias type='type -a'
 
 # Shorthand for transmission-remote command.
-alias tmr='transmission-remote'
-
-# Unset local variables.
-unset xdg_prj_dir
+alias tmr='/usr/bin/transmission-remote'
 
 # Notes {{{1
 # Aliases are created and listed with the alias command, and removed with the unalias command.
