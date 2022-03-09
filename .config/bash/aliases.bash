@@ -53,7 +53,7 @@ alias diff='/usr/bin/diff --color=auto'
 # alias um16='/usr/bin/doas /usr/bin/umount /mnt/16g-usb'
 
 # System stuff.
-alias dapm='/usr/bin/doas /usr/bin/pacman'
+alias dpm='/usr/bin/doas /usr/bin/pacman'
 alias spo='/usr/bin/systemctl poweroff -i'
 
 # Bare git dotfiles aliases.
