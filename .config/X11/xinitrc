@@ -16,6 +16,9 @@ mf="${HOME}/.config/X11/xmodmap/xmodmaprc"
 # Suckless terminal.
 /usr/bin/st &
 
+# Transmission daemon
+/usr/bin/transmission-daemon
+
 # Firefox browser.
 /usr/bin/firefox &
 
