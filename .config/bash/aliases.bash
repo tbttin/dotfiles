@@ -49,8 +49,8 @@ alias ip='/usr/bin/ip -color=auto'
 alias diff='/usr/bin/diff --color=auto'
 
 # [U]mount external drives/USBs.
-alias m16='/usr/bin/doas /usr/bin/mount /mnt/16g-usb && cd /mnt/16g-usb'
-alias um16='/usr/bin/doas /usr/bin/umount /mnt/16g-usb'
+# alias m16='/usr/bin/doas /usr/bin/mount /mnt/16g-usb && cd /mnt/16g-usb'
+# alias um16='/usr/bin/doas /usr/bin/umount /mnt/16g-usb'
 
 # System stuff.
 alias dapm='/usr/bin/doas /usr/bin/pacman'
