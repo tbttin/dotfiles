@@ -9,6 +9,7 @@
 	prompt = false
 [alias]
 	a  = add
+	ap = add --patch
 	f  = fetch
 	p  = push
 	s  = status
