@@ -1,3 +1,23 @@
+# Features:
+# - Dependencies tracking.
+# - Clean project structure:
+#   (tree --charset=ascii --dirsfirst)
+#   .
+#   |-- build
+#   |   |-- dep
+#   |   |   |-- main.d
+#   |   |   `-- utils.d
+#   |   |-- obj
+#   |   |   |-- main.o
+#   |   |   `-- utils.o
+#   |   `-- prog
+#   |-- src
+#   |   |-- main.c
+#   |   |-- utils.c
+#   |   `-- utils.h
+#   |-- Makefile
+#   `-- tags
+
 CC            := /usr/bin/cc
 CFLAGS        += -pedantic -Wall -Wextra -O3 -Wshadow -Wconversion -Wstrict-overflow=5 -Wformat=2 -Wfloat-equal
 DBGCFLAGS     += -g -DDEBUGGING
@@ -35,15 +55,15 @@ $(dirs):
 tags:
 	@$(tags)
 
+run: $(prog)
+	@$(prog) $(RUN_ARGS)
+
 clean:
 	$(rm) tags $(bld_dir)/
 clean-obj:
 	$(rm) $(obj_dir)/
 clean-dep:
 	$(rm) $(dep_dir)/
-
-run: $(prog)
-	@$(prog) $(RUN_ARGS)
 
 # If the first argument is "run"...
 ifeq (run,$(firstword $(MAKECMDGOALS)))
@@ -94,3 +114,4 @@ test:
 # 	echo $(MAKEFLAGS)
 # 	$(MAKE) -C src
 # 	make -C src
+
