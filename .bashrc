@@ -78,7 +78,7 @@ ffps()
 		done
 }
 
-# ffplay can not play internal subtitle.
+# ffplay can not display some internal subtitles. Why??
 # Use ffpmeg to extract subtitle in all mkv-files.
 ffms()
 {
@@ -86,7 +86,7 @@ ffms()
 		/usr/bin/sort --zero-terminated |
 		while read -r -d $'\0' mkv_file
 		do
-			/usr/bin/ffmpeg -i "${mkv_file}" "${mkv_file}.srt"
+			/usr/bin/ffmpeg -i "${mkv_file}" "${mkv_file}.ass"
 		done
 }
 
