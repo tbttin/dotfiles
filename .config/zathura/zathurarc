@@ -1,11 +1,25 @@
-# vim: filetype=conf
-
+# No commandline, status bar, scrollbars.
 set guioptions ""
+
+# Default background color.
 set default-bg "#4d503c"
+
+# Font configs.
 set font "monospace nomal 10"
+
+# Clear the search results on abort.
 set abort-clear-search false
+
+# Number of recent files that should be displayed in completion.
 set show-recent 3
+
+# Do not trigger reloads.
 set filemonitor "noop"
+
+# Disable zoom when follow links.
 set link-zoom false
+
+# Display a notification after selecting text.
 # set selection-notification false
-# set first-page-column 1:1
+
+# vim: filetype=conf
