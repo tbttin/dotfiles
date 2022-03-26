@@ -5,6 +5,9 @@ endif
 let b:loaded_ftplugin = 1      " Loaded flag.
 
 " Options {{{1
+setlocal conceallevel=2   " TODO: italics.
+setlocal formatoptions-=l " Auto format in insert mode.
+setlocal autoindent       " For formating and auto wraping.
 setlocal softtabstop=4
 setlocal shiftwidth=4
 
