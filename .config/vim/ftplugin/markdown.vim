@@ -15,5 +15,5 @@ setlocal shiftwidth=4
 " Save and then convert current markdown file into pdf and open in zathura.
 " TODO: make always return 0.
 " nnoremap <buffer> glm :write \| make! \| if !v:shell_error \| execute "!zathura " .. expand('%:p:r:s?notes/?\0output/pdf/?') .. '.pdf' \| endif<CR>
-nnoremap <buffer> glm :write \| make! \| execute "!zathura " .. expand('%:p:r:s?notes/?\0output/pdf/?') .. '.pdf' <CR>
+nnoremap <buffer> glm :write \| make! \| execute "!zathura " .. expand('%:p:r:s?notes/?\0output/pdf/?') .. '.pdf &' <CR>
 
