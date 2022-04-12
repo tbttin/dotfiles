@@ -18,11 +18,13 @@
 #   |-- Makefile
 #   `-- tags
 
-CC            := /usr/bin/cc
+CC            := /usr/bin/gcc
 CFLAGS        += -pedantic -Wall -Wextra -O3 -Wshadow -Wconversion -Wstrict-overflow=5 -Wformat=2 -Wfloat-equal
 DBGCFLAGS     += -g -DDEBUGGING
 OUTPUT_OPTION  = -MMD -MP -MF $(dep_dir)/$*.d -o $(obj_dir)/$*.o
 MAKEFLAGS     += --no-builtin-rules --no-builtin-variables
+COMPILE.c      = $(CC) $(CFLAGS) $(OUTPUT_OPTION) -c
+LINK.c        := $(CC)
 
 src_dir := src
 bld_dir := build
@@ -44,10 +46,10 @@ debug: CFLAGS += $(DBGCFLAGS)
 debug: all
 
 $(prog): $(objs)
-	$(CC) $^ -o $@
+	$(LINK.c) -o $@ $^
 
 $(obj_dir)/%.o $(dep_dir)/%.d &: $(src_dir)/%.c | $(dirs)
-	$(CC) $(CFLAGS) $(OUTPUT_OPTION) -c $<
+	$(COMPILE.c) $<
 
 $(dirs):
 	@$(mkdir) $@
