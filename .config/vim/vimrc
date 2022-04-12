@@ -108,17 +108,12 @@ nnoremap glfs :%s///gc<Left><Left><Left>
 nnoremap glvv :tabedit $VIMHOME/vimrc<CR>
 
 " Plugins {{{1
+
 " Vim.Wiki {{{2
 let g:wiki_root           = '~/projects/notes'
 let g:wiki_filetypes      = ['md']
 let g:wiki_link_extension = '.md'
 let g:wiki_cache_root     = $VIMDATA .. '/wiki.vim'
-
-" EasyAlign {{{2
-" Start interactive EasyAlign in visual mode.
-xmap <silent> gla <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object.
-nmap <silent> gla <Plug>(EasyAlign)
 
 " " TCmt {{{2
 " nmap glc  <Plug>TCmt
@@ -136,6 +131,10 @@ let g:easy_align_delimiters['d'] = {
 			\ 'left_margin': 0, 'right_margin': 0
 			\ }
 
+" Start interactive EasyAlign in visual mode.
+xmap <silent> gla <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object.
+nmap <silent> gla <Plug>(EasyAlign)
 " Autocommands {{{1
 augroup Templates " {{{2
 	autocmd!
