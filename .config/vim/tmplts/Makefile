@@ -31,12 +31,13 @@ bld_dir := build
 obj_dir := $(bld_dir)/obj
 dep_dir := $(bld_dir)/dep
 sources := $(wildcard $(src_dir)/*.c)
+headers := $(wildcard $(src_dir)/*.h)
 objs    := $(patsubst $(src_dir)/%.c,$(obj_dir)/%.o,$(sources))
 prog    := $(bld_dir)/prog
 dirs    := $(obj_dir) $(dep_dir)
 rm      := /usr/bin/rm --recursive --force --
 mkdir   := /usr/bin/mkdir --parents --
-tags    := /usr/bin/ctags $(src_dir)/*.{h,c}
+tags    := /usr/bin/ctags
 
 all: tags $(prog)
 
@@ -55,7 +56,7 @@ $(dirs):
 	@$(mkdir) $@
 
 tags:
-	@$(tags)
+	@$(tags) $(sources) $(headers)
 
 run: $(prog)
 	@$(prog) $(RUN_ARGS)
