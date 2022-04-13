@@ -4,6 +4,3 @@
 [submodule ".config/vim/pack/plugins/start/vim-easy-align"]
 	path = .config/vim/pack/plugins/start/vim-easy-align
 	url = https://github.com/junegunn/vim-easy-align.git
-[submodule ".config/vim/pack/plugins/start/wiki.vim"]
-	path = .config/vim/pack/plugins/start/wiki.vim
-	url = https://github.com/lervag/wiki.vim.git

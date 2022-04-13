@@ -109,12 +109,6 @@ nnoremap glvv :tabedit $VIMHOME/vimrc<CR>
 
 " Plugins {{{1
 
-" Vim.Wiki {{{2
-let g:wiki_root           = '~/projects/notes'
-let g:wiki_filetypes      = ['md']
-let g:wiki_link_extension = '.md'
-let g:wiki_cache_root     = $VIMDATA .. '/wiki.vim'
-
 " " TCmt {{{2
 " nmap glc  <Plug>TCmt
 " xmap glc  <Plug>TCmt
