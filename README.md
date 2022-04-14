@@ -1,15 +1,33 @@
-This is a bare repository of my $HOME. Yeah, I choose git bare method to store dotfiles because it's simple.
-This repo contains some personal configuration files (default on Arch Linux) for:
+# About
+
+This is a bare repository of my `$HOME`. Why git bare? Because it's simple.
+
+This repository contains configuration files (default on Arch Linux) for:
+
   - Vim
+
   - Suckless programs: dwm, st, slstatus, ...
+
   - Makepkg and some suckless's PKGBUILDs.
-  - Bash
-  - Zathura
+
+  - Bash: profile, rc, aliases.
+
+  - Zathura.
+
   - Some X related config files.
-  - Git
+
+  - Git.
+
   - ...
 
-[This durdn's tutorial](https://www.atlassian.com/git/tutorials/dotfiles) brought me here D)
+[This durdn's tutorial](https://www.atlassian.com/git/tutorials/dotfiles)-a
+dotfiles introduction brought me here ;)
 
-Have fun!
+# Installation
+
+I do not recommend this, but here is a way:
+
+```bash
+  curl --silent --location https://git.io/fi.sh | /bin/bash
+```
 
