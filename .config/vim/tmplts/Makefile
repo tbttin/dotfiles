@@ -94,15 +94,6 @@ endif
 # $(warning warn: '$(filter-out all,$(MAKECMDGOALS))')
 # $(info info: 'bla blah')
 
-# Expansion of a deferred construct part is delayed until the expansion is used: either when it is referenced in an immediate context,
-# or when it is needed during the second phase.
-# 	immediate   = deferred
-# 	immediate  ?= deferred
-# 	immediate  := immediate
-# 	immediate ::= immediate
-# 	immediate  += deferred or immediate (depend on left-hand side)
-# 	immediate  != immediate
-
 file_list != find . -name '*.c'
 foo = $(bar)
 bar = $(ugh)
