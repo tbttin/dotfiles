@@ -72,17 +72,17 @@ alias spo='/usr/bin/systemctl poweroff -i'
 
 # Bare git dotfiles aliases.
 alias config='/usr/bin/git --work-tree=${HOME} --git-dir=${HOME}/.config/dotfiles/'
-alias cfa='config add'
-alias cfap='config add --patch'
-alias cfc='config commit --verbose'
-alias cfd='config diff'
-alias cfdi='config diff --staged'
-alias cfdt='config difftool'
-alias cfl='config log --name-only'
-alias cfp='config push'
+alias cfa='config a'
+alias cfap='config ap'
+alias cfc='config c'
+alias cfd='config d'
+alias cfdi='config di'
+alias cfdt='config dt'
+alias cfl='config l'
+alias cfp='config p'
 alias cfr='config restore'
 alias cfri='config restore --staged'
-alias cfs='config status'
+alias cfs='config s'
 
 # Unset local variables.
 unset xdg_prj_dir
