@@ -1,5 +1,5 @@
 # Features:
-# - Dependencies tracking.
+# - Automatically generate and include dependency files.
 # - Clean project structure:
 #   (tree --charset=ascii --dirsfirst)
 #   .
@@ -30,11 +30,11 @@ src_dir := src
 bld_dir := build
 obj_dir := $(bld_dir)/obj
 dep_dir := $(bld_dir)/dep
+prog    := $(bld_dir)/prog
+dirs    := $(bld_dir) $(obj_dir) $(dep_dir)
 sources := $(wildcard $(src_dir)/*.c)
 headers := $(wildcard $(src_dir)/*.h)
 objs    := $(patsubst $(src_dir)/%.c,$(obj_dir)/%.o,$(sources))
-prog    := $(bld_dir)/prog
-dirs    := $(obj_dir) $(dep_dir)
 rm      := /usr/bin/rm --recursive --force --
 mkdir   := /usr/bin/mkdir --parents --
 tags    := /usr/bin/ctags
@@ -72,25 +72,29 @@ clean-dep:
 ifeq (run,$(firstword $(MAKECMDGOALS)))
 # use the rest as arguments for "run"
 RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-# ...and turn them into do-nothing targets.
-# Semi colon mean target and recipe are in the same line.
-# The @: is a recipe; the : means do nothing, and the @ means do it silently.
+# ...and turn them into do-nothing targets:
+#   Semi colon mean target and recipe are in the same line.
+#   The @: is a recipe; the : means do nothing, and the @ means do it silently.
 $(eval $(RUN_ARGS): ; @:)
 endif
 
 # If the make goal is irrelevant don't include dependency files.
 ifeq ($(filter-out all,$(MAKECMDGOALS)),)
-# If an included makefile cannot be found in any of include directories, a warning message is generated,
-# but it is not an immediately fatal error; processing of the makefile containing the include continues.
-# Once it has finished reading makefiles, make will try to remake any that are out of date or don’t exist.
-# See How Makefiles Are Remade. Only after it has tried to find a way to remake a makefile and failed,
-# will make diagnose the missing makefile as a fatal error.
+# If an included makefile cannot be found in any of include directories, a
+# warning message is generated, but it is not an immediately fatal error;
+# processing of the makefile containing the include continues. Once it has
+# finished reading makefiles, make will try to remake any that are out of date
+# or don’t exist. See How Makefiles Are Remade. Only after it has tried to find
+# a way to remake a makefile and failed, will make diagnose the missing
+# makefile as a fatal error.
 -include $(patsubst $(src_dir)/%.c,$(dep_dir)/%.d,$(sources))
 endif
 
 .PHONY: all debug clean clean-obj clean-dep run tags
 
 # Debugging
+# make --print-data-base
+#
 # $(warning warn: '$(filter-out all,$(MAKECMDGOALS))')
 # $(info info: 'bla blah')
 
