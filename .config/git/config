@@ -14,7 +14,9 @@
 	p  = push
 	s  = status
 	c  = commit --verbose
-	l  = log
+	l  = log --name-only
 	d  = diff
+	di = diff --staged
+	dt = difftool
 	sw = switch
 	co = checkout
