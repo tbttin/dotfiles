@@ -15,7 +15,7 @@ alias jn="cd ${xdg_prj_dir}/notes/"
 alias jv="cd ${xdg_prj_dir}/vim/"
 alias v="cd $(/usr/bin/xdg-user-dir VIDEOS)/"
 
-# Quick open some config files.
+# Quick edit some files.
 # Bashes.
 alias vb='/usr/bin/vim ~/.bashrc'
 alias vp='/usr/bin/vim ~/.bash_profile'
@@ -38,7 +38,7 @@ alias vm='/usr/bin/vim ${HOME}/.config/vim/tmplts/Makefile'
 # Makefile: quickly invoke run target with args.
 alias r='/usr/bin/make run --'
 # Take note.
-alias vn="/usr/bin/vim ${xdg_prj_dir}/notes/index.md"
+alias vn="jn && /usr/bin/vim ${xdg_prj_dir}/notes/index.md"
 
 # Adding colors.
 alias ls='/usr/bin/ls --color=auto'
@@ -90,8 +90,8 @@ unset xdg_prj_dir
 # Notes {{{1
 # Aliases are created and listed with the alias command, and removed with the unalias command.
 # Single quotes vs double quotes:
-#    '' are evaluated dynamically.
-#    "" are evaluated at time of creation and, thereafter, never changes.
-#    alias QS="echo \$PWD" same as ''
+#   "" are evaluated at time of creation and, thereafter, never changes.
+#   '' are evaluated dynamically (when it is used).
+#   alias QS="echo \$PWD" same as ''
 # echo $foo is slower than echo "$foo"
 
