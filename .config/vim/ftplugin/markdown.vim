@@ -13,7 +13,11 @@ setlocal shiftwidth=4
 setlocal expandtab
 
 " Mappings. {{{1
+
+" Toggle hide/show blank characters.
+nnoremap <buffer> gltl :set list! list?<CR>
+
 " Save and then convert current markdown file into pdf and open in zathura.
 " TODO: Do nothing when make failed.
-nnoremap <buffer> glm :make! \| execute "!zathura " .. expand('%:p:r:s?notes/?\0notes-output/pdf/?') .. '.pdf &'<CR><CR><CR>
+nnoremap <buffer> glm :make! \| execute '!zathura ' .. expand('%:p:r:s?notes/?\0notes-output/pdf/?') .. '.pdf &'<CR><CR><CR>
 
