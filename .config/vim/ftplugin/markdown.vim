@@ -10,6 +10,7 @@ setlocal formatoptions-=l " Auto format in insert mode.
 setlocal autoindent       " For formating and auto wraping.
 setlocal softtabstop=4
 setlocal shiftwidth=4
+setlocal expandtab
 
 " Mappings. {{{1
 " Save and then convert current markdown file into pdf and open in zathura.
