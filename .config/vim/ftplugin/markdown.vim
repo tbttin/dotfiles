@@ -5,11 +5,16 @@ endif
 let b:loaded_ftplugin = 1      " Loaded flag.
 
 " Options {{{1
-setlocal conceallevel=2   " TODO: italics.
-setlocal formatoptions-=l " Auto format in insert mode.
-setlocal autoindent       " For formating and auto wraping.
-setlocal softtabstop=4
-setlocal shiftwidth=4
+
+setlocal conceallevel=2        " TODO: italics.
+setlocal formatoptions-=l      " Auto format in insert mode.
+setlocal path=**,.,$VIMHOME/** " Quickly find other notes and some config files.
+
+" Indentations {{{2
+
+setlocal autoindent " For formating and auto wraping.
+setlocal softtabstop=2
+setlocal shiftwidth=2
 setlocal expandtab
 
 " Mappings. {{{1
