@@ -23,9 +23,12 @@ setlocal expandtab
 nnoremap <buffer> gltl :set list! list?<CR>
 
 " Convert markdown note[s] into ".pdf" file[s] and open current file in "zathura".
-" TODO: Do nothing when make failed.
-" Just run.
-nnoremap <buffer> glm :make! \| execute '!zathura ' .. expand('%:p:r:s?notes/?\0notes-output/pdf/?') .. '.pdf &'<CR><CR><CR>
+" Warning: don't mess around with "working directory".
+" TODO:
+"   - Do nothing when "make" failed.
+"   - "make" current file only.
 " Save and run.
-nnoremap <buffer> glM :write \| make! \| execute '!zathura ' .. expand('%:p:r:s?notes/?\0notes-output/pdf/?') .. '.pdf &'<CR><CR><CR>
+nnoremap <buffer> glm :write \| make! \| execute '!zathura notes-output/pdf/' .. expand('%:.:r') .. '.pdf &'<CR><CR><CR>
+" Just run.
+nnoremap <buffer> glM :make! \| execute '!zathura notes-output/pdf/' .. expand('%:.:r') .. '.pdf &'<CR><CR><CR>
 
