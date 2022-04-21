@@ -6,6 +6,10 @@ let b:loaded_ftplugin = 1      " Loaded flag.
 
 " Options {{{1
 
+" Variables {{{2
+
+let c_space_errors = 1 " Highlight trailing white space and spaces before a <Tab>.
+
 " Displays {{{2
 setlocal foldmethod=syntax                                   " Fold function body.
 setlocal foldnestmax=1                                       " Just function body; and not if, else, for, ...
