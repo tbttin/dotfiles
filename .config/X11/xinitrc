@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Remap some keys.
-mf="${HOME}/.config/X11/xmodmap/xmodmaprc"
+mf="${HOME}/.config/X11/xmodmaprc"
 [[ -f "${mf}" ]] && /usr/bin/xmodmap "${mf}"
 
 #
