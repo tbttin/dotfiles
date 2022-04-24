@@ -29,6 +29,6 @@ nnoremap <buffer> gltl :set list! list?<CR>
 "   - "make" current file only.
 " Save and run.
 nnoremap <buffer> glm :write \| make! \| execute '!zathura notes-output/pdf/' .. expand('%:.:r') .. '.pdf &'<CR><CR><CR>
-" Just run.
-nnoremap <buffer> glM :make! \| execute '!zathura notes-output/pdf/' .. expand('%:.:r') .. '.pdf &'<CR><CR><CR>
+" Just open pdf file.
+nnoremap <buffer> glM :execute '!zathura notes-output/pdf/' .. expand('%:.:r') .. '.pdf &'<CR><CR><CR>
 
