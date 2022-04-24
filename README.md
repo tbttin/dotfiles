@@ -1,8 +1,9 @@
 # About
 
-This is a bare repository of my `$HOME/`. But why git bare? Because it's simple!
+This [durdn's tutorial](https://www.atlassian.com/git/tutorials/dotfiles) - a
+dotfiles introduction, it brought me here. Why Git bare? Because it's simple!
 
-This repository contains configuration files (default on Arch Linux) for:
+My configuration files (default on Arch Linux):
 
   - Vim.
 
@@ -20,14 +21,25 @@ This repository contains configuration files (default on Arch Linux) for:
 
   - ...
 
-[This durdn's tutorial](https://www.atlassian.com/git/tutorials/dotfiles) - a
-dotfiles introduction, it brought me here.
-
 # Installation
 
-I do not recommend this, but there is a way:
+- I do not recommend this, but there is a way:
 
-```bash
+  ```bash
   curl --silent --location https://git.io/fi.sh | /bin/bash
-```
+  ```
 
+- What does this scrip do?
+
+  + Backup conflicting files in `$HOME` to `$HOME/.config~`.
+
+  + Re-config this dotfies bare repo (not show untracked files, diff tool).
+
+  + If `xdg-user-dirs` is installed:
+
+    * Remove xdg-user-dirs's uppercase default directories like Documents,
+      Download, Videos, etc. (if it's empty).
+
+    * Create `documents`, `download`, `projects`, etc. directories.
+
+  + *TODO*: install all necessary packages.
