@@ -20,6 +20,7 @@ alias v="cd $(/usr/bin/xdg-user-dir VIDEOS)/"
 alias vb='/usr/bin/vim ${HOME}/.bashrc'
 alias vp='/usr/bin/vim ${HOME}/.bash_profile'
 alias va='/usr/bin/vim ${HOME}/.config/bash/aliases.bash'
+alias vf='/usr/bin/vim ${HOME}/.config/bash/funcs.bash'
 # Readline's inputrc.
 alias vr='/usr/bin/vim ${INPUTRC}'
 # Dynamic window manager.
