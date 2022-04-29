@@ -2,8 +2,8 @@
 alias ..='cd ..'
 alias ...='cd ../..'
 # With most commands, you can pass -- as an argument, and all subsequent
-# arguments are treated as operands and not options even if they begin with a
-# dash ('-').
+# arguments are treated as operands and not options even if they begin
+# with a dash ('-').
 alias -- --='cd ${OLDPWD}'
 alias d="cd $(/usr/bin/xdg-user-dir DOCUMENTS)/"
 alias l="cd $(/usr/bin/xdg-user-dir DOWNLOAD)/"
@@ -17,8 +17,8 @@ alias v="cd $(/usr/bin/xdg-user-dir VIDEOS)/"
 
 # Quick edit some files.
 # Bashes.
-alias vb='/usr/bin/vim ~/.bashrc'
-alias vp='/usr/bin/vim ~/.bash_profile'
+alias vb='/usr/bin/vim ${HOME}/.bashrc'
+alias vp='/usr/bin/vim ${HOME}/.bash_profile'
 alias va='/usr/bin/vim ${HOME}/.config/bash/aliases.bash'
 # Readline's inputrc.
 alias vr='/usr/bin/vim ${INPUTRC}'
@@ -57,13 +57,14 @@ alias type='type -a'
 # Shorthand for transmission-remote command.
 alias tmr='/usr/bin/transmission-remote'
 
-# Do not print copyright, build options and versions; set seek_interval to 3,
-# start in full-screen mode.
-alias ffplay='/usr/bin/ffplay -hide_banner -nostats -seek_interval 3 -autoexit -fs'
+# Do not print copyright, build options and versions; set seek_interval
+# to 3, start in full-screen mode.
+alias ffplay='/usr/bin/ffplay -hide_banner -nostats -seek_interval 3\
+	-autoexit -fs'
 # Seeking for file infomation.
 alias ffprobe='/usr/bin/ffprobe -hide_banner'
 
-# Start X with "~/.config/xorg/xinitrc"
+# Start X with "${HOME}/.config/xorg/xinitrc"
 alias startx="/usr/bin/startx '${XINITRC}'"
 
 # System stuff.
@@ -71,7 +72,8 @@ alias dpm='/usr/bin/doas /usr/bin/pacman'
 alias spo='/usr/bin/systemctl poweroff -i'
 
 # Bare git dotfiles aliases.
-alias config='/usr/bin/git --work-tree=${HOME} --git-dir=${HOME}/.config/dotfiles/'
+alias config='/usr/bin/git --git-dir=${HOME}/.config/dotfiles\
+	--work-tree=${HOME}'
 alias cfa='config a'
 alias cfap='config ap'
 alias cfc='config c'
@@ -88,7 +90,8 @@ alias cfs='config s'
 unset xdg_prj_dir
 
 # Notes {{{1
-# Aliases are created and listed with the alias command, and removed with the unalias command.
+# Aliases are created and listed with the alias command, and removed
+# with the unalias command.
 # Single quotes vs double quotes:
 #   "" are evaluated at time of creation and, thereafter, never changes.
 #   '' are evaluated dynamically (when it is used).
