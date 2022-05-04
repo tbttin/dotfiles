@@ -52,12 +52,12 @@ inoremap <buffer> /* /*  */<C-G>U<Left><Left><Left>
 
 " TODO: Suppress "Press ENTER or type command to continue" message.
 " Build.
-nnoremap <buffer> glmb :wall \| make! \| cwindow<CR>
+nnoremap <buffer> <Leader>mb :wall \| make! \| cwindow<CR>
 " Debug with terminal debug plugin.
-nnoremap <buffer> glmd :wall \| make debug \| Termdebug build/prog<CR>
+nnoremap <buffer> <Leader>md :wall \| make debug \| Termdebug build/prog<CR>
 " Make clean after clear terminal screen.
-nnoremap <buffer> glmc :!clear<CR>:make clean<CR>
+nnoremap <buffer> <Leader>mc :!clear<CR>:make clean<CR>
 " Run.
 " !make run -- --args
-nnoremap <buffer> glmr :cclose \| make run<CR>
+nnoremap <buffer> <Leader>mr :cclose \| make run<CR>
 

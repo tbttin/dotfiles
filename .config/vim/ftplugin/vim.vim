@@ -8,4 +8,4 @@ let b:loaded_ftplugin = 1      " Loaded flag.
 setlocal foldmethod=marker     " Use markers to specify folds.
 
 " Mappings {{{1
-nnoremap <buffer> <silent> gltt :!ctags -R --language-force=vim<CR><CR>
+nnoremap <buffer> <silent> <Leader>tt :!ctags -R --language-force=vim<CR><CR>

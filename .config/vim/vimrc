@@ -91,45 +91,48 @@ inoremap <expr> <S-Tab> pairs#IsMatchOnLHS ('\k$') ? '<C-P>' : '<Tab>'
 " Quick supper user write and reload file content when necessary.
 command SW execute 'write !/usr/bin/doas /usr/bin/tee "%" >/dev/null' | if !v:shell_error | edit! | endif
 
+nmap <Space> \
+
 " Toggle spell check. Just "]s" and "z=".
-nnoremap glts :set spell! spell?<CR>
+nnoremap <Leader>ts :set spell! spell?<CR>
 " Toggle paste.
-nnoremap gltp :set paste! paste?<CR>
+nnoremap <Leader>tp :set paste! paste?<CR>
 " Toggle highlight search.
-nnoremap glth :set hlsearch! hlsearch?<CR>
+nnoremap <Leader>th :set hlsearch! hlsearch?<CR>
 
 " Search forward the visual selected text (@s will be used).
-xnoremap glff "sy/\V<C-R>=escape (@s, '/\')<CR><CR>
+xnoremap <Leader>ff "sy/\V<C-R>=escape (@s, '/\')<CR><CR>
 
 " Substitute the "last-pattern".
-nnoremap glfs :%s///gc<Left><Left><Left>
+nnoremap <Leader>fs :%s///gc<Left><Left><Left>
 
 " Edit vimrc in new tab.
-nnoremap glvv :tabedit $VIMHOME/vimrc<CR>
+nnoremap <Leader>vv :tabedit $VIMHOME/vimrc<CR>
 
 " Plugins {{{1
 
 " " TCmt {{{2
-" nmap glc  <Plug>TCmt
-" xmap glc  <Plug>TCmt
-" nmap glcc <Plug>TCmtLine
+" nmap <Leader>c  <Plug>TCmt
+" xmap <Leader>c  <Plug>TCmt
+" nmap <Leader>cc <Plug>TCmtLine
 
 " Easy-align {{{2
 if !exists('g:easy_align_delimiters')
 	let g:easy_align_delimiters = {}
 endif
 
-" Align variable definitions by name. Just "glaipd" then "glaip=".
+" Align variable definitions by name. Just "<Leader>aipd" then "<Leader>aip=".
 let g:easy_align_delimiters['d'] = {
 			\ 'pattern': '\(const\|static\|unsigned\)\@<! ',
 			\ 'left_margin': 0, 'right_margin': 0
 			\ }
 
 " Start interactive EasyAlign in visual mode.
-xmap <silent> gla <Plug>(EasyAlign)
+xmap <silent> <Leader>a <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object.
-nmap <silent> gla <Plug>(EasyAlign)
+nmap <silent> <Leader>a <Plug>(EasyAlign)
 " Autocommands {{{1
+
 augroup Templates " {{{2
 	autocmd!
 	" Read and parse template which have the same name in t$VIMHOME/tmplts.

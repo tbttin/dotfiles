@@ -28,7 +28,7 @@ nnoremap <buffer> gltl :set list! list?<CR>
 "   - Do nothing when "make" failed.
 "   - "make" current file only.
 " Save and run.
-nnoremap <buffer> glm :write \| make! \| execute '!zathura notes-output/pdf/' .. expand('%:.:r') .. '.pdf &'<CR><CR><CR>
+nnoremap <buffer> <Leader>m :write \| make! \| execute '!zathura notes-output/pdf/' .. expand('%:.:r') .. '.pdf &'<CR><CR><CR>
 " Just open pdf file.
-nnoremap <buffer> glM :execute '!zathura notes-output/pdf/' .. expand('%:.:r') .. '.pdf &'<CR><CR><CR>
+nnoremap <buffer> <Leader>M :execute '!zathura notes-output/pdf/' .. expand('%:.:r') .. '.pdf &'<CR><CR><CR>
 
