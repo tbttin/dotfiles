@@ -25,11 +25,18 @@ CA_RESET="\[$(/usr/bin/tput sgr0)\]"
 # Single machine user, so make it simple.
 PS1="${CA_RESET}${CA_BOLD}${FG_CYAN}\W/${FG_RED}\$${CA_RESET} "
 
+#
+# Sourcings
+#
+bash_dir="${HOME}/.config/bash"
+
 # Source aliases file.
-af="${HOME}/.config/bash/aliases.bash"
-[[ -f "${af}" ]] && . "${af}"
+alias_file="${bash_dir}/aliases.bash"
+test -f "${alias_file}" && source "${alias_file}"
 
 # Source functions file.
-ff="${HOME}/.config/bash/funcs.bash"
-[[ -f "${ff}" ]] && . "${ff}"
+func_file="${bash_dir}/funcs.bash"
+test -f "${func_file}" && source "${func_file}"
+
+unset FG_RED FG_CYAN CA_BOLD CA_RESET bash_dir alias_file func_file
 

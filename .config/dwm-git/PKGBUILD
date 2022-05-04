@@ -38,39 +38,42 @@ sha256sums=(
 
 pkgver() {
 	cd "${_pkgname}"
-	git describe --long --tags | sed --regexp-extended 's/([^-]*-g)/r\1/;s/-/./g'
+	/usr/bin/git describe --long --tags |
+			/usr/bin/sed --regexp-extended 's/([^-]*-g)/r\1/;s/-/./g'
 }
 
 prepare() {
 	cd "${_pkgname}"
 	if [ -f "${srcdir}/config.h" ]
 	then
-		cp --force --verbose "${srcdir}/config.h" .
+		/usr/bin/cp --force --verbose "${srcdir}/config.h" .
 	fi
 	local patch_file
 	for patch_file in ${_patches[@]##*/}
 	do
-		echo "Applying ${patch_file}..."
-		patch --silent --input="${srcdir}/${patch_file}"
+		/usr/bin/echo "Applying ${patch_file}..."
+		/usr/bin/patch --silent --input="${srcdir}/${patch_file}"
 	done
 }
 
 build() {
 	cd "${_pkgname}"
 	# Use system flags in /etc/makepkg.conf
-	sed --in-place 's/^\(CFLAGS *\)=/\1+=/g' config.mk
-	sed --in-place 's/^\(LDFLAGS *\)=/\1+=/g' config.mk
-	make \
-		X11INC=/usr/include/X11 \
-		X11LIB=/usr/lib/X11
+	/usr/bin/sed --in-place 's/^\(CFLAGS *\)=/\1+=/g' config.mk
+	/usr/bin/sed --in-place 's/^\(LDFLAGS *\)=/\1+=/g' config.mk
+	/usr/bin/make \
+			X11INC=/usr/include/X11 \
+			X11LIB=/usr/lib/X11
 }
 
 package() {
 	cd "${_pkgname}"
-	make DESTDIR="${pkgdir}" PREFIX='/usr' install
+	/usr/bin/make DESTDIR="${pkgdir}" PREFIX='/usr' install
 	local ins_opts='-D --mode=644'
-	install ${ins_opts} LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-	install ${ins_opts} README  "${pkgdir}/usr/share/doc/${pkgname}/README"
+	/usr/bin/install ${ins_opts}\
+			LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+	/usr/bin/install ${ins_opts}\
+			README "${pkgdir}/usr/share/doc/${pkgname}/README"
 }
 
 # vim: filetype=sh

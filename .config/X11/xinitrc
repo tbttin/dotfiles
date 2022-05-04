@@ -1,8 +1,9 @@
-#!/bin/bash
+#!/hint/bash
 
 # Remap some keys.
-mf="${HOME}/.config/X11/xmodmaprc"
-[[ -f "${mf}" ]] && /usr/bin/xmodmap "${mf}"
+map_file="${HOME}/.config/X11/xmodmaprc"
+test -f "${map_file}" && /usr/bin/xmodmap "${map_file}"
+unset map_file
 
 #
 # Start a window manager and other things.

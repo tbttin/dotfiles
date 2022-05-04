@@ -44,7 +44,8 @@ TAB: menu-complete
 #
 # COLOR FILES BY TYPES
 #
-# Note that this may cause completion text blink in some terminals (e.g. xterm).
+# Note that this may cause completion text blink in some terminals (e.g.
+# xterm).
 set colored-stats on
 # Append char to indicate type.
 set visible-stats on

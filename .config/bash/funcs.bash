@@ -49,9 +49,13 @@ ffps()
 		/usr/bin/sort --zero-terminated |
 		while read -r -d $'\0' mkv_file
 		do
-			[[ -f "${mkv_file}.ass" ]] && sf="${mkv_file}.ass"
-			[[ -f "${mkv_file}.srt" ]] && sf="${mkv_file}.srt"
-			ffplay "$@" ${sf:+-vf subtitles=\'"${sf}"\'} -- "${mkv_file}"
+			test -f "${mkv_file}.ass" && local sub_file="${mkv_file}.ass"
+			test -f "${mkv_file}.srt" && local sub_file="${mkv_file}.srt"
+			# Shell parameter expansion, ${parameter:+word} if parameter
+			# is null or unset, nothing is substituted, otherwise the
+			# expansion of "word" is substituted.
+			ffplay ${sub_file:+-vf subtitles=\'"${sub_file}"\'}\
+					"$@" -- "${mkv_file}"
 		done
 }
 
