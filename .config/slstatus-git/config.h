@@ -73,6 +73,6 @@ static const struct arg args[] = {
       { wifi_perc,   "%s ",   "wlan0" },
       { netspeed_rx, "%s - ", "wlan0" },
       { netspeed_tx, "%s | ", "wlan0" },
-      { datetime,    "%s",    "%m-%d (%b) %a %R" },
+      { datetime,    "%s",    "%b %d %a %R" },
 };
 
