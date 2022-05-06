@@ -20,7 +20,7 @@ endfunction
 function! tmplts#AddFileDescription() " {{{1
   " 0 if not found, no error.
   if search('\cDescription:.\+', 'eW')
-    startinsert
+    startinsert!
   endif
 endfunction
 
