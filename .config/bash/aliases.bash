@@ -61,7 +61,7 @@ alias tmr='/usr/bin/transmission-remote'
 # Do not print copyright, build options and versions; set seek_interval
 # to 3, start in full-screen mode.
 alias ffplay='/usr/bin/ffplay -hide_banner -nostats -seek_interval 3\
-	-autoexit -fs'
+              -autoexit -fs'
 # Seeking for file infomation.
 alias ffprobe='/usr/bin/ffprobe -hide_banner'
 
@@ -74,7 +74,7 @@ alias spo='/usr/bin/systemctl poweroff -i'
 
 # Bare git dotfiles aliases.
 alias config='/usr/bin/git --git-dir=${HOME}/.config/dotfiles\
-	--work-tree=${HOME}'
+              --work-tree=${HOME}'
 alias cfa='config a'
 alias cfap='config ap'
 alias cfc='config c'

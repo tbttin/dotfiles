@@ -24,12 +24,12 @@ export TERMINFO_DIRS="${HOME}/.local/share/terminfo:/usr/share/terminfo"
 # Less command and search history file to state directory.
 less_dir="${HOME}/.local/state/less"
 /usr/bin/mkdir --parents --mode=0700 "${less_dir}" &&
-	export LESSHISTFILE="${less_dir}/lesshst"
+  export LESSHISTFILE="${less_dir}/lesshst"
 
 # Bash command history file to state directory.
 bash_dir="${HOME}/.local/state/bash"
 /usr/bin/mkdir --parents --mode=0700 "${bash_dir}" &&
-	export HISTFILE="${bash_dir}/bash_history"
+  export HISTFILE="${bash_dir}/bash_history"
 
 # X authority cookie file to $XDG_RUNTIME_DIR
 # $XDG_RUNTIME_DIR is set to "/run/user/$UID" by default through
@@ -41,7 +41,7 @@ export INDENT_PROFILE="${HOME}/.config/indent/indent.pro"
 
 # Vim please respect XDGBDS; vimrc to config directory.
 export VIMINIT="let \$VIMHOME = '${HOME}/.config/vim' |\
-				source \$VIMHOME/vimrc"
+                source \$VIMHOME/vimrc"
 
 # Readline config file to config directory.
 export INPUTRC="${HOME}/.config/readline/inputrc"
@@ -71,8 +71,8 @@ unset less_dir bash_dir
 # If you would like to remain logged in when the X session ends, remove
 # exec.
 if /usr/bin/systemctl -q is-active graphical.target &&
-	[[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]
+  [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]
 then
-	startx # startx is an alias, xinitrc is included.
+  startx # startx is an alias, xinitrc is included.
 fi
 

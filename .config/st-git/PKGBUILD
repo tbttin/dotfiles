@@ -2,7 +2,7 @@
 
 _pkgname='st'
 pkgname="${_pkgname}-git"
-pkgver=0.8.5.r3.g2c5edf2
+pkgver=0.8.5.r9.gbaa9357
 pkgrel=1
 pkgdesc='A simple virtual terminal emulator for X'
 arch=('i686' 'x86_64')
@@ -13,51 +13,54 @@ makedepends=('git')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 _patches=(
-	'https://st.suckless.org/patches/bold-is-not-bright/st-bold-is-not-bright-20190127-3be4cf1.diff'
+  'https://st.suckless.org/patches/bold-is-not-bright/st-bold-is-not-bright-20190127-3be4cf1.diff'
 )
 source=(
-	"git+https://git.suckless.org/${_pkgname}"
-	'config.h'
-	${_patches[@]}
+  "git+https://git.suckless.org/${_pkgname}"
+  'config.h'
+  ${_patches[@]}
 )
 sha256sums=(
-	'SKIP'
-	'SKIP'
-	'329169acac7ceaf901995d6e0897913089b799d8cd150c7f04c902f4a5b8eab2'
+  'SKIP'
+  'SKIP'
+  '329169acac7ceaf901995d6e0897913089b799d8cd150c7f04c902f4a5b8eab2'
 )
 
 pkgver() {
-	cd "${_pkgname}"
-	git describe --long --tags | sed --regexp-extended 's/([^-]*-g)/r\1/;s/-/./g'
+  cd "${_pkgname}"
+  /usr/bin/git describe --long --tags |
+    /usr/bin/sed --regexp-extended 's/([^-]*-g)/r\1/;s/-/./g'
 }
 
 prepare() {
-	cd "${_pkgname}"
-	if [ -f "${srcdir}/config.h" ]
-	then
-		cp --force --verbose "${srcdir}/config.h" .
-	fi
-	local patch_file
-	for patch_file in ${_patches[@]##*/}
-	do
-		echo "Applying ${patch_file}..."
-		patch --silent --input="${srcdir}/${patch_file}"
-	done
+  cd "${_pkgname}"
+  if [ -f "${srcdir}/config.h" ]
+  then
+    /usr/bin/cp --force --verbose "${srcdir}/config.h" .
+  fi
+  local patch_file
+  for patch_file in ${_patches[@]##*/}
+  do
+    /usr/bin/echo "Applying ${patch_file}..."
+    /usr/bin/patch --silent --input="${srcdir}/${patch_file}"
+  done
 }
 
 build() {
-	cd "${_pkgname}"
-	make \
-		X11INC=/usr/include/X11 \
-		X11LIB=/usr/lib/X11
+  cd "${_pkgname}"
+  /usr/bin/make\
+    X11INC=/usr/include/X11\
+    X11LIB=/usr/lib/X11
 }
 
 package() {
-	cd "${_pkgname}"
-	make DESTDIR="${pkgdir}" PREFIX='/usr' install
-	local ins_opts='-D --mode=644'
-	install ${ins_opts} LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-	install ${ins_opts} README  "${pkgdir}/usr/share/doc/${pkgname}/README"
+  cd "${_pkgname}"
+  /usr/bin/make DESTDIR="${pkgdir}" PREFIX='/usr' install
+  local ins_opts='-D --mode=644'
+  /usr/bin/install ${ins_opts}\
+    LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  /usr/bin/install ${ins_opts}\
+    README  "${pkgdir}/usr/share/doc/${pkgname}/README"
 }
 
 # vim: filetype=sh

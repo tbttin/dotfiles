@@ -45,6 +45,7 @@ static const char unknown_str[] = "n/a";
  * ram_total           total memory size in GB         NULL
  * ram_used            used memory in GB               NULL
  * run_command         custom shell command            command (echo foo)
+ * separator           string to echo                  NULL
  * swap_free           free swap in GB                 NULL
  * swap_perc           swap usage in percent           NULL
  * swap_total          total swap size in GB           NULL
@@ -58,21 +59,21 @@ static const char unknown_str[] = "n/a";
  * uptime              system uptime                   NULL
  * username            username of current user        NULL
  * vol_perc            OSS/ALSA volume in percent      mixer file (/dev/mixer)
+ *                                                     NULL on OpenBSD
  * wifi_perc           WiFi signal in percent          interface name (wlan0)
  * wifi_essid          WiFi ESSID                      interface name (wlan0)
  */
 static const struct arg args[] = {
-    /*  function     format   argument */
-    /* find /sys -type l -printf '%p -> %l\n' | grep hwmon' */
-      { temp,        "%s - ", "/sys/devices/virtual/thermal/thermal_zone0/temp" },
-      { temp,        "%s | ", "/sys/devices/virtual/thermal/thermal_zone1/temp" },
-      { cpu_perc,    "%s | ", NULL },
-      { load_avg,    "%s | ", NULL },
-      { ram_used,    "%s / ", NULL },
-      { ram_free,    "%s | ", NULL },
-      { wifi_perc,   "%s ",   "wlan0" },
-      { netspeed_rx, "%s - ", "wlan0" },
-      { netspeed_tx, "%s | ", "wlan0" },
-      { datetime,    "%s",    "%b %d %a %R" },
+	/* function,   format,  argument */
+	/* find /sys -type l -printf '%p -> %l\n' | grep hwmon */
+	{ temp,        "%s - ", "/sys/devices/virtual/thermal/thermal_zone0/temp" },
+	{ temp,        "%s | ", "/sys/devices/virtual/thermal/thermal_zone1/temp" },
+	{ cpu_perc,    "%s | ", NULL },
+	{ load_avg,    "%s | ", NULL },
+	{ ram_used,    "%s / ", NULL },
+	{ ram_free,    "%s | ", NULL },
+	{ wifi_perc,   "%s ",   "wlan0" },
+	{ netspeed_rx, "%s - ", "wlan0" },
+	{ netspeed_tx, "%s | ", "wlan0" },
+	{ datetime,    "%s",    "%b %d %a %R" },
 };
-

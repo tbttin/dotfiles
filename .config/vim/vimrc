@@ -3,93 +3,106 @@
 " Using short names has ONLY cons and ZERO pros. Don't.
 
 " defaults.vim {{{2
-" NOTE: Vim startup order in Arch:
+
+" NOTE {{{3
+" Vim startup order in Arch:
 "   /etc/vimrc
 "   $VIM/vimfiles/archlinux.vim
 "   $VIMHOME/vimrc
 "   [$VIMRUNTIME/defaults.vim]
+" End note }}}3
 " Load vim's default configurations.
 unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
 
 " XDGBDS {{{2
+
+" Move all vim data to 'XDG_STATE_HOME'.
 let $VIMDATA = $HOME .. '/.local/state/vim'
-set undodir=$VIMDATA/undo                     | call mkdir (&g:undodir, 'p', 0700)
-set directory=$VIMDATA/swap                   | call mkdir (&g:directory, 'p', 0700)
-set backupdir=$VIMDATA/backup                 | call mkdir (&g:backupdir, 'p', 0700)
-set viewdir=$VIMDATA/view                     | call mkdir (&g:viewdir, 'p', 0700)
-exe 'let g:netrw_home = $VIMDATA .. "/netrw"' | call mkdir (g:netrw_home, 'p', 0700)
+set undodir=$VIMDATA/undo                     | call mkdir(&g:undodir, 'p', 0700)
+set directory=$VIMDATA/swap                   | call mkdir(&g:directory, 'p', 0700)
+set backupdir=$VIMDATA/backup                 | call mkdir(&g:backupdir, 'p', 0700)
+set viewdir=$VIMDATA/view                     | call mkdir(&g:viewdir, 'p', 0700)
+exe 'let g:netrw_home = $VIMDATA .. "/netrw"' | call mkdir(g:netrw_home, 'p', 0700)
 set viminfo+=n$VIMDATA/viminfo
 set runtimepath=$VIMHOME,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$VIMHOME/after
 let &packpath = &runtimepath
 
 " Backup {{{2
-" TODO: Learn this!
+
+" TODO: Learn these!
+
 set backup
 set undofile
 
 " Indentations {{{2
+
 " TODO: Indent with tabs, align with spaces.
 
 " Displays {{{2
-set textwidth=79                           " A long line will be broken after white space to get this width.
-set splitbelow                             " When on, splitting a window will put the new window below the current one.
-set number                                 " Print the line number in front of each line.
-set relativenumber                         " Show the line number relative to the line with the cursor in front of each line.
+
+set lazyredraw                       " Do not redrawn while executing macros, registers, commands, .etc
+set textwidth=72                     " Horizontal split a dozen thousand lines of code in vim with Lenovo T400 screen.
+set splitbelow                       " When on, splitting a window will put the new window below the current one.
+set number                           " Print the line number in front of each line.
+set relativenumber                   " Show the line number relative to the line with the cursor in front of each line.
 if &term =~ 'st'
-	set background=dark                " Vim will not use dark-background theme in st.
+  set background=dark                " Vim will not use dark-background theme in st.
 endif
 if &term !~ 'linux'
-	set termguicolors                  " Enable true color.
-	let &t_8f = "\e[38;2;%lu;%lu;%lum" " Set foreground color (R, G, B).
-	let &t_8b = "\e[48;2;%lu;%lu;%lum" " Set background color (R, G, B).
-	let &t_SI .= "\e[4 q"              " Start Insert mode (Steady underline cursor).
-	let &t_EI .= "\e[2 q"              " End Insert mode (Otherwise, full-steady block cursor).
+  set termguicolors                  " Enable true color.
+  let &t_8f = "\e[38;2;%lu;%lu;%lum" " Set foreground color (R, G, B).
+  let &t_8b = "\e[48;2;%lu;%lu;%lum" " Set background color (R, G, B).
+  let &t_SI .= "\e[4 q"              " Start Insert mode (Steady underline cursor).
+  let &t_EI .= "\e[2 q"              " End Insert mode (Otherwise, full-steady block cursor).
 else
-	" TODO: How does it work?
-	" let &t_ve = "\e[?25h"
-	" let &t_vi = "\e[?25l"
-	" let &t_SI = "\e[?0c"
-	" let &t_EI = "\e[?16;143;255c"
+  " TODO: How does it work?          "
+  " let &t_ve = "\e[?25h"            "
+  " let &t_vi = "\e[?25l"            "
+  " let &t_SI = "\e[?0c"             "
+  " let &t_EI = "\e[?16;143;255c"    "
 endif
 
 " Cmdlines {{{2
-set path=.,,$VIMHOME/**                    " It's here. Go get it!
+
+set makeprg=/usr/bin/make\ -j2\ -l2.5 " 2 jobs and 2.5 is max load average.
+set path=.,,$VIMHOME/**               " It's here. Go get it!
 
 " Miscellany {{{2
-set nojoinspaces                           " Insert two spaces after a '.', '?' and '!' with a join command.
-set hidden                                 " Possibility to have more than one unsaved buffers.
-set mouse&                                 " I don't like mouse setting in defaults.vim.
-packadd! matchit                           " Improved '%' will jump to matching HTML tags, if/else/endif in Vim scripts, etc.
+
+set nojoinspaces                      " Insert two spaces after a '.', '?' and '!' with a join command.
+set hidden                            " Possibility to have more than one unsaved buffers.
+set mouse&                            " I don't like mouse setting in defaults.vim.
+packadd! matchit                      " Improved '%' will jump to matching HTML tags, if/else/endif in Vim scripts, etc.
 
 " Mappings {{{1
+
 " Maintaining {{{2
+
 "" Basic pairs auto completions.
-"inoremap <expr> " pairs#IsMatchOnLHS ('\v(^\s*$)\|(\S$)') ? '"' : '""<C-G>U<Left>'
-"inoremap <expr> ' pairs#IsMatchOnLHS ('\S$') ? "'" : "''<C-G>U<Left>"
+"inoremap <expr> " pairs#IsMatchOnLHS('\v(^\s*$)\|(\S$)') ? '"' : '""<C-G>U<Left>'
+"inoremap <expr> ' pairs#IsMatchOnLHS('\S$') ? "'" : "''<C-G>U<Left>"
 "inoremap ( ()<C-G>U<Left>
 "inoremap < <><C-G>U<Left>
 "inoremap [ []<C-G>U<Left>
-"inoremap <expr> { pairs#IsMatchOnLHS ('^\s*$') ? '{<CR>}<C-G>U<Up><CR>' : '{}<C-G>U<Left>'
+"inoremap <expr> { pairs#IsMatchOnLHS('^\s*$') ? '{<CR>}<C-G>U<Up><CR>' : '{}<C-G>U<Left>'
 
 "" Pairs auto completions in cmd-line.
-"cnoremap <expr> " pairs#IsMatchOnLHS ('\S$') ? '"' : '""<Left>'
-"cnoremap <expr> ' pairs#IsMatchOnLHS ('\S$') ? "'" : "''<Left>"
+"cnoremap <expr> " pairs#IsMatchOnLHS('\S$') ? '"' : '""<Left>'
+"cnoremap <expr> ' pairs#IsMatchOnLHS('\S$') ? "'" : "''<Left>"
 "cnoremap { {}<Left>
 "cnoremap ( ()<Left>
 "cnoremap < <><Left>
 "cnoremap [ []<Left>
 
 "" Auto delete adjacent pairs.
-"noremap! <expr> <BS> pairs#IsAdjacentPairs () ? '<Del><BS>' : '<BS>'
+"noremap! <expr> <BS> pairs#IsAdjacentPairs() ? '<Del><BS>' : '<BS>'
 " End maintaining }}}2
 
 " A better [S-]Tab.
-inoremap <expr> <Tab>   pairs#IsMatchOnLHS ('\k$') ? '<C-N>' : '<Tab>'
-inoremap <expr> <S-Tab> pairs#IsMatchOnLHS ('\k$') ? '<C-P>' : '<Tab>'
+inoremap <expr> <Tab>   pairs#IsMatchOnLHS('\k$') ? '<C-N>' : '<Tab>'
+inoremap <expr> <S-Tab> pairs#IsMatchOnLHS('\k$') ? '<C-P>' : '<Tab>'
 
-" Quick supper user write and reload file content when necessary.
-command SW execute 'write !/usr/bin/doas /usr/bin/tee "%" >/dev/null' | if !v:shell_error | edit! | endif
 
 nmap <Space> \
 
@@ -100,46 +113,54 @@ nnoremap <Leader>tp :set paste! paste?<CR>
 " Toggle highlight search.
 nnoremap <Leader>th :set hlsearch! hlsearch?<CR>
 
-" Search forward the visual selected text (@s will be used).
-xnoremap <Leader>ff "sy/\V<C-R>=escape (@s, '/\')<CR><CR>
+" Search forward the visual selected text ('@s' will be used).
+xnoremap <Leader>ff "sy/\V<C-R>=escape(@s, '/\')<CR><CR>
 
-" Substitute the "last-pattern".
+" Substitute the 'last-pattern'.
 nnoremap <Leader>fs :%s///gc<Left><Left><Left>
 
 " Edit vimrc in new tab.
 nnoremap <Leader>vv :tabedit $VIMHOME/vimrc<CR>
 
+" Quick supper user write and reload file content when necessary.
+com! SW exe 'w !/usr/bin/doas /usr/bin/tee "%" >/dev/null' | if !v:shell_error | e! | en
+
 " Plugins {{{1
 
-" " TCmt {{{2
+" TCmt {{{2
+
 " nmap <Leader>c  <Plug>TCmt
 " xmap <Leader>c  <Plug>TCmt
 " nmap <Leader>cc <Plug>TCmtLine
 
 " Easy-align {{{2
+
 if !exists('g:easy_align_delimiters')
-	let g:easy_align_delimiters = {}
+  let g:easy_align_delimiters = {}
 endif
 
-" Align variable definitions by name. Just "<Leader>aipd" then "<Leader>aip=".
+" Align variable definitions by name.
+" Then, just "<Leader>aipd" then "<Leader>aip=".
 let g:easy_align_delimiters['d'] = {
-			\ 'pattern': '\(const\|static\|unsigned\)\@<! ',
-			\ 'left_margin': 0, 'right_margin': 0
-			\ }
+                        \ 'pattern': '\(const\|static\|unsigned\)\@<! ',
+                        \ 'left_margin': 0, 'right_margin': 0
+                        \ }
 
 " Start interactive EasyAlign in visual mode.
 xmap <silent> <Leader>a <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object.
 nmap <silent> <Leader>a <Plug>(EasyAlign)
+
 " Autocommands {{{1
 
 augroup Templates " {{{2
-	autocmd!
-	" Read and parse template which have the same name in t$VIMHOME/tmplts.
-	autocmd BufNewFile ?\+ call tmplts#LoadTemplate (expand ('<afile>:p:t'))
-	" Read and parse template according file extension.
-	autocmd BufNewFile ?\+ call tmplts#LoadTemplate ('skeleton.' . expand ('<afile>:p:e'))
-	" Start insert mode at the end of line containing 'Description: '.
-	autocmd BufNewFile main.c call tmplts#AddFileDescription ()
+  autocmd!
+  " Read and parse template which have the same name in $VIMHOME/tmplts.
+  autocmd BufNewFile ?\+ call tmplts#LoadTemplate(expand('<afile>:t'))
+  " Read and parse template according file extension.
+  autocmd BufNewFile ?\+ call tmplts#LoadTemplate('skeleton.' . expand('<afile>:e'))
+  " Start insert mode at the end of line containing 'Description: '.
+  autocmd BufNewFile main.c call tmplts#AddFileDescription()
+
 augroup END
 

@@ -20,7 +20,7 @@
 
 CC            := /usr/bin/gcc
 CFLAGS        += -pedantic -Wall -Wextra -O3 -Wshadow -Wconversion\
-		 -Wstrict-overflow=5 -Wformat=2 -Wfloat-equal
+                 -Wstrict-overflow=5 -Wformat=2 -Wfloat-equal
 DBGCFLAGS     += -g -DDEBUGGING
 OUTPUT_OPTION  = -MMD -MP -MF $(dep_dir)/$*.d -o $(obj_dir)/$*.o
 COMPILE.c      = $(CC) $(CFLAGS) $(OUTPUT_OPTION) -c
