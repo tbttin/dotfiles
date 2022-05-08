@@ -118,6 +118,12 @@ nnoremap <Leader>tp :set paste! paste?<CR>
 " Toggle highlight search.
 nnoremap <Leader>th :set hlsearch! hlsearch?<CR>
 
+" Repeat the last ':s' with same flags.
+" Note:
+"   + '&' must be the first one.
+"   + ':s' and ':&' don't keep the flags.
+noremap & :&&<CR>
+
 " Search forward the visual selected text ('@s' will be used).
 xnoremap <Leader>ff "sy/\V<C-R>=escape(@s, '/\')<CR><CR>
 
