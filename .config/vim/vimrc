@@ -65,7 +65,6 @@ endif
 
 " Cmdlines {{{2
 
-set makeprg=/usr/bin/make\ -j2\ -l2.5 " 2 jobs and 2.5 is max load average.
 set path=.,,$VIMHOME/**               " It's here. Go get it!
 
 " Miscellany {{{2
