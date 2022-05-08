@@ -39,6 +39,13 @@ set undofile
 
 " TODO: Indent with tabs, align with spaces.
 
+" Every one and every program use 8 characters tabstop.
+" Change tapstop will effect 'textwidth' and alignment.
+
+set expandtab
+set softtabstop=2
+set shiftwidth=2
+
 " Displays {{{2
 
 set lazyredraw                       " Do not redrawn while executing macros, registers, commands, .etc
