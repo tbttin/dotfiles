@@ -130,6 +130,9 @@ xnoremap <Leader>ss "sy/\V<C-R>=escape(@s, '/\')<CR><CR>
 " Replce the 'last-pattern'.
 nnoremap <Leader>sr :%s///gc<Left><Left><Left>
 
+" Source current file.
+nnoremap <Leader>so :so "%"<CR>
+
 " Edit vimrc in new tab.
 " Mappings vs global marks?
 " Swiching to global mark.
