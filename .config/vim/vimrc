@@ -104,11 +104,12 @@ packadd! matchit                      " Improved '%' will jump to matching HTML 
 
 "" Auto delete adjacent pairs.
 "noremap! <expr> <BS> pairs#IsAdjacentPairs() ? '<Del><BS>' : '<BS>'
-" End maintaining }}}2
 
-" A better [S-]Tab.
-inoremap <expr> <Tab>   pairs#IsMatchOnLHS('\k$') ? '<C-N>' : '<Tab>'
-inoremap <expr> <S-Tab> pairs#IsMatchOnLHS('\k$') ? '<C-P>' : '<Tab>'
+" A better [S-]Tab?
+" inoremap <expr> <Tab>   pairs#IsMatchOnLHS('\k$') ? '<C-N>' : '<Tab>'
+" inoremap <expr> <S-Tab> pairs#IsMatchOnLHS('\k$') ? '<C-P>' : '<Tab>'
+
+" End maintaining }}}2
 
 
 " Toggle spell check. Just "]s" and "z=".
