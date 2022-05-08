@@ -7,11 +7,11 @@ let b:loaded_ftplugin = 1      " Loaded flag.
 
 " Options {{{1
 
-let g:markdown_folding = 1     " Enable folding with little bit slow but it's okay.
-setlocal nofoldenable          " Toggle it with 'zi'.
-setlocal conceallevel=2        " TODO: italics.
-setlocal formatoptions-=l      " Auto format in insert mode.
-setlocal path=**,.,$VIMHOME/** " Quickly find other notes and some config files.
+let g:markdown_folding = 1 " Enable section/heading folding, little bit slow but it's okay.
+setlocal nofoldenable      " Toggle it with 'zi' or any fold command.
+setlocal conceallevel=2    " TODO: italics.
+setlocal formatoptions-=l  " Auto format in insert mode.
+setlocal path=.,**         " Current file directory, recursive project directory.
 
 " Indentations {{{2
 
