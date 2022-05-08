@@ -115,6 +115,10 @@ packadd! matchit                      " Improved '%' will jump to matching HTML 
 
 " End maintaining }}}2
 
+" Fly~
+" ':ls' vs 'wildcharm'?
+" Note: noneed '*' here, noneed to <Tab> (partial name then <CR>).
+nnoremap <Leader>l :ls<CR>:b<Space>
 
 " Toggle spell check. Just "]s" and "z=".
 nnoremap <Leader>ts :set spell! spell?<CR>
