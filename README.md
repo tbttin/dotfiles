@@ -1,25 +1,28 @@
 # About
 
-This [durdn's tutorial](https://www.atlassian.com/git/tutorials/dotfiles) - a
-dotfiles introduction, it brought me here. Why Git bare? Because it's simple!
+This [durdn's tutorial] - a good dotfiles introduction, it brought me
+here. Why Git bare? Because it's simple!
 
 My configuration files (default on Arch Linux):
 
-  - Vim.
+  - Vim: vimrc, file type plugins (makrdown, c, vim), .etc
 
   - Git.
 
-  - Bash: profile, rc, aliases.
+  - Bash: bash_profile, bashrc, aliases, functions.
 
-  - X config files.
+  - X: xinitrc, xmodmap file.
 
-  - Suckless configs: dwm, st, slstatus, ...
+  - Suckless configs and PKGBUILDs: dwm, st, slstatus.
 
-  - Pacman, makepkg and some suckless's PKGBUILDs.
+  - makepkg
 
   - Zathura.
 
   - ...
+
+[durdn's tutorial]: https://www.atlassian.com/git/tutorials/dotfiles
+"durdn's tutorial"
 
 # Installation
 
@@ -29,16 +32,20 @@ My configuration files (default on Arch Linux):
   curl --silent --location https://git.io/fi.sh | /bin/bash
   ```
 
-- What does this scrip do?
+- What does this script do?
+
+  + Clone this repo as a bare repo into `$HOME/.config/dotfiles`.
 
   + Backup conflicting files in `$HOME` to `$HOME/.config~`.
 
-  + Re-config this dotfies bare repo (not show untracked files, diff tool).
+  + Checkout cloned dotfiles to `$HOME`.
 
-  + If `xdg-user-dirs` is installed:
+  + Re-config checked out repo (to not show untracked files, difftool).
 
-    * Remove xdg-user-dirs's uppercase default directories like Documents,
-      Download, Videos, etc. (if it's empty).
+  + (Personal) If `xdg-user-dirs` is installed:
+
+    * Remove xdg-user-dirs's uppercase default directories like
+      `Documents`, `Download`, `Videos`, etc. (if it's empty).
 
     * Create `documents`, `download`, `projects`, etc. directories.
 
