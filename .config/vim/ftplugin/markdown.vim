@@ -13,14 +13,8 @@ setlocal path=**,.,$VIMHOME/** " Quickly find other notes and some config files.
 " Indentations {{{2
 
 setlocal autoindent " For formating and auto wraping.
-setlocal softtabstop=2
-setlocal shiftwidth=2
-setlocal expandtab
 
 " Mappings. {{{1
-
-" Toggle hide/show blank characters.
-nnoremap <buffer> gltl :set list! list?<CR>
 
 " Convert markdown note[s] into ".pdf" file[s] and open current file in "zathura".
 " Warning: don't mess around with "working directory".
