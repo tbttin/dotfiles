@@ -126,7 +126,9 @@ xnoremap <Leader>ff "sy/\V<C-R>=escape(@s, '/\')<CR><CR>
 nnoremap <Leader>fs :%s///gc<Left><Left><Left>
 
 " Edit vimrc in new tab.
-nnoremap <Leader>vv :tabedit $VIMHOME/vimrc<CR>
+" Mappings vs global marks?
+" Swiching to global mark.
+" nnoremap <Leader>vv :tabedit $VIMHOME/vimrc<CR>
 
 " Quick supper user write and reload file content when necessary.
 com! SW exe 'w !/usr/bin/doas /usr/bin/tee "%" >/dev/null' | if !v:shell_error | e! | en
@@ -158,6 +160,13 @@ xmap <silent> <Leader>a <Plug>(EasyAlign)
 nmap <silent> <Leader>a <Plug>(EasyAlign)
 
 " Autocommands {{{1
+
+augroup GlobalMarks " {{{2
+  autocmd!
+  autocmd BufLeave vimrc normal! mR
+  autocmd BufLeave *.vim normal! mV
+  autocmd BufLeave *.md normal! mM
+augroup END
 
 augroup Templates " {{{2
   autocmd!
