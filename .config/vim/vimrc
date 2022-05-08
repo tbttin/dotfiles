@@ -72,7 +72,10 @@ endif
 
 " Cmdlines {{{2
 
-set path=.,,$VIMHOME/**               " It's here. Go get it!
+" Is this necessary?
+set wildcharm=<C-Z>
+" TODO: Move $VIMHOME/** to a ':e **/' maping.
+set path-=/usr/include " '.' relative to the directory of the current file.
 
 " Miscellany {{{2
 
@@ -83,6 +86,7 @@ set mouse&                            " I don't like mouse setting in defaults.v
 packadd! matchit                      " Improved '%' will jump to matching HTML tags, if/else/endif in Vim scripts, etc.
 
 " Mappings {{{1
+" Note: use uppercases for special editions?
 
 " Maintaining {{{2
 
