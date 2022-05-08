@@ -147,6 +147,13 @@ nnoremap <Leader>so :so "%"<CR>
 " Swiching to global mark.
 " nnoremap <Leader>vv :tabedit $VIMHOME/vimrc<CR>
 
+" Quick find and edit file in current directory.
+" Wildcard completioni vs 'path'?
+nnoremap <Leader>ee :e **/*<C-Z><S-Tab>
+
+" Quick find and edit file in '$VIMHOME'.
+nnoremap <Leader>eh :e $VIMHOME/**/*<C-Z><S-Tab>
+
 " Quick supper user write and reload file content when necessary.
 com! SW exe 'w !/usr/bin/doas /usr/bin/tee "%" >/dev/null' | if !v:shell_error | e! | en
 
@@ -193,6 +200,5 @@ augroup Templates " {{{2
   autocmd BufNewFile ?\+ call tmplts#LoadTemplate('skeleton.' . expand('<afile>:e'))
   " Start insert mode at the end of line containing 'Description: '.
   autocmd BufNewFile main.c call tmplts#AddFileDescription()
-
 augroup END
 
