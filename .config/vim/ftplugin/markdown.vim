@@ -1,4 +1,5 @@
 " Load guard {{{1
+
 if exists('b:loaded_ftplugin') " Only do this when not done yet for this buffer.
   finish
 endif
@@ -22,7 +23,7 @@ setlocal autoindent " For formating and auto wraping.
 "   - Do nothing when "make" failed.
 "   - "make" current file only.
 " Save and run.
-nnoremap <buffer> <Leader>m :write \| make! \| execute '!zathura notes-output/pdf/' .. expand('%:.:r') .. '.pdf &'<CR><CR><CR>
+nnoremap <buffer> <Leader>m :w \| make! \| exe '!zathura notes-output/pdf/' .. expand('%:.:r') .. '.pdf &'<CR><CR><CR>
 " Just open pdf file.
-nnoremap <buffer> <Leader>M :execute '!zathura notes-output/pdf/' .. expand('%:.:r') .. '.pdf &'<CR><CR><CR>
+nnoremap <buffer> <Leader>M               :exe '!zathura notes-output/pdf/' .. expand('%:.:r') .. '.pdf &'<CR><CR><CR>
 
