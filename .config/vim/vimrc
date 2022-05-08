@@ -125,10 +125,10 @@ nnoremap <Leader>th :set hlsearch! hlsearch?<CR>
 noremap & :&&<CR>
 
 " Search forward the visual selected text ('@s' will be used).
-xnoremap <Leader>ff "sy/\V<C-R>=escape(@s, '/\')<CR><CR>
+xnoremap <Leader>ss "sy/\V<C-R>=escape(@s, '/\')<CR><CR>
 
-" Substitute the 'last-pattern'.
-nnoremap <Leader>fs :%s///gc<Left><Left><Left>
+" Replce the 'last-pattern'.
+nnoremap <Leader>sr :%s///gc<Left><Left><Left>
 
 " Edit vimrc in new tab.
 " Mappings vs global marks?
