@@ -71,19 +71,20 @@ clean-dep:
 	$(rm) $(dep_dir)/
 
 # If the first argument is "run"...
-ifeq (run,$(firstword $(MAKECMDGOALS)))
+ifeq '$(firstword $(MAKECMDGOALS))' 'run'
 # use the rest as arguments for "run"
 RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 # ...and turn them into do-nothing targets:
 #   + Semi colon mean target and recipe are in the same line.
-#   + The '@:' is a recipe; '@' means do it silently, the ':' means do
-#   nothing.
+#   + The '@:' is a recipe; '@' mean do it silently, the ':' in the
+#   shell mean "NOP" (no op, a do-nothing operation).
 $(eval $(RUN_ARGS): ; @:)
 endif
 
 # If the make "goal" is irrelevant don't include dependency files.
-# TODO: makefile remake makes 'make --just-print' suck.
-ifeq ($(filter-out all,$(MAKECMDGOALS)),)
+# TODO: makefiles remake makes 'make --just-print' suck.
+#   Reproduce: make clean && make --just-print
+ifeq '$(filter-out all,$(MAKECMDGOALS))' ''
 -include $(patsubst $(src_dir)/%.c,$(dep_dir)/%.d,$(sources))
 endif
 
@@ -92,7 +93,8 @@ endif
 ## Some notes
 #
 # Debugging makefile
-# make --just-print --print-data-base 2>&1 | less
+# make --question --print-data-base 2>&1 | less
+# make -d or make --debug=[abvijmn] 2>&1 | less
 #
 # $(warning warn: '$(filter-out all,$(MAKECMDGOALS))')
 # $(info info: 'bla blah')
