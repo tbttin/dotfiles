@@ -24,8 +24,8 @@ setlocal autoindent " For formating and auto wraping.
 " TODO:
 "   - Do nothing when "make" failed.
 "   - "make" current file only.
-" Save and run.
+" Save-build-run.
 nnoremap <buffer> <Leader>m :w \| make! \| exe '!zathura notes-output/pdf/' .. expand('%:.:r') .. '.pdf &'<CR><CR><CR>
-" Just open pdf file.
-nnoremap <buffer> <Leader>M               :exe '!zathura notes-output/pdf/' .. expand('%:.:r') .. '.pdf &'<CR><CR><CR>
+" Build and run.
+nnoremap <buffer> <Leader>M      :make! \| exe '!zathura notes-output/pdf/' .. expand('%:.:r') .. '.pdf &'<CR><CR><CR>
 
