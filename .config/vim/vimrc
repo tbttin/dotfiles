@@ -72,8 +72,6 @@ endif
 
 " Cmdlines {{{2
 
-" Is this necessary?
-set wildcharm=<C-Z>
 " TODO: Move $VIMHOME/** to a ':e **/' maping.
 set path-=/usr/include " '.' relative to the directory of the current file.
 
@@ -147,12 +145,15 @@ nnoremap <Leader>so :so "%"<CR>
 " Swiching to global mark.
 " nnoremap <Leader>vv :tabedit $VIMHOME/vimrc<CR>
 
+" Create file under the cursor.
+nnoremap <Leader>ef :e <cfile><CR>
+
 " Quick find and edit file in current directory.
 " Wildcard completioni vs 'path'?
-nnoremap <Leader>ee :e **/*<C-Z><S-Tab>
+nnoremap <Leader>ee :e **/*
 
 " Quick find and edit file in '$VIMHOME'.
-nnoremap <Leader>eh :e $VIMHOME/**/*<C-Z><S-Tab>
+nnoremap <Leader>eh :e $VIMHOME/**/*
 
 " Quick supper user write and reload file content when necessary.
 com! SW exe 'w !/usr/bin/doas /usr/bin/tee "%" >/dev/null' | if !v:shell_error | e! | en
