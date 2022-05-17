@@ -50,19 +50,17 @@ set shiftwidth=2
 
 set lazyredraw                       " Do not redrawn while executing macros, registers, commands, .etc
 set textwidth=72                     " Horizontal split a dozen thousand lines of code in vim with Lenovo T400 screen.
-set splitbelow                       " When on, splitting a window will put the new window below the current one.
 set number                           " Print the line number in front of each line.
 set relativenumber                   " Show the line number relative to the line with the cursor in front of each line.
 if &term =~ 'st'
   set background=dark                " Vim will not use dark-background theme in st.
-endif
-if &term !~ 'linux'
   set termguicolors                  " Enable true color.
   let &t_8f = "\e[38;2;%lu;%lu;%lum" " Set foreground color (R, G, B).
   let &t_8b = "\e[48;2;%lu;%lu;%lum" " Set background color (R, G, B).
   let &t_SI .= "\e[4 q"              " Start Insert mode (Steady underline cursor).
   let &t_EI .= "\e[2 q"              " End Insert mode (Otherwise, full-steady block cursor).
-else
+" elseif &term =~ 'linux'            "
+  " Cursor shape in console.         "
   " TODO: How does it work?          "
   " let &t_ve = "\e[?25h"            "
   " let &t_vi = "\e[?25l"            "
