@@ -10,13 +10,13 @@
 [alias]
   a  = add
   ap = add --patch
-  f  = fetch
-  p  = push
-  s  = status
   c  = commit --verbose
-  l  = log --name-only
+  co = checkout
   d  = diff
   di = diff --staged
   dt = difftool
+  f  = fetch
+  l  = log --name-only
+  p  = push
+  s  = status
   sw = switch
-  co = checkout
