@@ -20,3 +20,6 @@
   p  = push
   s  = status
   sw = switch
+  r  = restore
+  ri = restore --staged
+

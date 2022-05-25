@@ -83,8 +83,8 @@ alias cfdi='config di'
 alias cfdt='config dt'
 alias cfl='config l'
 alias cfp='config p'
-alias cfr='config restore'
-alias cfri='config restore --staged'
+alias cfr='config r'
+alias cfri='config ri'
 alias cfs='config s'
 
 # Unset local variables.
