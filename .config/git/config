@@ -16,7 +16,7 @@
   di = diff --staged
   dt = difftool
   f  = fetch
-  l  = log --name-only
+  l  = log --stat
   p  = push
   s  = status
   sw = switch
