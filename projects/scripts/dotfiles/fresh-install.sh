@@ -14,14 +14,15 @@ indent()
 
 config()
 {
-  /usr/bin/git --git-dir="${HOME}/.config/dotfiles" --work-tree="${HOME}" "$@"
+  /usr/bin/git --git-dir="${HOME}/.config/dotfiles.git" --work-tree="${HOME}" "$@"
 }
 
 #
 # Backup first
 #
 # Clone my dotfiles repo as a bare repo.
-/usr/bin/git clone --bare 'https://github.com/tbttin/dotfiles.git' "${HOME}/.config/dotfiles"
+/usr/bin/git clone --bare 'https://github.com/tbttin/dotfiles.git'\
+  "${HOME}/.config/dotfiles.git"
 # Backup stock config files if they exist and install my dotfiles.
 /usr/bin/echo 'Attempt to install dotfiles to home directory.'
 config checkout 2>&1 | indent

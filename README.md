@@ -34,7 +34,7 @@ My configuration files (default on Arch Linux):
 
 - What does this script do?
 
-  + Clone this repo as a bare repo into `$HOME/.config/dotfiles`.
+  + Clone this repo as a bare repo into `$HOME/.config/dotfiles.git`.
 
   + Backup conflicting files in `$HOME` to `$HOME/.config~`.
 

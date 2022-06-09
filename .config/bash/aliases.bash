@@ -73,8 +73,8 @@ alias dpm='/usr/bin/doas /usr/bin/pacman'
 alias spo='/usr/bin/systemctl poweroff -i'
 
 # Bare git dotfiles aliases.
-alias config='/usr/bin/git --git-dir=${HOME}/.config/dotfiles\
-              --work-tree=${HOME}'
+alias config='/usr/bin/git --git-dir="${HOME}/.config/dotfiles.git"\
+              --work-tree="${HOME}"'
 alias cfa='config a'
 alias cfap='config ap'
 alias cfc='config c'
