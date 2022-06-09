@@ -40,6 +40,8 @@ alias vm='/usr/bin/vim ${HOME}/.config/vim/tmplts/Makefile'
 alias r='/usr/bin/make run --'
 # Take note.
 alias vn="jn && /usr/bin/vim ${xdg_prj_dir}/notes/index.md"
+# Git config file.
+alias vg='/usr/bin/vim ${HOME}/.config/git/config'
 
 # Adding colors.
 alias ls='/usr/bin/ls --color=auto'
