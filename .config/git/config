@@ -7,10 +7,12 @@
   tool = vimdiff
 [difftool]
   prompt = false
+[commit]
+  verbose = true
 [alias]
   a  = add
   ap = add --patch
-  c  = commit --verbose
+  c  = commit
   co = checkout
   d  = diff
   di = diff --staged
