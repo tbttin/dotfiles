@@ -20,7 +20,7 @@
   f  = fetch
   l  = log --stat
   p  = push
-  s  = status
+  s  = status --show-stash
   sw = switch
   r  = restore
   ri = restore --staged
