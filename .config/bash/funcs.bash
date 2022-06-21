@@ -31,7 +31,7 @@ man()
     # simple stupid solution.
     # Use cyan color instead of underline (italic -> underline is
     # included), same as manpage in Arch Linux console theme.
-    MANWIDTH=70\
+    MANWIDTH=71\
       LESS_TERMCAP_us="$(/usr/bin/tput setaf 6)"\
       LESS_TERMCAP_ue="$(/usr/bin/tput sgr0)"\
       /usr/bin/man "$@"
