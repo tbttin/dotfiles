@@ -61,9 +61,9 @@ alias type='type -a'
 alias tmr='/usr/bin/transmission-remote'
 
 # Do not print copyright, build options and versions; set seek_interval
-# to 3, start in full-screen mode.
+# to 3, start in full-screen mode with internal subtitles disabled.
 alias ffplay='/usr/bin/ffplay -hide_banner -nostats -seek_interval 3\
-              -autoexit -fs'
+              -autoexit -fs -sn'
 # Seeking for file infomation.
 alias ffprobe='/usr/bin/ffprobe -hide_banner'
 
