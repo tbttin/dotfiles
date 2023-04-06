@@ -13,12 +13,14 @@
 ! Make Caps_Lock Mode_switch.
 ! Create whole new layer.
 remove Lock = Caps_Lock
-remove Mod5 = Mode_switch
-keycode 66  = Mode_switch
-add Lock    = Mode_switch
+! remove Mod5 = Mode_switch
+! keycode 66  = Mode_switch
+! add Lock    = Mode_switch
+! TODO: invalid keysym Mode_switch error.
+keycode 66  = NoSymbol
 
 ! Caps+c to toggle Caps Lock.
-keycode 54  = c C Caps_Lock C
+keycode 54  = c C Caps_Lock NoSymbol
 
 ! Caps+[hjkl] = vi's style.
 keycode 43  = h H Left Left
@@ -34,5 +36,5 @@ keycode 26  = e E Escape E
 
 ! Make Alt_R Mod4 for one-handed convenience.
 remove Mod1 = Alt_R
-keycode 108 = Super_R NoSymbol Super_R
+keycode 108 = Super_R NoSymbol
 
