@@ -27,7 +27,7 @@ FG_CYAN="\[$(/usr/bin/tput setaf 6)\]"
 CA_BOLD="\[$(/usr/bin/tput bold)\]"
 CA_RESET="\[$(/usr/bin/tput sgr0)\]"
 # Single machine user, so make it simple.
-PS1="${CA_RESET}${CA_BOLD}${FG_CYAN}\W/${FG_RED}\$${CA_RESET} "
+PS1="${CA_RESET}${CA_BOLD}${FG_CYAN}\W ${FG_RED}\$${CA_RESET} "
 
 #
 # Sourcings
