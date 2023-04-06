@@ -13,7 +13,6 @@
   a  = add
   ap = add --patch
   c  = commit
-  co = checkout
   d  = diff
   di = diff --staged
   dt = difftool
