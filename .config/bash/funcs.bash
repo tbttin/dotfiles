@@ -69,7 +69,7 @@ ffms()
     /usr/bin/sort --zero-terminated |
     while read -r -d $'\0' mkv_file
     do
-      /usr/bin/ffmpeg -i "${mkv_file}" "${mkv_file}.ass"
+      /usr/bin/ffmpeg -i "${mkv_file}" -- "${mkv_file}.ass"
     done
 }
 
