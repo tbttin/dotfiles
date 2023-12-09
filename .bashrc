@@ -8,6 +8,9 @@
 # Auto cd directory by typing its name (../<dir-name>).
 shopt -s autocd
 
+# Disable Ctrl-D
+stty -ixon
+
 #
 # History settings.
 #
