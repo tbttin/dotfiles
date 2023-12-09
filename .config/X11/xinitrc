@@ -18,7 +18,7 @@ unset map_file
 /usr/bin/st &
 
 # Transmission daemon
-# /usr/bin/transmission-daemon
+/usr/bin/transmission-daemon
 
 # Firefox browser.
 /usr/bin/firefox &
