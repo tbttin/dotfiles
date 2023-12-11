@@ -29,7 +29,7 @@ static const Rule rules[] = {
 	/* class,    instance, title, tags mask, switchtotag, isfloating, monitor */
 	{ "firefox", NULL,     NULL,  1 << 8,    1,           0,          -1 },
 	{ "Zathura", NULL,     NULL,  1 << 7,    1,           0,          -1 },
-	{ "ffplay",  NULL,     NULL,  1 << 3,    1,           0,          -1 },
+	{ "ffplay",  NULL,     NULL,  1 << 2,    1,           0,          -1 },
 };
 
 /* layout(s) */
@@ -57,29 +57,36 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb",
-                                  col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf",
-                                  col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static char dmenumon[2]           = "0"; /* component of dmenucmd, manipulated in spawn() */
+static const char *dmenucmd[]     = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb",
+                                      col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf",
+                                      col_gray4, NULL };
+static const char *termcmd[]      = { "st", NULL };
 static const char *browsercmd[]   = { "firefox", NULL };
 static const char *pdfreadercmd[] = { "zathura", NULL };
-static const char *mutecmd[]      = { "pactl", "set-sink-mute", "0", "toggle", NULL };
+static const char *volmutecmd[]   = { "pactl", "set-sink-mute", "0", "toggle", NULL };
 static const char *volupcmd[]     = { "pactl", "set-sink-volume", "0", "+5%", NULL };
 static const char *voldowncmd[]   = { "pactl", "set-sink-volume", "0", "-5%", NULL };
 static const char *lockcmd[]      = { "slock", NULL };
 
+/* Check "/usr/include/X11/keysymdef.h" */
 static Key keys[] = {
 	/* modifier                key                function        argument */
+
+        /* screen shot */
 	{ MODKEY,                  XK_Print,          spawn,          SHCMD("scrot \"$(xdg-user-dir PICTURES)/ss/%F-%H%M%S-f.png\"") },
 	{ MODKEY|ShiftMask,        XK_Print,          spawn,          SHCMD("sleep .2 &&"
 	                                                                    "scrot -s \"$(xdg-user-dir PICTURES)/ss/%F-%H%M%S-s.png\"") },
-	{ MODKEY,                  XK_Pause,          spawn,          {.v = lockcmd } },
-	{ MODKEY,                  XK_bracketleft,    spawn,          {.v = voldowncmd } },
-	{ MODKEY,                  XK_bracketright,   spawn,          {.v = volupcmd } },
+        /* volume control */
+	{ MODKEY,                  XK_slash,          spawn,          {.v = volmutecmd } },
+	{ MODKEY,                  XK_comma,          spawn,          {.v = voldowncmd } },
+	{ MODKEY,                  XK_period,         spawn,          {.v = volupcmd } },
+
+        /* apps */
 	{ MODKEY|ShiftMask,        XK_f,              spawn,          {.v = browsercmd } },
 	{ MODKEY|ShiftMask,        XK_z,              spawn,          {.v = pdfreadercmd } },
-	{ MODKEY,                  XK_p,              spawn,          {.v = dmenucmd } },
+
+	{ MODKEY,                  XK_Pause,          spawn,          {.v = lockcmd } },
 	{ MODKEY|ShiftMask,        XK_Return,         spawn,          {.v = termcmd } },
 	{ MODKEY,                  XK_b,              togglebar,      {0} },
 	{ MODKEY,                  XK_j,              focusstack,     {.i = +1 } },
@@ -98,10 +105,6 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,        XK_space,          togglefloating, {0} },
 	{ MODKEY,                  XK_0,              view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,        XK_0,              tag,            {.ui = ~0 } },
-	{ MODKEY,                  XK_comma,          focusmon,       {.i = -1 } },
-	{ MODKEY,                  XK_period,         focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,        XK_comma,          tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,        XK_period,         tagmon,         {.i = +1 } },
 	TAGKEYS(                   XK_1,                              0)
 	TAGKEYS(                   XK_2,                              1)
 	TAGKEYS(                   XK_3,                              2)
