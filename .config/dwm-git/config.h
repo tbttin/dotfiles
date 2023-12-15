@@ -67,7 +67,6 @@ static const char *pdfreadercmd[] = { "zathura", NULL };
 static const char *volmutecmd[]   = { "pactl", "set-sink-mute", "0", "toggle", NULL };
 static const char *volupcmd[]     = { "pactl", "set-sink-volume", "0", "+5%", NULL };
 static const char *voldowncmd[]   = { "pactl", "set-sink-volume", "0", "-5%", NULL };
-static const char *lockcmd[]      = { "slock", NULL };
 
 /* Check "/usr/include/X11/keysymdef.h" */
 static Key keys[] = {
@@ -86,7 +85,6 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,        XK_f,              spawn,          {.v = browsercmd } },
 	{ MODKEY|ShiftMask,        XK_z,              spawn,          {.v = pdfreadercmd } },
 
-	{ MODKEY,                  XK_Pause,          spawn,          {.v = lockcmd } },
 	{ MODKEY|ShiftMask,        XK_Return,         spawn,          {.v = termcmd } },
 	{ MODKEY,                  XK_b,              togglebar,      {0} },
 	{ MODKEY,                  XK_j,              focusstack,     {.i = +1 } },
