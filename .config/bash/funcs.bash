@@ -9,8 +9,8 @@ mkcd()
 # Add some colors and hard-set pager width.
 man()
 {
-  # Everything is in terminfo(5).
-  #   Color       #define       Value       RGB
+  # See terminfo(5).
+  #    Color      #define       Value       RGB
   #   black     COLOR_BLACK       0     0, 0, 0
   #   red       COLOR_RED         1     max,0,0
   #   green     COLOR_GREEN       2     0,max,0
@@ -29,11 +29,13 @@ man()
   then
     # Manpage's pager resizing (with tiling WM) is a headache. Here is a
     # simple stupid solution.
-    # Use cyan color instead of underline (italic -> underline is
-    # included), same as manpage in Arch Linux console theme.
-    MANWIDTH=71\
-      LESS_TERMCAP_us="$(/usr/bin/tput setaf 6)"\
-      LESS_TERMCAP_ue="$(/usr/bin/tput sgr0)"\
+    # Use cyan color instead of underline (italic converted to underline is
+    # included).
+    # See grotty(1)
+    MANWIDTH=71 \
+      GROFF_NO_SGR=1 \
+      LESS_TERMCAP_us="$(/usr/bin/tput setaf 6)" \
+      LESS_TERMCAP_ue="$(/usr/bin/tput sgr0)" \
       /usr/bin/man "$@"
   else
     /usr/bin/man "$@"
