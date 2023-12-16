@@ -2,7 +2,7 @@
 
 _pkgname='slstatus'
 pkgname="${_pkgname}-git"
-pkgver=r599.c919def
+pkgver=r604.f68f492
 pkgrel=1
 pkgdesc='A status monitor for window managers'
 arch=('i686' 'x86_64')
@@ -54,7 +54,7 @@ prepare() {
 build() {
   cd "${_pkgname}"
   # Don't build unused components.
-  local rm_comps="battery|disk|entropy|hostname|ip|kernel_release|\
+  local rm_comps="battery|entropy|hostname|ip|kernel_release|\
                   keyboard_indicators|keymap|num_files|run_command|\
                   separator|swap|uptime|user|volume"
   /usr/bin/sed -E -i "/^[[:space:]]*components\/(${rm_comps})/d" Makefile

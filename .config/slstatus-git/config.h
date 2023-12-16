@@ -14,12 +14,13 @@ static const char unknown_str[] = "n/a";
  *
  * battery_perc        battery percentage              battery name (BAT0)
  *                                                     NULL on OpenBSD/FreeBSD
- * battery_state       battery charging state          battery name (BAT0)
- *                                                     NULL on OpenBSD/FreeBSD
  * battery_remaining   battery remaining HH:MM         battery name (BAT0)
  *                                                     NULL on OpenBSD/FreeBSD
- * cpu_perc            cpu usage in percent            NULL
+ * battery_state       battery charging state          battery name (BAT0)
+ *                                                     NULL on OpenBSD/FreeBSD
+ * cat                 read arbitrary file             path
  * cpu_freq            cpu frequency in MHz            NULL
+ * cpu_perc            cpu usage in percent            NULL
  * datetime            date and time                   format string (%F %T)
  * disk_free           free disk space in GB           mountpoint path (/)
  * disk_perc           disk usage in percent           mountpoint path (/)
@@ -45,7 +46,6 @@ static const char unknown_str[] = "n/a";
  * ram_total           total memory size in GB         NULL
  * ram_used            used memory in GB               NULL
  * run_command         custom shell command            command (echo foo)
- * separator           string to echo                  NULL
  * swap_free           free swap in GB                 NULL
  * swap_perc           swap usage in percent           NULL
  * swap_total          total swap size in GB           NULL
@@ -59,21 +59,36 @@ static const char unknown_str[] = "n/a";
  * uptime              system uptime                   NULL
  * username            username of current user        NULL
  * vol_perc            OSS/ALSA volume in percent      mixer file (/dev/mixer)
- *                                                     NULL on OpenBSD
- * wifi_perc           WiFi signal in percent          interface name (wlan0)
+ *                                                     NULL on OpenBSD/FreeBSD
  * wifi_essid          WiFi ESSID                      interface name (wlan0)
+ * wifi_perc           WiFi signal in percent          interface name (wlan0)
  */
+
 static const struct arg args[] = {
-	/* function,   format,  argument */
+	/* function,      format,     argument */
+
+        /* CPU temp */
 	/* find /sys -type l -printf '%p -> %l\n' | grep hwmon */
-	{ temp,        "%s - ", "/sys/devices/virtual/thermal/thermal_zone0/temp" },
-	{ temp,        "%s | ", "/sys/devices/virtual/thermal/thermal_zone1/temp" },
-	{ cpu_perc,    "%s | ", NULL },
-	{ load_avg,    "%s | ", NULL },
-	{ ram_used,    "%s / ", NULL },
-	{ ram_free,    "%s | ", NULL },
-	{ wifi_perc,   "%s ",   "wlan0" },
-	{ netspeed_rx, "%s - ", "wlan0" },
-	{ netspeed_tx, "%s | ", "wlan0" },
-	{ datetime,    "%s",    "%b %d %a %R" },
+	{ temp,           "%s ",      "/sys/devices/virtual/thermal/thermal_zone0/temp" },
+	{ temp,           "%s | ",    "/sys/devices/virtual/thermal/thermal_zone1/temp" },
+
+        /* CPU load */
+	{ cpu_perc,       "%s | ",    NULL },
+	{ load_avg,       "%s | ",    NULL },
+
+        /* storage */
+	{ disk_free,      "%s ",      "/" },
+	{ disk_free,      "%s | ",    "/home" },
+
+        /* RAM */
+	{ ram_used,       "%s / ",    NULL },
+	{ ram_free,       "%s | ",    NULL },
+
+        /* network */
+	{ wifi_perc,      "%s - ",    "wlan0" },
+	{ netspeed_rx,    "%s / ",    "wlan0" },
+	{ netspeed_tx,    "%s | ",    "wlan0" },
+
+        /* time */
+	{ datetime,       "%s",       "%b %d %a %R" },
 };
