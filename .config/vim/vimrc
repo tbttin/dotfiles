@@ -116,7 +116,7 @@ packadd! matchit                      " Improved '%' will jump to matching HTML 
 " Note: noneed '*' here, noneed to <Tab> (partial name then <CR>).
 nnoremap <Leader>l :ls<CR>:b<Space>
 
-" Toggle spell check. Just "]s" and "z=".
+" Toggle spell check. Then just "]s" and "z=".
 nnoremap <Leader>ts :set spell! spell?<CR>
 " Toggle paste.
 nnoremap <Leader>tp :set paste! paste?<CR>
@@ -156,15 +156,9 @@ nnoremap <Leader>eh :e $VIMHOME/**/*
 " Quick supper user write and reload file content when necessary.
 com! SW exe 'w !/usr/bin/doas /usr/bin/tee "%" >/dev/null' | if !v:shell_error | e! | en
 
-" Plugins {{{1
+" Plugins {{{2
 
-" TCmt {{{2
-
-" nmap <Leader>c  <Plug>TCmt
-" xmap <Leader>c  <Plug>TCmt
-" nmap <Leader>cc <Plug>TCmtLine
-
-" Easy-align {{{2
+" Easy-align {{{3
 
 if !exists('g:easy_align_delimiters')
   let g:easy_align_delimiters = {}
