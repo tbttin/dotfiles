@@ -15,15 +15,15 @@ conflicts=("${_pkgname}")
 _patches=(
   'slstatus-rm-netspeeds-trailing-space-20201104-b14e039.diff'
 )
-source=(
-  "git+https://git.suckless.org/${_pkgname}"
-  'config.h'
-  ${_patches[@]}
-)
 sha256sums=(
   'SKIP'
   'SKIP'
   'fabbb1a14e86f3309cf03f45f6043b525ca1c49cf383e7fbc36420f19260e797'
+)
+source=(
+  "git+https://git.suckless.org/${_pkgname}"
+  'config.h'
+  ${_patches[@]}
 )
 
 pkgver() {
@@ -54,10 +54,10 @@ prepare() {
 build() {
   cd "${_pkgname}"
   # Don't build unused components.
-  local rm_comps="battery|entropy|hostname|ip|kernel_release|\
-                  keyboard_indicators|keymap|num_files|run_command|\
-                  separator|swap|uptime|user|volume"
-  /usr/bin/sed -E -i "/^[[:space:]]*components\/(${rm_comps})/d" Makefile
+  local unused_comps="battery|entropy|hostname|ip|kernel_release|\
+                      keyboard_indicators|keymap|num_files|run_command|\
+                      separator|swap|uptime|user|volume"
+  /usr/bin/sed -E -i "/^[[:space:]]*components\/(${unused_comps})/d" Makefile
   # Respect system flags in /etc/makepkg.conf
   /usr/bin/sed -i 's/^\(CFLAGS *\)=/\1+=/g' config.mk
   /usr/bin/sed -i 's/^\(LDFLAGS *\)=/\1+=/g' config.mk
