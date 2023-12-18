@@ -19,21 +19,21 @@ conflicts=("${_pkgname}")
 _patches=(
   'dwm-fix-ffplay-transient-20201210-6.2.diff'
   'https://dwm.suckless.org/patches/notitle/dwm-notitle-6.2.diff'
-  'https://dwm.suckless.org/patches/smartborders/dwm-smartborders-6.2.diff'
+  'https://dwm.suckless.org/patches/noborder/dwm-noborder-6.2.diff'
   'https://dwm.suckless.org/patches/switchtotag/dwm-switchtotag-6.2.diff'
-)
-source=(
-  "git+https://git.suckless.org/${_pkgname}#tag=6.2"
-  'config.h'
-  ${_patches[@]}
 )
 sha256sums=(
   'SKIP'
   'SKIP'
   '957f38f2fc53406e36891af7506165e4e5efd4e316d64084275cee8a7e907f60'
   '2ee1347c84428facff61830133146dd5467b0f9642703866e414212651a22753'
-  'bab74f6bf558a6a3b0b97c5727baab4ec23992a9e23a289888a1dbd6441c1d32'
+  '9bbf5f963e5a2d23ae4b8731f0c179a8615de5715a2dbf683fbe02115e24efe0'
   '1e3ff12db59c7ec364f07d31c6383ec63fe2d6857f2298141b433612a7ebc7f8'
+)
+source=(
+  "git+https://git.suckless.org/${_pkgname}#tag=6.2"
+  'config.h'
+  ${_patches[@]}
 )
 
 pkgver() {
