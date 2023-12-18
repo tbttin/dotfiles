@@ -8,6 +8,10 @@
 # Auto cd directory by typing its name (../<dir-name>).
 shopt -s autocd
 
+
+# doas auto completion
+complete -F _command doas
+
 # It's good! Why not?
 # stty -ixon
 
