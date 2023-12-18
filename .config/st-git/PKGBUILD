@@ -2,7 +2,7 @@
 
 _pkgname='st'
 pkgname="${_pkgname}-git"
-pkgver=0.9.r4.g211964d
+pkgver=0.9.r11.g9846a56
 pkgrel=1
 pkgdesc='A simple virtual terminal emulator for X'
 arch=('i686' 'x86_64')
@@ -15,15 +15,15 @@ conflicts=("${_pkgname}")
 _patches=(
   'https://st.suckless.org/patches/bold-is-not-bright/st-bold-is-not-bright-20190127-3be4cf1.diff'
 )
-source=(
-  "git+https://git.suckless.org/${_pkgname}"
-  'config.h'
-  ${_patches[@]}
-)
 sha256sums=(
   'SKIP'
   'SKIP'
   '329169acac7ceaf901995d6e0897913089b799d8cd150c7f04c902f4a5b8eab2'
+)
+source=(
+  "git+https://git.suckless.org/${_pkgname}"
+  'config.h'
+  ${_patches[@]}
 )
 
 pkgver() {
