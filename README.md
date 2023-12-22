@@ -26,6 +26,6 @@ My simple dofiles (default on Arch Linux):
 
 ## Screenshots
 
-![st](./pictures/assets/f-2023-12-22-230836.png)
+![st](./pictures/assets/f-2023-12-22-230836.png?raw=true "st examples")
 
-![firefox](./pictures/assets/f-2023-12-22-230839.png)
+![firefox](./pictures/assets/f-2023-12-22-230839.png?raw=true "firefox example")
