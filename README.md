@@ -3,17 +3,17 @@
 This [durdn's tutorial] - a good dotfiles introduction, it brought me
 here. Why Git bare? Because it's simple!
 
-My configuration files (default on Arch Linux):
+My simple dofiles (default on Arch Linux):
 
   - Vim: vimrc, file type plugins (makrdown, c, vim), .etc
 
   - Git.
 
-  - Bash: bash_profile, bashrc, aliases, functions.
+  - Bash.
 
   - X: xinitrc, xmodmap file.
 
-  - Suckless configs and PKGBUILDs: dwm, st, slstatus.
+  - Suckless configs and its PKGBUILDs: dwm, st, slstatus.
 
   - makepkg
 
@@ -24,30 +24,8 @@ My configuration files (default on Arch Linux):
 [durdn's tutorial]: https://www.atlassian.com/git/tutorials/dotfiles
 "durdn's tutorial"
 
-# Installation
+## Screenshots
 
-- I do not recommend this, but there is a way:
+![st](./pictures/assets/f-2023-12-22-230836.png)
 
-  ```bash
-  curl --silent --location https://git.io/fi.sh | /bin/bash
-  ```
-
-- What does this script do?
-
-  + Clone this repo as a bare repo into `$HOME/.config/dotfiles.git`.
-
-  + Backup conflicting files in `$HOME` to `$HOME/.config~`.
-
-  + Checkout cloned dotfiles to `$HOME`.
-
-  + Re-config checked out repo (to not show untracked files, difftool).
-
-  + (Personal) Create common use directories: `documents`, `download`,
-    `pictures`, etc.
-
-  + If `xdg-user-dirs` is installed:
-
-    * Remove xdg-user-dirs's default (uppercase) directories like
-      `Documents`, `Download`, `Videos`, etc. (if it's empty).
-
-+ *TODO*: install all necessary packages.
+![firefox](./pictures/assets/f-2023-12-22-230839.png)
