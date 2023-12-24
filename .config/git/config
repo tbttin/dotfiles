@@ -12,7 +12,9 @@
 [alias]
   a  = add
   ap = add --patch
+  b  = branch
   c  = commit
+  co = checkout
   d  = diff
   di = diff --staged
   dt = difftool
