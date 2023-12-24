@@ -2,7 +2,7 @@
 
 _pkgname='dwm'
 pkgname="${_pkgname}-git"
-pkgver=6.2.r0.gcb3f58a
+pkgver=6.2
 pkgrel=1
 pkgdesc='A dynamic window manager for X11'
 arch=('i686' 'x86_64')
@@ -31,36 +31,37 @@ sha256sums=(
   '1e3ff12db59c7ec364f07d31c6383ec63fe2d6857f2298141b433612a7ebc7f8'
 )
 source=(
-  "git+https://git.suckless.org/${_pkgname}#tag=6.2"
+  "git+https://git.suckless.org/${_pkgname}#tag=$pkgver"
   'config.h'
   ${_patches[@]}
 )
 
-pkgver() {
-  cd "${_pkgname}"
-  /usr/bin/git describe --long --tags |
-      /usr/bin/sed --regexp-extended 's/([^-]*-g)/r\1/;s/-/./g'
-}
+# pkgver() {
+#   cd "${_pkgname}"
+#   /usr/bin/git describe --long --tags |
+#       /usr/bin/sed --regexp-extended 's/([^-]*-g)/r\1/;s/-/./g'
+# }
 
 prepare() {
   cd "${_pkgname}"
+  # Copy sym linked config.h in src/ to src/dwm/
   if [ -f "${srcdir}/config.h" ]
   then
-    /usr/bin/cp --force --verbose "${srcdir}/config.h" .
+    /usr/bin/cp --verbose --force "${srcdir}/config.h" config.h
   fi
+  # Patch patches.
   local patch_file
   for patch_file in ${_patches[@]##*/}
   do
     /usr/bin/echo "Applying ${patch_file}..."
     /usr/bin/patch --silent --input="${srcdir}/${patch_file}"
   done
+  # Do not overwrite system compiler and linker flags in /etc/makepkg.conf
+  /usr/bin/sed --in-place 's/^\(\(C\|LD\)FLAGS *\)=/\1+=/g' config.mk
 }
 
 build() {
   cd "${_pkgname}"
-  # Use system flags in /etc/makepkg.conf
-  /usr/bin/sed --in-place 's/^\(CFLAGS *\)=/\1+=/g' config.mk
-  /usr/bin/sed --in-place 's/^\(LDFLAGS *\)=/\1+=/g' config.mk
   /usr/bin/make\
     X11INC=/usr/include/X11\
     X11LIB=/usr/lib/X11
@@ -75,6 +76,4 @@ package() {
   /usr/bin/install ${ins_opts}\
     README "${pkgdir}/usr/share/doc/${pkgname}/README"
 }
-
-# vim: filetype=sh
 

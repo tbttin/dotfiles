@@ -73,9 +73,9 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 
         /* screen shot */
-	{ MODKEY,                       XK_Print,  spawn,          SHCMD("scrot \"$(xdg-user-dir PICTURES)/ss/%F-%H%M%S-f.png\"") },
+	{ MODKEY,                       XK_Print,  spawn,          SHCMD("scrot -q100  \"$(xdg-user-dir PICTURES)/ss/f-%F-%H%M%S.png\"") },
 	{ MODKEY|ShiftMask,             XK_Print,  spawn,          SHCMD("sleep .2 &&"
-	                                                                 "scrot -s \"$(xdg-user-dir PICTURES)/ss/%F-%H%M%S-s.png\"") },
+	                                                                 "scrot -sq100 \"$(xdg-user-dir PICTURES)/ss/s-%F-%H%M%S.png\"") },
         /* volume control */
 	{ MODKEY,                       XK_slash,  spawn,          {.v = volmutecmd } },
 	{ MODKEY,                       XK_comma,  spawn,          {.v = voldowncmd } },
@@ -85,6 +85,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_f,      spawn,          {.v = browsercmd } },
 	{ MODKEY|ShiftMask,             XK_z,      spawn,          {.v = pdfreadercmd } },
 
+        /* dwm's defaults */
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },

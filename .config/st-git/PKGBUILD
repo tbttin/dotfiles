@@ -13,11 +13,13 @@ makedepends=('git')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 _patches=(
+  'st-fix-terminfo-20231224.patch'
   'https://st.suckless.org/patches/bold-is-not-bright/st-bold-is-not-bright-20190127-3be4cf1.diff'
 )
 sha256sums=(
   'SKIP'
   'SKIP'
+  '2c231312204ce2455bcb29417215775b8ff5ec4c7b6eec229dd3fbcf87581053'
   '329169acac7ceaf901995d6e0897913089b799d8cd150c7f04c902f4a5b8eab2'
 )
 source=(
@@ -62,6 +64,4 @@ package() {
   /usr/bin/install ${ins_opts}\
     README  "${pkgdir}/usr/share/doc/${pkgname}/README"
 }
-
-# vim: filetype=sh
 
