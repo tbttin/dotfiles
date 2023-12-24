@@ -1,9 +1,6 @@
-#
-# ~/.bash_profile
-#
+#!/bin/bash
 
-#
-# Some configurations.
+# Some configurations {{{
 #
 # Default text editor.
 export EDITOR='/usr/bin/vim'
@@ -13,18 +10,13 @@ export VISUAL='/usr/bin/vim'
 
 # less options.
 export LESS='--RAW-CONTROL-CHARS --hilite-search --jump-target=5'
+# End configs }}}
 
-#
-# File tranfer, clean up $HOME.
+# Files tranfer, clean up $HOME {{{
 #
 # Terminfo.
 export TERMINFO="${HOME}/.local/share/terminfo"
 export TERMINFO_DIRS="${HOME}/.local/share/terminfo:/usr/share/terminfo"
-
-# Less command and search history file to state directory.
-less_dir="${HOME}/.local/state/less"
-/usr/bin/mkdir --parents --mode=0700 "${less_dir}" &&
-  export LESSHISTFILE="${less_dir}/lesshst"
 
 # Bash command history file to state directory.
 bash_dir="${HOME}/.local/state/bash"
@@ -52,15 +44,12 @@ export INPUTRC="${HOME}/.config/readline/inputrc"
 #   startx "${HOME}/.config/X11/xinitrc" -- "${HOME}/.config/X11/xserverrc" vt1
 export XINITRC="${HOME}/.config/X11/xinitrc"
 #export XSERVERRC="${HOME}/.config/X11/xserverrc"
+# End movings }}}
 
-#
-# Sourcing and other stuff.
+# Sourcing and other stuff. {{{
 #
 # Source .bashrc file.
 test -f "$HOME/.bashrc" && source "$HOME/.bashrc"
-
-# Unset local variables
-unset less_dir bash_dir
 
 # It's set by the pam_systemd PAM module, and is only set on machines
 # which are using systemd, which means that you should not rely on it in
@@ -76,3 +65,7 @@ then
   startx # startx is an alias, xinitrc is included.
 fi
 
+# Unset local variables
+unset bash_dir
+
+# vim: fdm=marker

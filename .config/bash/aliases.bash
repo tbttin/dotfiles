@@ -1,4 +1,4 @@
-# Faster navigation.
+# Faster navigation. {{{
 alias ..='cd ..'
 alias ...='cd ../..'
 # With most commands, you can pass -- as an argument, and all subsequent
@@ -14,8 +14,9 @@ alias jc="cd ${xdg_prj_dir}/c/"
 alias jn="cd ${xdg_prj_dir}/notes/"
 alias jv="cd ${xdg_prj_dir}/vim/"
 alias v="cd $(/usr/bin/xdg-user-dir VIDEOS)/"
+# End navigation }}}
 
-# Quick edit some files.
+# Quick edit some files. {{{
 # Bashes.
 alias vb='/usr/bin/vim ${HOME}/.bashrc'
 alias vp='/usr/bin/vim ${HOME}/.bash_profile'
@@ -39,26 +40,42 @@ alias vm='/usr/bin/vim ${HOME}/.config/vim/tmplts/Makefile'
 # Makefile: quickly invoke run target with args.
 alias r='/usr/bin/make run --'
 # Take note.
-alias vn="jn && /usr/bin/vim ${xdg_prj_dir}/notes/index.md"
+alias vn="/usr/bin/vim ${xdg_prj_dir}/notes/index.md"
 # Git config file.
 alias vg='/usr/bin/vim ${HOME}/.config/git/config'
+# End quick edits }}}
 
-# Adding colors.
+# Adding colors. {{{
 alias ls='/usr/bin/ls --color=auto'
 alias grep='/usr/bin/grep --color=auto'
 alias ip='/usr/bin/ip -color=auto'
 alias diff='/usr/bin/diff --color=auto'
+# End colors }}}
 
+# Bare git dotfiles aliases. {{{
+alias config='/usr/bin/git --git-dir="${HOME}/.config/dotfiles.git"\
+              --work-tree="${HOME}"'
+alias cfa='config a'
+alias cfap='config ap'
+alias cfc='config c'
+alias cfd='config d'
+alias cfdi='config di'
+alias cfdt='config dt'
+alias cfl='config l'
+alias cfp='config p'
+alias cfr='config r'
+alias cfri='config ri'
+alias cfs='config s'
+# End dotfiles }}}
+
+# Miscellany {{{
+#
 # List files.
-alias la='ls --all'
 alias ll='ls -l --all --human-readable'
 
 # Display all locations containing an executable named includes aliases,
 # builtins, and functions.
 alias type='type -a'
-
-# Shorthand for transmission-remote command.
-alias tmr='/usr/bin/transmission-remote'
 
 # Do not print copyright, build options and versions; set seek_interval
 # to 3, start in full-screen mode with internal subtitles disabled.
@@ -74,25 +91,10 @@ alias startx="/usr/bin/startx '${XINITRC}'"
 alias dpm='/usr/bin/doas /usr/bin/pacman'
 alias spo='/usr/bin/systemctl poweroff -i'
 
-# Bare git dotfiles aliases.
-alias config='/usr/bin/git --git-dir="${HOME}/.config/dotfiles.git"\
-              --work-tree="${HOME}"'
-alias cfa='config a'
-alias cfap='config ap'
-alias cfc='config c'
-alias cfd='config d'
-alias cfdi='config di'
-alias cfdt='config dt'
-alias cfl='config l'
-alias cfp='config p'
-alias cfr='config r'
-alias cfri='config ri'
-alias cfs='config s'
-
 # Unset local variables.
 unset xdg_prj_dir
 
-# Notes {{{1
+# Notes {{{
 # Aliases are created and listed with the alias command, and removed
 # with the unalias command.
 # Single quotes vs double quotes:
@@ -100,4 +102,6 @@ unset xdg_prj_dir
 #   '' are evaluated dynamically (when it is used).
 #   alias QS="echo \$PWD" same as ''
 # echo $foo is slower than echo "$foo"
+
+# vim: ft=sh fdm=marker
 

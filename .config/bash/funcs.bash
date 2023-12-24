@@ -1,10 +1,4 @@
-#!/hint/bash
-
-# Create new directory and enter the first created one.
-mkcd()
-{
-  /usr/bin/mkdir --parents "$@" && cd "$1"
-}
+#!/bin/bash
 
 # Add some colors and hard-set pager width.
 man()
@@ -60,7 +54,8 @@ ffps()
       # (between '+' and '}') is substituted.
       ffplay ${sub_file:+-vf subtitles=\'"${sub_file}"\'}\
         "$@" -- "${mkv_file}"
-      done
+    done
+    unset mkv_file
 }
 
 # ffplay can not display some internal subtitles. Why?
@@ -74,5 +69,6 @@ ffms()
       # -y to overwrite existed files.
       /usr/bin/ffmpeg "$@" -i "${mkv_file}" -- "${mkv_file}.ass"
     done
+    unset mkv_file
 }
 
