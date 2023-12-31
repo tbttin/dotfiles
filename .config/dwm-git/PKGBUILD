@@ -1,49 +1,52 @@
 # Maintainer: Tin Thai <thaibachthanhtin@gmail.com>
 
 _pkgname='dwm'
+_tag='cb3f58ad06993f7ef3a7d8f61468012e2b786cab'
+_srcurl="https://git.suckless.org/${_pkgname}#tag=${_tag}"
 pkgname="${_pkgname}-git"
-pkgver=6.2
+pkgver=6.2.r0.gcb3f58a
 pkgrel=1
 pkgdesc='A dynamic window manager for X11'
 arch=('i686' 'x86_64')
 url='https://dwm.suckless.org'
 license=('custom:MIT')
-depends=('libx11' 'libxinerama' 'fontconfig' 'libxft') # 'freetype2'
+depends=(
+         'libx11'
+         'libxinerama'
+         'fontconfig'
+         'libxft'
+         'freetype2'
+)
 optdepends=(
-  'dmenu: dynamic menu'
-  'st:    a simple terminal'
+            'dmenu: dynamic menu'
+            'st:    a simple terminal'
+            'scrot: screen capture utility'
 )
 makedepends=('git')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 _patches=(
-  'dwm-fix-ffplay-transient-20201210-6.2.diff'
-  'https://dwm.suckless.org/patches/notitle/dwm-notitle-6.2.diff'
-  'https://dwm.suckless.org/patches/noborder/dwm-noborder-6.2.diff'
-  'https://dwm.suckless.org/patches/switchtotag/dwm-switchtotag-6.2.diff'
-)
-sha256sums=(
-  'SKIP'
-  'SKIP'
-  '957f38f2fc53406e36891af7506165e4e5efd4e316d64084275cee8a7e907f60'
-  '2ee1347c84428facff61830133146dd5467b0f9642703866e414212651a22753'
-  '9bbf5f963e5a2d23ae4b8731f0c179a8615de5715a2dbf683fbe02115e24efe0'
-  '1e3ff12db59c7ec364f07d31c6383ec63fe2d6857f2298141b433612a7ebc7f8'
+          'dwm-fix-ffplay-transient-20201210-6.2.diff'
+          'https://dwm.suckless.org/patches/notitle/dwm-notitle-6.2.diff'
+          'https://dwm.suckless.org/patches/noborder/dwm-noborder-6.2.diff'
+          'https://dwm.suckless.org/patches/switchtotag/dwm-switchtotag-6.2.diff'
 )
 source=(
-  "git+https://git.suckless.org/${_pkgname}#tag=$pkgver"
-  'config.h'
-  ${_patches[@]}
+        "git+${_srcurl}"
+        'config.h'
+        ${_patches[@]}
+)
+sha512sums=(
+            'SKIP'
+            'SKIP'
+            'f3ab4ced2fa943e6930afa64606de74d74f28680fcb418e5e97c2229849035f8c2d9f18946dd7a5c418b55a6caf0befc49ddedcb38d9c0f9ed90eb1df8318def'
+            '3e208fc162ceba77e711066cdfa205733a1c1d186c809e837bf9810b2d18b8b5624828a87f670e6d3ac46876a3abded88c50fdd7afd1a2ef1cc9d478b2459aaa'
+            '43a3f39e6f27ff4dfa44264cca195de323b8b83bd734f61001ec23e8644a12078757c26f84165030a0d59594122d9e56e3fa1fc22ecfcaf436e642115bce4927'
+            'b2df30caa5a04c1cbcf74b1ac7e6cee10026a002a5280e9d5d9d143ad22fe91d11342966a1dc21d7d742ce48e0df148926861a40d1590c11836f2f436c1ed9b9'
 )
 
-# pkgver() {
-#   cd "${_pkgname}"
-#   /usr/bin/git describe --long --tags |
-#       /usr/bin/sed --regexp-extended 's/([^-]*-g)/r\1/;s/-/./g'
-# }
-
 prepare() {
-  cd "${_pkgname}"
+  cd "${srcdir}/${_pkgname}"
   # Copy sym linked config.h in src/ to src/dwm/
   if [ -f "${srcdir}/config.h" ]
   then
@@ -60,20 +63,32 @@ prepare() {
   /usr/bin/sed --in-place 's/^\(\(C\|LD\)FLAGS *\)=/\1+=/g' config.mk
 }
 
+pkgver() {
+  cd "${srcdir}/${_pkgname}"
+  /usr/bin/git describe --long --tags |
+      /usr/bin/sed --regexp-extended 's/([^-]*-g)/r\1/;s/-/./g'
+}
+
 build() {
-  cd "${_pkgname}"
+  cd "${srcdir}/${_pkgname}"
   /usr/bin/make\
     X11INC=/usr/include/X11\
     X11LIB=/usr/lib/X11
 }
 
 package() {
-  cd "${_pkgname}"
-  /usr/bin/make DESTDIR="${pkgdir}" PREFIX='/usr' install
+  # Installation
+  cd "${srcdir}/${_pkgname}"
+  # Binaries
+  local prefix='/usr'
+  /usr/bin/make DESTDIR="${pkgdir}" PREFIX="${prefix}" install
   local ins_opts='-D --mode=644'
+  local prefix="${pkgdir}/${prefix}"
+  # Licenses
   /usr/bin/install ${ins_opts}\
-    LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+    LICENSE "${prefix}/share/licenses/${pkgname}/LICENSE"
+  # Docs
   /usr/bin/install ${ins_opts}\
-    README "${pkgdir}/usr/share/doc/${pkgname}/README"
+    README "${prefix}/share/doc/${pkgname}/README"
 }
 
