@@ -9,6 +9,8 @@
   prompt = false
 [commit]
   verbose = true
+[push]
+  autoSetupRemote = true
 [alias]
   a  = add
   ap = add --patch
