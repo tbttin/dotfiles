@@ -36,7 +36,7 @@ man()
   fi
 }
 
-# Play all mkv files [with its external subtitle] orderly.
+# Play all mkv files [with its external subtitle] in alphabetical order.
 # ^z + kill %% to kill this function.
 ffps()
 {
@@ -44,13 +44,14 @@ ffps()
     /usr/bin/sort --zero-terminated |
     while read -r -d $'\0' mkv_file
     do
+      local sub_file=""
       [ -f "${mkv_file}.ass" ] && local sub_file="${mkv_file}.ass"
       [ -f "${mkv_file}.srt" ] && local sub_file="${mkv_file}.srt"
       # Shell parameter expansion, if $sub_file is null or unset,
       # nothing is substituted, otherwise the expansion of "word"
       # (between '+' and '}') is substituted.
-      ffplay ${sub_file:+-vf subtitles=\'"${sub_file}"\'}\
-        "$@" -- "${mkv_file}"
+      /usr/bin/ffplay -v error -seek_interval 5 -autoexit -fs -sn "$@" \
+        ${sub_file:+-vf subtitles=\'"${sub_file}"\'} -- "${mkv_file}"
     done
   unset mkv_file
 }
@@ -63,7 +64,7 @@ ffms()
     while read -r -d $'\0' mkv_file
     do
       # -y to overwrite existed subtitles.
-      /usr/bin/ffmpeg -nostdin -loglevel error "$@" -i "${mkv_file}" -- "${mkv_file}.ass"
+      /usr/bin/ffmpeg -nostdin -v error "$@" -i "${mkv_file}" -- "${mkv_file}.ass"
     done
   unset mkv_file
 }

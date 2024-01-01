@@ -53,7 +53,7 @@ alias diff='/usr/bin/diff --color=auto'
 # End colors }}}
 
 # Bare git dotfiles aliases. {{{
-alias config='/usr/bin/git --git-dir="${HOME}/.config/dotfiles.git"\
+alias config='/usr/bin/git --git-dir="${HOME}/.config/dotfiles.git" \
               --work-tree="${HOME}"'
 alias cfa='config a'
 alias cfap='config ap'
@@ -76,13 +76,6 @@ alias ll='ls -l --all --human-readable'
 # Display all locations containing an executable named includes aliases,
 # builtins, and functions.
 alias type='type -a'
-
-# Do not print copyright, build options and versions; set seek_interval
-# to 3, start in full-screen mode with internal subtitles disabled.
-alias ffplay='/usr/bin/ffplay -hide_banner -nostats -seek_interval 3\
-              -autoexit -fs -sn'
-# Seeking for file infomation.
-alias ffprobe='/usr/bin/ffprobe -hide_banner'
 
 # Start X with "${HOME}/.config/xorg/xinitrc"
 alias startx="/usr/bin/startx '${XINITRC}'"
