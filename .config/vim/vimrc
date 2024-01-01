@@ -76,13 +76,13 @@ set path-=/usr/include " '.' relative to the directory of the current file.
 " Miscellany {{{2
 
 let g:mapleader = "\<Space>"                    " Use <Space> as map leader.
-let g:netrw_browsex_viewer = '/usr/bin/firefox' " gx to open this link in Firefox.
+let g:netrw_browsex_viewer = '/usr/bin/firefox' " gx to open-under cursor link in Firefox.
 set nojoinspaces                                " Insert two spaces after a '.', '?' and '!' with a join command.
 set hidden                                      " Possibility to have more than one unsaved buffers.
 set mouse&                                      " I don't like mouse setting in defaults.vim.
-packadd! matchit                                " Improved '%' will jump to matching HTML tags, if/else/endif in Vim scripts, etc.
+packadd! matchit                                " Improved '%' in HTLM and Vim scripts, etc.
 set shellcmdflag=-ic                            " Vim will run external commands in an interactive shell (bash -ic cmd).
-                                                " So normal mode K command will run man() in .bashrc file.
+                                                " Normal-mode [count]K command will run man() in .bashrc file.
 
 " Mappings {{{1
 " Note: use uppercases for special editions?
@@ -175,9 +175,9 @@ let g:easy_align_delimiters['d'] = {
                         \ }
 
 " Start interactive EasyAlign in visual mode.
-xmap <silent> <Leader>a <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object.
-nmap <silent> <Leader>a <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 " Autocommands {{{1
 
