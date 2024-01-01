@@ -36,8 +36,7 @@ man()
   fi
 }
 
-# Play all .mkv files with its external subtitle (if exist) in current
-# directory.
+# Play all mkv files [with its external subtitle] orderly.
 # ^z + kill %% to kill this function.
 ffps()
 {
@@ -45,17 +44,15 @@ ffps()
     /usr/bin/sort --zero-terminated |
     while read -r -d $'\0' mkv_file
     do
-      [ -f "${mkv_file}.ass" ] &&
-        local sub_file="${mkv_file}.ass"
-      [ -f "${mkv_file}.srt" ] &&
-        local sub_file="${mkv_file}.srt"
+      [ -f "${mkv_file}.ass" ] && local sub_file="${mkv_file}.ass"
+      [ -f "${mkv_file}.srt" ] && local sub_file="${mkv_file}.srt"
       # Shell parameter expansion, if $sub_file is null or unset,
       # nothing is substituted, otherwise the expansion of "word"
       # (between '+' and '}') is substituted.
       ffplay ${sub_file:+-vf subtitles=\'"${sub_file}"\'}\
         "$@" -- "${mkv_file}"
     done
-    unset mkv_file
+  unset mkv_file
 }
 
 # ffplay can not display some internal subtitles. Why?
@@ -63,12 +60,11 @@ ffps()
 ffms()
 {
   /usr/bin/find . -maxdepth 1 -type f -name '*.mkv' -print0 |
-    /usr/bin/sort --zero-terminated |
     while read -r -d $'\0' mkv_file
     do
-      # -n to not overwrite existed files.
-      /usr/bin/ffmpeg -nostdin -y "$@" -i "${mkv_file}" -- "${mkv_file}.ass"
+      # -y to overwrite existed subtitles.
+      /usr/bin/ffmpeg -nostdin -loglevel error "$@" -i "${mkv_file}" -- "${mkv_file}.ass"
     done
-    unset mkv_file
+  unset mkv_file
 }
 
