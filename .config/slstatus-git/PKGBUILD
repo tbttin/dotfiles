@@ -1,6 +1,7 @@
 # Maintainer: Tin Thai <thaibachthanhtin@gmail.com>
 
 _pkgname='slstatus'
+_srcurl="https://git.suckless.org/${_pkgname}"
 pkgname="${_pkgname}-git"
 pkgver=r604.f68f492
 pkgrel=1
@@ -13,66 +14,65 @@ makedepends=('git')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 _patches=(
-  'slstatus-rm-netspeeds-trailing-space-20201104-b14e039.diff'
-)
-sha256sums=(
-  'SKIP'
-  'SKIP'
-  'fabbb1a14e86f3309cf03f45f6043b525ca1c49cf383e7fbc36420f19260e797'
+          'slstatus-rm-netspeeds-trailing-space-20201104-b14e039.diff'
 )
 source=(
-  "git+https://git.suckless.org/${_pkgname}"
-  'config.h'
-  ${_patches[@]}
+        "git+${_srcurl}"
+        'config.h'
+        ${_patches[@]}
+)
+sha512sums=(
+            'SKIP'
+            'SKIP'
+            '0da7efad9d3b8f955c919b7b5b4da0ae9c432097011711c5c6526b9ea2a5c6b141c8926079692ee8f151647138dcc44b573ba9c5e28f03a3ece8f73cbaa41348'
 )
 
-pkgver() {
-  cd "${_pkgname}"
-  (
-  set -o pipefail
-  /usr/bin/git describe --long 2>/dev/null |
-    /usr/bin/sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
-    /usr/bin/printf "r%s.%s" "$(/usr/bin/git rev-list --count HEAD)"\
-      "$(/usr/bin/git rev-parse --short HEAD)"
-  )
-}
-
 prepare() {
-  cd "${_pkgname}"
-  # Copy sym linked config.h in src/ to src/slstatus/ dir.
+  cd "${srcdir}/${_pkgname}"
   if [ -f "${srcdir}/config.h" ]
   then
-    /usr/bin/cp --force --verbose "${srcdir}/config.h" config.h
+    /usr/bin/cp --verbose --force "${srcdir}/config.h" config.h
   fi
-  # Patch patches.
   local patch_file
   for patch_file in ${_patches[@]##*/}
   do
     /usr/bin/echo "Applying ${patch_file}..."
     /usr/bin/patch --silent --input="${srcdir}/${patch_file}"
   done
-  # Do not overwrite system flags in /etc/makepkg.conf file.
   /usr/bin/sed --in-place 's/^\(\(C\|LD\)FLAGS *\)=/\1+=/g' config.mk
 }
 
+pkgver() {
+  cd "${srcdir}/${_pkgname}"
+  (
+  set -o pipefail
+  /usr/bin/git describe --long 2>/dev/null |
+    /usr/bin/sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
+    /usr/bin/printf "r%s.%s" "$(/usr/bin/git rev-list --count HEAD)" \
+      "$(/usr/bin/git rev-parse --short HEAD)"
+  )
+}
+
 build() {
-  cd "${_pkgname}"
+  cd "${srcdir}/${_pkgname}"
   # Don't build unused components.
   # TODO: How to split long sed expression into multi lines?
   local unused_comps="(battery|cat|entropy|hostname|ip|kernel_release|keyboard_indicators|keymap|num_files|run_command|swap|uptime|user|volume)"
   /usr/bin/sed -E -i "/^[[:space:]]*components\/${unused_comps}/d" Makefile
-  /usr/bin/make\
-    X11INC=/usr/include/X11\
+  /usr/bin/make \
+    X11INC=/usr/include/X11 \
     X11LIB=/usr/lib/X11
 }
 
 package() {
-  cd "${_pkgname}"
-  /usr/bin/make DESTDIR="${pkgdir}" PREFIX='/usr' install
+  cd "${srcdir}/${_pkgname}"
+  local prefix='/usr'
+  /usr/bin/make DESTDIR="${pkgdir}" PREFIX="${prefix}" install
   local ins_opts='-D --mode=644'
-  /usr/bin/install ${ins_opts}\
-    LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-  /usr/bin/install ${ins_opts}\
-    README  "${pkgdir}/usr/share/doc/${pkgname}/README"
+  local prefix="${pkgdir}/${prefix}"
+  /usr/bin/install ${ins_opts} \
+    LICENSE "${prefix}/share/licenses/${pkgname}/LICENSE"
+  /usr/bin/install ${ins_opts} \
+    README "${prefix}/share/doc/${pkgname}/README"
 }
 

@@ -1,6 +1,7 @@
 # Maintainer: Tin Thai <thaibachthanhtin@gmail.com>
 
 _pkgname='st'
+_srcurl="https://git.suckless.org/${_pkgname}"
 pkgname="${_pkgname}-git"
 pkgver=0.9.r11.g9846a56
 pkgrel=1
@@ -8,37 +9,36 @@ pkgdesc='A simple virtual terminal emulator for X'
 arch=('i686' 'x86_64')
 url='https://st.suckless.org'
 license=('custom:MIT')
-depends=('libx11' 'libxft' 'fontconfig' 'freetype2')
+depends=(
+         'libx11'
+         'libxft'
+         'fontconfig'
+         'freetype2'
+)
 makedepends=('git')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 _patches=(
-  'st-fix-terminfo-20231224.patch'
-  'https://st.suckless.org/patches/bold-is-not-bright/st-bold-is-not-bright-20190127-3be4cf1.diff'
-)
-sha256sums=(
-  'SKIP'
-  'SKIP'
-  '2c231312204ce2455bcb29417215775b8ff5ec4c7b6eec229dd3fbcf87581053'
-  '329169acac7ceaf901995d6e0897913089b799d8cd150c7f04c902f4a5b8eab2'
+          'st-fix-terminfo-20231224.patch'
+          'https://st.suckless.org/patches/bold-is-not-bright/st-bold-is-not-bright-20190127-3be4cf1.diff'
 )
 source=(
-  "git+https://git.suckless.org/${_pkgname}"
-  'config.h'
-  ${_patches[@]}
+        "git+${_srcurl}"
+        'config.h'
+        ${_patches[@]}
+)
+sha512sums=(
+            'SKIP'
+            'SKIP'
+            '255ed23afc6043fe38af64d0f3be0c4d13a026282a0c9cdaf415d46bde7b2445d70ceab1b8a5964c8332b59150ec4cddfa8ae437cfbcf4f23dd37cf2f0a874c9'
+            '2acd696f2f37afb1388e9cb6f64d76dfa8b337fcb86ac6d9360a2d9011e5518ca0317275192a827faf1e025f02ac1c6f470c37e1c4e72d9a1d055d52e36d783e'
 )
 
-pkgver() {
-  cd "${_pkgname}"
-  /usr/bin/git describe --long --tags |
-    /usr/bin/sed --regexp-extended 's/([^-]*-g)/r\1/;s/-/./g'
-}
-
 prepare() {
-  cd "${_pkgname}"
+  cd "${srcdir}/${_pkgname}"
   if [ -f "${srcdir}/config.h" ]
   then
-    /usr/bin/cp --force --verbose "${srcdir}/config.h" .
+    /usr/bin/cp --verbose --force "${srcdir}/config.h" config.h
   fi
   local patch_file
   for patch_file in ${_patches[@]##*/}
@@ -48,20 +48,28 @@ prepare() {
   done
 }
 
+pkgver() {
+  cd "${srcdir}/${_pkgname}"
+  /usr/bin/git describe --long --tags |
+    /usr/bin/sed --regexp-extended 's/([^-]*-g)/r\1/;s/-/./g'
+}
+
 build() {
-  cd "${_pkgname}"
-  /usr/bin/make\
-    X11INC=/usr/include/X11\
+  cd "${srcdir}/${_pkgname}"
+  /usr/bin/make \
+    X11INC=/usr/include/X11 \
     X11LIB=/usr/lib/X11
 }
 
 package() {
-  cd "${_pkgname}"
-  /usr/bin/make DESTDIR="${pkgdir}" PREFIX='/usr' install
+  cd "${srcdir}/${_pkgname}"
+  local prefix='/usr'
+  /usr/bin/make DESTDIR="${pkgdir}" PREFIX="${prefix}" install
   local ins_opts='-D --mode=644'
-  /usr/bin/install ${ins_opts}\
-    LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-  /usr/bin/install ${ins_opts}\
-    README  "${pkgdir}/usr/share/doc/${pkgname}/README"
+  local prefix="${pkgdir}/${prefix}"
+  /usr/bin/install ${ins_opts} \
+    LICENSE "${prefix}/share/licenses/${pkgname}/LICENSE"
+  /usr/bin/install ${ins_opts} \
+    README "${prefix}/share/doc/${pkgname}/README"
 }
 

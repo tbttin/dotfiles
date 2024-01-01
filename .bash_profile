@@ -32,7 +32,7 @@ export XAUTHORITY="${XDG_RUNTIME_DIR}/Xauthority"
 export INDENT_PROFILE="${HOME}/.config/indent/indent.pro"
 
 # Vim please respect XDGBDS; vimrc to config directory.
-export VIMINIT="let \$VIMHOME = '${HOME}/.config/vim' |\
+export VIMINIT="let \$VIMHOME = '${HOME}/.config/vim' | \
                 source \$VIMHOME/vimrc"
 
 # Readline config file to config directory.

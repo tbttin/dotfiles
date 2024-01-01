@@ -47,7 +47,7 @@ sha512sums=(
 
 prepare() {
   cd "${srcdir}/${_pkgname}"
-  # Copy sym linked config.h in src/ to src/dwm/
+  # Copy sym linked config.h in src to src/dwm
   if [ -f "${srcdir}/config.h" ]
   then
     /usr/bin/cp --verbose --force "${srcdir}/config.h" config.h
@@ -66,13 +66,13 @@ prepare() {
 pkgver() {
   cd "${srcdir}/${_pkgname}"
   /usr/bin/git describe --long --tags |
-      /usr/bin/sed --regexp-extended 's/([^-]*-g)/r\1/;s/-/./g'
+    /usr/bin/sed --regexp-extended 's/([^-]*-g)/r\1/;s/-/./g'
 }
 
 build() {
   cd "${srcdir}/${_pkgname}"
-  /usr/bin/make\
-    X11INC=/usr/include/X11\
+  /usr/bin/make \
+    X11INC=/usr/include/X11 \
     X11LIB=/usr/lib/X11
 }
 
@@ -85,10 +85,10 @@ package() {
   local ins_opts='-D --mode=644'
   local prefix="${pkgdir}/${prefix}"
   # Licenses
-  /usr/bin/install ${ins_opts}\
+  /usr/bin/install ${ins_opts} \
     LICENSE "${prefix}/share/licenses/${pkgname}/LICENSE"
   # Docs
-  /usr/bin/install ${ins_opts}\
+  /usr/bin/install ${ins_opts} \
     README "${prefix}/share/doc/${pkgname}/README"
 }
 
