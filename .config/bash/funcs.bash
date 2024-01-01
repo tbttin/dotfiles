@@ -66,8 +66,8 @@ ffms()
     /usr/bin/sort --zero-terminated |
     while read -r -d $'\0' mkv_file
     do
-      # -y to overwrite existed files.
-      /usr/bin/ffmpeg "$@" -i "${mkv_file}" -- "${mkv_file}.ass"
+      # -n to not overwrite existed files.
+      /usr/bin/ffmpeg -nostdin -y "$@" -i "${mkv_file}" -- "${mkv_file}.ass"
     done
     unset mkv_file
 }
