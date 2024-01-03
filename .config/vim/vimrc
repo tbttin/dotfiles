@@ -185,9 +185,11 @@ nmap ga <Plug>(EasyAlign)
 
 augroup GlobalMarks " {{{2
   autocmd!
-  autocmd BufLeave vimrc normal! mR
+  " autocmd BufLeave vimrc normal! mR
   autocmd BufLeave *.vim normal! mV
   autocmd BufLeave *.md normal! mM
+  " autocmd BufLeave *.h normal! mH
+  " autocmd BufLeave *.c normal! mC
 augroup END
 
 augroup Templates " {{{2
