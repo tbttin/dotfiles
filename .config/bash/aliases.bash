@@ -40,7 +40,7 @@ alias vm='/usr/bin/vim ${HOME}/.config/vim/tmplts/Makefile'
 # Makefile: quickly invoke run target with args.
 alias r='/usr/bin/make run --'
 # Take note.
-alias vn="/usr/bin/vim ${xdg_prj_dir}/notes/index.md"
+alias vn="jn && /usr/bin/vim ${xdg_prj_dir}/notes/index.md"
 # Git config file.
 alias vg='/usr/bin/vim ${HOME}/.config/git/config'
 # End quick edits }}}
@@ -62,6 +62,7 @@ alias cfd='config d'
 alias cfdi='config di'
 alias cfdt='config dt'
 alias cfl='config l'
+alias cflp='config lp'
 alias cfp='config p'
 alias cfr='config r'
 alias cfri='config ri'

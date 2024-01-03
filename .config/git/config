@@ -22,6 +22,7 @@
   dt = difftool
   f  = fetch
   l  = log --stat
+  lp = log --stat --patch
   p  = push
   s  = status --show-stash
   sw = switch
