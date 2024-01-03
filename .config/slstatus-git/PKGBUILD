@@ -76,3 +76,4 @@ package() {
     README "${prefix}/share/doc/${pkgname}/README"
 }
 
+# vim: ft=PKGBUILD

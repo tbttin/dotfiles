@@ -34,7 +34,9 @@ keycode 15  = 6 asciicircum F6 asciicircum
 ! Caps+e = Escape.
 keycode 26  = e E Escape E
 
-! Make Alt_R Mod4 for one-handed convenience.
+! Make Alt_R Mod4 for one-handed convenience (no left-hand side windows
+! key).
 remove Mod1 = Alt_R
 keycode 108 = Super_R NoSymbol
 
+! vim: ft=xmodmap

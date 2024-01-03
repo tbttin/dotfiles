@@ -48,3 +48,4 @@ test -f "${func_file}" && source "${func_file}"
 
 unset FG_RED FG_CYAN CA_BOLD CA_RESET bash_dir alias_file func_file
 
+# vim: ft=sh

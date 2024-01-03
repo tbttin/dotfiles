@@ -68,4 +68,4 @@ fi
 # Unset local variables
 unset bash_dir
 
-# vim: fdm=marker
+# vim: ft=sh fdm=marker

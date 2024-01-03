@@ -1,4 +1,4 @@
-#!/hint/bash
+#!/bin/bash
 
 # Remap some keys.
 map_file="${HOME}/.config/X11/xmodmaprc"
@@ -26,3 +26,4 @@ unset map_file
 # Start dynamic window manager.
 exec /usr/bin/dwm
 
+# vim: ft=sh
