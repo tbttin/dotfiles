@@ -5,5 +5,5 @@
   path = .config/vim/pack/plugins/start/vim-easy-align
   url = https://github.com/junegunn/vim-easy-align.git
 [submodule ".config/vim/pack/plugins/start/commentary"]
-	path = .config/vim/pack/plugins/start/commentary
-	url = https://github.com/tpope/vim-commentary.git
+  path = .config/vim/pack/plugins/start/commentary
+  url = https://github.com/tpope/vim-commentary.git
