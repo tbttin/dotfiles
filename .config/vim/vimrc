@@ -50,7 +50,7 @@ set shiftwidth=2
 
 set lazyredraw                       " Do not redrawn while executing macros, registers, commands, .etc
 set textwidth=72                     " Horizontal split a dozen thousand lines of code in vim with Lenovo T400 screen.
-set number                           " Print the line number in front of each line.
+" set number                           " Print the line number in front of each line.
 " set relativenumber                   " Show the line number relative to the line with the cursor in front of each line.
 if &term =~ 'st'
   set background=dark                " Vim will not use dark-background theme in st.
@@ -70,8 +70,9 @@ endif
 
 " Cmdlines {{{2
 
-" TODO: Move $VIMHOME/** to a ':e **/' maping.
-set path-=/usr/include " '.' relative to the directory of the current file.
+" TODO: Move $VIMHOME/** to a ':e **/' mapping.
+set path-=/usr/include     " '.' relative to the directory of the current file.
+set wildmode=full:lastused " Tab suggest last used buffer instead of alphabetical order.
 
 " Miscellany {{{2
 
@@ -117,7 +118,7 @@ set shellcmdflag=-ic                            " Vim will run external commands
 " Fly~
 " ':ls' vs 'wildcharm'?
 " Note: noneed '*' here, noneed to <Tab> (partial name then <CR>).
-nnoremap <Leader>l :ls<CR>:b<Space>
+nnoremap <Leader>b :ls<CR>:b<Space>
 
 " Toggle spell check. Then just "]s" and "z=".
 nnoremap <Leader>ts :set spell! spell?<CR>
@@ -126,28 +127,11 @@ nnoremap <Leader>tp :set paste! paste?<CR>
 " Toggle highlight search.
 nnoremap <Leader>th :set hlsearch! hlsearch?<CR>
 
-" Repeat the last ':s' with same flags.
-" Note:
-"   + '&' must be the first one.
-"   + ':s' and ':&' don't keep the flags.
-noremap & :&&<CR>
-
 " Search forward the visual selected text ('@s' will be used).
 xnoremap <Leader>ss "sy/\V<C-R>=escape(@s, '/\')<CR><CR>
 
 " Replce the 'last-pattern'.
 nnoremap <Leader>sr :%s///gc<Left><Left><Left>
-
-" Source current file.
-nnoremap <Leader>so :so "%"<CR>
-
-" Edit vimrc in new tab.
-" Mappings vs global marks?
-" Swiching to global mark.
-" nnoremap <Leader>vv :tabedit $VIMHOME/vimrc<CR>
-
-" Create file under the cursor.
-nnoremap <Leader>ef :e <cfile><CR>
 
 " Quick find and edit file in current directory.
 " Wildcard completioni vs 'path'?
@@ -158,6 +142,18 @@ nnoremap <Leader>eh :e $VIMHOME/**/*
 
 " Quick supper user write and reload file content when necessary.
 com! SW exe 'w !/usr/bin/doas /usr/bin/tee "%" >/dev/null' | if !v:shell_error | e! | en
+
+" " Repeat the last ':s' with same flags.
+" " Note:
+" "   + '&' must be the first one.
+" "   + ':s' and ':&' don't keep the flags.
+" noremap & :&&<CR>
+
+" Source current file.
+nnoremap <Leader>so :so "%"<CR>
+
+" Create file under the cursor.
+nnoremap <Leader>ef :e <cfile><CR>
 
 " Plugins {{{2
 
@@ -196,5 +192,12 @@ augroup Templates " {{{2
   autocmd BufNewFile ?\+ call tmplts#LoadTemplate('skeleton.' . expand('<afile>:e'))
   " Start insert mode at the end of line containing 'Description: '.
   autocmd BufNewFile main.c call tmplts#AddFileDescription()
+augroup END
+
+augroup ModelineSuck " {{{2
+  " 'kp' can't be set with 'modeline' for security reason.
+  autocmd!
+  " Markdown in there are notes about Vim, 'kp' should be ":help".
+  autocmd BufRead,BufNewFile */vims/*.md setl kp=\:help
 augroup END
 
