@@ -4,7 +4,7 @@
 
 " defaults.vim {{{2
 
-" NOTE {{{3
+" Note {{{3
 " Vim startup order in Arch:
 "   /etc/vimrc
 "   $VIM/vimfiles/archlinux.vim
@@ -17,7 +17,7 @@ source $VIMRUNTIME/defaults.vim
 
 " XDGBDS {{{2
 
-" Move all vim data to 'XDG_STATE_HOME'.
+" Move all vim state data to 'XDG_STATE_HOME'.
 let $VIMDATA = $HOME .. '/.local/state/vim'
 set undodir=$VIMDATA/undo                     | call mkdir(&g:undodir, 'p', 0700)
 set directory=$VIMDATA/swap                   | call mkdir(&g:directory, 'p', 0700)
@@ -74,7 +74,7 @@ endif
 set path-=/usr/include     " '.' relative to the directory of the current file.
 set wildignore+=*/pack/*   " In most cases plugin's files are nonedded.
 set wildmode=full:lastused " Tab suggest prior last used buffer than alphabetical order.
-                           " How to do the same with ":e **/*"?
+                           " It's working with ":b ". But how to do the same with ":e **/*"?
 
 " Miscellany {{{2
 
@@ -89,6 +89,7 @@ set shellcmdflag=-ic                            " Vim will run external commands
                                                 " But vim will become an background process sometime.
 
 " Mappings {{{1
+
 " Note: use uppercases for special editions?
 
 " Maintaining {{{2
@@ -120,7 +121,7 @@ set shellcmdflag=-ic                            " Vim will run external commands
 
 " Fly~
 " ':ls' vs 'wildcharm'?
-" Note: noneed '*' here, noneed to <Tab> (partial name then <CR>).
+" Note: noneed '*' or <Tab> here just partial name then <CR>.
 " Try gb instead of <Leader>b
 nnoremap <Leader>b :ls<CR>:b<Space>
 
@@ -172,9 +173,9 @@ endif
 " Align variable definitions by name.
 " Then, just "<Leader>aipd" then "<Leader>aip=".
 let g:easy_align_delimiters['d'] = {
-                        \ 'pattern': '\(const\|static\|unsigned\)\@<! ',
-                        \ 'left_margin': 0, 'right_margin': 0
-                        \ }
+                                     \ 'pattern': '\(const\|static\|unsigned\)\@<! ',
+                                     \ 'left_margin': 0, 'right_margin': 0
+                                   \ }
 
 " Start interactive EasyAlign in visual mode.
 xmap ga <Plug>(EasyAlign)
@@ -205,7 +206,7 @@ augroup END
 augroup ModelineSuck " {{{2
   " 'kp' can't be set with 'modeline' for security reason.
   autocmd!
-  " Markdown in there are notes about Vim, 'kp' should be ":help".
+  " Markdowns in there are notes about Vim, 'kp' should be ":help".
   autocmd BufRead,BufNewFile */vims/*.md setl kp=\:help
 augroup END
 
