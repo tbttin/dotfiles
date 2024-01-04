@@ -47,7 +47,7 @@ let g:termdebug_wide = 1 " Enable vertical split without every changing &columns
 
 " Mappings. {{{1
 
-" Man page default section should be 3.
+" Man page default section should be 3??
 nnoremap <buffer> K 3K
 
 " Smart less than sign. Currently pear-tree does not do this.

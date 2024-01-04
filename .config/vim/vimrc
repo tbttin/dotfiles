@@ -70,7 +70,11 @@ endif
 
 " Cmdlines {{{2
 
-" TODO: Move $VIMHOME/** to a ':e **/' mapping.
+" TODO: Move $VIMHOME/** to a ':e **/' mapping??
+" 'wildcards' expansion vs 'path'?
+"  - Wildcard ($VIMHOME/**/*) is more flexible. It does not mess up
+"    between vim config files and project files.
+"  - But it needs a lot of mappings.
 set path-=/usr/include     " '.' relative to the directory of the current file.
 set wildignore+=*/pack/*   " In most cases plugin's files are nonedded.
 set wildmode=full:lastused " Tab suggest prior last used buffer than alphabetical order.
@@ -86,7 +90,6 @@ set mouse&                                      " I don't like mouse setting in 
 packadd! matchit                                " Improved '%' in HTLM and Vim scripts, etc.
 set shellcmdflag=-ic                            " Vim will run external commands in an interactive shell (bash -ic cmd).
                                                 " Normal-mode [count]K command will run man() in .bashrc file.
-                                                " But vim will become an background process sometime.
 
 " Mappings {{{1
 
@@ -119,11 +122,28 @@ set shellcmdflag=-ic                            " Vim will run external commands
 
 " End maintaining }}}2
 
+" Repeat the last ':s' with same flags. Range will not rememberd.
+noremap & :&&<CR>
+
+" Source current file.
+nnoremap <Leader>so :so "%"<CR>
+
+" Create file under the cursor.
+nnoremap <Leader>ef :e <cfile><CR>
+
 " Fly~
 " ':ls' vs 'wildcharm'?
 " Note: noneed '*' or <Tab> here just partial name then <CR>.
-" Try gb instead of <Leader>b
+" Try gb instead of <Leader>b??
 nnoremap <Leader>b :ls<CR>:b<Space>
+
+" This is just 'wildmenu' + 'wildcards' in '{file}' name expansion,
+" ':e' command does NOT support 'wildcard' (does it?), see 'file-searching'.
+" Quick find and edit files in current directory.
+" "**" = "./**", it means NO upward search, no "**2".
+nnoremap <Leader>ee :e **/*
+" Quick find and edit files in '$VIMHOME'.
+nnoremap <Leader>eh :e $VIMHOME/**/*
 
 " Toggle spell check. Then just "]s" and "z=".
 nnoremap <Leader>ts :set spell! spell?<CR>
@@ -138,29 +158,8 @@ xnoremap <Leader>ss "sy/\V<C-R>=escape(@s, '/\')<CR><CR>
 " Replace the 'last-pattern'.
 nnoremap <Leader>sr :%s///gc<Left><Left><Left>
 
-" 'wildcards' expansion vs 'path'?
-" This is just 'wildmenu' + 'wildcards' in '{file}' name expansion,
-" ':e' command does NOT support 'wildcard' (of course), see 'file-searching'.
-" Quick find and edit files in current directory.
-" "**" = "./**", it means NO upward search, no "**2".
-nnoremap <Leader>ee :e **/*
-" Quick find and edit files in '$VIMHOME'.
-nnoremap <Leader>eh :e $VIMHOME/**/*
-
 " Quick supper user write and reload file content when necessary.
 com! SW exe 'w !/usr/bin/doas /usr/bin/tee "%" >/dev/null' | if !v:shell_error | e! | en
-
-" " Repeat the last ':s' with same flags.
-" " Note:
-" "   + '&' must be the first one.
-" "   + ':s' and ':&' don't keep the flags.
-" noremap & :&&<CR>
-
-" Source current file.
-nnoremap <Leader>so :so "%"<CR>
-
-" Create file under the cursor.
-nnoremap <Leader>ef :e <cfile><CR>
 
 " Plugins {{{2
 
@@ -206,7 +205,7 @@ augroup END
 augroup ModelineSuck " {{{2
   " 'kp' can't be set with 'modeline' for security reason.
   autocmd!
-  " Markdowns in there are notes about Vim, 'kp' should be ":help".
-  autocmd BufRead,BufNewFile */vims/*.md setl kp=\:help
+  " Markdowns in there are notes about Vim, 'keywordprg' should be ":help".
+  autocmd BufRead,BufNewFile */vims/*.md setlocal keywordprg=\:help
 augroup END
 
