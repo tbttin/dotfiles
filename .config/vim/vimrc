@@ -72,11 +72,10 @@ endif
 
 " TODO: Move $VIMHOME/** to a ':e **/' mapping??
 " 'wildcards' expansion vs 'path'?
-"  - Wildcard ($VIMHOME/**/*) is more flexible. It does not mess up
-"    between vim config files and project files.
-"  - But it needs a lot of mappings.
-set path-=/usr/include       " '.' relative to the directory of the current file.
-set suffixes+=/pack/,/after/ " Lower the priority for plugin and "after" files.
+"   - Wildcard ($VIMHOME/**/*) is more flexible. It does not mess up
+"     between vim config files and project files.
+"   - But it needs a lot of mappings.
+set path-=/usr/include       " Why "/usr/include" here?
 set wildmode=full:lastused   " Tab suggest prior last used buffer than alphabetical order.
                              " It's working with ":b ". But how to do the same with ":e **/*"?
 
@@ -135,6 +134,7 @@ nnoremap <Leader>ef :e <cfile><CR>
 " ':ls' vs 'wildcharm'?
 " Note: noneed '*' or <Tab> here just partial name then <CR>.
 " Try gb instead of <Leader>b??
+" Active the mapping then "^D" to gather the information.
 nnoremap <Leader>b :ls<CR>:b<Space>
 
 " This is just 'wildmenu' + 'wildcards' in '{file}' name expansion,
