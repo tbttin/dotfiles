@@ -1,19 +1,21 @@
 # About
 
-This [durdn's tutorial] - a good dotfiles introduction, it brought me
-here. Why Git bare? Because it's simple!
+Why Git bare? It's *simple*!
 
-My simple dofiles (default on Arch Linux):
+[durdn's dotfies tutorial] - a good dotfiles introduction, it brought me
+here btw.
+
+I use these programs (default on Arch Linux):
+
+  - Suckless configs, patches and its PKGBUILDs: dwm, st, slstatus.
 
   - Vim: vimrc, file type plugins (makrdown, c, vim), .etc
 
-  - Git.
-
   - Bash.
 
-  - X: xinitrc, xmodmap file.
+  - Git.
 
-  - Suckless configs and its PKGBUILDs: dwm, st, slstatus.
+  - X: xinitrc, xmodmap file.
 
   - makepkg
 
