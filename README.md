@@ -28,6 +28,6 @@ I use these programs (default on Arch Linux):
 
 ## Screenshots
 
-![st screenshot](https://raw.githubusercontent.com/tbttin/dotfiles/main/pictures/assets/f-2023-12-22-230836.png "st examples")
+![terminals](pictures/assets/terminals.png?raw=true "terminals")
 
-![firefox screenshot](https://raw.githubusercontent.com/tbttin/dotfiles/main/pictures/assets/f-2023-12-22-230839.png "firefox example")
+![browser](pictures/assets/browser.png?raw=true "browsers")
