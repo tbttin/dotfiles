@@ -83,12 +83,13 @@ set wildmode=full:lastused   " Tab suggest prior last used buffer than alphabeti
 
 let g:mapleader = "\<Space>"                    " Use <Space> as map leader.
 let g:netrw_browsex_viewer = '/usr/bin/firefox' " gx to open-under cursor link in Firefox.
+let $BASH_ENV="$HOME/.config/bash/funcs.bash"   " Only man() is needed. See bash(1)/BASH_ENV.
+                                                " Normal-mode [count]K command will run man() in funcs.bash file.
+" set shellcmdflag=-ic                            " Vim will run external commands in an interactive shell (bash -ic cmd).
 set nojoinspaces                                " Insert two spaces after a '.', '?' and '!' with a join command.
 set hidden                                      " Possibility to have more than one unsaved buffers.
 set mouse&                                      " I don't like mouse setting in defaults.vim.
 packadd! matchit                                " Improved '%' in HTLM and Vim scripts, etc.
-set shellcmdflag=-ic                            " Vim will run external commands in an interactive shell (bash -ic cmd).
-                                                " Normal-mode [count]K command will run man() in .bashrc file.
 
 " Mappings {{{1
 
@@ -133,12 +134,12 @@ nnoremap <Leader>ef :e <cfile><CR>
 " Fly~
 " ':ls' vs 'wildcharm'?
 " Note: noneed '*' or <Tab> here just partial name then <CR>.
-" Try gb instead of <Leader>b??
 " Active the mapping then "^D" to gather the information.
 nnoremap <Leader>b :ls<CR>:b<Space>
 
 " This is just 'wildmenu' + 'wildcards' in '{file}' name expansion,
 " ':e' command does NOT support 'wildcard' (does it?), see 'file-searching'.
+" Try ':%_:' + <Tab>.
 " Quick find and edit files in current directory.
 " "**" = "./**", it means NO upward search, no "**2".
 nnoremap <Leader>ee :e **/*
