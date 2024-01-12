@@ -36,24 +36,27 @@ man()
   fi
 }
 
-# Play all mkv files [with its external subtitle] in alphabetical order.
-# ^z + kill %% to kill this function.
+# Play all mkv-files [with its external subtitle] in alphabetical order.
+# [^z] + kill %% 2>/dev/null to kill this function. See bash(1)/^JOB CONTROL.
+# See also bash(1)/^   Special Parameters.
 ffps()
 {
-  /usr/bin/find . -maxdepth 1 -type f -name '*.mkv' -print0 |
-    /usr/bin/sort --zero-terminated |
+  /usr/bin/find -maxdepth 1 -type f -name '*.mkv' -print0 |
+    /usr/bin/sort -z |
     while read -r -d $'\0' mkv_file
     do
       local sub_file=""
-      [ -f "${mkv_file}.ass" ] && local sub_file="${mkv_file}.ass"
-      [ -f "${mkv_file}.srt" ] && local sub_file="${mkv_file}.srt"
-      # Shell parameter expansion, if $sub_file is null or unset,
+      if test -f "${mkv_file}.srt"; then
+        local sub_file="${mkv_file}.srt"
+      elif test -f "${mkv_file}.ass"; then
+        local sub_file="${mkv_file}.ass"
+      fi
+      # Bash's shell parameter expansion, if $sub_file is null or unset,
       # nothing is substituted, otherwise the expansion of "word"
       # (between '+' and '}') is substituted.
       /usr/bin/ffplay -v error -seek_interval 5 -autoexit -fs -sn "$@" \
         ${sub_file:+-vf subtitles=\'"${sub_file}"\'} -- "${mkv_file}"
     done
-  unset mkv_file
 }
 
 # ffplay can not display some internal subtitles. Why?
@@ -66,7 +69,6 @@ ffms()
       # -y to overwrite existed subtitles.
       /usr/bin/ffmpeg -nostdin -v error "$@" -i "${mkv_file}" -- "${mkv_file}.ass"
     done
-  unset mkv_file
 }
 
 # vim: ft=sh

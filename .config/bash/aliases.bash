@@ -30,7 +30,7 @@ alias vd='/usr/bin/vim ${HOME}/.config/dwm-git/config.h'
 alias vs='/usr/bin/vim ${HOME}/.config/st-git/config.h'
 # Vims.
 alias vv='/usr/bin/vim ${HOME}/.config/vim/vimrc'
-alias vc='/usr/bin/vim ${HOME}/.config/vim/ftplugin/c.vim'
+# alias vc='/usr/bin/vim ${HOME}/.config/vim/ftplugin/c.vim'
 # xinitrc.
 alias vx='/usr/bin/vim ${XINITRC}'
 # Zathura.
@@ -44,13 +44,6 @@ alias vn="jn && /usr/bin/vim ${xdg_prj_dir}/notes/index.md"
 # Git config file.
 alias vg='/usr/bin/vim ${HOME}/.config/git/config'
 # End quick edits }}}
-
-# Adding colors. {{{
-alias ls='/usr/bin/ls --color=auto'
-alias grep='/usr/bin/grep --color=auto'
-alias ip='/usr/bin/ip -color=auto'
-alias diff='/usr/bin/diff --color=auto'
-# End colors }}}
 
 # Bare git dotfiles aliases. {{{
 alias config='/usr/bin/git --git-dir="${HOME}/.config/dotfiles.git" \
@@ -69,6 +62,13 @@ alias cfri='config ri'
 alias cfs='config s'
 # End dotfiles }}}
 
+# Enable colors. {{{
+alias ls='/usr/bin/ls --color=auto'
+alias grep='/usr/bin/grep --color=auto'
+alias ip='/usr/bin/ip -color=auto'
+alias diff='/usr/bin/diff --color=auto'
+# End colors }}}
+
 # Miscellany {{{
 #
 # List files.
@@ -79,9 +79,9 @@ alias ll='ls -l --all --human-readable'
 alias type='type -a'
 
 # Start X with "${HOME}/.config/xorg/xinitrc"
-alias startx="/usr/bin/startx '${XINITRC}'"
+alias startx="/usr/bin/startx '${XINITRC:?}'"
 
-# System stuff.
+# System stuffs.
 alias dpm='/usr/bin/doas /usr/bin/pacman'
 alias spo='/usr/bin/systemctl poweroff -i'
 

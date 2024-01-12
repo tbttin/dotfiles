@@ -19,9 +19,7 @@ export TERMINFO="${HOME}/.local/share/terminfo"
 export TERMINFO_DIRS="${HOME}/.local/share/terminfo:/usr/share/terminfo"
 
 # Bash command history file to state directory.
-bash_dir="${HOME}/.local/state/bash"
-/usr/bin/mkdir --parents --mode=0700 "${bash_dir}" &&
-  export HISTFILE="${bash_dir}/bash_history"
+export HISTFILE="${HOME}/.local/state/bash_history"
 
 # X authority cookie file to $XDG_RUNTIME_DIR
 # $XDG_RUNTIME_DIR is set to "/run/user/$UID" by default through
@@ -64,8 +62,5 @@ if /usr/bin/systemctl -q is-active graphical.target &&
 then
   startx # startx is an alias, xinitrc is included.
 fi
-
-# Unset local variables
-unset bash_dir
 
 # vim: ft=sh fdm=marker
