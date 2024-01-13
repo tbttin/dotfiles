@@ -2,8 +2,9 @@
 
 Why Git bare? It's *simple*!
 
-[durdn's dotfies tutorial] - a good dotfiles introduction, it brought me
-here btw.
+[durdn's dotfies
+tutorial](https://www.atlassian.com/git/tutorials/dotfiles "durdn's
+tutorial") - a good dotfiles introduction, it brought me here btw.
 
 I use these programs (default on Arch Linux):
 
@@ -22,9 +23,6 @@ I use these programs (default on Arch Linux):
   - Zathura.
 
   - ...
-
-[durdn's tutorial]: https://www.atlassian.com/git/tutorials/dotfiles
-"durdn's tutorial"
 
 ## Screenshots
 
