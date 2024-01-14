@@ -1,6 +1,7 @@
 # Maintainer: Tin Thai <thaibachthanhtin@gmail.com>
 
 _pkgname='dwm'
+# git rev-parse 6.2
 _tag='cb3f58ad06993f7ef3a7d8f61468012e2b786cab'
 _srcurl="https://git.suckless.org/${_pkgname}#tag=${_tag}"
 pkgname="${_pkgname}-git"

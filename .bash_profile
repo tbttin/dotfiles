@@ -24,7 +24,7 @@ export HISTFILE="${HOME}/.local/state/bash_history"
 # X authority cookie file to $XDG_RUNTIME_DIR
 # $XDG_RUNTIME_DIR is set to "/run/user/$UID" by default through
 # pam_systemd.
-export XAUTHORITY="${XDG_RUNTIME_DIR}/Xauthority"
+export XAUTHORITY="${XDG_RUNTIME_DIR:?}/Xauthority"
 
 # GNU indent profile to config directory.
 export INDENT_PROFILE="${HOME}/.config/indent/indent.pro"
@@ -47,7 +47,7 @@ export XINITRC="${HOME}/.config/X11/xinitrc"
 # Sourcing and other stuff. {{{
 #
 # Source .bashrc file.
-test -f "$HOME/.bashrc" && source "$HOME/.bashrc"
+test -f "${HOME}/.bashrc" && source "${HOME}/.bashrc"
 
 # It's set by the pam_systemd PAM module, and is only set on machines
 # which are using systemd, which means that you should not rely on it in
@@ -58,7 +58,7 @@ test -f "$HOME/.bashrc" && source "$HOME/.bashrc"
 # If you would like to remain logged in when the X session ends, remove
 # exec.
 if /usr/bin/systemctl -q is-active graphical.target &&
-  [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]
+  [[ ! "${DISPLAY}" && "${XDG_VTNR}" -eq 1 ]]
 then
   startx # startx is an alias, xinitrc is included.
 fi
