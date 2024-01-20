@@ -63,7 +63,7 @@ ffps()
 # Use ffpmeg to extract subtitle in all mkv-files.
 ffms()
 {
-  /usr/bin/find . -maxdepth 1 -type f -name '*.mkv' -print0 |
+  /usr/bin/find -maxdepth 1 -type f -name '*.mkv' -print0 |
     while read -r -d $'\0' mkv_file
     do
       # -y to overwrite existed subtitles.
