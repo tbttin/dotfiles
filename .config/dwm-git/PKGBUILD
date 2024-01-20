@@ -17,11 +17,10 @@ depends=(
          'fontconfig'
          'libxft'
          'freetype2'
+         'scrot'
 )
 optdepends=(
-            'dmenu: dynamic menu'
-            'st:    a simple terminal'
-            'scrot: screen capture utility'
+            'st: a simple terminal'
 )
 makedepends=('git')
 provides=("${_pkgname}")
