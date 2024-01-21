@@ -29,7 +29,7 @@ static const Rule rules[] = {
 	/* class,    instance, title, tags mask, switchtotag, isfloating, monitor */
 	{ "firefox", NULL,     NULL,  1 << 8,    1,           0,          -1 },
 	{ "Zathura", NULL,     NULL,  1 << 7,    1,           0,          -1 },
-	{ "ffplay",  NULL,     NULL,  1 << 2,    1,           0,          -1 },
+	{ "ffplay",  NULL,     NULL,  1 << 3,    1,           0,          -1 },
 };
 
 /* layout(s) */
@@ -72,7 +72,7 @@ static const char *voldowncmd[]   = { "pactl", "set-sink-volume", "0", "-5%", NU
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 
-        /* screen shot */
+        /* SCReen shOT */
 	{ MODKEY,                       XK_Print,  spawn,          SHCMD("scrot -q100  \"$(xdg-user-dir PICTURES)/ss/f-%F-%H%M%S.png\"") },
 	{ MODKEY|ShiftMask,             XK_Print,  spawn,          SHCMD("sleep .2 &&"
 	                                                                 "scrot -sq100 \"$(xdg-user-dir PICTURES)/ss/s-%F-%H%M%S.png\"") },
