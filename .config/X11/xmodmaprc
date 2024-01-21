@@ -17,10 +17,10 @@ remove Lock = Caps_Lock
 ! keycode 66  = Mode_switch
 ! add Lock    = Mode_switch
 ! TODO: invalid keysym Mode_switch error.
-keycode 66  = NoSymbol
+keycode 66  = Escape
 
-! Caps+c to toggle Caps Lock.
-keycode 54  = c C Caps_Lock NoSymbol
+! ! Caps+c to toggle Caps Lock.
+! keycode 54  = c C Caps_Lock NoSymbol
 
 ! Caps+[hjkl] = vi's style.
 keycode 43  = h H Left Left

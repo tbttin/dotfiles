@@ -1,8 +1,14 @@
 #!/bin/bash
 
 # Remap some keys.
-map_file="${HOME}/.config/X11/xmodmaprc"
-test -f "${map_file}" && /usr/bin/xmodmap "${map_file}"
+# map_file="${HOME}/.config/X11/xmodmaprc"
+# test -f "${map_file}" && /usr/bin/xmodmap "${map_file}"
+# unset map_file
+
+# xkbcomp
+# TODO: Separate custom mappings.
+map_file="${HOME}/.config/X11/xkeymap"
+test -f "${map_file}" && /usr/bin/xkbcomp "${map_file}" "${DISPLAY}"
 unset map_file
 
 #
