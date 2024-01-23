@@ -7,7 +7,8 @@
 
 # xkbcomp
 # TODO: Separate custom mappings.
-map_file="${HOME}/.config/X11/xkeymap"
+# See https://wiki.archlinux.org/title/Xorg/Keyboard_configuration#Enabling_mouse_keys
+map_file="${HOME}/.config/X11/xkeymap.xkb"
 test -f "${map_file}" && /usr/bin/xkbcomp "${map_file}" "${DISPLAY}"
 unset map_file
 
