@@ -1,13 +1,17 @@
 #!/bin/bash
 
-# Remap some keys.
-# map_file="${HOME}/.config/X11/xmodmaprc"
-# test -f "${map_file}" && /usr/bin/xmodmap "${map_file}"
-# unset map_file
+# Taken from /etc/X11/xinit/xinitrc
+if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+ for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+  [ -x "$f" ] && . "$f"
+ done
+ unset f
+fi
 
-# xkbcomp
 # TODO: Separate custom mappings.
-# See https://wiki.archlinux.org/title/Xorg/Keyboard_configuration#Enabling_mouse_keys
+# See:
+#   https://wiki.archlinux.org/title/X_keyboard_extension
+#   https://wiki.archlinux.org/title/Xorg/Keyboard_configuration#Enabling_mouse_keys
 map_file="${HOME}/.config/X11/xkeymap.xkb"
 test -f "${map_file}" && /usr/bin/xkbcomp "${map_file}" "${DISPLAY}"
 unset map_file
@@ -21,11 +25,11 @@ unset map_file
 # Locker trigger.
 /usr/bin/xss-lock -- /usr/bin/slock &
 
-# Suckless terminal.
-/usr/bin/st &
-
 # Transmission daemon
 /usr/bin/transmission-daemon
+
+# Suckless terminal.
+/usr/bin/st &
 
 # Firefox browser.
 /usr/bin/firefox &
