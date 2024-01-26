@@ -60,7 +60,7 @@ test -f "${HOME}/.bashrc" && source "${HOME}/.bashrc"
 if /usr/bin/systemctl -q is-active graphical.target &&
   [[ ! "${DISPLAY}" && "${XDG_VTNR}" -eq 1 ]]
 then
-  startx # startx is an alias, xinitrc is included.
+  exec startx # startx is an alias, xinitrc is included.
 fi
 
 # vim: ft=sh fdm=marker
