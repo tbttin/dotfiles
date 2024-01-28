@@ -10,12 +10,12 @@ ExecStart=/usr/bin/rankmirrors_latest
 
 ; # paccache.service
 
-; # Lowering priority
-; CPUSchedulingPolicy=idle
-; IOSchedulingClass=idle
-; IOSchedulingPriority=7
-; Nice=19
-; OOMScoreAdjust=1000
+# Lowering priority
+CPUSchedulingPolicy=idle
+IOSchedulingClass=idle
+IOSchedulingPriority=7
+Nice=19
+OOMScoreAdjust=1000
 
 ; # Sandboxing and other hardening
 ; LockPersonality=yes

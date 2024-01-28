@@ -10,7 +10,7 @@ license=('unknown')
 source=('rank-mirrors.service'
         'rank-mirrors.timer'
         'rankmirrors_latest.sh')
-sha256sums=('6619a9cd12945d55f8a98079c59f39709c7e13b13cd41f335b7cf47fc5afd570'
+sha256sums=('76872ad4d3a74b32c1fd7b9a93f1cb6502540ac02422baa231352980297fafc2'
             'cbab74fe81841619b99f5b56325099f04f9a768c52fa5e914521f1f292c1a3c7'
             '6c50613fd1a92429734123cfd125451c657e1b89376c69585c9e5948db668069')
 
