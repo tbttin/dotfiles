@@ -1,0 +1,24 @@
+# Maintainer: Tin Thai <thaibachthanhtin at google mail dot com>
+
+pkgname='rmd'
+pkgver=1
+pkgrel=1
+pkgdesc='Automatically rank all lateast mirrors using systemd'
+arch=('any')
+url='https://github.com/tbttin/dotfiles/blob/main/.config/rmd/PKGBUILD'
+license=('unknown')
+source=('rank-mirrors.service'
+        'rank-mirrors.timer'
+        'rankmirrors_latest.sh')
+sha256sums=('6619a9cd12945d55f8a98079c59f39709c7e13b13cd41f335b7cf47fc5afd570'
+            'cbab74fe81841619b99f5b56325099f04f9a768c52fa5e914521f1f292c1a3c7'
+            '6c50613fd1a92429734123cfd125451c657e1b89376c69585c9e5948db668069')
+
+package() {
+  local prefix="${pkgdir}/usr/lib/systemd/system"
+  /usr/bin/install -Dm644 rank-mirrors.service "${prefix}/rank-mirrors.service"
+  /usr/bin/install -Dm644 rank-mirrors.timer "${prefix}/rank-mirrors.timer"
+  /usr/bin/install -Dm755 rankmirrors_latest.sh "$pkgdir"/usr/bin/rankmirrors_latest
+}
+
+# vim: ft=PKGBUILD

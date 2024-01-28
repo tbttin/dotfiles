@@ -1,0 +1,50 @@
+[Unit]
+Description=Rank Pacman's latest mirrors
+# Dependencies
+Requires=network-online.target
+After=network-online.target nss-lookup.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/rankmirrors_latest
+
+; # paccache.service
+
+; # Lowering priority
+; CPUSchedulingPolicy=idle
+; IOSchedulingClass=idle
+; IOSchedulingPriority=7
+; Nice=19
+; OOMScoreAdjust=1000
+
+; # Sandboxing and other hardening
+; LockPersonality=yes
+; MemoryDenyWriteExecute=yes
+; NoNewPrivileges=yes
+; PrivateDevices=yes
+; PrivateIPC=yes
+; PrivateMounts=yes
+; PrivateNetwork=yes
+; PrivateTmp=yes
+; ProcSubset=pid
+; ProtectClock=yes
+; ProtectControlGroups=yes
+; ProtectHome=yes
+; ProtectHostname=yes
+; ProtectKernelLogs=yes
+; ProtectKernelModules=yes
+; ProtectKernelTunables=yes
+; ProtectProc=invisible
+; ProtectSystem=yes
+; RemoveIPC=yes
+; RestrictAddressFamilies=none
+; RestrictNamespaces=yes
+; RestrictRealtime=yes
+; RestrictSUIDSGID=yes
+; SystemCallArchitectures=native
+; SystemCallFilter=@system-service @file-system
+
+[Install]
+WantedBy=multi-user.target
+
+# vim: ft=systemd
