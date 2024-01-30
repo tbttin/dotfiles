@@ -78,9 +78,6 @@ alias ll='ls -l --all --human-readable'
 # builtins, and functions.
 alias type='type -a'
 
-# Start X with "${HOME}/.config/xorg/xinitrc"
-alias startx="/usr/bin/startx '${XINITRC:?}'"
-
 # System stuffs.
 alias dpm='/usr/bin/doas /usr/bin/pacman'
 alias spo='/usr/bin/systemctl poweroff -i'
