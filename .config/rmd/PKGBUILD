@@ -5,14 +5,14 @@ pkgver=1
 pkgrel=1
 pkgdesc='Automatically rank all lateast mirrors using systemd'
 arch=('any')
-url='https://github.com/tbttin/dotfiles/blob/main/.config/rmd/PKGBUILD'
+url="https://github.com/tbttin/dotfiles/tree/main/.config/${pkgname}"
 license=('unknown')
 source=('rank-mirrors.service'
         'rank-mirrors.timer'
         'rankmirrors_latest.sh')
 sha256sums=('76872ad4d3a74b32c1fd7b9a93f1cb6502540ac02422baa231352980297fafc2'
             'cbab74fe81841619b99f5b56325099f04f9a768c52fa5e914521f1f292c1a3c7'
-            '6c50613fd1a92429734123cfd125451c657e1b89376c69585c9e5948db668069')
+            '917ad002d8b24aa9d08f684d351ccd1fc062d1a7ce15bd610325b7e02ce58872')
 
 package() {
   local prefix="${pkgdir}/usr/lib/systemd/system"
