@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Add some colors and hard-set pager width.
 man()
 {
+  # Add some colors and hard-set pager's width.
   # See terminfo(5).
   #    Color      #define       Value       RGB
   #   black     COLOR_BLACK       0     0, 0, 0
@@ -36,11 +36,11 @@ man()
   fi
 }
 
-# Play all mkv-files [with its external subtitle] in alphabetical order.
-# [^z] + kill %% 2>/dev/null to kill this function. See bash(1)/^JOB CONTROL.
-# See also bash(1)/^   Special Parameters.
 ffps()
 {
+  # Play all mkv-files [with its external subtitle] in alphabetical order.
+  # [^z] + kill %% 2>/dev/null to kill this function.
+  # See bash(1)/^JOB CONTROL. See also bash(1)/^   Special Parameters.
   /usr/bin/find -maxdepth 1 -type f -name '*.mkv' -print0 |
     /usr/bin/sort -z |
     while read -r -d $'\0' mkv_file
@@ -51,7 +51,7 @@ ffps()
       elif test -f "${mkv_file}.ass"; then
         local sub_file="${mkv_file}.ass"
       fi
-      # Bash's shell parameter expansion, if $sub_file is null or unset,
+      # bash(1)/^  PARAMETER EXPANSION, if $sub_file is null or unset,
       # nothing is substituted, otherwise the expansion of "word"
       # (between '+' and '}') is substituted.
       /usr/bin/ffplay -v error -seek_interval 5 -autoexit -fs -sn "$@" \
@@ -59,10 +59,10 @@ ffps()
     done
 }
 
-# ffplay can not display some internal subtitles. Why?
-# Use ffpmeg to extract subtitle in all mkv-files.
 ffms()
 {
+  # ffplay can not display some internal subtitles. Why?
+  # Use ffpmeg to extract subtitle in all mkv-files.
   /usr/bin/find -maxdepth 1 -type f -name '*.mkv' -print0 |
     while read -r -d $'\0' mkv_file
     do

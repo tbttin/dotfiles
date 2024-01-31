@@ -8,7 +8,7 @@ let b:loaded_ftplugin = 1      " Loaded flag.
 " Options {{{1
 
 let g:markdown_folding = 1           " Enable section/heading folding, little bit slow but it's okay.
-let g:markdown_recommended_style = 0 " Don't use recommended, ts=sts=sw4 WTF?
+let g:markdown_recommended_style = 0 " Check "$VIMRUNTIME/ftplugin/markdown.vim", ts=sts=sw4 WTF?
 setlocal conceallevel=2              " TODO: italics.
 setlocal formatoptions-=l            " Auto format in insert mode.
 setlocal wildignore+=*.pdf           " Do not suggest .pdf file.
