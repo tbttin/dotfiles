@@ -51,7 +51,7 @@ ffps()
       elif test -f "${mkv_file}.ass"; then
         local sub_file="${mkv_file}.ass"
       fi
-      # bash(1)/^  PARAMETER EXPANSION, if $sub_file is null or unset,
+      # bash(1)/^Parameter Expansion, if $sub_file is null or unset,
       # nothing is substituted, otherwise the expansion of "word"
       # (between '+' and '}') is substituted.
       /usr/bin/ffplay -v error -seek_interval 5 -autoexit -fs -sn "$@" \
