@@ -56,9 +56,10 @@ pkgver() {
 build() {
   cd "${srcdir}/${_pkgname}"
   # Don't build unused components.
-  # TODO: How to split long sed expression into multi lines?
-  local unused_comps="(battery|cat|entropy|hostname|ip|kernel_release|keyboard_indicators|keymap|num_files|run_command|swap|uptime|user|volume)"
-  /usr/bin/sed -E -i "/^[[:space:]]*components\/${unused_comps}/d" Makefile
+  # TODO: How to split long sed expression into multi lin?
+  local unused_comps='battery|cat|entropy|hostname|ip|kernel_release|keyboard_indicators|'
+  local unused_comps+='keymap|num_files|run_command|swap|uptime|user|volume'
+  /usr/bin/sed -E -i "/^[[:space:]]*components\/(${unused_comps})/d" Makefile
   /usr/bin/make \
     X11INC=/usr/include/X11 \
     X11LIB=/usr/lib/X11
