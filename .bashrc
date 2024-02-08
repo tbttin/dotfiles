@@ -28,24 +28,24 @@ HISTCONTROL='ignorespace:erasedups'
 HISTTIMEFORMAT='%F %T '
 
 # Prompt config.
-FG_RED="\[$(/usr/bin/tput setaf 1)\]"
-FG_CYAN="\[$(/usr/bin/tput setaf 6)\]"
+FG_R="\[$(/usr/bin/tput setaf 1)\]"
+FG_C="\[$(/usr/bin/tput setaf 6)\]"
+FG_G="\[$(/usr/bin/tput setaf 2)\]"
 CA_BOLD="\[$(/usr/bin/tput bold)\]"
 CA_RESET="\[$(/usr/bin/tput sgr0)\]"
-# Single machine user, so make it simple.
-PS1="${CA_RESET}${CA_BOLD}${FG_CYAN}\W ${FG_RED}\$${CA_RESET} "
+# One user/one machine, so make it simple.
+PS1="${CA_RESET}${CA_BOLD}${FG_C}\W ${FG_R}\$ ${FG_G}\$([ \j -gt 0 ] && /usr/bin/echo \"[\j] \")${CA_RESET}"
 
 #
 # Sourcings
 #
 bash_dir="${HOME}/.config/bash"
-# Source aliases file.
 alias_file="${bash_dir}/aliases.bash"
-test -f "${alias_file}" && source "${alias_file}"
-# Source functions file.
 func_file="${bash_dir}/funcs.bash"
-test -f "${func_file}" && source "${func_file}"
+test -f "${alias_file}" && source "${alias_file}"
+test -f "${func_file}"  && source "${func_file}"
 
-unset FG_RED FG_CYAN CA_BOLD CA_RESET bash_dir alias_file func_file
+unset FG_R FG_C FG_G CA_BOLD CA_RESET bash_dir alias_file func_file
 
 # vim: ft=sh
+
