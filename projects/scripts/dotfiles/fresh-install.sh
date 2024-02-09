@@ -1,61 +1,49 @@
 #!/bin/bash
 
 # Installation: download and execute this script with Bash.
-#   curl --silent --location https://git.io/fi.sh | /bin/bash
+#   curl -s -L 'https://git.io/fi.sh' | /usr/bin/bash
 # Shorten URL with git.io and curl:
-#   curl --inclulde https://git.io --form "url=YOUR_GITHUB_URL_HERE" \
-#     --form "code=YOUR_CUSTOM_NAME"
+#   curl -i 'https://git.io' -F 'url=GITHUB_URL' -F 'code=CUSTOM_NAME'
 
-CONFIG_BACKUP_DIR="${HOME}/.config~"
+REPO_URL='https://github.com/tbttin/dotfiles.git'
+GIT_DIR= "${HOME}/.config/dotfiles.git"
+BACKUP_DIR="${HOME}/.config~"
 
-indent()
-{
-  /usr/bin/sed 's/^/ > /'
-}
-
-config()
-{
-  /usr/bin/git --git-dir="${HOME}/.config/dotfiles.git" \
-    --work-tree="${HOME}" "$@"
+config() {
+  /usr/bin/git --git-dir="${GIT_DIR}" --work-tree="${HOME}" "$@"
 }
 
 #
-# Backup first
+# Backup
 #
-# Clone my dotfiles repo as a bare repo.
-/usr/bin/git clone --bare 'https://github.com/tbttin/dotfiles.git' \
-  "${HOME}/.config/dotfiles.git"
-# Backup stock config files if they exist and install my dotfiles.
+# Clone as a bare repo.
+/usr/bin/git clone --bare "${REPO_URL}" "${GIT_DIR}"
+# Backup stock config files if they exist then install the dotfiles.
 /usr/bin/echo 'Attempt to install dotfiles to home directory.'
-config checkout 2>&1 | indent
-# Piped command exit status: ${PIPESTATUS[0]}, in zsh: ${pipestatus[1]}.
-if test ${PIPESTATUS[0]} = 0
-then
+if config checkout ; then
   /usr/bin/echo 'Checked out configs.'
 else
-  /usr/bin/echo "Backing up pre-existing dotfiles to '${CONFIG_BACKUP_DIR}'."
-  /usr/bin/mkdir --parrents --verbose "${CONFIG_BACKUP_DIR}" | indent
+  /usr/bin/echo "Backing up pre-existing dotfiles to '${BACKUP_DIR}'."
+  /usr/bin/mkdir -v -p "${BACKUP_DIR}"
   config checkout 2>&1 | /usr/bin/egrep '\s+\.' | /usr/bin/awk {'print $1'} |
-    xargs -I{} /usr/bin/mv --verbose {} "${CONFIG_BACKUP_DIR}" | indent
-  config checkout | indent
+    xargs -I{} /usr/bin/mv -v {} "${BACKUP_DIR}"
+  config checkout
 fi
 
-# Some configs.
+# The "bare" way's, show no untracked files.
 config config --local -- status.showUntrackedFiles no
-
 # Clone all submodules.
 config submodule update --init --recursive
 
 #
-# Preparing $HOME
+# Bring back $HOME
 #
-/usr/bin/mkdir --parrents --verbose \
-  ~/{documents,downloads,pictures/ss,projects/c,videos} | indent
-if type -t /usr/bin/xdg-user-dirs-update >/dev/null
-then
-  /usr/bin/rmdir --verbose --ignore-fail-on-non-empty \
-    ~/{Desktop,Documents,Downloads,Music,Pictures,Public,Templates,Videos} | indent
+/usr/bin/mkdir -v -p ~/{documents,downloads,pictures/ss,projects/c,videos}
+type -t /usr/bin/xdg-user-dirs-update >/dev/null &&
+  /usr/bin/rmdir -v --ignore-fail-on-non-empty \
+    ~/{Desktop,Documents,Downloads,Music,Pictures,Public,Templates,Videos} &&
   /usr/bin/xdg-user-dirs-update
-fi
 /usr/bin/echo 'Done.'
+
+# vim: ft=sh
 
