@@ -10,9 +10,9 @@ license=('unknown')
 source=('rank-mirrors.service'
         'rank-mirrors.timer'
         'rankmirrors_latest.sh')
-sha256sums=('76872ad4d3a74b32c1fd7b9a93f1cb6502540ac02422baa231352980297fafc2'
-            'cbab74fe81841619b99f5b56325099f04f9a768c52fa5e914521f1f292c1a3c7'
-            '917ad002d8b24aa9d08f684d351ccd1fc062d1a7ce15bd610325b7e02ce58872')
+sha256sums=('1215711c17121aa2b9019dca1580389f50e8b214c5d607421fa564362e998913'
+            '9d02b961c3c6272cea59bb7e610137eee827f1841cbbc2307ab4720372f104ef'
+            'e23500a44dcae4645930b0a473e54fd6a5d50e3f02b16d84a00ff55b480c44a0')
 
 package() {
   local prefix="${pkgdir}/usr/lib/systemd/system"

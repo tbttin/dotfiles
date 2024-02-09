@@ -1,9 +1,10 @@
 [Unit]
-Description=Rank Pacman's latest mirrors
+Description=rank Pacman's latest mirrors
 
 [Timer]
-OnCalendar=weekly
-AccuracySec=1h
+OnCalendar=daily
+; AccuracySec=1h
+; RandomizedDelaySec=12h
 Persistent=true
 
 [Install]

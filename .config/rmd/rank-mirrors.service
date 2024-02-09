@@ -1,23 +1,28 @@
 [Unit]
-Description=Rank Pacman's latest mirrors
-# Dependencies
-Requires=network-online.target
-After=network-online.target nss-lookup.target
+Description=rank Pacman's latest mirrors
+; Network dependencies, see https://systemd.io/NETWORK_ONLINE/
+After=network.target
+; After=network-online.target
+; Requires=network-online.target
+; Wants=network-online.target
+; Start rate limiting?
+StartLimitBurst=3
+StartLimitIntervalSec=100
 
 [Service]
-Type=oneshot
+; Type=oneshot
 ExecStart=/usr/bin/rankmirrors_latest
-
-; # paccache.service
-
-# Lowering priority
+; Auto restart when it failed?
+Restart=on-failure
+RestartSec=30
+; These are stolen from paccache.service.
+; Set IO scheduling and nice level, lowering the priority??
+Nice=19
 CPUSchedulingPolicy=idle
 IOSchedulingClass=idle
 IOSchedulingPriority=7
-Nice=19
 OOMScoreAdjust=1000
-
-; # Sandboxing and other hardening
+; Sandboxing and other hardening.
 ; LockPersonality=yes
 ; MemoryDenyWriteExecute=yes
 ; NoNewPrivileges=yes
@@ -47,4 +52,4 @@ OOMScoreAdjust=1000
 [Install]
 WantedBy=multi-user.target
 
-# vim: ft=systemd
+; vim: ft=systemd

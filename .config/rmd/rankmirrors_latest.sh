@@ -1,25 +1,41 @@
 #!/bin/bash
 
-MR_LST='/etc/pacman.d/mirrorlist'
 MR_NUM=5
-NEW_MRL='/tmp/mirrorlist'
-RANK_MRL='/tmp/rank-mirrorlist'
-/usr/bin/curl -s 'https://archlinux.org/mirrorlist/' \
-              -d 'country=all' \
-              -d 'protocol=https' \
-              -d 'ip_version=4' \
-              -d 'ip_version=6' \
-              -d 'use_mirror_status=on' \
-              -o "${NEW_MRL}"
-/usr/bin/sed -e 's/^#Server/Server/' -e '/^#/d' -i "${NEW_MRL}"
-/usr/bin/cp -f "${MR_LST}" "${MR_LST}.bak"
-if /usr/bin/rankmirrors -n "${MR_NUM}" "${NEW_MRL}" > "${RANK_MRL}" ; then
-  /usr/bin/cp -f "${RANK_MRL}" "${MR_LST}"
-  /usr/bin/rm  "${MR_LST}.bak"
-else
-  /usr/bin/echo "rankmirrors: error"
-fi
-/usr/bin/rm "${NEW_MRL}" "${RANK_MRL}"
-unset MR_LST MR_NUM NEW_MRL RANK_MRL
+MR_URL='https://archlinux.org/mirrorlist/'
+URL_PARAMS=(
+  'country=all'
+  'protocol=https'
+  'ip_version=4'
+  'ip_version=6'
+  'use_mirror_status=on'
+)
+
+MRL='/etc/pacman.d/mirrorlist'
+TMP_DIR=$(/usr/bin/mktemp -d '/tmp/rmd.XXXXXXXXXX')
+NEW_MRL=$(/usr/bin/mktemp "${TMP_DIR}/nm.XXXXXXXXXX")
+RANK_MRL=$(/usr/bin/mktemp "${TMP_DIR}/rm.XXXXXXXXXX")
+
+URL_PARAMS[0]='country=VN'
+# MRL='./mirrorlist'
+
+err() {
+  echo "$1" >&2
+  exit 1
+}
+
+# Delete temp files when exit/kill/crash?
+# See https://unix.stackexchange.com/a/181938
+exec 3>"${NEW_MRL}"  4<"${NEW_MRL}"
+exec 5>"${RANK_MRL}" 6<"${RANK_MRL}"
+/usr/bin/rm -rf "${TMP_DIR}"
+
+/usr/bin/curl -s "${MR_URL}" ${URL_PARAMS[@]/#/-d} >&3 ||
+  err 'curl: Network connection issue.'
+/usr/bin/sed -e 's/^#Server/Server/' -e '/^#/d' <&4 |
+  /usr/bin/rankmirrors -n "${MR_NUM}" - >&5 ||
+  err 'rankmirros: Invalid mirrorlist file.'
+/usr/bin/cat <&6 >"${MRL}"
+
+unset MR_URL URL_PARAMS MR_NUM MRL TMP_DIR NEW_MRL RANK_MRL
 
 # vim: ft=sh
