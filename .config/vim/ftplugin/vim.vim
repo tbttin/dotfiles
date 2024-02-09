@@ -9,3 +9,4 @@ setlocal foldmethod=marker     " Use markers to specify folds.
 
 " Mappings {{{1
 nnoremap <buffer> <silent> <Leader>tt :!ctags -R --language-force=vim<CR><CR>
+

@@ -6,3 +6,4 @@ let b:loaded_after_ftplugin = 1      " Loaded flag.
 
 " Options {{{1
 setlocal keywordprg=man   " My man()!
+

@@ -63,3 +63,4 @@ nnoremap <Plug>View_PDF :<C-U>call <SID>View_PDF()<CR><CR><CR>
 " nnoremap <Plug>OpenMDFile :<C-U>call <SID>OpenMDFile()<CR><CR><CR>
 " nnoremap <buffer> <Leader>f <Plug>OpenMDFile
 " " End OpenMDFile() }}}3
+

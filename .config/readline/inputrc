@@ -58,3 +58,4 @@ set colored-completion-prefix on
 set menu-complete-display-prefix on
 
 # vim: ft=readline
+

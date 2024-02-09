@@ -39,3 +39,4 @@ exec 5>"${RANK_MRL}" 6<"${RANK_MRL}"
 unset MR_URL URL_PARAMS MR_NUM MRL TMP_DIR NEW_MRL RANK_MRL
 
 # vim: ft=sh
+
