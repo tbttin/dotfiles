@@ -2,9 +2,6 @@
 Description=rank Pacman's latest mirrors
 ; Network dependencies, see https://systemd.io/NETWORK_ONLINE/
 After=network.target
-; After=network-online.target
-; Requires=network-online.target
-; Wants=network-online.target
 ; Start rate limiting?
 StartLimitBurst=3
 StartLimitIntervalSec=100

@@ -15,9 +15,6 @@ TMP_DIR=$(/usr/bin/mktemp -d '/tmp/rmd.XXXXXXXXXX')
 NEW_MRL=$(/usr/bin/mktemp "${TMP_DIR}/nm.XXXXXXXXXX")
 RANK_MRL=$(/usr/bin/mktemp "${TMP_DIR}/rm.XXXXXXXXXX")
 
-URL_PARAMS[0]='country=VN'
-# MRL='./mirrorlist'
-
 err() {
   echo "$1" >&2
   exit 1

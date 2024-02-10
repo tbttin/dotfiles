@@ -3,16 +3,17 @@
 pkgname='rmd'
 pkgver=1
 pkgrel=1
-pkgdesc='Automatically rank all lateast mirrors using systemd'
+pkgdesc='Automatically rank Pacman lateast mirrors using systemd'
 arch=('any')
 url="https://github.com/tbttin/dotfiles/tree/main/.config/${pkgname}"
 license=('unknown')
+depends=('pacman-contrib')
 source=('rank-mirrors.service'
         'rank-mirrors.timer'
         'rankmirrors_latest.sh')
-sha256sums=('1215711c17121aa2b9019dca1580389f50e8b214c5d607421fa564362e998913'
-            '9d02b961c3c6272cea59bb7e610137eee827f1841cbbc2307ab4720372f104ef'
-            'e23500a44dcae4645930b0a473e54fd6a5d50e3f02b16d84a00ff55b480c44a0')
+sha256sums=('4e7a817aa3ac74cd04bbe89337b078fe77d9b30a4c9b42c3725d13240612073d'
+            '723760da9fafbe95b19f9eb4d6b87417c8b8ec16ddec2af0d644299b9e875b03'
+            'bd7d4c8716433648e974ac6f81cb2d64d7b489b2939259e63c37d1a899dc0f6f')
 
 package() {
   local prefix="${pkgdir}/usr/lib/systemd/system"
