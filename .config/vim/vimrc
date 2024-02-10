@@ -129,6 +129,10 @@ nnoremap <Leader>ef :e <cfile><CR>
 " Active the mapping then "^D" to gather the information.
 nnoremap <Leader>b :ls<CR>:b<Space>
 
+" Buffer switching.
+nnoremap <Leader>n :bn<CR>
+nnoremap <Leader>p :bp<CR>
+
 " This is just 'wildmenu' + 'wildcards' in '{file}' name expansion,
 " ':e' command does NOT support 'wildcard' (does it?), see 'file-searching'.
 " Try ':%_:' + <Tab>.
