@@ -10,6 +10,7 @@ StartLimitIntervalSec=100
 ; Type=oneshot
 ExecStart=/usr/bin/rankmirrors_latest
 ; Auto restart when it failed?
+; Try ExecStartPre=bash while ! ping??
 Restart=on-failure
 RestartSec=30
 ; These are stolen from paccache.service.
