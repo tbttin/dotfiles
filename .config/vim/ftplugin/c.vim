@@ -17,14 +17,22 @@ let c_space_errors = 1     " Highlight trailing white space and spaces before a 
 
 setlocal showfulltag          " Show function name + template in auto completion pop-up menu.
 setlocal completeopt-=preview " Turn off preview window.
+" LSP is necessary?
+" +---------------------+--------+
+" | ctags (see below)   |        |
+" | omni completion     |        |
+" | a snippet plugin    |        |
+" | (normal mode K)    vs.  LSP  |
+" | gcc                 |        |
+" | you                 |        |
+" | what else?          |        |
+" +---------------------+--------+
+" ctags --kinds-c=+p /usr/include/<lib>
+" TODO: 'tagsrch.txt'
 
 " Indentation {{{2
 
 " Indent with spaces, align with spaces (GNU style) {{{3
-
-setlocal expandtab     " Don't use tabs for indentation. Spaces are nicer to work with.
-setlocal shiftwidth=2  " Number of spaces to use for each step of (auto)indent.
-setlocal softtabstop=2 " Virtual tab stop instead of 8-wide tabs.
 setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0
 setlocal cinoptions+=h2,p5,t0,+2,(0,u0,w1,m1
 
@@ -37,7 +45,8 @@ setlocal cinoptions+=h2,p5,t0,+2,(0,u0,w1,m1
 " Miscellany {{{2
 
 setlocal formatprg=/usr/bin/indent                           " GNU indent formator.
-setlocal path=.,/usr/include,**                              " Current file's dir, system include, recursive $PWD.
+" setlocal path=.,/usr/include,**                              " Current file's dir, system include, recursive $PWD.
+setlocal path&                                               " Revert vimrc.
 setlocal tags+=./tags;$HOME/projects/c,tags;$HOME/projects/c " Upward search for tags file recursively.
 
 " Plugins {{{1
@@ -47,8 +56,8 @@ let g:termdebug_wide = 1 " Enable vertical split without every changing &columns
 
 " Mappings. {{{1
 
-" Man page default section should be 3??
-nnoremap <buffer> K 3K
+" Man page default section should be 3 or 3p??
+" nnoremap <buffer> K 3K
 
 " Smart less than sign. Currently pear-tree does not do this.
 inoremap <buffer> <expr> < pairs#IsMatchOnLHS('^#include\s*$') ? '<><C-G>U<Left>' : '<'

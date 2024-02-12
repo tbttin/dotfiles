@@ -36,9 +36,9 @@ let &packpath = &runtimepath
 " Every one and every program use 8 characters tabstop.
 " Change tapstop will effect 'textwidth' and alignment.
 
-set expandtab
-set softtabstop=2
-set shiftwidth=2
+set expandtab     " Don't use tabs for indentation. Spaces are nicer to work with.
+set shiftwidth=2  " Number of spaces to use for each step of (auto)indent.
+set softtabstop=2 " Virtual tab stop instead of 8-wide tabs.
 
 " Displays {{{2
 
