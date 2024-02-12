@@ -27,10 +27,10 @@ exec 5>"${RANK_MRL}" 6<"${RANK_MRL}"
 /usr/bin/rm -rf "${TMP_DIR}"
 
 /usr/bin/curl -s "${MR_URL}" ${URL_PARAMS[@]/#/-d} >&3 ||
-  err 'curl: Network connection issue.'
+  err 'curl: Fail to retrieve mirrorlist data.'
 /usr/bin/sed -e 's/^#Server/Server/' -e '/^#/d' <&4 |
   /usr/bin/rankmirrors -n "${MR_NUM}" - >&5 ||
-  err 'rankmirros: Invalid mirrorlist file.'
+  err 'rankmirrors: Invalid mirrorlists.'
 /usr/bin/cat <&6 >"${MRL}"
 
 unset MR_URL URL_PARAMS MR_NUM MRL TMP_DIR NEW_MRL RANK_MRL
