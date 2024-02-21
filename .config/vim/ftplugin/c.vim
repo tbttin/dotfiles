@@ -18,29 +18,38 @@ let c_space_errors = 1     " Highlight trailing white space and spaces before a 
 setlocal showfulltag          " Show function name + template in auto completion pop-up menu.
 setlocal completeopt-=preview " Turn off preview window.
 " LSP is necessary?
-" +---------------------+--------+
-" | ctags (see below)   |        |
-" | omni completion     |        |
-" | a snippet plugin    |        |
-" | (normal mode K)    vs.  LSP  |
-" | gcc                 |        |
-" | you                 |        |
-" | what else?          |        |
-" +---------------------+--------+
-" ctags --kinds-c=+p /usr/include/<lib>
-" TODO: 'tagsrch.txt'
+" +-------------------+-----+-----+
+" |                   | vim | LSP |
+" +-------------------+-----+-----+
+" | refactoring (big) |  ~  |  X  |
+" +-------------------+-----+-----+
+" | ctags (1)         |  X  |     |
+" +-------------------+-----+-----+
+" | omni completion   |  X  |     |
+" +-------------------+-----+-----+
+" | a snippet plugin  |  X  |     |
+" +-------------------+-----+-----+
+" | normal mode K     |  X  |     |
+" +-------------------+-----+-----+
+" | a compiler        |  X  |     |
+" +-------------------+-----+-----+
+" | you               |  X  |     |
+" +-------------------+-----+-----+
+" (1) ctags --kinds-c=+p /usr/include/<lib>
+"   TODO: 'tagsrch.txt'
 
 " Indentation {{{2
 
 " Indent with spaces, align with spaces (GNU style) {{{3
-setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0
-setlocal cinoptions+=h2,p5,t0,+2,(0,u0,w1,m1
+" setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0
+" setlocal cinoptions+=h2,p5,t0,+2,(0,u0,w1,m1
 
 " Indent with tabs, align with spaces {{{3
 
 " setlocal copyindent
 " setlocal preserveindent
 " setlocal cinoptions+=(0,u0,U0,t0,l1
+setlocal cinoptions=l1,(0
 
 " Miscellany {{{2
 
@@ -49,15 +58,10 @@ setlocal formatprg=/usr/bin/indent                           " GNU indent format
 setlocal path&                                               " Revert vimrc.
 setlocal tags+=./tags;$HOME/projects/c,tags;$HOME/projects/c " Upward search for tags file recursively.
 
-" Plugins {{{1
-
-packadd termdebug        " Load terminal debug plugin.
-let g:termdebug_wide = 1 " Enable vertical split without every changing &columns.
-
 " Mappings. {{{1
 
-" Man page default section should be 3 or 3p??
-" nnoremap <buffer> K 3K
+" Man page default section should be 3 or 3p? sleep() e.g.
+nnoremap <buffer> K 3K<CR>
 
 " Smart less than sign. Currently pear-tree does not do this.
 inoremap <buffer> <expr> < pairs#IsMatchOnLHS('^#include\s*$') ? '<><C-G>U<Left>' : '<'
@@ -73,5 +77,10 @@ nnoremap <buffer> <Leader>md :wall \| make debug \| Termdebug build/prog<CR>
 nnoremap <buffer> <Leader>mc :!clear<CR>:make clean<CR>
 " Run.
 " !make run -- --args
-nnoremap <buffer> <Leader>mr :cclose \| make run<CR>
+nnoremap <buffer> <Leader>mr :cclose \| :wall \| make all run<CR>
+
+" Plugins {{{1
+
+packadd termdebug        " Load terminal debug plugin.
+let g:termdebug_wide = 1 " Enable vertical split without every changing &columns.
 
