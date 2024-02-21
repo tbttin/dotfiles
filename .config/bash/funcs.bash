@@ -19,21 +19,17 @@ man()
   #   Underline for: proper names, variable names, and type names in
   #   some manpages.
   #   Inverse (or reverse) for the prompt at the bottom.
-  if test "$TERM" != 'linux'
-  then
-    # Manpage's pager resizing (with tiling WM) is a headache. Here is a
-    # simple stupid solution.
-    # Use cyan color instead of underline (italic converted to underline is
-    # included).
-    # See grotty(1)
-    MANWIDTH=71 \
-      GROFF_NO_SGR=1 \
-      LESS_TERMCAP_us="$(/usr/bin/tput setaf 6)" \
-      LESS_TERMCAP_ue="$(/usr/bin/tput sgr0)" \
-      /usr/bin/man "$@"
-  else
+  # Manpage's pager resizing (with tiling WM) is a headache. Here is a
+  # simple stupid solution, it makes 14.1" screen splitable.
+  # Use cyan color instead of underline (italic converted to underline
+  # is included).
+  # See grotty(1)
+  # This can be an alias.
+  MANWIDTH=71 \
+    GROFF_NO_SGR=1 \
+    LESS_TERMCAP_us="$(/usr/bin/tput setaf 6)" \
+    LESS_TERMCAP_ue="$(/usr/bin/tput sgr0)" \
     /usr/bin/man "$@"
-  fi
 }
 
 ffps()
