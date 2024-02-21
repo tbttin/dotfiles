@@ -1,4 +1,4 @@
-#ifndef [:VIM_EVAL:]toupper(expand('<afile>:t:r'))[:END_EVAL:]_H_INCLUDED
-#define [:VIM_EVAL:]toupper(expand('<afile>:t:r'))[:END_EVAL:]_H_INCLUDED
+#ifndef _[:VIM_EVAL:]toupper(expand('<afile>:t:r'))[:END_EVAL:]_H_INCLUDED_
+#define _[:VIM_EVAL:]toupper(expand('<afile>:t:r'))[:END_EVAL:]_H_INCLUDED_
 
-#endif /* [:VIM_EVAL:]toupper(expand('<afile>:t:r'))[:END_EVAL:]_H_INCLUDED */
+#endif /* _[:VIM_EVAL:]toupper(expand('<afile>:t:r'))[:END_EVAL:]_H_INCLUDED_ */
