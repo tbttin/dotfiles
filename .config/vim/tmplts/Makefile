@@ -36,12 +36,15 @@ dirs    := $(bld_dir) $(obj_dir) $(dep_dir)
 sources := $(wildcard $(src_dir)/*.c)
 headers := $(wildcard $(src_dir)/*.h)
 objs    := $(patsubst $(src_dir)/%.c,$(obj_dir)/%.o,$(sources))
-rm      := /usr/bin/rm --recursive --force --
-mkdir   := /usr/bin/mkdir --parents --
-tags    := /usr/bin/ctags
 
-# Default goal.
-all: tags $(prog)
+rm    := /usr/bin/rm --recursive --force --
+mkdir := /usr/bin/mkdir --parents --
+# Use --kind-c=+p to include all function prototypes in header files.
+ctags := /usr/bin/ctags
+tags  := tags
+
+# Default goals.
+all: $(prog) $(tags)
 
 # Threads?
 debug: clean
@@ -57,14 +60,14 @@ $(obj_dir)/%.o $(dep_dir)/%.d&: $(src_dir)/%.c | $(dirs)
 $(dirs):
 	@$(mkdir) $@
 
-tags:
-	@$(tags) $(sources) $(headers)
+$(tags):
+	@$(ctags) $(sources) $(headers)
 
 run: $(prog)
 	@$(prog) $(RUN_ARGS)
 
 clean:
-	$(rm) $(bld_dir)/ tags
+	$(rm) $(bld_dir)/ $(tags)
 clean-obj:
 	$(rm) $(obj_dir)/
 clean-dep:
@@ -88,7 +91,7 @@ ifeq '$(filter-out all,$(MAKECMDGOALS))' ''
 -include $(patsubst $(src_dir)/%.c,$(dep_dir)/%.d,$(sources))
 endif
 
-.PHONY: all debug clean clean-obj clean-dep run tags
+.PHONY: all debug clean clean-obj clean-dep run $(tags)
 
 ## Some notes
 #
