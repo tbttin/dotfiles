@@ -75,7 +75,7 @@ set wildmode=full:lastused   " Tab suggest prior last used buffer than alphabeti
 
 let g:mapleader = "\<Space>"                    " Use spacebar as map leader.
 let g:netrw_browsex_viewer = '/usr/bin/firefox' " gx to open-under cursor link in Firefox.
-let $BASH_ENV="$HOME/.config/bash/funcs.bash"   " Only man() is needed, not whole '.bashrc'. See bash(1)/BASH_ENV.
+let $BASH_ENV="$HOME/.config/bash/funcs.bash"   " It's Bash's thing, not vim thing! See 'bash(1)/BASH_ENV'.
                                                 " Normal-mode command [count]K will run man() in $BASH_ENV file.
 set nojoinspaces                                " Insert two spaces after a '.', '?' and '!' with a join command.
 set hidden                                      " Possibility to have more than one unsaved buffers.
