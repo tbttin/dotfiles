@@ -49,7 +49,7 @@ setlocal completeopt-=preview " Turn off preview window.
 " setlocal copyindent
 " setlocal preserveindent
 " setlocal cinoptions+=(0,u0,U0,t0,l1
-setlocal cinoptions=l1,(0
+setlocal cinoptions=l1,(0,t0
 
 " Miscellany {{{2
 
