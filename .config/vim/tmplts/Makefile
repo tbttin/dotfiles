@@ -60,6 +60,7 @@ $(obj_dir)/%.o $(dep_dir)/%.d&: $(src_dir)/%.c | $(dirs)
 $(dirs):
 	@$(mkdir) $@
 
+# How about $(sources) $(headers)?
 $(tags):
 	@$(ctags) $(sources) $(headers)
 
