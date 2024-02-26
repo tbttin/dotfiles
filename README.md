@@ -4,7 +4,7 @@ Everything is just collected from the Internet by me.
 
 Why Git bare? It's _simple_! [durdn's dotfies
 tutorial](https://www.atlassian.com/git/tutorials/dotfiles "durdn's
-tutorial") - a really good dotfiles introduction, it brought me here by
+tutorial") - a really good dotfiles introduction, it brought me here, by
 the way.
 
 I use these programs (default on Arch Linux):
@@ -21,6 +21,8 @@ I use these programs (default on Arch Linux):
   - ...
 
 ## Screenshots
+
+I am a minimalistic man.
 
 ![terminals](./pictures/assets/terminals.png?raw=true "terminals")
 
