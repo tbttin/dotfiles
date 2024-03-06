@@ -5,8 +5,6 @@ MR_URL='https://archlinux.org/mirrorlist/'
 URL_PARAMS=(
   'country=all'
   'protocol=https'
-  'ip_version=4'
-  'ip_version=6'
   'use_mirror_status=on'
 )
 

@@ -11,9 +11,9 @@ depends=('pacman-contrib')
 source=('rank-mirrors.service'
         'rank-mirrors.timer'
         'rankmirrors_latest.sh')
-sha256sums=('4e7a817aa3ac74cd04bbe89337b078fe77d9b30a4c9b42c3725d13240612073d'
+sha256sums=('4bb7dae550b60caf6268aad1bfafe96da6ed42c31505a993d6918752d2aa6b4a'
             '723760da9fafbe95b19f9eb4d6b87417c8b8ec16ddec2af0d644299b9e875b03'
-            'bd7d4c8716433648e974ac6f81cb2d64d7b489b2939259e63c37d1a899dc0f6f')
+            '32723916b81a12d4d4def0034036b7a74023caafd09e1ff146233e202f0f3395')
 
 package() {
   local prefix="${pkgdir}/usr/lib/systemd/system"
