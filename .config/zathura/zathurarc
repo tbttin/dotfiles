@@ -20,6 +20,6 @@ set filemonitor "noop"
 set link-zoom false
 
 # Display a notification after selecting text.
-# set selection-notification false
+set selection-notification false
 
 # vim: filetype=conf
