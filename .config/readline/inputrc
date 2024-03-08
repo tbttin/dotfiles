@@ -25,7 +25,9 @@ $if mode=vi
   # INSERT MODE MAPPINGS.
   set keymap vi-insert
   # Expand both history and alias.
-  "\C-e": history-and-alias-expand-line
+  "\C-e": alias-expand-line
+  # "\C-e": history-and-alias-expand-line
+  Space: magic-space
   # Redirect both 1 and 2 to less.
   "\C-l": "\eA2>&1 | less"
   # Redirect both 1 and 2 to grep.
