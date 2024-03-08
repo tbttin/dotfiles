@@ -72,12 +72,13 @@ inoremap <buffer> /* /*  */<C-G>U<Left><Left><Left>
 " Build.
 nnoremap <buffer> <Leader>mb :wall \| make! \| cwindow<CR><CR>
 " Debug with terminal debug plugin.
-nnoremap <buffer> <Leader>md :wall \| make debug \| Termdebug build/prog<CR>
-" Make clean after clear terminal screen.
-nnoremap <buffer> <Leader>mc :!clear<CR>:make clean<CR>
-" Run.
+nnoremap <buffer> <Leader>md :wall \| make debug \| Termdebug ./build/prog<CR>
+" Clean and clear screen.
+nnoremap <buffer> <Leader>mc :silent make clean \| !clear<CR>
+" Build and run.
+" TODO: Handle compiler/program output.
 " !make run -- --args
-nnoremap <buffer> <Leader>mr :cclose \| :wall \| make all run<CR>
+nnoremap <buffer> <Leader>mr :wall \| make! \| make run<CR><CR>
 
 " Plugins {{{1
 
