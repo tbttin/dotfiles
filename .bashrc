@@ -17,10 +17,8 @@ complete -F _command doas
 #
 # History settings.
 #
-# The number of commands Bash'll remember in a session.
+# The number of commands Bash'll remember. See 'bash(1)/^       HISTSIZE'.
 HISTSIZE=5000
-# The number of commands Bash'll store in history file.
-HISTFILESIZE=5000
 # 'erasedups': causes all previous lines matching the current line to be
 # removed from the history list before that line is saved.
 HISTCONTROL='ignorespace:erasedups'
