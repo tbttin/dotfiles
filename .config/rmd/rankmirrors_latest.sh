@@ -18,6 +18,8 @@ err() {
   exit 1
 }
 
+# test -w "${MRL}" || err "${MRL}: do not have permission to write."
+
 # Delete temp files when exit/kill/crash?
 # See https://unix.stackexchange.com/a/181938
 exec 3>"${NEW_MRL}"  4<"${NEW_MRL}"
