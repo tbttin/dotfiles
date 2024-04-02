@@ -67,10 +67,14 @@ static const char *pdfreadercmd[] = { "zathura", NULL };
 static const char *volmutecmd[]   = { "pactl", "set-sink-mute", "0", "toggle", NULL };
 static const char *volupcmd[]     = { "pactl", "set-sink-volume", "0", "+5%", NULL };
 static const char *voldowncmd[]   = { "pactl", "set-sink-volume", "0", "-5%", NULL };
+static const char *poweroffcmd[]  = { "systemctl", "poweroff", "-i", NULL };
 
 /* Check "/usr/include/X11/keysymdef.h" */
 static Key keys[] = {
 	/* modifier                     key        function        argument */
+
+        /* shutdown */
+	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = poweroffcmd } },
 
         /* SCReen shOT */
 	{ MODKEY,                       XK_Print,  spawn,          SHCMD("scrot -q100  \"$(xdg-user-dir PICTURES)/ss/f-%F-%H%M%S.png\"") },
