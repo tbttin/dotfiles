@@ -9,6 +9,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 # TODO: Separate custom mappings.
+#       pacman update hook will mess up with this.
 # See:
 #   https://wiki.archlinux.org/title/X_keyboard_extension
 #   https://wiki.archlinux.org/title/Xorg/Keyboard_configuration#Enabling_mouse_keys
