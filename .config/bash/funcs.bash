@@ -24,7 +24,7 @@ man()
   # Use cyan color instead of underline (italic converted to underline
   # is included).
   # See grotty(1)
-  # This can be an alias.
+  # This can be an alias. Vim "K" will need this.
   MANWIDTH=71 \
     GROFF_NO_SGR=1 \
     LESS_TERMCAP_us="$(/usr/bin/tput setaf 6)" \

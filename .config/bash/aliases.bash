@@ -1,4 +1,9 @@
 # Faster navigation. {{{
+# TODO:
+#   Try pushd, popd and dirs. See https://www.baeldung.com/linux/pushd-popd.
+#     Store directories with pushd, pushd one more (top is current dir),
+#     then work.
+#   $CDPATH
 alias ..='cd ..'
 alias ...='cd ../..'
 # With most commands, you can pass -- as an argument, and all subsequent
@@ -93,6 +98,9 @@ unset xdg_prj_dir
 #   '' are evaluated dynamically (when it is used).
 #   alias QS="echo \$PWD" same as ''
 # echo $foo is slower than echo "$foo"
+# Escape an alias:
+#   command <cmd>
+#   \<cmd>
 
 # vim: ft=sh fdm=marker
 
