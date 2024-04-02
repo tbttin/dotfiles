@@ -4,7 +4,7 @@ Description=rank Pacman's latest mirrors
 [Timer]
 OnCalendar=weekly
 AccuracySec=1h
-RandomizedDelaySec=12h
+RandomizedDelaySec=2h
 Persistent=true
 
 [Install]
