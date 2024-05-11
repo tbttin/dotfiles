@@ -36,7 +36,7 @@ static const char unknown_str[] = "n/a";
  *                                                     see keyboard_indicators.c
  * keymap              layout (variant) of current     NULL
  *                     keymap
- * load_avg            load average                    NULL
+ * load_avg            load average in 1, 5, 15 min    NULL
  * netspeed_rx         receive network speed           interface name (wlan0)
  * netspeed_tx         transfer network speed          interface name (wlan0)
  * num_files           number of files in a directory  path
