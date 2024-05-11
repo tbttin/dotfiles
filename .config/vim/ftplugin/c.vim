@@ -10,7 +10,7 @@ let b:loaded_ftplugin = 1      " Loaded flag.
 " Displays {{{2
 
 setlocal foldmethod=syntax " Fold function bodies, comments.
-setlocal foldnestmax=1     " Just function body; and not if, else, for, ...
+" setlocal foldnestmax=1     " Just function body; and not if, else, for, ...
 let c_space_errors = 1     " Highlight trailing white space and spaces before a <Tab>.
 
 " Autocompletions {{{2
