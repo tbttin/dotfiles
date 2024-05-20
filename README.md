@@ -2,25 +2,25 @@
 
 Everything is just collected from the Internet by me.
 
-Why Git bare? It's _simple_! [durdn's dotfies
+Why Git bare? It's _simple_! [Durdn's dotfies
 tutorial](https://www.atlassian.com/git/tutorials/dotfiles "durdn's
-tutorial") - a really good dotfiles introduction, it brought me here, by
-the way.
+tutorial") - a really good introduction to dotfiles. It brought me here,
+by the way.
 
 I use these programs (default on Arch Linux):
 
-  - Suckless programs, configs, patches and PKGBUILDs: dwm, st,
+  - Suckless programs: configs, patches and PKGBUILDs for dwm, st and
     slstatus.
 
-  - Vim: vimrc, file type plugins (makrdown, c, vim), .etc
+  - Vim as editor: vimrc, file type plugins (makrdown, c, vim), .etc
 
-  - Bash, readline (vi-mode).
+  - Shell: bash, readline (vi-mode).
 
-  - Zathura.
+  - PDF reader: zathura.
 
   - ...
 
-## Screenshots
+# Screenshots
 
 I am a minimalistic man.
 
