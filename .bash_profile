@@ -26,9 +26,6 @@ export HISTFILE="${HOME}/.local/state/bash_history"
 # pam_systemd.
 export XAUTHORITY="${XDG_RUNTIME_DIR:?}/Xauthority"
 
-# GNU indent profile to config directory.
-# export INDENT_PROFILE="${HOME}/.config/indent/indent.pro"
-
 # Vim please respect XDGBDS; vimrc to config directory.
 export VIMINIT="let \$VIMHOME = '${HOME}/.config/vim' | \
                 source \$VIMHOME/vimrc"
