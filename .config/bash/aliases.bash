@@ -43,7 +43,7 @@ alias vz='/usr/bin/vim ${HOME}/.config/zathura/zathurarc'
 # Makefie template.
 alias vm='/usr/bin/vim ${HOME}/.config/vim/tmplts/Makefile'
 # Makefile: quickly invoke run target with args.
-alias r='/usr/bin/make run --'
+# alias r='/usr/bin/make run --'
 # Take note.
 alias vn="jn && /usr/bin/vim ${xdg_prj_dir}/notes/index.md"
 # Git config file.
