@@ -53,7 +53,6 @@ setlocal cinoptions=l1,(0,t0
 
 " Miscellany {{{2
 
-setlocal formatprg=/usr/bin/indent                           " GNU indent formator.
 " setlocal path=.,/usr/include,**                              " Current file's dir, system include, recursive $PWD.
 setlocal path&                                               " Revert vimrc.
 setlocal tags+=./tags;$HOME/projects/c,tags;$HOME/projects/c " Upward search for tags file recursively.
