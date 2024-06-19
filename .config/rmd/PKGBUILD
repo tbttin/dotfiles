@@ -12,8 +12,8 @@ source=('rank-mirrors.service'
         'rank-mirrors.timer'
         'rankmirrors_latest.sh')
 sha256sums=('240b0c41c5f94d87c931c84f01ba44001de56d8e992c0f936d0fdcee635f2543'
-            '1908b69f4523e9f562bdffd2f820ca7f1f35ea7e66837fd0b80751eb61312e8b'
-            'd0e120230f1e13db114dd683e3d07d729b7bf9bce2a4afb2ddd3378f58aa59b4')
+            '6f001974d551173b95b26603972f35feb185a7046c0734a227035be490de5098'
+            '2c48c4f17ffeb0f7958edbbd40c77b4605c11743d013aa102ff1543e10d38366')
 
 package() {
   local prefix="${pkgdir}/usr/lib/systemd/system"

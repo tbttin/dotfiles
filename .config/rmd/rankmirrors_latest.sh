@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MR_NUM=5
+MR_NUM=3
 MR_URL='https://archlinux.org/mirrorlist/'
 URL_PARAMS=(
   'country=all'

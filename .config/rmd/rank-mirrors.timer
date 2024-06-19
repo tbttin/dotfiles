@@ -4,6 +4,7 @@ Description=rank Pacman's latest mirrors
 [Timer]
 OnCalendar=weekly
 AccuracySec=1h
+# My uptime average.
 RandomizedDelaySec=2h
 Persistent=true
 
