@@ -121,7 +121,7 @@ noremap & :&&<CR>
 nnoremap <Leader>so :so "%"<CR>
 
 " Create file under the cursor.
-nnoremap <Leader>ef :e <cfile><CR>
+nnoremap <Leader>gf :e <cfile><CR>
 
 " Fly~
 " ':ls' vs 'wildcharm'?
