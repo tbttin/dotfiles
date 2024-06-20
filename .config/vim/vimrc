@@ -114,11 +114,11 @@ set backup                                      " Wana test this?
 
 " End maintaining }}}2
 
-" Repeat the last ':s' with same flags. Range will not rememberd.
-noremap & :&&<CR>
+" Repeat the last ':s' with same flags. Range will not remembered.
+" noremap & :&&<CR>
 
 " Source current file.
-nnoremap <Leader>so :so "%"<CR>
+" nnoremap <Leader>so :so "%"<CR>
 
 " Create file under the cursor.
 nnoremap <Leader>gf :e <cfile><CR>
@@ -128,7 +128,6 @@ nnoremap <Leader>gf :e <cfile><CR>
 " Note: noneed '*' or <Tab> here just partial name then <CR>.
 " Active the mapping then "^D" to gather the information.
 nnoremap <Leader>l :ls<CR>:b<Space>
-
 " Buffer switching.
 nnoremap <Leader>n :bn<CR>
 nnoremap <Leader>p :bp<CR>
@@ -144,14 +143,14 @@ nnoremap <Leader>eh :e $VIMHOME/**/*
 
 " Toggle spell check. Then just "]s" and "z=".
 nnoremap <Leader>ts :set spell! spell?<CR>
-" Toggle paste.
-nnoremap <Leader>tp :set paste! paste?<CR>
 " Toggle highlight search.
 nnoremap <Leader>th :set hlsearch! hlsearch?<CR>
+" Toggle paste.
+" nnoremap <Leader>tp :set paste! paste?<CR>
+nnoremap <Leader>tp :r !/usr/bin/cat<CR>
 
-" Search forward the visual selected text ('@s' will be used).
+" Search forward the visual selected text. Note: '@s' will be used.
 xnoremap <Leader>ss "sy/\V<C-R>=escape(@s, '/\')<CR><CR>
-
 " Replace the 'last-pattern'.
 nnoremap <Leader>sr :%s///gc<Left><Left><Left>
 
