@@ -74,6 +74,9 @@ clean-obj:
 clean-dep:
 	$(rm) $(dep_dir)/
 
+# TODO:
+# make run RUN_ARGS="--foo=bar --bar=baz"
+#
 # If the first argument is "run"...
 ifeq '$(firstword $(MAKECMDGOALS))' 'run'
 # use the rest as arguments for "run"

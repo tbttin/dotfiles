@@ -81,6 +81,6 @@ nnoremap <buffer> <Leader>mr :wall \| make! \| make run<CR><CR>
 
 " Plugins {{{1
 
-packadd termdebug        " Load terminal debug plugin.
+packadd! termdebug        " Load terminal debug plugin.
 let g:termdebug_wide = 1 " Enable vertical split without every changing &columns.
 
