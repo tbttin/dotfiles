@@ -38,7 +38,7 @@ config submodule update --init --recursive
 #
 # Bring back $HOME
 #
-/usr/bin/mkdir -v -p ~/{documents,downloads,pictures/ss,projects/c,videos}
+/usr/bin/mkdir -v -p ~/{documents,downloads,pictures/ss,projects/{c,vim},videos}
 type -t /usr/bin/xdg-user-dirs-update >/dev/null &&
   /usr/bin/rmdir -v --ignore-fail-on-non-empty \
     ~/{Desktop,Documents,Downloads,Music,Pictures,Public,Templates,Videos} &&
