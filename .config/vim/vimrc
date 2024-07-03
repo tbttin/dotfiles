@@ -138,15 +138,14 @@ nnoremap <Leader>p :bp<CR>
 " Quick find and edit files in current directory.
 " "**" = "./**", it means NO upward search, no "**2".
 nnoremap <Leader>ee :e **/*
-" Quick find and edit files in '$VIMHOME'.
-nnoremap <Leader>eh :e $VIMHOME/**/*
+" Quick find and edit files in '$VIMHOME'. 'c_Up' is useable.
+nnoremap <Leader>eh :edit $VIMHOME/**/*
 
 " Toggle spell check. Then just "]s" and "z=".
 nnoremap <Leader>ts :set spell! spell?<CR>
 " Toggle highlight search.
 nnoremap <Leader>th :set hlsearch! hlsearch?<CR>
 " Toggle paste.
-" nnoremap <Leader>tp :set paste! paste?<CR>
 nnoremap <Leader>tp :r !/usr/bin/cat<CR>
 
 " Search forward the visual selected text. Note: '@s' will be used.
@@ -158,6 +157,20 @@ nnoremap <Leader>sr :%s///gc<Left><Left><Left>
 com! SW exe 'w !/usr/bin/doas /usr/bin/tee "%" >/dev/null' | if !v:shell_error | e! | en
 
 " Plugins {{{2
+
+" lexima.vim {{{3
+
+" They have timeout.
+call lexima#add_rule({'char': '_', 'input_after': '_', 'except': '\%#`', 'filetype': 'markdown'})
+call lexima#add_rule({'char': '**', 'input_after': '**', 'filetype': 'markdown'})
+
+" End lexima.vim }}}
+
+" Pear-tree {{{3
+
+" imap <S-Tab> <Plug>(PearTreeJump)
+
+" End pear-tree }}}
 
 " Easy-align {{{3
 
