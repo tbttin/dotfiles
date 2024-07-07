@@ -85,35 +85,6 @@ set backup                                      " Wana test this?
 
 " Mappings {{{1
 
-" Note: use uppercases for special editions?
-
-" Maintaining {{{2
-
-"" Basic pairs auto completions.
-"inoremap <expr> " pairs#IsMatchOnLHS('\v(^\s*$)\|(\S$)') ? '"' : '""<C-G>U<Left>'
-"inoremap <expr> ' pairs#IsMatchOnLHS('\S$') ? "'" : "''<C-G>U<Left>"
-"inoremap ( ()<C-G>U<Left>
-"inoremap < <><C-G>U<Left>
-"inoremap [ []<C-G>U<Left>
-"inoremap <expr> { pairs#IsMatchOnLHS('^\s*$') ? '{<CR>}<C-G>U<Up><CR>' : '{}<C-G>U<Left>'
-
-"" Pairs auto completions in cmd-line.
-"cnoremap <expr> " pairs#IsMatchOnLHS('\S$') ? '"' : '""<Left>'
-"cnoremap <expr> ' pairs#IsMatchOnLHS('\S$') ? "'" : "''<Left>"
-"cnoremap { {}<Left>
-"cnoremap ( ()<Left>
-"cnoremap < <><Left>
-"cnoremap [ []<Left>
-
-"" Auto delete adjacent pairs.
-"noremap! <expr> <BS> pairs#IsAdjacentPairs() ? '<Del><BS>' : '<BS>'
-
-" A better [S-]Tab?
-" inoremap <expr> <Tab>   pairs#IsMatchOnLHS('\k$') ? '<C-N>' : '<Tab>'
-" inoremap <expr> <S-Tab> pairs#IsMatchOnLHS('\k$') ? '<C-P>' : '<Tab>'
-
-" End maintaining }}}2
-
 " Repeat the last ':s' with same flags. Range will not remembered.
 " noremap & :&&<CR>
 
