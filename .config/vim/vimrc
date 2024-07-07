@@ -131,7 +131,8 @@ com! SW exe 'w !/usr/bin/doas /usr/bin/tee "%" >/dev/null' | if !v:shell_error |
 
 " lexima.vim {{{3
 
-" They have timeout.
+" NOTE: They have timeout.
+" Markdown emphasizes.
 call lexima#add_rule({'char': '_', 'input_after': '_', 'except': '\%#`', 'filetype': 'markdown'})
 call lexima#add_rule({'char': '**', 'input_after': '**', 'filetype': 'markdown'})
 
