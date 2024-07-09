@@ -32,7 +32,7 @@ FG_GREEN="\[$(/usr/bin/tput setaf 2)\]"
 CA_BOLD="\[$(/usr/bin/tput bold)\]"
 CA_RESET="\[$(/usr/bin/tput sgr0)\]"
 # Current directory, user indicator.
-PS1="${CA_RESET}${CA_BOLD}${FG_CYAN}\W ${FG_RED}\$ "
+PS1="${CA_RESET}${CA_BOLD}${FG_CYAN}\W "
 # Number of background jobs.
 PS1="${PS1}${FG_GREEN}\$([ \j -gt 0 ] && /usr/bin/echo \"[\j] \")${CA_RESET}"
 
