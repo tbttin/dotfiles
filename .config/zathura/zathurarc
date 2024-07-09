@@ -11,7 +11,7 @@ set font "monospace nomal 10"
 set abort-clear-search false
 
 # Number of recent files that should be displayed in completion.
-set show-recent 1
+set show-recent 3
 
 # Do not trigger reloads.
 set filemonitor "noop"
