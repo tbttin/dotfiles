@@ -69,7 +69,7 @@ inoremap <buffer> <expr> < pairs#IsMatchOnLHS('^#include\s*$') ? '<><C-G>U<Left>
 inoremap <buffer> /* /*  */<C-G>U<Left><Left><Left>
 
 " Build.
-nnoremap <buffer> <Leader>mb :wall \| make! \| cwindow<CR><CR>
+nnoremap <buffer> <Leader>mm :wall \| make! \| cwindow<CR><CR>
 " Debug with terminal debug plugin.
 nnoremap <buffer> <Leader>md :wall \| make debug \| Termdebug ./build/prog<CR>
 " Clean and clear screen.
