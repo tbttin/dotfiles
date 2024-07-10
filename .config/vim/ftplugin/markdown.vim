@@ -20,15 +20,14 @@ setlocal autoindent " For formating and auto wraping.
 " Mappings. {{{1
 
 " View pdf version of current file.
-nnoremap <buffer> <Leader>m <Plug>View_PDF
+nnoremap <buffer> <Leader>mm <Plug>View_PDF
 
 " Functions {{{2
 
 " Convert markdown note[s] into ".pdf" file[s] and open current file in "zathura".
 " Warning: don't mess around with "working directory".
 function! s:View_PDF() " {{{3
-  " TODO: Don't use "notes-output/pdf/".
-  let l:pdf_file = 'notes-output/pdf/' .. expand('%:r:.') .. '.pdf'
+  let l:pdf_file = expand('%:r:.') .. '.pdf'
   up
   " How to get ":make" return status?
   exe '!make ' .. l:pdf_file
