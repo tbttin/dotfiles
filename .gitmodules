@@ -4,6 +4,3 @@
 [submodule ".config/vim/pack/plugins/start/commentary"]
   path = .config/vim/pack/plugins/start/commentary
   url = https://github.com/tpope/vim-commentary.git
-[submodule ".config/vim/pack/plugins/start/lexima.vim"]
-  path = .config/vim/pack/plugins/start/lexima.vim
-  url = https://github.com/cohama/lexima.vim.git

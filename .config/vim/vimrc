@@ -129,21 +129,6 @@ com! SW exe 'w !/usr/bin/doas /usr/bin/tee "%" >/dev/null' | if !v:shell_error |
 
 " Plugins {{{2
 
-" lexima.vim {{{3
-
-" NOTE: They have timeout.
-" Markdown emphasizes.
-call lexima#add_rule({'char': '_', 'input_after': '_', 'except': '\%#`', 'filetype': 'markdown'})
-call lexima#add_rule({'char': '**', 'input_after': '**', 'filetype': 'markdown'})
-
-" End lexima.vim }}}
-
-" Pear-tree {{{3
-
-" imap <S-Tab> <Plug>(PearTreeJump)
-
-" End pear-tree }}}
-
 " Easy-align {{{3
 
 if !exists('g:easy_align_delimiters')
