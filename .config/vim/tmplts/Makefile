@@ -11,45 +11,49 @@
 #     |   |   |-- main.o
 #     |   |   `-- defs.o
 #     |   `-- prog
+#     |-- include
+#     |   |
+#     |   `--defs.h
 #     |-- src
 #     |   |-- main.c
 #     |   |-- defs.c
-#     |   `-- defs.h
 #     |-- Makefile
 #     `-- tags
 
 CC            := /usr/bin/gcc
-CFLAGS        += -pedantic -Wall -Wextra -O3 -Wshadow -Wconversion \
+CFLAGS        += -pedantic -Wall -Wextra -Wshadow -Wconversion \
                  -Wstrict-overflow=5 -Wformat=2 -Wfloat-equal
-DBGCFLAGS     += -g -DDEBUGGING
+                 # -O3
+DBGCFLAGS     += -g
+		 # -DDEBUGGING
 OUTPUT_OPTION  = -MMD -MP -MF $(dep_dir)/$*.d -o $(obj_dir)/$*.o
-COMPILE.c      = $(CC) $(CFLAGS) $(OUTPUT_OPTION) -c
+COMPILE.c      = $(CC) $(CFLAGS) $(OUTPUT_OPTION) -I $(incl_dir) -c
 LINK.c        := $(CC)
 MAKEFLAGS     += --no-builtin-rules --no-builtin-variables
 
-src_dir := src
-bld_dir := build
-obj_dir := $(bld_dir)/obj
-dep_dir := $(bld_dir)/dep
-prog    := $(bld_dir)/prog
-dirs    := $(bld_dir) $(obj_dir) $(dep_dir)
-sources := $(wildcard $(src_dir)/*.c)
-headers := $(wildcard $(src_dir)/*.h)
-objs    := $(patsubst $(src_dir)/%.c,$(obj_dir)/%.o,$(sources))
-
-rm    := /usr/bin/rm --recursive --force --
-mkdir := /usr/bin/mkdir --parents --
-# Use --kind-c=+p to include all function prototypes in header files.
+rm    := /usr/bin/rm --recursive --force
+mkdir := /usr/bin/mkdir --parents
+# Use --kinds-c=+p to include all function prototypes in header files.
 ctags := /usr/bin/ctags
-tags  := tags
 
-# Default goals.
-all: $(prog) $(tags)
+src_dir  := src
+incl_dir := include
+bld_dir  := build
+obj_dir  := $(bld_dir)/obj
+dep_dir  := $(bld_dir)/dep
+dirs     := $(bld_dir) $(obj_dir) $(dep_dir)
+# TODO: Wildcard is necessary/security risk?
+sources  := $(wildcard $(src_dir)/*.c)
+headers  := $(wildcard $(incl_dir)/*.h)
+objs     := $(patsubst $(src_dir)/%.c,$(obj_dir)/%.o,$(sources))
 
-# Threads?
-debug: clean
-debug: private CFLAGS += $(DBGCFLAGS)
-debug: all
+prog := $(bld_dir)/$(notdir $(CURDIR:%/=%))
+tags := tags
+
+all: $(tags) $(prog)
+
+$(tags):
+	@$(ctags) $(sources) $(headers)
 
 $(prog): $(objs)
 	$(LINK.c) -o $@ $^
@@ -58,21 +62,30 @@ $(obj_dir)/%.o $(dep_dir)/%.d&: $(src_dir)/%.c | $(dirs)
 	$(COMPILE.c) $<
 
 $(dirs):
-	@$(mkdir) $@
+	@$(mkdir) -- $@
 
-# How about $(sources) $(headers)?
-$(tags):
-	@$(ctags) $(sources) $(headers)
+# If the make "goal" is irrelevant don't include dependency files.
+# TODO: makefiles remake makes 'make --just-print' suck.
+#   Reproduce: make clean && make --just-print
+ifeq '$(filter-out all,$(MAKECMDGOALS))' ''
+-include $(patsubst $(src_dir)/%.c,$(dep_dir)/%.d,$(sources))
+endif
 
+# TODO: $(prog) is not updated when header files has been changed.
 run: $(prog)
-	@$(prog) $(RUN_ARGS)
+	@$(prog) $(RUN_ARGS) --
+
+# Threads?
+debug: clean
+debug: CFLAGS += $(DBGCFLAGS)
+debug: all
 
 clean:
-	$(rm) $(bld_dir)/ $(tags)
-clean-obj:
-	$(rm) $(obj_dir)/
-clean-dep:
-	$(rm) $(dep_dir)/
+	$(rm) -- $(obj_dir)/ $(prog)
+distclean:
+	$(rm) -- $(bld_dir)/ $(tags)
+
+.PHONY: all $(tags) debug run clean distclean
 
 # TODO:
 # make run RUN_ARGS="--foo=bar --bar=baz"
@@ -87,15 +100,6 @@ RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 #   shell mean "NOP" (no op, a do-nothing operation).
 $(eval $(RUN_ARGS): ; @:)
 endif
-
-# If the make "goal" is irrelevant don't include dependency files.
-# TODO: makefiles remake makes 'make --just-print' suck.
-#   Reproduce: make clean && make --just-print
-ifeq '$(filter-out all,$(MAKECMDGOALS))' ''
--include $(patsubst $(src_dir)/%.c,$(dep_dir)/%.d,$(sources))
-endif
-
-.PHONY: all debug clean clean-obj clean-dep run $(tags)
 
 ## Some notes
 #
