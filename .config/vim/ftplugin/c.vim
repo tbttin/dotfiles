@@ -62,12 +62,6 @@ setlocal tags+=./tags;$HOME/projects/c,tags;$HOME/projects/c " Upward search for
 " Man page default section should be 3 or 3p? sleep() e.g.
 nnoremap <buffer> K 3K<CR>
 
-" Smart less than sign. Currently pear-tree does not do this.
-inoremap <buffer> <expr> < pairs#IsMatchOnLHS('^#include\s*$') ? '<><C-G>U<Left>' : '<'
-
-" Auto insert multi-line comment terminator.
-inoremap <buffer> /* /*  */<C-G>U<Left><Left><Left>
-
 " Build.
 nnoremap <buffer> <Leader>mm :wall \| make! \| cwindow<CR><CR>
 " Debug with terminal debug plugin.
