@@ -65,13 +65,13 @@ nnoremap <buffer> K 3K<CR>
 " Build.
 nnoremap <buffer> <Leader>mm :wall \| make! \| cwindow<CR><CR>
 " Debug with terminal debug plugin.
-nnoremap <buffer> <Leader>md :wall \| make debug \| Termdebug ./build/prog<CR>
+nnoremap <buffer> <expr> <Leader>md ":wall \| make debug \| Termdebug ./build/" . fnamemodify(getcwd(), ':t') . "<CR>"
 " Clean and clear screen.
-nnoremap <buffer> <Leader>mc :silent make clean \| !clear<CR>
+nnoremap <buffer> <Leader>mc :make clean \| :!clear<CR><CR>
 " Build and run.
 " TODO: Handle compiler/program output.
 " !make run -- --args
-nnoremap <buffer> <Leader>mr :wall \| make! \| make run<CR><CR>
+nnoremap <buffer> <Leader>mr :wall \| cclose \| !make run<CR>
 
 " Plugins {{{1
 
