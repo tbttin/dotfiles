@@ -67,7 +67,7 @@ $(dirs):
 # If the make "goal" is irrelevant don't include dependency files.
 # TODO: makefiles remake makes 'make --just-print' suck.
 #   Reproduce: make clean && make --just-print
-ifeq '$(filter-out all,$(MAKECMDGOALS))' ''
+ifeq '$(filter-out all run $(prog),$(MAKECMDGOALS))' ''
 -include $(patsubst $(src_dir)/%.c,$(dep_dir)/%.d,$(sources))
 endif
 
