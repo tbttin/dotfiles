@@ -85,7 +85,7 @@ clean:
 distclean:
 	$(rm) -- $(bld_dir)/ $(tags)
 
-.PHONY: all $(tags) debug run clean distclean
+.PHONY: all debug run clean distclean
 
 # TODO:
 # make run RUN_ARGS="--foo=bar --bar=baz"
