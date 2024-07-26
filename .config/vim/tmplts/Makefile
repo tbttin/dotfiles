@@ -80,6 +80,8 @@ debug: clean
 debug: CFLAGS += $(DBGCFLAGS)
 debug: all
 
+print-%: ; $(info $* = "$($*)", origin: $(origin $*), flavour: $(flavor $*)) @true
+
 clean:
 	$(rm) -- $(obj_dir)/ $(prog)
 distclean:
