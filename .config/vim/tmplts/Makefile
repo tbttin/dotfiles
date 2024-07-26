@@ -1,8 +1,13 @@
 # Features:
 #   - Automatically generate and include dependencies.
-#   - Clean project structure:
-#     (tree --charset=ascii --dirsfirst)
+#   - A clean project structure:
 #     .
+#     |-- include
+#     |   |
+#     |   `--defs.h
+#     |-- src
+#     |   |-- main.c
+#     |   |-- defs.c
 #     |-- build
 #     |   |-- dep
 #     |   |   |-- main.d
@@ -11,12 +16,6 @@
 #     |   |   |-- main.o
 #     |   |   `-- defs.o
 #     |   `-- prog
-#     |-- include
-#     |   |
-#     |   `--defs.h
-#     |-- src
-#     |   |-- main.c
-#     |   |-- defs.c
 #     |-- Makefile
 #     `-- tags
 
@@ -31,8 +30,8 @@ COMPILE.c      = $(CC) $(CFLAGS) $(OUTPUT_OPTION) -I $(incl_dir) -c
 LINK.c        := $(CC)
 MAKEFLAGS     += --no-builtin-rules --no-builtin-variables
 
-rm    := /usr/bin/rm --recursive --force
-mkdir := /usr/bin/mkdir --parents
+rm    := /usr/bin/rm -r -f
+mkdir := /usr/bin/mkdir -p
 # Use --kinds-c=+p to include all function prototypes in header files.
 ctags := /usr/bin/ctags
 
@@ -46,9 +45,8 @@ dirs     := $(bld_dir) $(obj_dir) $(dep_dir)
 sources  := $(wildcard $(src_dir)/*.c)
 headers  := $(wildcard $(incl_dir)/*.h)
 objs     := $(patsubst $(src_dir)/%.c,$(obj_dir)/%.o,$(sources))
-
-prog := $(bld_dir)/$(notdir $(CURDIR:%/=%))
-tags := tags
+prog     := $(bld_dir)/$(notdir $(CURDIR:%/=%))
+tags     := tags
 
 all: $(tags) $(prog)
 
@@ -102,16 +100,4 @@ RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 #   shell mean "NOP" (no op, a do-nothing operation).
 $(eval $(RUN_ARGS): ; @:)
 endif
-
-## Some notes
-#
-# Debugging makefile
-# make --question --print-data-base 2>&1 | less
-# make -d or make --debug=[abvijmn] 2>&1 | less
-#
-# $(warning warn: '$(filter-out all,$(MAKECMDGOALS))')
-# $(info info: 'bla blah')
-#
-# Log a long-run makefile
-# make -k > build.log 2>&1
 
