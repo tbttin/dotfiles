@@ -117,7 +117,9 @@ nnoremap <Leader>ts :set spell! spell?<CR>
 " Toggle highlight search.
 nnoremap <Leader>th :set hlsearch! hlsearch?<CR>
 " Toggle paste.
-nnoremap <Leader>tp :r !/usr/bin/cat<CR>
+nnoremap <Leader>tp :set paste! paste?
+" Toggle read command.
+nnoremap <Leader>tr :r !/usr/bin/cat<CR>
 
 " Search forward the visual selected text. Note: '@s' will be used.
 xnoremap <Leader>ss "sy/\V<C-R>=escape(@s, '/\')<CR><CR>
