@@ -21,15 +21,16 @@ $if mode=vi
   set keymap vi-command
   j: history-search-forward
   k: history-search-backward
+  g: beginning-of-history
+  G: end-of-history
   #
   # INSERT MODE MAPPINGS.
   set keymap vi-insert
+  # List all bindings `bind -P`
   # Expand both history and alias.
-  "\C-e": alias-expand-line
-  # "\C-e": history-and-alias-expand-line
-  Space: magic-space
+  "\C-e": history-and-alis-expand-line
   # Redirect both 1 and 2 to less.
-  "\C-l": "\eA2>&1 | less"
+  "\C-l": "\eA2>&1 | less\C-j"
   # Redirect both 1 and 2 to grep.
   "\C-g": "\eA2>&1 | grep ''\ei"
 $endif
