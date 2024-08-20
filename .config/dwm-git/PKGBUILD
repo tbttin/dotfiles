@@ -26,7 +26,6 @@ conflicts=("${_pkgname}")
 _patches=(
           'dwm-fix-ffplay-transient-20201210-6.2.diff'
           'https://dwm.suckless.org/patches/notitle/dwm-notitle-6.2.diff'
-          # 'https://dwm.suckless.org/patches/noborder/dwm-noborder-6.2.diff'
           'https://dwm.suckless.org/patches/switchtotag/dwm-switchtotag-6.2.diff'
 )
 source=(
@@ -38,7 +37,6 @@ sha512sums=('SKIP'
             'SKIP'
             'f3ab4ced2fa943e6930afa64606de74d74f28680fcb418e5e97c2229849035f8c2d9f18946dd7a5c418b55a6caf0befc49ddedcb38d9c0f9ed90eb1df8318def'
             '3e208fc162ceba77e711066cdfa205733a1c1d186c809e837bf9810b2d18b8b5624828a87f670e6d3ac46876a3abded88c50fdd7afd1a2ef1cc9d478b2459aaa'
-            # '43a3f39e6f27ff4dfa44264cca195de323b8b83bd734f61001ec23e8644a12078757c26f84165030a0d59594122d9e56e3fa1fc22ecfcaf436e642115bce4927'
             'b2df30caa5a04c1cbcf74b1ac7e6cee10026a002a5280e9d5d9d143ad22fe91d11342966a1dc21d7d742ce48e0df148926861a40d1590c11836f2f436c1ed9b9')
 
 prepare() {
