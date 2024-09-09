@@ -10,7 +10,6 @@ let b:loaded_ftplugin = 1      " Loaded flag.
 " Displays {{{2
 
 setlocal foldmethod=syntax " Fold function bodies, comments.
-" setlocal foldnestmax=1     " Just function body; and not if, else, for, ...
 let c_space_errors = 1     " Highlight trailing white space and spaces before a <Tab>.
 
 " Autocompletions {{{2
@@ -41,6 +40,7 @@ setlocal completeopt-=preview " Turn off preview window.
 " Indentation {{{2
 
 " Indent with spaces, align with spaces (GNU style) {{{3
+"
 " setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0
 " setlocal cinoptions+=h2,p5,t0,+2,(0,u0,w1,m1
 
@@ -58,9 +58,6 @@ setlocal path&                                               " Revert vimrc.
 setlocal tags+=./tags;$HOME/projects/c,tags;$HOME/projects/c " Upward search for tags file recursively.
 
 " Mappings. {{{1
-
-" Man page default section should be 3 or 3p? sleep() e.g.
-nnoremap <buffer> K 3K<CR>
 
 " Build.
 nnoremap <buffer> <Leader>mm :wall \| make! \| cwindow<CR><CR>
