@@ -14,6 +14,9 @@ export LESS='--RAW-CONTROL-CHARS --hilite-search --jump-target=5'
 
 # Files tranfer, clean up $HOME {{{
 #
+# Mariadb history.
+export MYSQL_HISTFILE="$XDG_DATA_HOME"/mariadb_history
+
 # Terminfo.
 export TERMINFO="${HOME}/.local/share/terminfo"
 export TERMINFO_DIRS="${HOME}/.local/share/terminfo:/usr/share/terminfo"
