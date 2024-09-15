@@ -14,6 +14,7 @@ fi
 # See:
 #   https://wiki.archlinux.org/title/X_keyboard_extension
 #   https://wiki.archlinux.org/title/Xorg/Keyboard_configuration#Enabling_mouse_keys
+# Reset: setxkbmap
 map_file="${HOME}/.config/X11/xkeymap.xkb"
 test -f "${map_file}" && /usr/bin/xkbcomp "${map_file}" "${DISPLAY}"
 unset map_file
@@ -26,9 +27,6 @@ unset map_file
 
 # Locker trigger.
 /usr/bin/xss-lock -- /usr/bin/slock &
-
-# Transmission daemon
-/usr/bin/transmission-daemon
 
 # Suckless terminal.
 /usr/bin/st &
