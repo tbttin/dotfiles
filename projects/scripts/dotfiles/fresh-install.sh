@@ -25,7 +25,7 @@ if config checkout ; then
 else
   /usr/bin/echo "Backing up pre-existing dotfiles to '${BACKUP_DIR}'."
   /usr/bin/mkdir -v -p "${BACKUP_DIR}"
-  config checkout 2>&1 | /usr/bin/egrep '\s+\.' | /usr/bin/awk {'print $1'} |
+  config checkout 2>&1 | /usr/bin/grep -E '\s+\.' | /usr/bin/awk {'print $1'} |
     xargs -I{} /usr/bin/mv -v {} "${BACKUP_DIR}"
   config checkout
 fi
