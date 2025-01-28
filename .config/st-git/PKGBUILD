@@ -3,7 +3,7 @@
 _pkgname='st'
 _srcurl="https://git.suckless.org/${_pkgname}"
 pkgname="${_pkgname}-git"
-pkgver=0.9.2.r2.ga0274bc
+pkgver=0.9.2.r3.g6009e6e
 pkgrel=1
 pkgdesc='A simple virtual terminal emulator for X'
 arch=('i686' 'x86_64')
@@ -30,7 +30,7 @@ source=(
 )
 sha512sums=('SKIP'
             'SKIP'
-            '255ed23afc6043fe38af64d0f3be0c4d13a026282a0c9cdaf415d46bde7b2445d70ceab1b8a5964c8332b59150ec4cddfa8ae437cfbcf4f23dd37cf2f0a874c9'
+            '3d74fd2c4c862bc596943a97fca51a596ac74771bbbac8696088b79b71407aa3dbca6e82d3d7205a37de02d86639df76787952efb7c82b527c8ff53f364cb81f'
             '2acd696f2f37afb1388e9cb6f64d76dfa8b337fcb86ac6d9360a2d9011e5518ca0317275192a827faf1e025f02ac1c6f470c37e1c4e72d9a1d055d52e36d783e'
             'd738df67a70b6ea325b7738e41fcdb6be62ee52c8e9ff930e8401e264146ff88868900a5924d8d73aa42f430713e22b6486240e43f92cf10e802739954b80caa')
 
