@@ -6,7 +6,7 @@
 #   curl -i 'https://git.io' -F 'url=GITHUB_URL' -F 'code=CUSTOM_NAME'
 
 REPO_URL='https://github.com/tbttin/dotfiles.git'
-GIT_DIR= ~/.config/dotfiles.git
+GIT_DIR="${HOME}/.config/dotfiles.git"
 BACKUP_DIR="${HOME}/.config~"
 
 config() {
