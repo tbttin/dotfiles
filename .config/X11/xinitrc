@@ -8,17 +8,6 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-# TODO: Separate custom mappings.
-#       Arch linux kernel build hook (/usr/lib/initcpio/hooks/keymap)
-#       will mess up with this.
-# See:
-#   https://wiki.archlinux.org/title/X_keyboard_extension
-#   https://wiki.archlinux.org/title/Xorg/Keyboard_configuration#Enabling_mouse_keys
-# Reset: setxkbmap
-map_file="${HOME}/.config/X11/xkeymap.xkb"
-test -f "${map_file}" && /usr/bin/xkbcomp "${map_file}" "${DISPLAY}"
-unset map_file
-
 #
 # Start a window manager and other things.
 #
