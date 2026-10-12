@@ -26,17 +26,18 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class,    instance, title, tags mask, switchtotag, isfloating, monitor */
-	{ "firefox", NULL,     NULL,  1 << 8,    1,           0,          -1 },
-	{ "Zathura", NULL,     NULL,  1 << 7,    1,           0,          -1 },
-	{ "ffplay",  NULL,     NULL,  1 << 3,    1,           0,          -1 },
+	/* class      instance    title       tags mask     switchtotags   isfloating   monitor */
+	{ "firefox",  NULL,       NULL,       1 << 8,       1 << 8,             0,           -1 },
+	{ "ffplay",   NULL,       NULL,       1 << 3,       1 << 3,             0,           -1 },
+	{ "Zathura",  NULL,       NULL,       1 << 7,       1 << 7,             0,           -1 },
 };
 
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
+static const int refreshrate = 120;  /* refresh rate (per second) for client move/resize */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -57,11 +58,10 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static char dmenumon[2]           = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[]     = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb",
-                                      col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf",
-                                      col_gray4, NULL };
-static const char *termcmd[]      = { "st", NULL };
+static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *termcmd[]  = { "st", NULL };
+/* more commands */
 static const char *browsercmd[]   = { "firefox", NULL };
 static const char *pdfreadercmd[] = { "zathura", NULL };
 /* Multi-output? "pactl list short sinks" */
@@ -71,64 +71,55 @@ static const char *voldowncmd[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK
 static const char *poweroffcmd[]  = { "systemctl", "poweroff", "-i", NULL };
 
 /* Check "/usr/include/X11/keysymdef.h" */
-static Key keys[] = {
-	/* modifier           key                function          argument */
-
-        /* shutdown */
-	{ MODKEY|ShiftMask,   XK_s,              spawn,            {.v = poweroffcmd } },
-
-        /* SCReen shOT, ALL monitors (-M) */
-	{ MODKEY,             XK_P,              spawn,            SHCMD("scrot -q100" \
+static const Key keys[] = {
+	/* modifier                     key        function        argument */
+	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
+	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
+	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
+	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_Return, zoom,           {0} },
+	{ MODKEY,                       XK_Tab,    view,           {0} },
+	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_space,  setlayout,      {0} },
+	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
+        { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
+        { MODKEY,                       XK_period, focusmon,       {.i = +1 } },
+        { MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
+        { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	TAGKEYS(                        XK_1,                      0)
+	TAGKEYS(                        XK_2,                      1)
+	TAGKEYS(                        XK_3,                      2)
+	TAGKEYS(                        XK_4,                      3)
+	TAGKEYS(                        XK_5,                      4)
+	TAGKEYS(                        XK_6,                      5)
+	TAGKEYS(                        XK_7,                      6)
+	TAGKEYS(                        XK_8,                      7)
+	TAGKEYS(                        XK_9,                      8)
+	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = poweroffcmd } },
+	{ MODKEY,                       XK_P,      spawn,          SHCMD("scrot -q100" \
                                                                          "$(xdg-user-dir PICTURES)/ss/f-%F-%H%M%S.png\"") },
-	{ MODKEY|ShiftMask,   XK_P,              spawn,            SHCMD("sleep .2 && scrot -sq100" \
+	{ MODKEY|ShiftMask,             XK_P,      spawn,          SHCMD("sleep .2 && scrot -sq100" \
                                                                          "$(xdg-user-dir PICTURES)/ss/s-%F-%H%M%S.png\"") },
-        /* volume control */
-	{ MODKEY,             XK_bracketleft,    spawn,            {.v = voldowncmd } },
-	{ MODKEY,             XK_bracketright,   spawn,            {.v = volupcmd } },
-	{ MODKEY|ShiftMask,   XK_bracketleft,    spawn,            {.v = volmutecmd } },
-
-        /* apps */
-	{ MODKEY|ShiftMask,   XK_f,              spawn,            {.v = browsercmd } },
-	{ MODKEY|ShiftMask,   XK_z,              spawn,            {.v = pdfreadercmd } },
-
-        /* dwm's defaults */
-	{ MODKEY|ShiftMask,   XK_Return,         spawn,            {.v = termcmd } },
-	{ MODKEY,             XK_b,              togglebar,        {0} },
-	{ MODKEY,             XK_j,              focusstack,       {.i = +1 } },
-	{ MODKEY,             XK_k,              focusstack,       {.i = -1 } },
-	{ MODKEY,             XK_i,              incnmaster,       {.i = +1 } },
-	{ MODKEY,             XK_d,              incnmaster,       {.i = -1 } },
-	{ MODKEY,             XK_h,              setmfact,         {.f = -0.05} },
-	{ MODKEY,             XK_l,              setmfact,         {.f = +0.05} },
-	{ MODKEY,             XK_Return,         zoom,             {0} },
-	{ MODKEY,             XK_Tab,            view,             {0} },
-	{ MODKEY|ShiftMask,   XK_c,              killclient,       {0} },
-	{ MODKEY,             XK_t,              setlayout,        {.v = &layouts[0]} },
-	{ MODKEY,             XK_f,              setlayout,        {.v = &layouts[1]} },
-	{ MODKEY,             XK_m,              setlayout,        {.v = &layouts[2]} },
-	{ MODKEY,             XK_space,          setlayout,        {0} },
-	{ MODKEY|ShiftMask,   XK_space,          togglefloating,   {0} },
-	{ MODKEY,             XK_0,              view,             {.ui = ~0 } },
-	{ MODKEY|ShiftMask,   XK_0,              tag,              {.ui = ~0 } },
-        { MODKEY,             XK_comma,          focusmon,         {.i = -1 } },
-        { MODKEY,             XK_period,         focusmon,         {.i = +1 } },
-        { MODKEY|ShiftMask,   XK_comma,          tagmon,           {.i = -1 } },
-        { MODKEY|ShiftMask,   XK_period,         tagmon,           {.i = +1 } },
-	TAGKEYS(              XK_1,                                0)
-	TAGKEYS(              XK_2,                                1)
-	TAGKEYS(              XK_3,                                2)
-	TAGKEYS(              XK_4,                                3)
-	TAGKEYS(              XK_5,                                4)
-	TAGKEYS(              XK_6,                                5)
-	TAGKEYS(              XK_7,                                6)
-	TAGKEYS(              XK_8,                                7)
-	TAGKEYS(              XK_9,                                8)
-	{ MODKEY|ShiftMask,   XK_q,              quit,             {0} },
+	{ MODKEY,               XK_bracketleft,    spawn,          {.v = voldowncmd } },
+	{ MODKEY,               XK_bracketright,   spawn,          {.v = volupcmd } },
+	{ MODKEY|ShiftMask,     XK_bracketleft,    spawn,          {.v = volmutecmd } },
+	{ MODKEY|ShiftMask,             XK_f,      spawn,          {.v = browsercmd } },
+	{ MODKEY|ShiftMask,             XK_z,      spawn,          {.v = pdfreadercmd } },
 };
 
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
-static Button buttons[] = {
+static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },

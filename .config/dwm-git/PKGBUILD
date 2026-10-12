@@ -1,11 +1,9 @@
 # Maintainer: Tin Thai <thaibachthanhtin@gmail.com>
 
 _pkgname='dwm'
-# git rev-parse 6.2
-_tag='cb3f58ad06993f7ef3a7d8f61468012e2b786cab'
-_srcurl="https://git.suckless.org/${_pkgname}#tag=${_tag}"
+_srcurl="https://git.suckless.org/${_pkgname}"
 pkgname="${_pkgname}-git"
-pkgver=6.2.r0.gcb3f58a
+pkgver=6.8.r5.g44dbc68
 pkgrel=1
 pkgdesc='A dynamic window manager for X11'
 arch=('i686' 'x86_64')
@@ -17,27 +15,29 @@ depends=(
          'fontconfig'
          'libxft'
          'freetype2'
-         'scrot'
-)
-optdepends=('st: a simple terminal')
+       )
+optdepends=(
+            'st: a simple terminal'
+            'scrot: screenshot tool'
+          )
 makedepends=('git')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 _patches=(
-          'dwm-fix-ffplay-transient-20201210-6.2.diff'
-          'https://dwm.suckless.org/patches/notitle/dwm-notitle-6.2.diff'
-          'https://dwm.suckless.org/patches/switchtotag/dwm-switchtotag-6.2.diff'
+          'https://dwm.suckless.org/patches/notitle/dwm-notitle-6.5.diff'
+          'https://dwm.suckless.org/patches/switchtotags/dwm-switchtotags-restore-20260916-44dbc68.diff'
 )
 source=(
         "git+${_srcurl}"
         'config.h'
         ${_patches[@]}
 )
-sha512sums=('SKIP'
+sha256sums=(
             'SKIP'
-            'f3ab4ced2fa943e6930afa64606de74d74f28680fcb418e5e97c2229849035f8c2d9f18946dd7a5c418b55a6caf0befc49ddedcb38d9c0f9ed90eb1df8318def'
-            '3e208fc162ceba77e711066cdfa205733a1c1d186c809e837bf9810b2d18b8b5624828a87f670e6d3ac46876a3abded88c50fdd7afd1a2ef1cc9d478b2459aaa'
-            'b2df30caa5a04c1cbcf74b1ac7e6cee10026a002a5280e9d5d9d143ad22fe91d11342966a1dc21d7d742ce48e0df148926861a40d1590c11836f2f436c1ed9b9')
+            'SKIP'
+            'dc8a349dcdedfee3c91ce7676a6a7b29c88dc1492fd8a8f3f7a027d2f221a40d'
+            'a6206e142d8b1906e3037b86ae5b7079ab5fb1ee4701351b352a069e6c186a7c'
+          )
 
 prepare() {
   cd "${srcdir}/${_pkgname}"
@@ -87,4 +87,3 @@ package() {
 }
 
 # vim: ft=PKGBUILD
-
