@@ -3,7 +3,7 @@
 _pkgname='slstatus'
 _srcurl="https://git.suckless.org/${_pkgname}"
 pkgname="${_pkgname}-git"
-pkgver=r604.f68f492
+pkgver=r621.675c839
 pkgrel=1
 pkgdesc='A status monitor for window managers'
 arch=('i686' 'x86_64')
