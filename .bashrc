@@ -8,12 +8,6 @@
 # Auto cd directory by typing its name (../<dir-name>).
 shopt -s autocd
 
-# doas auto completion
-complete -F _command doas
-
-# It's good! Why not?
-# stty -ixon
-
 #
 # History settings.
 #
@@ -39,13 +33,15 @@ PS1="${PS1}${FG_GREEN}\$([ \j -gt 0 ] && /usr/bin/echo \"[\j] \")${CA_RESET}"
 #
 # Sourcings
 #
-bash_dir="${HOME}/.config/bash"
-alias_file="${bash_dir}/aliases.bash"
-func_file="${bash_dir}/funcs.bash"
+source_dir="${HOME}/.config/bash"
+# aliases
+alias_file="${source_dir}/aliases.bash"
 test -f "${alias_file}" && source "${alias_file}"
-test -f "${func_file}"  && source "${func_file}"
+# functions
+func_file="${source_dir}/funcs.bash"
+test -f "${func_file}" && source "${func_file}"
 
-unset FG_RED FG_CYAN FG_GREEN CA_BOLD CA_RESET bash_dir alias_file func_file
+unset FG_RED FG_CYAN FG_GREEN CA_BOLD CA_RESET source_dir alias_file func_file
 
 # vim: ft=sh
 

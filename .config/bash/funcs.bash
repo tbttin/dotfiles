@@ -2,7 +2,7 @@
 
 man()
 {
-  # Add some colors and hard-set pager's width.
+  # Add some colors.
   # See terminfo(5).
   #    Color      #define       Value       RGB
   #   black     COLOR_BLACK       0     0, 0, 0
@@ -19,20 +19,17 @@ man()
   #   Underline for: proper names, variable names, and type names in
   #   some manpages.
   #   Inverse (or reverse) for the prompt at the bottom.
-  # Manpage's pager resizing (with tiling WM) is a headache. Here is a
-  # simple stupid solution, it makes 14.1" screen splitable.
   # Use cyan color instead of underline (italic converted to underline
   # is included).
   # See grotty(1)
   # This can be an alias. Vim "K" will need this.
-  MANWIDTH=71 \
-    GROFF_NO_SGR=1 \
+  GROFF_NO_SGR=1 \
     LESS_TERMCAP_us="$(/usr/bin/tput setaf 6)" \
     LESS_TERMCAP_ue="$(/usr/bin/tput sgr0)" \
     /usr/bin/man "$@"
 }
 
-ffps()
+fps()
 {
   # Play all mkv-files [with its external subtitle] in alphabetical order.
   # [^z] + kill %% 2>/dev/null to kill this function.
@@ -50,12 +47,12 @@ ffps()
       # bash(1)/^Parameter Expansion, if $sub_file is null or unset,
       # nothing is substituted, otherwise the expansion of "word"
       # (between '+' and '}') is substituted.
-      /usr/bin/ffplay -v error -seek_interval 5 -autoexit -fs -sn "$@" \
+      /usr/bin/ffplay -v error -seek_interval 5 -autoexit -sn "$@" \
         ${sub_file:+-vf subtitles=\'"${sub_file}"\'} -- "${mkv_file}"
     done
 }
 
-ffms()
+fms()
 {
   # ffplay can not display some internal subtitles. Why?
   # Use ffpmeg to extract subtitle in all mkv-files.
