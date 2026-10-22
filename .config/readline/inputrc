@@ -13,8 +13,8 @@ $if mode=vi
     set vi-ins-mode-string \1\e[?2c\2
     set vi-cmd-mode-string \1\e[?8c\2
   $else
-    set vi-ins-mode-string \1\e[4 q\2
-    set vi-cmd-mode-string \1\e[2 q\2
+    set vi-ins-mode-string \1\e[3 q\2
+    set vi-cmd-mode-string \1\e[1 q\2
   $endif
   #
   # NORMAL MODE MAPPINGS.

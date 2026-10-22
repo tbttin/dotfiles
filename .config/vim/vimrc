@@ -36,9 +36,9 @@ let &packpath = &runtimepath
 " Every one and every program use 8 characters tabstop.
 " Change tapstop will effect 'textwidth' and alignment.
 
-set expandtab     " Don't use tabs for indentation. Spaces are nicer to work with.
-set shiftwidth=2  " Number of spaces to use for each step of (auto)indent.
-set softtabstop=2 " Virtual tab stop instead of 8-wide tabs.
+" set expandtab     " Don't use tabs for indentation. Spaces are nicer to work with.
+" set shiftwidth=2  " Number of spaces to use for each step of (auto)indent.
+" set softtabstop=2 " Virtual tab stop instead of 8-wide tabs.
 
 " Displays {{{2
 
@@ -49,8 +49,8 @@ if &term =~ 'st'
   set termguicolors                  " Enable true color.
   let &t_8f = "\e[38;2;%lu;%lu;%lum" " Set foreground color (R, G, B).
   let &t_8b = "\e[48;2;%lu;%lu;%lum" " Set background color (R, G, B).
-  let &t_SI .= "\e[4 q"              " Start Insert mode (Steady underline cursor).
-  let &t_EI .= "\e[2 q"              " End Insert mode (Otherwise, full-steady block cursor).
+  let &t_SI .= "\e[3 q"              " Start Insert mode (Steady underline cursor).
+  let &t_EI .= "\e[1 q"              " End Insert mode (Otherwise, full-steady block cursor).
 " elseif &term =~ 'linux'            "
   " Cursor shape in console.         "
   " TODO: How does it work?          "
