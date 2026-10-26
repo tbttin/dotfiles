@@ -1,0 +1,23 @@
+# Separate features for development proccess. Hide them from end users.
+
+include Makefile
+
+CFLAGS += -Wall -Wextra
+CC += $(CFLAGS) 
+HDRS = $(wildcard include/*.h)
+
+# Order-only dependencies
+$(TARGET): | tags
+
+tags: $(SRCS) $(HDRS)
+	ctags $(SRCS) $(HDRS)
+
+.PHONY: run
+
+run: $(TARGET)
+	@export CLIMATELOG_DB='./climatelog.db'; \
+	./climatelog
+
+# Double colons rule, append the target's command.
+clean::
+	rm tags

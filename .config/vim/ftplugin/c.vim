@@ -54,21 +54,21 @@ setlocal cinoptions=l1,(0,t0
 " Miscellany {{{2
 
 " setlocal path=.,/usr/include,**                              " Current file's dir, system include, recursive $PWD.
-setlocal path&                                               " Revert vimrc.
+setlocal path=.,include,/usr/include                           " Current file's dir, $PWD/include/, system include/.
 setlocal tags+=./tags;$HOME/projects/c,tags;$HOME/projects/c " Upward search for tags file recursively.
 
 " Mappings. {{{1
 
 " Build.
-nnoremap <buffer> <Leader>mm :wall \| make! \| cwindow<CR><CR>
+nnoremap <buffer> <Leader>mm :wall \| make! -f Makefile.dev \| cwindow<CR>
 " Debug with terminal debug plugin.
 nnoremap <buffer> <expr> <Leader>md ":wall \| make debug \| Termdebug ./build/" . fnamemodify(getcwd(), ':t') . "<CR>"
 " Clean and clear screen.
-nnoremap <buffer> <Leader>mc :make clean \| :!clear<CR><CR>
+nnoremap <buffer> <Leader>mc :make -f Makefile.dev clean<CR>
 " Build and run.
 " TODO: Handle compiler/program output.
 " !make run -- --args
-nnoremap <buffer> <Leader>mr :wall \| cclose \| !make run<CR>
+nnoremap <buffer> <Leader>mr :wall \| cclose \| !make -f Makefile.dev run<CR>
 
 " Plugins {{{1
 
