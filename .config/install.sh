@@ -1,9 +1,7 @@
 #!/bin/bash
 
 # Installation: download and execute this script with Bash.
-#   curl -s -L 'https://git.io/fi.sh' | /usr/bin/bash
-# Shorten URL with git.io and curl:
-#   curl -i 'https://git.io' -F 'url=GITHUB_URL' -F 'code=CUSTOM_NAME'
+#   curl -s -L 'https://tbttin.s.gy/dotfilesinstall' | /usr/bin/bash
 
 REPO_URL='https://github.com/tbttin/dotfiles.git'
 GIT_DIR="${HOME}/.config/dotfiles.git"
