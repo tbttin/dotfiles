@@ -42,8 +42,12 @@ let &packpath = &runtimepath
 
 " Displays {{{2
 
+" 3. Load your theme (e.g., Everforest Soft)
+let g:everforest_background = 'soft'
+colorscheme everforest
+
 set lazyredraw                       " Do not redrawn while executing macros, registers, commands, .etc
-set textwidth=72                     " Horizontal split a dozen thousand lines of code in vim with 14.1" screen.
+" set textwidth=72                     " Horizontal split a dozen thousand lines of code in vim with 14.1" screen.
 if &term =~ 'st'
   set background=dark                " Vim will not use dark-background theme in st.
   set termguicolors                  " Enable true color.
@@ -102,6 +106,7 @@ nnoremap <Leader>l :ls<CR>:b<Space>
 " Buffer switching.
 nnoremap <Leader>n :bn<CR>
 nnoremap <Leader>p :bp<CR>
+nnoremap <Leader>d :bd<CR>
 
 " This is just 'wildmenu' + 'wildcards' in '{file}' name expansion,
 " ':e' command does NOT support 'wildcard' (does it?), see 'file-searching'.
@@ -133,16 +138,16 @@ com! SW exe 'w !/usr/bin/doas /usr/bin/tee "%" >/dev/null' | if !v:shell_error |
 
 " Easy-align {{{3
 
-if !exists('g:easy_align_delimiters')
-  let g:easy_align_delimiters = {}
-endif
+" if !exists('g:easy_align_delimiters')
+"   let g:easy_align_delimiters = {}
+" endif
 
-" Align variable definitions by name.
-" Then, just "<Leader>aipd" then "<Leader>aip=".
-let g:easy_align_delimiters['d'] = {
-                                     \ 'pattern': '\(const\|static\|unsigned\)\@<! ',
-                                     \ 'left_margin': 0, 'right_margin': 0
-                                   \ }
+" " Align variable definitions by name.
+" " Then, just "<Leader>aipd" then "<Leader>aip=".
+" let g:easy_align_delimiters['d'] = {
+"                                      \ 'pattern': '\(const\|static\|unsigned\)\@<! ',
+"                                      \ 'left_margin': 0, 'right_margin': 0
+"                                    \ }
 
 " Start interactive EasyAlign in visual mode.
 xmap <Leader>a <Plug>(EasyAlign)
@@ -165,7 +170,7 @@ augroup Templates " {{{2
   " Read and parse template which have the same name in $VIMHOME/tmplts.
   autocmd BufNewFile ?\+ call tmplts#LoadTemplate(expand('<afile>:t'))
   " Read and parse template according file extension.
-  autocmd BufNewFile ?\+ call tmplts#LoadTemplate('skeleton.' . expand('<afile>:e'))
+  autocmd BufNewFile ?\+ call tmplts#LoadTemplate('header.' . expand('<afile>:e'))
   " Start insert mode at the end of line containing 'Description: '.
   autocmd BufNewFile main.c call tmplts#AddFileDescription()
 augroup END
