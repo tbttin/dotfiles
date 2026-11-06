@@ -33,35 +33,23 @@ let &packpath = &runtimepath
 
 " TODO: Indent with tabs, align with spaces.
 
-" Every one and every program use 8 characters tabstop.
-" Change tapstop will effect 'textwidth' and alignment.
-
-" set expandtab     " Don't use tabs for indentation. Spaces are nicer to work with.
-" set shiftwidth=2  " Number of spaces to use for each step of (auto)indent.
-" set softtabstop=2 " Virtual tab stop instead of 8-wide tabs.
-
 " Displays {{{2
 
-" 3. Load your theme (e.g., Everforest Soft)
+set scrolloff=15
+
+set list
+set listchars=tab:│\ ,leadmultispace:│\ \ \ ,trail:█,eol:⤶
+
 let g:everforest_background = 'soft'
 colorscheme everforest
 
 set lazyredraw                       " Do not redrawn while executing macros, registers, commands, .etc
-" set textwidth=72                     " Horizontal split a dozen thousand lines of code in vim with 14.1" screen.
 if &term =~ 'st'
-  set background=dark                " Vim will not use dark-background theme in st.
-  set termguicolors                  " Enable true color.
-  let &t_8f = "\e[38;2;%lu;%lu;%lum" " Set foreground color (R, G, B).
-  let &t_8b = "\e[48;2;%lu;%lu;%lum" " Set background color (R, G, B).
-  let &t_SI .= "\e[3 q"              " Start Insert mode (Steady underline cursor).
-  let &t_EI .= "\e[1 q"              " End Insert mode (Otherwise, full-steady block cursor).
-" elseif &term =~ 'linux'            "
-  " Cursor shape in console.         "
-  " TODO: How does it work?          "
-  " let &t_ve = "\e[?25h"            "
-  " let &t_vi = "\e[?25l"            "
-  " let &t_SI = "\e[?0c"             "
-  " let &t_EI = "\e[?16;143;255c"    "
+	set background=dark                " Vim will not use dark-background theme in st.
+	set termguicolors                  " Enable true color.
+	let &t_SI .= "\e[3 q"              " Start Insert mode (Steady underline cursor).
+	let &t_EI .= "\e[1 q"              " End Insert mode (Otherwise, full-steady block cursor).
+	let &t_ti .= "\e[1 q"              " Change terminal init. Fix Ctrl + z in terminal.
 endif
 
 " Cmdlines {{{2
@@ -76,6 +64,8 @@ set wildmode=full:lastused   " Tab suggest prior last used buffer than alphabeti
                              " It's working with ":b ". But how to do the same with ":e **/*"?
 
 " Miscellany {{{2
+
+packadd! termdebug        " Load terminal debug plugin.
 
 let g:mapleader = "\<Space>"                    " Use spacebar as map leader.
 let g:netrw_browsex_viewer = '/usr/bin/firefox' " gx to open-under cursor link in Firefox.
@@ -122,7 +112,7 @@ nnoremap <Leader>ts :set spell! spell?<CR>
 " Toggle highlight search.
 nnoremap <Leader>th :set hlsearch! hlsearch?<CR>
 " Toggle paste.
-nnoremap <Leader>tp :set paste! paste?
+nnoremap <Leader>tp :set paste! paste?<CR>
 " Toggle read command.
 nnoremap <Leader>tr :r !/usr/bin/cat<CR>
 
@@ -157,28 +147,28 @@ nmap <Leader>a <Plug>(EasyAlign)
 " Autocommands {{{1
 
 augroup GlobalMarks " {{{2
-  autocmd!
-  " autocmd BufLeave vimrc normal! mR
-  autocmd BufLeave *.vim normal! mV
-  autocmd BufLeave *.md normal! mM
-  " autocmd BufLeave *.h normal! mH
-  " autocmd BufLeave *.c normal! mC
+	autocmd!
+	" autocmd BufLeave vimrc normal! mR
+	autocmd BufLeave *.vim normal! mV
+	autocmd BufLeave *.md normal! mM
+	" autocmd BufLeave *.h normal! mH
+	" autocmd BufLeave *.c normal! mC
 augroup END
 
 augroup Templates " {{{2
-  autocmd!
-  " Read and parse template which have the same name in $VIMHOME/tmplts.
-  autocmd BufNewFile ?\+ call tmplts#LoadTemplate(expand('<afile>:t'))
-  " Read and parse template according file extension.
-  autocmd BufNewFile ?\+ call tmplts#LoadTemplate('header.' . expand('<afile>:e'))
-  " Start insert mode at the end of line containing 'Description: '.
-  autocmd BufNewFile main.c call tmplts#AddFileDescription()
+	autocmd!
+	" Read and parse template which have the same name in $VIMHOME/tmplts.
+	autocmd BufNewFile ?\+ call tmplts#LoadTemplate(expand('<afile>:t'))
+	" Read and parse template according file extension.
+	autocmd BufNewFile ?\+ call tmplts#LoadTemplate('header.' . expand('<afile>:e'))
+	" Start insert mode at the end of line containing 'Description: '.
+	autocmd BufNewFile main.c call tmplts#AddFileDescription()
 augroup END
 
 augroup ModelineSuck " {{{2
-  " 'kp' can't be set with 'modeline' for security reason.
-  autocmd!
-  " Markdowns in there are notes about Vim, 'keywordprg' should be ":help".
-  autocmd BufRead,BufNewFile */vims/*.md setlocal keywordprg=\:help
+	" 'kp' can't be set with 'modeline' for security reason.
+	autocmd!
+	" Markdowns in there are notes about Vim, 'keywordprg' should be ":help".
+	autocmd BufRead,BufNewFile */vims/*.md setlocal keywordprg=\:help
 augroup END
 
