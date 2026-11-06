@@ -25,10 +25,14 @@ FG_CYAN="\[$(/usr/bin/tput setaf 6)\]"
 FG_GREEN="\[$(/usr/bin/tput setaf 2)\]"
 CA_BOLD="\[$(/usr/bin/tput bold)\]"
 CA_RESET="\[$(/usr/bin/tput sgr0)\]"
-# Current directory, user indicator.
+# Current directory is enough
 PS1="${CA_RESET}${CA_BOLD}${FG_CYAN}\W "
-# Number of background jobs.
+# Number of background jobs
 PS1="${PS1}${FG_GREEN}\$([ \j -gt 0 ] && /usr/bin/echo \"[\j] \")${CA_RESET}"
+# Git info
+GIT_PROMPT='/usr/share/git/completion/git-prompt.sh'
+test -f "${GIT_PROMPT}" && source "${GIT_PROMPT}"
+PS1="${PS1}${FG_GREEN}\$(__git_ps1 '[%s] ')${CA_RESET}"
 
 #
 # Sourcings
