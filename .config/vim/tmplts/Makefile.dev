@@ -1,23 +1,28 @@
 # Separate features for development proccess. Hide them from end users.
 
+CPPFLAGS += -DCLIMATELOG_DB_FILE=\"./climatelog.db\"
+CFLAGS += -Wall -Wextra -g -Og
+OBJDIR = dev/obj
+TARGET = dev/climatelog
+
 include Makefile
 
-CFLAGS += -Wall -Wextra
-CC += $(CFLAGS) 
 HDRS = $(wildcard include/*.h)
 
 # Order-only dependencies
-$(TARGET): | tags
+$(TARGET): | dev tags
 
 tags: $(SRCS) $(HDRS)
 	ctags $(SRCS) $(HDRS)
 
+dev:
+	@mkdir -p $@
+
 .PHONY: run
 
 run: $(TARGET)
-	@export CLIMATELOG_DB='./climatelog.db'; \
-	./climatelog
+	./$(TARGET)
 
 # Double colons rule, append the target's command.
 clean::
-	rm tags
+	rm -rf dev

@@ -9,8 +9,11 @@ let b:loaded_ftplugin = 1      " Loaded flag.
 
 " Displays {{{2
 
+" setlocal splitbelow
+set termwinsize=20*0
+
 setlocal foldmethod=syntax " Fold function bodies, comments.
-let c_space_errors = 1     " Highlight trailing white space and spaces before a <Tab>.
+" let c_space_errors = 1     " Highlight trailing white space and spaces before a <Tab>.
 
 " Autocompletions {{{2
 
@@ -60,18 +63,18 @@ setlocal tags+=./tags;$HOME/projects/c,tags;$HOME/projects/c " Upward search for
 " Mappings. {{{1
 
 " Build.
-nnoremap <buffer> <Leader>mm :wall \| make! -f Makefile.dev \| cwindow<CR>
+nnoremap <buffer> <Leader>mm :wall \| make -f Makefile.dev \| cwindow<CR>
 " Debug with terminal debug plugin.
-nnoremap <buffer> <expr> <Leader>md ":wall \| make debug \| Termdebug ./build/" . fnamemodify(getcwd(), ':t') . "<CR>"
+nnoremap <buffer> <expr> <Leader>md ":wall \| make -f Makefile.dev \| Termdebug ./dev/" . fnamemodify(getcwd(), ':t') . "<CR>"
 " Clean and clear screen.
-nnoremap <buffer> <Leader>mc :make -f Makefile.dev clean<CR>
+nnoremap <buffer> <Leader>mc :make -f Makefile.dev clean<CR><CR>
 " Build and run.
 " TODO: Handle compiler/program output.
 " !make run -- --args
-nnoremap <buffer> <Leader>mr :wall \| cclose \| !make -f Makefile.dev run<CR>
+nnoremap <buffer> <Leader>mr :wall \| cclose \| term make -f Makefile.dev run<CR>
 
 " Plugins {{{1
 
-packadd! termdebug        " Load terminal debug plugin.
-let g:termdebug_wide = 1 " Enable vertical split without every changing &columns.
+" packadd termdebug        " Load terminal debug plugin.
+" let g:termdebug_wide = 1 " Enable vertical split without every changing &columns.
 
