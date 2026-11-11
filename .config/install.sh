@@ -3,45 +3,61 @@
 # Installation: download and execute this script with Bash.
 #   curl -s -L 'https://tbttin.s.gy/dotfilesinstall' | /usr/bin/bash
 
-REPO_URL='https://github.com/tbttin/dotfiles.git'
-GIT_DIR="${HOME}/.config/dotfiles.git"
-BACKUP_DIR="${HOME}/.config~"
+#!/usr/bin/env bash
+set -euo pipefail
+
+DOTFILES_REPO='https://github.com/tbttin/dotfiles.git'
+DOTFILES_DIR="${HOME}/.local/state/dotfiles.git"
+BACKUP_DIR="${HOME}/.local/state/dotfiles-backup"
 
 config() {
-  /usr/bin/git --git-dir="${GIT_DIR}" --work-tree="${HOME}" "$@"
+	git --git-dir="$DOTFILES_DIR" --work-tree="$HOME" "$@"
 }
 
-#
-# Backup
-#
-# Clone as a bare repo.
-/usr/bin/git clone --bare "${REPO_URL}" "${GIT_DIR}"
-# Backup stock config files if they exist then install the dotfiles.
-/usr/bin/echo 'Attempt to install dotfiles to home directory.'
-if config checkout ; then
-  /usr/bin/echo 'Checked out configs.'
-else
-  /usr/bin/echo "Backing up pre-existing dotfiles to '${BACKUP_DIR}'."
-  /usr/bin/mkdir -v -p "${BACKUP_DIR}"
-  config checkout 2>&1 | /usr/bin/grep -E '\s+\.' | /usr/bin/awk {'print $1'} |
-    xargs -I{} /usr/bin/mv -v {} "${BACKUP_DIR}"
-  config checkout
+# 1. Clone bare repo
+if [ ! -d "$DOTFILES_DIR" ]; then
+	git clone --bare "$DOTFILES_REPO" "$DOTFILES_DIR"
 fi
 
-# The "bare" way's, show no untracked files.
-config config --local -- status.showUntrackedFiles no
-# Clone all submodules.
-config submodule update --init --recursive
+config config --local status.showUntrackedFiles no
 
-#
-# Bring back $HOME
-#
-/usr/bin/mkdir -v -p ~/{documents,downloads,pictures/ss,projects/{c,vim},videos}
-type -t /usr/bin/xdg-user-dirs-update >/dev/null &&
-  /usr/bin/rmdir -v --ignore-fail-on-non-empty \
-    ~/{Desktop,Documents,Downloads,Music,Pictures,Public,Templates,Videos} &&
-  /usr/bin/xdg-user-dirs-update
-/usr/bin/echo 'Done.'
+# 2. Checkout and backup conflicts (~/.config/user-dirs.dirs)
+if ! config checkout 2>/dev/null; then
+	mkdir -p "$BACKUP_DIR"
+	config checkout 2>&1 \
+		| grep -E "^\s+" \
+		| awk '{print $1}' \
+		| while IFS= read -r file; do
+			mkdir -p "$BACKUP_DIR/$(dirname "$file")"
+			mv "$HOME/$file" "$BACKUP_DIR/$file"
+		  done
+	config checkout
+fi
 
-# vim: ft=sh
+# 3. Hook XDG Bash into /etc
+if ! grep -q "\.config/bash/bash_profile" /etc/profile; then
+	doas tee -a /etc/profile >/dev/null <<'EOF'
+
+# Source user XDG profile
+if [ -f "$HOME/.config/bash/bash_profile" ]; then
+	. "$HOME/.config/bash/bash_profile"
+fi
+
+EOF
+fi
+
+if ! grep -q "\.config/bash/bashrc" /etc/bash.bashrc; then
+	doas tee -a /etc/bash.bashrc >/dev/null <<'EOF'
+
+# Source user XDG bashrc
+if [ -f "$HOME/.config/bash/bashrc" ]; then
+	. "$HOME/.config/bash/bashrc"
+fi
+
+EOF
+fi
+
+# 4. Clean $HOME
+mkdir -p "${HOME}/{projects/{c,vim},pictures/screenshots}"
+rm -f "${HOME}/{.bashrc,.bash_profile,.profile,.bash_logout}"
 
