@@ -3,87 +3,87 @@
 _pkgname='dwm'
 _srcurl="https://git.suckless.org/${_pkgname}"
 pkgname="${_pkgname}-git"
-pkgver=6.8.r5.g44dbc68
+pkgver=6.8.r14.g1563572
 pkgrel=1
 pkgdesc='A dynamic window manager for X11'
 arch=('i686' 'x86_64')
 url='https://dwm.suckless.org'
 license=('custom:MIT')
 depends=(
-         'libx11'
-         'libxinerama'
-         'fontconfig'
-         'libxft'
-         'freetype2'
-       )
+	'libx11'
+	'libxinerama'
+	'fontconfig'
+	'libxft'
+	'freetype2'
+)
 optdepends=(
-            'st: a simple terminal'
-            'scrot: screenshot tool'
-          )
+	'st: a simple terminal'
+	'scrot: screenshot tool'
+)
 makedepends=('git')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 _patches=(
-          'https://dwm.suckless.org/patches/notitle/dwm-notitle-6.5.diff'
-          'https://dwm.suckless.org/patches/switchtotags/dwm-switchtotags-restore-20260916-44dbc68.diff'
+	'https://dwm.suckless.org/patches/notitle/dwm-notitle-6.5.diff'
+	'https://dwm.suckless.org/patches/switchtotags/dwm-switchtotags-restore-20260916-44dbc68.diff'
 )
 source=(
-        "git+${_srcurl}"
-        'config.h'
-        ${_patches[@]}
+	"git+${_srcurl}"
+	'config.h'
+	${_patches[@]}
 )
 sha256sums=(
-            'SKIP'
-            'SKIP'
-            'dc8a349dcdedfee3c91ce7676a6a7b29c88dc1492fd8a8f3f7a027d2f221a40d'
-            'a6206e142d8b1906e3037b86ae5b7079ab5fb1ee4701351b352a069e6c186a7c'
-          )
+	'SKIP'
+	'SKIP'
+	'dc8a349dcdedfee3c91ce7676a6a7b29c88dc1492fd8a8f3f7a027d2f221a40d'
+	'a6206e142d8b1906e3037b86ae5b7079ab5fb1ee4701351b352a069e6c186a7c'
+)
 
 prepare() {
-  cd "${srcdir}/${_pkgname}"
-  # Copy sym linked config.h in src to src/dwm
-  if [ -f "${srcdir}/config.h" ]
-  then
-    /usr/bin/cp --verbose --force "${srcdir}/config.h" config.h
-  fi
-  # Patch patches.
-  local patch_file
-  for patch_file in ${_patches[@]##*/}
-  do
-    /usr/bin/echo "Applying ${patch_file}..."
-    /usr/bin/patch --silent --input="${srcdir}/${patch_file}"
-  done
-  # Do not overwrite system compiler and linker flags in /etc/makepkg.conf
-  /usr/bin/sed --in-place 's/^\(\(C\|LD\)FLAGS *\)=/\1+=/g' config.mk
+	cd "${srcdir}/${_pkgname}"
+	# Copy sym linked config.h in src to src/dwm
+	if [ -f "${srcdir}/config.h" ]
+	then
+		/usr/bin/cp --verbose --force "${srcdir}/config.h" config.h
+	fi
+	# Patch patches.
+	local patch_file
+	for patch_file in ${_patches[@]##*/}
+	do
+		/usr/bin/echo "Applying ${patch_file}..."
+		/usr/bin/patch --silent --input="${srcdir}/${patch_file}"
+	done
+	# Do not overwrite system compiler and linker flags in /etc/makepkg.conf
+	/usr/bin/sed --in-place 's/^\(\(C\|LD\)FLAGS *\)=/\1+=/g' config.mk
 }
 
 pkgver() {
-  cd "${srcdir}/${_pkgname}"
-  /usr/bin/git describe --long --tags |
-    /usr/bin/sed --regexp-extended 's/([^-]*-g)/r\1/;s/-/./g'
+	cd "${srcdir}/${_pkgname}"
+	/usr/bin/git describe --long --tags |
+		/usr/bin/sed --regexp-extended 's/([^-]*-g)/r\1/;s/-/./g'
 }
 
 build() {
-  cd "${srcdir}/${_pkgname}"
-  /usr/bin/make \
-    X11INC=/usr/include/X11 \
-    X11LIB=/usr/lib/X11
+	cd "${srcdir}/${_pkgname}"
+	/usr/bin/make \
+		X11INC=/usr/include/X11 \
+		X11LIB=/usr/lib/X11
 }
 
 package() {
-  # Installation
-  cd "${srcdir}/${_pkgname}"
-  # Binaries
-  local prefix='/usr'
-  /usr/bin/make DESTDIR="${pkgdir}" PREFIX="${prefix}" install
-  local ins_opts='-D --mode=644'
-  local prefix="${pkgdir}/${prefix}"
-  # Licenses
-  /usr/bin/install ${ins_opts} \
-    LICENSE "${prefix}/share/licenses/${pkgname}/LICENSE"
-  # Docs
-  /usr/bin/install ${ins_opts} \
-    README "${prefix}/share/doc/${pkgname}/README"
+	# Installation
+	cd "${srcdir}/${_pkgname}"
+	# Binaries
+	local prefix='/usr'
+	/usr/bin/make DESTDIR="${pkgdir}" PREFIX="${prefix}" install
+	local ins_opts='-D --mode=644'
+	local prefix="${pkgdir}/${prefix}"
+	# Licenses
+	/usr/bin/install ${ins_opts} \
+		LICENSE "${prefix}/share/licenses/${pkgname}/LICENSE"
+	# Docs
+	/usr/bin/install ${ins_opts} \
+		README "${prefix}/share/doc/${pkgname}/README"
 }
 
 # vim: ft=PKGBUILD

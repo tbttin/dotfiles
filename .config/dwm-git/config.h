@@ -29,7 +29,7 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     switchtotags   isfloating   monitor */
 	{ "firefox",  NULL,       NULL,       1 << 8,       1 << 8,             0,           -1 },
 	{ "ffplay",   NULL,       NULL,       1 << 3,       1 << 3,             0,           -1 },
-	{ "Zathura",  NULL,       NULL,       1 << 7,       1 << 7,             0,           -1 },
+	{ "zathura",  NULL,       NULL,       1 << 7,       1 << 7,             0,           -1 },
 };
 
 /* layout(s) */
@@ -105,11 +105,9 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = poweroffcmd } },
-	{ MODKEY,                       XK_P,      spawn,          SHCMD("scrot -q100" \
-                                                                         "$(xdg-user-dir PICTURES)/ss/f-%F-%H%M%S.png\"") },
-	{ MODKEY|ShiftMask,             XK_P,      spawn,          SHCMD("sleep .2 && scrot -sq100" \
-                                                                         "$(xdg-user-dir PICTURES)/ss/s-%F-%H%M%S.png\"") },
+	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = poweroffcmd } },
+	{ MODKEY,                       XK_s,      spawn,          SHCMD(                 "scrot -q100 -u \"${HOME}/pictures/screenshots/%Y%m%d%H%M%S-win.png\"") },
+	{ MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD("scrot -q100 -a 1600,0,2560,1440 \"${HOME}/pictures/screenshots/%Y%m%d%H%M%S-mon.png\"") },
 	{ MODKEY,               XK_bracketleft,    spawn,          {.v = voldowncmd } },
 	{ MODKEY,               XK_bracketright,   spawn,          {.v = volupcmd } },
 	{ MODKEY|ShiftMask,     XK_bracketleft,    spawn,          {.v = volmutecmd } },

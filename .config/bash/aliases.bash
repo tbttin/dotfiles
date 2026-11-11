@@ -10,15 +10,14 @@ alias ...='cd ../..'
 # arguments are treated as operands and not options even if they begin
 # with a dash ('-').
 alias -- --='cd - >/dev/null'
-alias d="cd $(/usr/bin/xdg-user-dir DOCUMENTS)/"
-alias l="cd $(/usr/bin/xdg-user-dir DOWNLOAD)/"
-alias p="cd $(/usr/bin/xdg-user-dir PICTURES)/"
-xdg_prj_dir="$(/usr/bin/xdg-user-dir PROJECTS)"
-alias j="cd ${xdg_prj_dir}/"
-alias jc="cd ${xdg_prj_dir}/c/"
-alias jn="cd ${xdg_prj_dir}/notes/"
-alias jv="cd ${xdg_prj_dir}/vim/"
-alias v="cd $(/usr/bin/xdg-user-dir VIDEOS)/"
+alias d='cd ${HOME}/documents/'
+alias l='cd ${HOME}/download/'
+alias p='cd ${HOME}/pictures/'
+alias j='cd ${HOME}/projects/'
+alias jc='cd ${HOME}/projects/c/'
+alias jn='cd ${HOME}/projects/notes/'
+alias jv='cd ${HOME}/projects/vim/'
+alias v='cd ${HOME}/videos/'
 # End navigation }}}
 
 # Quick edit some files. {{{
@@ -42,16 +41,15 @@ alias vz='/usr/bin/vim ${HOME}/.config/zathura/zathurarc'
 # Makefile: quickly invoke run target with args.
 # alias r='/usr/bin/make run --'
 # Take note.
-alias vn="jn && /usr/bin/vim ${xdg_prj_dir}/notes/index.md"
+alias vn='jn && /usr/bin/vim ${HOME}/projects/notes/index.md'
 # Git config file.
 alias vg='/usr/bin/vim ${HOME}/.config/git/config'
 # QMK keymap.c
-alias vk="/usr/bin/vim ${xdg_prj_dir}/c/qmk_userspace/keyboards/ferris/keymaps/colemak_dh/keymap.c"
+alias vk='/usr/bin/vim ${HOME}/projects/c/qmk_userspace/keyboards/ferris/keymaps/colemak_dh/keymap.c'
 # End quick edits }}}
 
 # Bare git dotfiles aliases. {{{
-alias config='/usr/bin/git --git-dir="${HOME}/.config/dotfiles.git" \
-              --work-tree="${HOME}"'
+alias config='/usr/bin/git --git-dir="${HOME}/.local/state/dotfiles.git" --work-tree="${HOME}"'
 alias cfa='config a'
 alias cfap='config ap'
 alias cfc='config c'
