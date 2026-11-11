@@ -23,8 +23,8 @@ alias v="cd $(/usr/bin/xdg-user-dir VIDEOS)/"
 
 # Quick edit some files. {{{
 # Bashes.
-alias vb='/usr/bin/vim ${HOME}/.bashrc'
-alias vp='/usr/bin/vim ${HOME}/.bash_profile'
+alias vb='/usr/bin/vim ${HOME}/.config/bash/bashrc'
+alias vp='/usr/bin/vim ${HOME}/.config/bash/bash_profile'
 alias va='/usr/bin/vim ${HOME}/.config/bash/aliases.bash'
 alias vf='/usr/bin/vim ${HOME}/.config/bash/funcs.bash'
 # Readline's inputrc.
@@ -35,19 +35,18 @@ alias vd='/usr/bin/vim ${HOME}/.config/dwm-git/config.h'
 alias vs='/usr/bin/vim ${HOME}/.config/st-git/config.h'
 # Vims.
 alias vv='/usr/bin/vim ${HOME}/.config/vim/vimrc'
-# alias vc='/usr/bin/vim ${HOME}/.config/vim/ftplugin/c.vim'
 # xinitrc.
 alias vx='/usr/bin/vim ${XINITRC}'
 # Zathura.
 alias vz='/usr/bin/vim ${HOME}/.config/zathura/zathurarc'
-# Makefie template.
-alias vm='/usr/bin/vim ${HOME}/.config/vim/tmplts/Makefile'
 # Makefile: quickly invoke run target with args.
 # alias r='/usr/bin/make run --'
 # Take note.
 alias vn="jn && /usr/bin/vim ${xdg_prj_dir}/notes/index.md"
 # Git config file.
 alias vg='/usr/bin/vim ${HOME}/.config/git/config'
+# QMK keymap.c
+alias vk="/usr/bin/vim ${xdg_prj_dir}/c/qmk_userspace/keyboards/ferris/keymaps/colemak_dh/keymap.c"
 # End quick edits }}}
 
 # Bare git dotfiles aliases. {{{

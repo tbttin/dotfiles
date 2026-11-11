@@ -5,9 +5,6 @@
 # If not running interactively, don't do anything.
 [[ $- != *i* ]] && return
 
-# Auto cd directory by typing its name (../<dir-name>).
-shopt -s autocd
-
 #
 # History settings.
 #

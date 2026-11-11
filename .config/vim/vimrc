@@ -21,8 +21,8 @@ source $VIMRUNTIME/xdg.vim
 let s:data = $HOME .. '/.local/share/vim'
 let s:state = $HOME .. '/.local/state/vim'
 " Persistent Data
-exe 'let &undodir= s:data .. "/undo"' | call mkdir(&g:undodir, 'p', 0700)
-exe 'let &viewdir= s:data "/view"' | call mkdir(&g:viewdir, 'p', 0700)
+exe 'let &undodir = s:data .. "/undo"' | call mkdir(&g:undodir, 'p', 0700)
+exe 'let &viewdir = s:data .. "/view"' | call mkdir(&g:viewdir, 'p', 0700)
 exe 'let g:netrw_home = s:data .. "/netrw"' | call mkdir(g:netrw_home, 'p', 0700)
 call mkdir(s:data .. '/spell', 'p', 0700)
 " Transient Data

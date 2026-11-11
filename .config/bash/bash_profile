@@ -14,8 +14,8 @@ export LESS='--RAW-CONTROL-CHARS --hilite-search --jump-target=5'
 
 # Files tranfer, clean up $HOME {{{
 #
-# Mariadb history.
-SQLITE_HISTORY=$XDG_STATE_HOME/sqlite_history
+# sqlite history file.
+export SQLITE_HISTORY=$XDG_STATE_HOME/sqlite_history
 
 # Terminfo.
 export TERMINFO="${HOME}/.local/share/terminfo"
@@ -28,10 +28,6 @@ export HISTFILE="${HOME}/.local/state/bash_history"
 # $XDG_RUNTIME_DIR is set to "/run/user/$UID" by default through
 # pam_systemd.
 export XAUTHORITY="${XDG_RUNTIME_DIR:?}/Xauthority"
-
-# Vim please respect XDGBDS; vimrc to config directory.
-export VIMINIT="let \$VIMHOME = '${HOME}/.config/vim' | \
-                source \$VIMHOME/vimrc"
 
 # Readline config file to config directory.
 export INPUTRC="${HOME}/.config/readline/inputrc"
