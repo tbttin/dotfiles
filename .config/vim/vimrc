@@ -8,7 +8,7 @@
 " Vim startup order in Arch:
 "   /etc/vimrc
 "   $VIM/vimfiles/archlinux.vim
-"   $VIMHOME/vimrc
+"   $HOME/.config/vim//vimrc
 "   [$VIMRUNTIME/defaults.vim]
 " End note }}}3
 " Load vim's default configurations.
@@ -17,17 +17,18 @@ source $VIMRUNTIME/defaults.vim
 
 " XDGBDS {{{2
 
-" Move all Vim state data to "$XDG_STATE_HOME".
-let $VIMDATA = $HOME .. '/.local/state/vim'
-set undodir=$VIMDATA/undo                     | call mkdir(&g:undodir,    'p', 0700)
-set directory=$VIMDATA/swap                   | call mkdir(&g:directory,  'p', 0700)
-set backupdir=$VIMDATA/backup                 | call mkdir(&g:backupdir,  'p', 0700)
-set viewdir=$VIMDATA/view                     | call mkdir(&g:viewdir,    'p', 0700)
-exe 'let g:netrw_home = $VIMDATA .. "/netrw"' | call mkdir(g:netrw_home,  'p', 0700)
-set viminfo+=n$VIMDATA/viminfo
-set runtimepath=$VIMHOME,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$VIMHOME/after
-" &option means value of that option.
-let &packpath = &runtimepath
+source $VIMRUNTIME/xdg.vim
+let s:data = $HOME .. '/.local/share/vim'
+let s:state = $HOME .. '/.local/state/vim'
+" Persistent Data
+exe 'let &undodir= s:data .. "/undo"' | call mkdir(&g:undodir, 'p', 0700)
+exe 'let &viewdir= s:data "/view"' | call mkdir(&g:viewdir, 'p', 0700)
+exe 'let g:netrw_home = s:data .. "/netrw"' | call mkdir(g:netrw_home, 'p', 0700)
+call mkdir(s:data .. '/spell', 'p', 0700)
+" Transient Data
+exe 'let &directory= s:state .. "/swap"' | call mkdir(&g:directory, 'p', 0700)
+exe 'let &backupdir= s:state .. "/backup"' | call mkdir(&g:backupdir, 'p', 0700)
+unlet s:data s:state
 
 " Indentations {{{2
 
@@ -54,9 +55,9 @@ endif
 
 " Cmdlines {{{2
 
-" TODO: Move $VIMHOME/** to a ':e **/' mapping??
+" TODO: Move $HOME/.config/vim//** to a ':e **/' mapping??
 " 'wildcards' expansion vs 'path'?
-"   - Wildcard ($VIMHOME/**/*) is more flexible. It does not mess up
+"   - Wildcard ($HOME/.config/vim//**/*) is more flexible. It does not mess up
 "     between vim config files and project files.
 "   - But it needs a lot of mappings.
 set path-=/usr/include       " Why "/usr/include" here?
@@ -104,8 +105,8 @@ nnoremap <Leader>d :bd<CR>
 " Quick find and edit files in current directory.
 " "**" = "./**", it means NO upward search, no "**2".
 nnoremap <Leader>ee :e **/*
-" Quick find and edit files in '$VIMHOME'. 'c_Up' is useable.
-nnoremap <Leader>eh :edit $VIMHOME/**/*
+" Quick find and edit files in '$HOME/.config/vim/'. 'c_Up' is useable.
+nnoremap <Leader>eh :edit $HOME/.config/vim/**/*
 
 " Toggle spell check. Then just "]s" and "z=".
 nnoremap <Leader>ts :set spell! spell?<CR>
@@ -157,12 +158,10 @@ augroup END
 
 augroup Templates " {{{2
 	autocmd!
-	" Read and parse template which have the same name in $VIMHOME/tmplts.
+	" Read and parse template which have the same name in $HOME/.config/vim//tmplts.
 	autocmd BufNewFile ?\+ call tmplts#LoadTemplate(expand('<afile>:t'))
 	" Read and parse template according file extension.
 	autocmd BufNewFile ?\+ call tmplts#LoadTemplate('header.' . expand('<afile>:e'))
-	" Start insert mode at the end of line containing 'Description: '.
-	autocmd BufNewFile main.c call tmplts#AddFileDescription()
 augroup END
 
 augroup ModelineSuck " {{{2

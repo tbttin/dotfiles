@@ -10,17 +10,10 @@ function! s:ParseTemplate() abort " {{{1
 endfunction
 
 function! tmplts#LoadTemplate(filename) abort " {{{1
-  let l:fullpath = $VIMHOME . '/tmplts/' . a:filename
+  let l:fullpath = $HOME . '/.config/vim/tmplts/' . a:filename
   if filereadable(l:fullpath)
     silent execute '0read ' . l:fullpath
     call s:ParseTemplate()
-  endif
-endfunction
-
-function! tmplts#AddFileDescription() " {{{1
-  " 0 if not found, no error.
-  if search('\cDescription:.\+', 'eW')
-    startinsert!
   endif
 endfunction
 

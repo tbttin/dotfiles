@@ -63,7 +63,7 @@ setlocal tags+=./tags;$HOME/projects/c,tags;$HOME/projects/c " Upward search for
 " Mappings. {{{1
 
 " Build.
-nnoremap <buffer> <Leader>mm :wall \| make -f Makefile.dev \| cwindow<CR>
+nnoremap <buffer> <Leader>mm :wall \| make -f Makefile.dev \| cwindow<CR><CR>
 " Debug with terminal debug plugin.
 nnoremap <buffer> <expr> <Leader>md ":wall \| make -f Makefile.dev \| Termdebug ./dev/" . fnamemodify(getcwd(), ':t') . "<CR>"
 " Clean and clear screen.
